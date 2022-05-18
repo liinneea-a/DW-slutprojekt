@@ -1,0 +1,27 @@
+{
+  "name": "dw-slutprojekt",
+  "version": "1.0.0",
+  "description": "[ ] Alla sidor skall vara responsiva.  \r [ ] Arbetet ska implementeras med en React frontend och en Express backend.  \r [ ] Skapa ett ER diagram och koddiagram, detta ska lämnas in vid idégodkännandet.  \r [ ] Beskriv er företagsidé i en kort textuell presentation, detta ska lämnas in vid idégodkännandet.  \r [ ] All data som programmet utnyttjar ska vara sparat i en Mongo-databas (produkter, beställningar, konton mm).  \r [ ] Man ska kunna logga in som administratör i systemet.  \r [ ] Checkoutflödet i frontendapplikationen ska ha validering på samtliga fält.  \r [ ] Inga Lösenord får sparas i klartext i databasen.  \r [ ] En besökare ska kunna beställa produkter från sidan, detta ska uppdatera lagersaldot i databasen.  \r [ ] Administratörer ska kunna uppdatera antalet produkter i lager från admin delen av sidan.  \r [ ] Administratörer ska kunna se en lista på alla gjorda beställningar.  \r [ ] Tillgängliga fraktalternativ ska vara hämtade från databasen.  \r [ ] Sidans produkter ska delas upp i kategorier, en produkt ska tillhöra minst en kategori, men kan tillhöra flera.  \r [ ] Från hemsidan ska man kunna se en lista över alla produkter, och man ska kunna lista bara dom produkter som tillhör en kategori.  \r [ ] Besökare ska kunna lägga produkterna i en kundkorg, som är sparad i local-storage på klienten.  \r [ ] En besökare som gör en beställning ska få möjligheten att registrera sig samt logga in och måste vara inloggad som kund innan beställningen skapas.  \r [ ] Besökare ska kunna välja ett av flera fraktalternativ.",
+  "main": "index.js",
+  "scripts": {
+    "start": "run-p server client",
+    "postinstall": "run-p server-install client-install",
+    "client": "cd client && npm start",
+    "server": "cd server && npm start",
+    "client-install": "cd client && npm i",
+    "server-install": "cd server && npm i"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liinneea-a/DW-slutprojekt.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liinneea-a/DW-slutprojekt/issues"
+  },
+  "homepage": "https://github.com/liinneea-a/DW-slutprojekt#readme",
+  "dependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}
