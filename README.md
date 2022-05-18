@@ -1,12 +1,12 @@
 ### G-KRAV
 
-[ ] Alla sidor skall vara responsiva.  
-[ ] Arbetet ska implementeras med en React frontend och en Express backend.  
-[ ] Skapa ett ER diagram och koddiagram, detta ska lämnas in vid idégodkännandet.  
-[ ] Beskriv er företagsidé i en kort textuell presentation, detta ska lämnas in vid idégodkännandet.  
+[X] Alla sidor skall vara responsiva.  
+[X] Arbetet ska implementeras med en React frontend och en Express backend.  
+[X] Skapa ett ER diagram och koddiagram, detta ska lämnas in vid idégodkännandet.  
+[?] Beskriv er företagsidé i en kort textuell presentation, detta ska lämnas in vid idégodkännandet.  
 [ ] All data som programmet utnyttjar ska vara sparat i en Mongo-databas (produkter, beställningar, konton mm).  
 [ ] Man ska kunna logga in som administratör i systemet.  
-[ ] Checkoutflödet i frontendapplikationen ska ha validering på samtliga fält.  
+[X] Checkoutflödet i frontendapplikationen ska ha validering på samtliga fält.  
 [ ] Inga Lösenord får sparas i klartext i databasen.  
 [ ] En besökare ska kunna beställa produkter från sidan, detta ska uppdatera lagersaldot i databasen.  
 [ ] Administratörer ska kunna uppdatera antalet produkter i lager från admin delen av sidan.  
@@ -14,9 +14,9 @@
 [ ] Tillgängliga fraktalternativ ska vara hämtade från databasen.  
 [ ] Sidans produkter ska delas upp i kategorier, en produkt ska tillhöra minst en kategori, men kan tillhöra flera.  
 [ ] Från hemsidan ska man kunna se en lista över alla produkter, och man ska kunna lista bara dom produkter som tillhör en kategori.  
-[ ] Besökare ska kunna lägga produkterna i en kundkorg, som är sparad i local-storage på klienten.  
+[X] Besökare ska kunna lägga produkterna i en kundkorg, som är sparad i local-storage på klienten.  
 [ ] En besökare som gör en beställning ska få möjligheten att registrera sig samt logga in och måste vara inloggad som kund innan beställningen skapas.  
-[ ] Besökare ska kunna välja ett av flera fraktalternativ.
+[X] Besökare ska kunna välja ett av flera fraktalternativ.
 
 ---
 
