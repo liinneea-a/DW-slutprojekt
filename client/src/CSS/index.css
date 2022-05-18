@@ -1,0 +1,114 @@
+.Toastify__toast.Toastify__toast-theme--light.Toastify__toast--success {
+  background: #303339;
+  color: white;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #202225;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.MuiFormLabel-root.Mui-focused {
+  color: white !important;
+}
+
+.MuiFormLabel-root {
+  border-color: white !important;
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: white !important;
+}
+
+.MuiOutlinedInput-root.Mui-disabled {
+  color: white !important;
+}
+
+.css-ghsjzk-MuiInputBase-root-MuiInput-root:before {
+  color: white !important;
+  border-color: white !important;
+}
+
+.css-aqpgxn-MuiFormLabel-root-MuiInputLabel-root {
+  color: white !important;
+}
+
+.css-1c2i806-MuiFormLabel-root-MuiInputLabel-root {
+  color: white !important;
+}
+
+.css-ghsjzk-MuiInputBase-root-MuiInput-root:after {
+  border-bottom: 2px solid grey !important;
+}
+
+.css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+  color: white !important;
+}
+
+.css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+  border-color: #ffffff75 !important;
+}
+
+.css-hfutr2-MuiSvgIcon-root-MuiSelect-icon {
+  color: white;
+}
+
+.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root {
+  color: white !important;
+}
+
+.css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
+  color: white !important;
+}
+
+.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
+  color: white !important;
+}
+
+.css-hfutr2-MuiSvgIcon-root-MuiSelect-icon {
+  color: white !important;
+}
+
+.css-bpeome-MuiSvgIcon-root-MuiSelect-icon {
+  color: white !important;
+}
+
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+  color: white !important;
+}
+
+.popupOpen {
+  display: block
+}
+
+.popupClosed {
+  display: none
+}
+* {
+  color: white m !important;
+}
+
+:root {
+  --toastify-color-success: white !important;
+  color: white !important;
+  
+}
+::-webkit-scrollbar {
+  width: 0;
+}
+
+.MuiInputLabel-root {
+  color: white;
+  border-color: white;
+}
+.MuiOutlinedInput-notchedOutline {
+  border-color: white;
+}
