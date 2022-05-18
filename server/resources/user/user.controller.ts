@@ -1,11 +1,18 @@
 import { NextFunction, Request, Response } from "express";
-import { UserModel, User } from "./user.model";
+import { User, UserModel } from "./user.model";
 
 export const getAllUsers = async (req: Request, res: Response) => {
   // TODO: Who is allowed to use this endpoint?
   const users = await UserModel.find({});
   res.status(200).json(users);
 };
+
+export const getUser = async (req: Request, res: Response) => {
+  // TODO: Who is allowed to use this endpoint?
+  const users = await UserModel.findById({});
+  res.status(200).json(users);
+};
+
 export const addUser = async (req: Request<{}, {}, User>, res: Response, next: NextFunction) => {
   // TODO: How do we handle errors in async middlewares?
   try {

@@ -1,28 +1,35 @@
 
 import { NextFunction, Request, Response } from "express";
 import { User } from "../user";
-import { OrderModel, Order } from "./product.model";
+import { Product, ProductModel } from "./product.model";
 
-export const getAllOrders = async (req: Request, res: Response) => {
+export const getAllProducts = async (req: Request, res: Response) => {
   // TODO: Who is allowed to use this endpoint?
-  const orders = await OrderModel.find({}).populate<{ customer: User }>("customer");
-  res.status(200).json(orders);
+  const products = await ProductModel.find({}).populate<{ customer: User }>("customer");
+  res.status(200).json(products);
 };
-export const addOrder = async (req: Request<{}, {}, Order>, res: Response, next: NextFunction) => {
+
+export const getProduct = async (req: Request, res: Response) => {
+  // TODO: Who is allowed to use this endpoint?
+  const products = await ProductModel.findById({}).populate<{ customer: User }>("customer");
+  res.status(200).json(products);
+};
+
+export const addProduct = async (req: Request<{}, {}, Product>, res: Response, next: NextFunction) => {
   // TODO: How do we handle errors in async middlewares?
   try {
-    const order = new OrderModel(req.body);
-    await order.save();
-    res.status(200).json(order);
+    const product = new ProductModel(req.body);
+    await product.save();
+    res.status(200).json(product);
   } catch (err) {
     next(err);
   }
 };
-export const updateOrder = async (req: Request<{ id: string }>, res: Response) => {
-  const order = await OrderModel.findById(req.params.id);
-  console.log(order);
-  res.status(200).json(order);
+export const updateProduct = async (req: Request<{ id: string }>, res: Response) => {
+  const product = await ProductModel.findById(req.params.id);
+  console.log(product);
+  res.status(200).json(product);
 };
-export const deleteOrder = (req: Request, res: Response) => {
-  res.status(200).json("DELETED ORDER");
+export const deleteProduct = (req: Request, res: Response) => {
+  res.status(200).json("DELETED PRODUCT");
 };

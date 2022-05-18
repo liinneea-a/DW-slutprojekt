@@ -1,18 +1,18 @@
-GET http://localhost:3000/api/order
+GET http://localhost:3000/api/product
 
 ###
 
-POST http://localhost:3000/api/order
+POST http://localhost:3000/api/product
 Content-Type: application/json
 
 {
   "customer": "6283598560765e36787c6867",
-  "products": ["Produkt 1", "Produkt 2"]
+  "products": ["Product 1", "Product 2"]
 }
 
 ###
 
-PUT http://localhost:3000/api/order/6283515af3f6ab16ccf62710
+PUT http://localhost:3000/api/product/6283515af3f6ab16ccf62710
 Content-Type: application/json
 
 {
@@ -21,4 +21,4 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3000/api/order/1234
+DELETE http://localhost:3000/api/product/1234

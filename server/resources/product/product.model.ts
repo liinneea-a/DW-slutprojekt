@@ -1,20 +1,24 @@
-import mongoose, { Schema, Types } from "mongoose";
+import mongoose, { Types } from "mongoose";
 
-export interface Order {
+export interface Product {
   customer: Types.ObjectId;
   products: string[];
   createdAt: Date;
   updatedAt: Date;
 }
 
-const orderSchema = new mongoose.Schema(
+const productSchema = new mongoose.Schema(
   {
-    customer: { type: Schema.Types.ObjectId, ref: "user", required: true },
-    products: { type: [String], required: true },
-  },
-  {
-    timestamps: true,
+    name: {type: String, required: true},
+    description: {type: String, required: true},
+    price: {type: String, required: true},
+    balance: {type: Number, required: true},
+    image: {type: String, required: true},
+    category: {type: String, required: true},
+    legacy: {type: Boolean, default: false}
+    // version?
   }
+
 );
 
-export const OrderModel = mongoose.model<Order>("order", orderSchema);
+export const ProductModel = mongoose.model<Product>("product", productSchema);
