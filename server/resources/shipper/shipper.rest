@@ -1,0 +1,14 @@
+GET http://localhost:4000/api/shipper
+
+###
+
+POST http://localhost:4000/api/shipper
+Content-Type: application/json
+
+{
+  "shipper": "",
+  "cost": "69",
+  "days": "1"
+}
+
+###
