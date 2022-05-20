@@ -6,10 +6,10 @@ export const userRouter = express
   .Router()
   // .get("/user", ifAdmin, getAllUsers)
   // .get("/user/:id", ifAdmin, ifAdminOrSelf, getUser)
-  // .post("/user", addUser)
+  // .post("/user", validate, addUser)
   // .put("/user/:id", authorize, ifAdminOrSelf, updateUser)
   // .delete("/user/:id", authorize, ifAdminOrSelf, deleteUser);
-  .get("/user", getAllUsers)
+  .get("/users", getAllUsers)
   .get("/user/:id", getUser)
   .post("/user", addUser)
   .put("/user/:id", updateUser)

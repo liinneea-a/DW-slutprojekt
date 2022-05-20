@@ -1,4 +1,8 @@
-GET http://localhost:4000/api/user
+GET http://localhost:4000/api/users
+
+###
+
+GET http://localhost:4000/api/user/628792ccdd2e580d8d820450
 
 ###
 
@@ -6,20 +10,24 @@ POST http://localhost:4000/api/user
 Content-Type: application/json
 
 {
-  "firstname": "David",
-  "lastname": "Jensen",
-  "password": "123"
+  "firstname": "Lina",
+  "lastname": "Linas",
+  "password": "123",
+  "email": "hej@hej.com"
 }
 
 ###
 
-PUT http://localhost:4000/api/user/6283515af3f6ab16ccf62710
+PUT http://localhost:4000/api/user/628792ccdd2e580d8d820450
 Content-Type: application/json
 
 {
-  
+  "firstname": "Badiba",
+  "lastname": "Badoba",
+  "password": "123",
+  "email": "hej@hej.com"
 }
 
 ###
 
-DELETE http://localhost:4000/api/user/1234
+DELETE http://localhost:4000/api/user/628792ccdd2e580d8d820450
