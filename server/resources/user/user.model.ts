@@ -6,8 +6,9 @@ export interface User {
   /** Virtual */ fullname: string;
   password: string;
   isAdmin: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  email: string;
+  // createdAt: Date;
+  // updatedAt: Date;
 }
 
 const UserSchema = new mongoose.Schema<User>( //? Stor bokstav och <User> 
@@ -16,6 +17,7 @@ const UserSchema = new mongoose.Schema<User>( //? Stor bokstav och <User>
     lastname: { type: String, required: true },
     password: { type: String, required: true, select: false },
     isAdmin: { type: Boolean, required: true, default: false },
+    email: { type: String, required: true}
   },
   {
     timestamps: true,
