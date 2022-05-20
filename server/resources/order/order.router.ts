@@ -3,7 +3,7 @@ import { addOrder, deleteOrder, getAllOrders, getOrder, updateOrder } from "./or
 
 export const orderRouter = express
   .Router()
-  .get("/order", /* adminSecure, */ getAllOrders)
+  .get("/orders", getAllOrders)
   .get("/order/:id", getOrder)
   .post("/order", addOrder)
   .put("/order/:id", updateOrder)
