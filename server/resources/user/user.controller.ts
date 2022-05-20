@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { authorize, ifAdmin, ifAdminOrSelf } from "../middlewares";
 import { User, UserModel } from "./user.model";
 
 export const getAllUsers = async (req: Request, res: Response) => {
