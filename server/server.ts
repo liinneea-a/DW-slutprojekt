@@ -3,6 +3,7 @@ import express from "express";
 import mongoose from "mongoose";
 import { userRouter, orderRouter, productRouter, shipperRouter } from "./resources";
 import dotenv from 'dotenv'
+import cookieSession from "cookie-session";
 
 
 //import {errorRequestHandler} from "./error";
@@ -13,6 +14,16 @@ const PORT = 4000;
 
 // Add global middlewares
 app.use(express.json());
+
+app.use(
+  cookieSession({
+    secret: 'th1s1SaK3y',
+    sameSite: 'strict',
+    httpOnly: false,
+    secure: false,
+    maxAge: 1000 * 60000,
+  })
+)
 
 // Add routers
 app.use("/api", userRouter);
