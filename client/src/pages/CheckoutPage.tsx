@@ -1,5 +1,3 @@
-import { faCoins } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
 import { CSSProperties } from "react";
 import { Link } from "react-router-dom";
@@ -44,8 +42,7 @@ function CheckoutPage() {
                   </div>
                   <div style={cardFooter}>
                     <div>
-                      Price per unit: {item.price} &nbsp;
-                      <FontAwesomeIcon icon={faCoins} style={coinIcon} />
+                      Price per unit: {item.price} SEK
                     </div>
                   </div>
                 </div>
@@ -53,10 +50,9 @@ function CheckoutPage() {
             </div>
           </div>
           <div style={totalPriceContainer}>
-            <h2 style={totalPriceStyle}>Total price: {totalPrice}</h2>
-            <FontAwesomeIcon icon={faCoins} style={coinIcon2} />
+            <h2 style={totalPriceStyle}>Total price: {totalPrice} SEK</h2>
           </div>
-          <Link style={nextButton} to="/CheckoutDetails">
+          <Link style={nextButton} to="/checkoutdetails">
             <Button style={buttonStyle} variant="contained" href="">
               Next
             </Button>

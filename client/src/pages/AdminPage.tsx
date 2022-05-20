@@ -1,5 +1,3 @@
-import { faCoins, faRemove } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
 import { CSSProperties } from "react";
 import AddNewCollection from "../components/admin/addNewCollection";
@@ -29,14 +27,14 @@ function AdminPage() {
       >
         Clear local storage
       </Button>
-      <Button
+      {/* <Button
         onClick={() => openAddCollectionModal()}
         style={buttonStyle}
         variant="contained"
         href=""
       >
         Add Collection
-      </Button>
+      </Button> */}
       <div>
         <AddNewCollection />
         <AddNewNFT />
@@ -45,14 +43,12 @@ function AdminPage() {
       </div>
       {collections.map((collection, index) => (
         <div style={adminCollections} key={index}>
-          {" "}
-          {/* DETTA ÄR COLLECTION DIVEN */}
           <div style={adminCollectionsHeader}>
             <div style={headerLeft}>
               <h1>{collection.name}</h1>
-              <p>Innehåller {collection.NFTS.length} NFTS</p>
+              <p>Innehåller {collections.length} NFTS</p>
             </div>
-            <div style={headerRight}>
+            {/* <div style={headerRight}>
               <Button
                 onClick={() => removeCollection(collection.id)}
                 style={buttonStyle}
@@ -77,24 +73,17 @@ function AdminPage() {
               >
                 Add NFT
               </Button>
-            </div>
+            </div> */}
           </div>
           <div style={adminCollectionMain}>
-            {collection.NFTS.map((nft, index /* DETTA ÄR NFTERNA */) => (
+            {collection.NFTS.map((nft, index) => (
               <div style={adminAddStyle} key={index}>
                 <div style={adminCardHeader}>
+                  <div style={{display: 'flex', flexDirection: 'row', gap: '2rem'}}>
                   <div>ID #{nft.NFTid}</div>
                   <div>{nft.price} SEK</div>
-                </div>
-                <div style={adminCardMiddle}>
-                  <div style={adminCardMidLeft}>
-                    <img style={adminImageStyle} alt="" srcSet={nft.image} />
                   </div>
-                  <div style={adminCardMidRight}>
-                    <div style={descStyle}>{nft.description}</div>
-                  </div>
-                </div>
-                <div style={buttonDivStyle}>
+                  <div style={buttonDivStyle}>
                   <Button
                     onClick={() =>
                       openEditNftModal(nft, collection.id, collection)
@@ -103,7 +92,7 @@ function AdminPage() {
                     variant="contained"
                     href=""
                   >
-                    Edit NFT
+                    Edit
                   </Button>
                   <Button
                     onClick={() => removeNft(collection.id, nft.NFTid)}
@@ -114,9 +103,18 @@ function AdminPage() {
                     Remove
                   </Button>
                 </div>
+                </div>
+                <div style={adminCardMiddle}>
+                  <div style={adminCardMidLeft}>
+                    <img style={adminImageStyle} alt="" srcSet={nft.image} />
+                  </div>
+                  <div style={adminCardMidRight}>
+                    <div style={descStyle}>{nft.description}</div>
+                  </div>
+                </div>
               </div>
             ))}
-          </div>
+          </div> 
         </div>
       ))}
     </div>
@@ -136,13 +134,13 @@ const adminPageLayout: CSSProperties = {
 };
 
 const adminCollections: CSSProperties = {
-  display: "flex",
-  flexDirection: "column",
-  boxShadow: "1px 1px 6px black",
-  borderRadius: ".5rem",
-  width: "90%",
-  padding: "0 1rem 1rem 1rem",
-  gap: "1rem",
+  // display: "flex",
+  // flexDirection: "column",
+  // boxShadow: "1px 1px 6px black",
+  // borderRadius: ".5rem",
+  // width: "90%",
+  // padding: "0 1rem 1rem 1rem",
+  // gap: "1rem",
 };
 
 const adminCollectionsHeader: CSSProperties = {
@@ -163,7 +161,7 @@ const adminAddStyle: CSSProperties = {
   boxShadow: "1px 1px 6px black",
   borderRadius: ".5rem",
   background: "#303339",
-  width: "40rem",
+  width: "25rem",
   padding: "1rem",
   textAlign: "center",
   position: "relative",
@@ -171,12 +169,13 @@ const adminAddStyle: CSSProperties = {
 
 const adminCardHeader: CSSProperties = {
   display: "flex",
-  justifyContent: "space-evenly",
+  justifyContent: "space-between",
   width: "100%",
 };
 
 const adminImageStyle: CSSProperties = {
-  width: "13rem",
+  width: "5rem",
+  height: '5rem'
 };
 
 const adminCollectionMain: CSSProperties = {
@@ -196,7 +195,7 @@ const descStyle: CSSProperties = {
   display: "flex",
   alignItems: "center",
   height: "100%",
-  fontSize: "clamp(1.5vmin, 2vmin, 1rem)",
+  fontSize: ".75rem",
 };
 
 const headerRight: CSSProperties = {
@@ -219,7 +218,7 @@ const editButtonStyle: CSSProperties = {
   background: "#2081e2",
   color: "white",
   fontSize: "small",
-  width: "10rem",
+  width: "5rem",
   marginTop: "auto",
   justifySelf: "flex-end",
 };
@@ -234,13 +233,14 @@ const removeButton: CSSProperties = {
 
 const buttonDivStyle: CSSProperties = {
   display: "flex",
+  gap: '1rem',
   flexDirection: "row",
   justifyContent: "space-around",
-  width: "100%",
 };
 
 const adminCardMiddle: CSSProperties = {
   display: "flex",
+  gap: '1rem',
   flexDirection: "row",
   justifyContent: "space-around",
   width: "100%",
@@ -257,5 +257,4 @@ const adminCardMidLeft: CSSProperties = {
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-around",
-  width: "100%",
 };
