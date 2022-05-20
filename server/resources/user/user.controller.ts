@@ -1,10 +1,15 @@
 import { NextFunction, Request, Response } from "express";
+import { orderRouter } from "../order";
 import { User, UserModel } from "./user.model";
 
 export const getAllUsers = async (req: Request, res: Response) => {
   // TODO: Who is allowed to use this endpoint?
-  const users = await UserModel.find({});
-  res.status(200).json(users);
+  try {
+    const users = await UserModel.find({});
+    res.status(200).json(users);
+  } catch(err) {
+    return res.status(400).json(err)
+  }
 };
 
 export const getUser = async (req: Request, res: Response) => {
@@ -32,3 +37,4 @@ export const updateUser = async (req: Request<{ id: string }>, res: Response) =>
 export const deleteUser = (req: Request, res: Response) => {
   res.status(200).json("DELETED USER");
 };
+

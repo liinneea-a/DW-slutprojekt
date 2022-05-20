@@ -8,6 +8,6 @@ export interface Shipper {
 
 export const shippperSchema = new mongoose.Schema({
   cost: { type: Number, required: true },
-  deliveryDate: { type: Date, required: true },
+  daysToDelivery: { type: Number, required: true },
   shipper: { type: String, required: true },
 });
