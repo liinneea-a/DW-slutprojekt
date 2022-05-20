@@ -6,7 +6,7 @@ export interface Shipper {
   days: number
 }
 
-const shipperSchema = new mongoose.Schema(
+const ShipperSchema = new mongoose.Schema(
   {
     shipper: {type: String, required: true},
     cost: {type: Number, required: true},
@@ -15,4 +15,4 @@ const shipperSchema = new mongoose.Schema(
 
 );
 
-export const ShipperModel = mongoose.model<Shipper>("shipper", shipperSchema);
+export const ShipperModel = mongoose.model<Shipper>("shipper", ShipperSchema);

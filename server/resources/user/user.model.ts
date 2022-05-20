@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcrypt"
 
 export interface User {
   firstname: string;
@@ -33,9 +34,9 @@ UserSchema.virtual("fullname").get(function (this: User) {
 UserSchema.pre("save", encryptPassword);
 UserSchema.pre("updateOne", encryptPassword);
 
-function encryptPassword(this: User, next: Function) {
-  this.password = "qwerty"; // TODO: use bcrypt...
+async function encryptPassword(this: User, next: Function) {
+  this.password = await bcrypt.hash(this.password, 10); // TODO: use bcrypt...
   next();
 }
 
-export const UserModel = mongoose.model<User>("user", UserSchema);
+export const UserModel = mongoose.model("user", UserSchema);
