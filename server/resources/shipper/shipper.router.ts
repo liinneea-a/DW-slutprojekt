@@ -1,9 +1,10 @@
 import express from "express";
-import { getAllShippers } from "./shipper.controller";
+import { getAllShippers, addShipper } from "./shipper.controller";
 
 export const shipperRouter = express
   .Router()
-  .get("/product", /* adminSecure, */ getAllShippers)
+  .get("/shipper", /* adminSecure, */ getAllShippers)
+  .post("/shipper", addShipper)
   
 
   // .patch?

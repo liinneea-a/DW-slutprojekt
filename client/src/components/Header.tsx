@@ -1,18 +1,46 @@
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
-import { CSSProperties } from "react";
+import { CSSProperties, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "./context/CartContext";
+
+
+
 
 function Header(headerProps: any) {
   const { cart } = useCart();
 
   const openModal = () => headerProps.setModalState(true);
+  const [shippers, setShippers] = useState([])
+
+  const getAllShippers = async () => {
+      const response = await fetch("/api/shipper");
+      const result = await response.json();
+       setShippers(result);
+    }
+
+    console.log(shippers)
+    
+
+   useEffect(() => {
+    getAllShippers();
+    
+},[]); 
+
 
   return (
     <div style={rootStyle}>
       <div style={innerHeader}>
+    {/* Mall nedan, just in case: */}
+       {shippers.map((shipper: any ) => {
+       return (
+          <div key={shipper._id}>
+            <p>{shipper.shipper}{shipper.cost}{shipper.days}</p>
+          </div>
+      )
+    })
+      } 
         <div style={headerDiv1}>
           <Link style={headline} to="/">
             <h1 style={headline}>NFT Heaven</h1>

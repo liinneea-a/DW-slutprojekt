@@ -10,10 +10,12 @@ POST http://localhost:4000/api/user
 Content-Type: application/json
 
 {
+
   "firstname": "Lina",
   "lastname": "Linas",
   "password": "123",
   "email": "hej@hej.com"
+
 }
 
 ###
