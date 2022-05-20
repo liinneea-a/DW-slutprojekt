@@ -4,8 +4,13 @@ import {authorize, ifAdmin, ifAdminOrSelf} from '../middlewares'
 
 export const userRouter = express
   .Router()
-  .get("/user", ifAdmin, getAllUsers)
-  .get("/user/:id", ifAdmin, ifAdminOrSelf, getUser)
+  // .get("/user", ifAdmin, getAllUsers)
+  // .get("/user/:id", ifAdmin, ifAdminOrSelf, getUser)
+  // .post("/user", addUser)
+  // .put("/user/:id", authorize, ifAdminOrSelf, updateUser)
+  // .delete("/user/:id", authorize, ifAdminOrSelf, deleteUser);
+  .get("/user", getAllUsers)
+  .get("/user/:id", getUser)
   .post("/user", addUser)
-  .put("/user/:id", authorize, ifAdminOrSelf, updateUser)
-  .delete("/user/:id", authorize, ifAdminOrSelf, deleteUser);
+  .put("/user/:id", updateUser)
+  .delete("/user/:id", deleteUser);
