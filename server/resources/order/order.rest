@@ -1,24 +1,57 @@
-GET http://localhost:3000/api/order
 
-###
+### Get all orders
+GET http://localhost:4000/api/orders
 
-POST http://localhost:3000/api/order
+### Get one order
+
+GET http://localhost:4000/api/order/6287686d9574941e257fe40e
+
+### Create new order
+
+POST http://localhost:4000/api/order
 Content-Type: application/json
 
 {
   "customer": "6283598560765e36787c6867",
-  "products": ["Produkt 1", "Produkt 2"]
+  "products": ["6283598560765e36787c6868", "6283598560765e36787c6869"],
+  "shipper": {
+    "cost": 123,
+    "daysToDelivery": 2,
+    "shipper": "postnord" 
+  },
+  "deliveryAddress": {
+    "fullName": "Linnea Albertsson",
+    "street": "Runiusgatan 7",
+    "zipcode": 12300,
+    "city": "Göteborg"
+  },
+  "isSent": "false",
+  "paymentMethod": "swish"
 }
 
-###
+### Update order
 
-PUT http://localhost:3000/api/order/6283515af3f6ab16ccf62710
+PUT http://localhost:4000/api/order/628785dc1fbd71f9fc387d0c
 Content-Type: application/json
 
 {
-  
+   "customer": "6283598560765e36787c6867",
+  "products": ["6283598560765e36787c6868", "6283598560765e36787c6869"],
+  "shipper": {
+    "cost": 123,
+    "daysToDelivery": 2,
+    "shipper": "postnord" 
+  },
+  "deliveryAddress": {
+    "fullName": "Lina Linnn",
+    "street": "Runiusgatan 7",
+    "zipcode": 12300,
+    "city": "Göteborg"
+  },
+  "isSent": "false",
+  "paymentMethod": "swish"
 }
 
-###
+### Delete order
 
-DELETE http://localhost:3000/api/order/1234
+DELETE http://localhost:4000/api/order/628785d71fbd71f9fc387d08
