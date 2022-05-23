@@ -10,7 +10,7 @@ Content-Type: image/jpeg
 
 ###
 
-GET http://localhost:4000/api/media/628b572530b38bd579633826
+GET http://localhost:4000/api/media/628b7030d071e31e672871b4
 
 ###
 DELETE http://localhost:4000/api/media/628b5629e8a0ea003937bd54
