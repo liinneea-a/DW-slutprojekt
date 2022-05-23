@@ -9,4 +9,8 @@ Content-Type: image/jpeg
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 ###
-DELETE http://localhost:4000/api/media/628b4d55361fae36109a0665
+
+GET http://localhost:4000/api/media/628b572530b38bd579633826
+
+###
+DELETE http://localhost:4000/api/media/628b5629e8a0ea003937bd54
