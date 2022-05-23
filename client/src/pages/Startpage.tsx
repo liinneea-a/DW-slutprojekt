@@ -4,11 +4,11 @@ import ItemCard from "../components/ItemCard";
 
 function StartPage(startPageProps: any) {
   const { collections } = useProducts();
-  
 
-  let randomList =  collections.sort(() => Math.random() - Math.random()).slice(0, 3)
+  let randomList = collections
+    .sort(() => Math.random() - Math.random())
+    .slice(0, 3);
   console.log(randomList);
-  
 
   return (
     <div style={rootStyle}>
@@ -27,11 +27,11 @@ function StartPage(startPageProps: any) {
           <div style={hottestTitle}>
             <h1>HOTTEST COLLECTIONS RIGHT NOW</h1>
           </div>
-          
+
           <div style={flexProducts}>
             {randomList.map((collection, index) => (
               <ItemCard key={index} collectionCard={collection} />
-              ))}
+            ))}
           </div>
         </div>
         <div style={hottestStyle}>
@@ -61,7 +61,7 @@ const rootStyle: CSSProperties = {
   justifyContent: "center",
   alignItems: "center",
   margin: "0 auto",
-  width: "100%",
+  maxWidth: "80rem",
   // border: "2px solid #88D9E6",
 };
 
@@ -117,5 +117,5 @@ const hottestStyle: CSSProperties = {
 
 const hottestTitle: CSSProperties = {
   textAlign: "center",
-  margin: '0 1rem'
+  margin: "0 1rem",
 };

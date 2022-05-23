@@ -1,13 +1,14 @@
-import { NextFunction, Request, Response } from 'express';
-import { orderRouter } from '../order';
-import { User, UserModel } from './user.model';
+import { NextFunction, Request, Response } from "express";
+import { orderRouter } from "../order";
+import { User, UserModel } from "./user.model";
+import bcrypt from "bcrypt";
 
 export const getAllUsers = async (req: Request, res: Response) => {
   // TODO: Who is allowed to use this endpoint?
   try {
     const users = await UserModel.find({});
-    if(!users.length) {
-     return res.status(400).json('No users found')
+    if (!users.length) {
+      return res.status(400).json("No users found");
     }
     res.status(200).json(users);
   } catch (err) {
@@ -19,8 +20,8 @@ export const getUser = async (req: Request, res: Response) => {
   // TODO: Who is allowed to use this endpoint?
   try {
     const user = await UserModel.findById(req.params.id);
-    if(!user) {
-      return res.status(400).json(user)
+    if (!user) {
+      return res.status(400).json(user);
     }
     res.status(200).json(user);
   } catch (err) {
@@ -29,7 +30,7 @@ export const getUser = async (req: Request, res: Response) => {
 };
 
 export const addUser = async (
-  req: Request<{}, {}, User>,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
@@ -37,11 +38,18 @@ export const addUser = async (
   try {
     const user = new UserModel(req.body);
     await user.save();
-    console.log(user.fullname);
     res.status(200).json(user);
   } catch (err) {
     next(err);
   }
+};
+
+export const loginUser = async (req: Request, res: Response) => {
+  let email = await UserModel.findOne({ email: req.body.email });
+  if (!email) return res.status(404).json("Email doesnt exist");
+  let matchPassword = await bcrypt.compare(req.body.password, email.password);
+  if (!matchPassword) return res.status(401).json("Wrong username or password");
+  req.session.user = user;
 };
 
 export const updateUser = async (
@@ -49,15 +57,15 @@ export const updateUser = async (
   res: Response
 ) => {
   const { id } = req.params;
-  
+
   try {
     const user = await UserModel.findByIdAndUpdate(id, req.body, {
       useFindAndModify: false,
-    }).select('+password');
+    }).select("+password");
 
     console.log(user);
     if (!user) {
-     return res.status(400).json('no user found');
+      return res.status(400).json("no user found");
     }
     user?.save();
     res.status(200).json({ old: user, new: req.body });

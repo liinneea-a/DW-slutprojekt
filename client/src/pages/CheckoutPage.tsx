@@ -10,54 +10,50 @@ function CheckoutPage() {
   const { collections } = useProducts();
 
   return (
-    <div>
-      <div style={rootStyle}>
-        <div style={purchaseCompleteContainer}>
-          <h1>Checkout</h1>
-          <h2>Your purchase:</h2>
-          <div style={cardContainer}>
-            <div style={purchasedItems}>
-              {cart.map((item: NftItem, index: number) => (
-                <div style={purchasedItemTestCard} key={index}>
-                  <div style={itemCountBadge}>
-                    <p style={itemCountStyle}>{item.count}</p>
-                  </div>
-                  <div style={cardHeader}>
-                    <h3 style={nftIDStyle}>
-                      {
-                        collections.find((col) => col.id === item.collectionID)
-                          ?.name
-                      }
-                      &nbsp;#{item.NFTid}
-                    </h3>
-                  </div>
-                  <div style={cardBody}>
-                    <div style={itemImageContainer}>
-                      <img
-                        srcSet={item.image}
-                        style={itemImageStyle}
-                        alt="Item"
-                      />
-                    </div>
-                  </div>
-                  <div style={cardFooter}>
-                    <div>
-                      Price per unit: {item.price} SEK
-                    </div>
+    <div style={rootStyle}>
+      <div style={purchaseCompleteContainer}>
+        <h1>Checkout</h1>
+        <h2>Your purchase:</h2>
+        <div style={cardContainer}>
+          <div style={purchasedItems}>
+            {cart.map((item: NftItem, index: number) => (
+              <div style={purchasedItemTestCard} key={index}>
+                <div style={itemCountBadge}>
+                  <p style={itemCountStyle}>{item.count}</p>
+                </div>
+                <div style={cardHeader}>
+                  <h3 style={nftIDStyle}>
+                    {
+                      collections.find((col) => col.id === item.collectionID)
+                        ?.name
+                    }
+                    &nbsp;#{item.NFTid}
+                  </h3>
+                </div>
+                <div style={cardBody}>
+                  <div style={itemImageContainer}>
+                    <img
+                      srcSet={item.image}
+                      style={itemImageStyle}
+                      alt="Item"
+                    />
                   </div>
                 </div>
-              ))}
-            </div>
+                <div style={cardFooter}>
+                  <div>Price per unit: {item.price} SEK</div>
+                </div>
+              </div>
+            ))}
           </div>
-          <div style={totalPriceContainer}>
-            <h2 style={totalPriceStyle}>Total price: {totalPrice} SEK</h2>
-          </div>
-          <Link style={nextButton} to="/checkoutdetails">
-            <Button style={buttonStyle} variant="contained" href="">
-              Next
-            </Button>
-          </Link>
         </div>
+        <div style={totalPriceContainer}>
+          <h2 style={totalPriceStyle}>Total price: {totalPrice} SEK</h2>
+        </div>
+        <Link style={nextButton} to="/checkoutdetails">
+          <Button style={buttonStyle} variant="contained" href="">
+            Next
+          </Button>
+        </Link>
       </div>
     </div>
   );

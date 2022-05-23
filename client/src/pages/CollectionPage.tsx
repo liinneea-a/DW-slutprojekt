@@ -23,21 +23,19 @@ function Collection() {
 
   return (
     <div style={collectionsPage}>
-        <div style={CollectionDescription}>
-          <div style={collectionNameContainer}>
-            <h1 style={collectionNameStyle}>{collection?.name}</h1>
-          </div>
-          <div style={descriptionStyle}>
-            <img
-              style={productImage}
-              srcSet={collection?.productImage}
-              alt="test"
-            />
-            <h2 style={collectionDescriptionStyle}>
-              {collection?.description}
-            </h2>
-          </div>
+      <div style={CollectionDescription}>
+        <div style={collectionNameContainer}>
+          <h1 style={collectionNameStyle}>{collection?.name}</h1>
         </div>
+        <div style={descriptionStyle}>
+          <img
+            style={productImage}
+            srcSet={collection?.productImage}
+            alt="test"
+          />
+          <h2 style={collectionDescriptionStyle}>{collection?.description}</h2>
+        </div>
+      </div>
       <div style={flexProducts}>
         {nft?.map((nftItem, index) => (
           <ItemCard
@@ -55,8 +53,9 @@ function Collection() {
 const collectionsPage: CSSProperties = {
   display: "flex",
   flexDirection: "column",
-  alignItems: 'center',
-  justifyContent:'center',
+  alignItems: "center",
+  justifyContent: "center",
+  maxWidth: "80rem",
 };
 const collectionNameContainer: CSSProperties = { textAlign: "center" };
 
@@ -81,7 +80,7 @@ const CollectionDescription: CSSProperties = {
 
 const descriptionStyle: CSSProperties = {
   display: "flex",
-  flexDirection: 'column',
+  flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
   gap: "2rem",

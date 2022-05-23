@@ -21,9 +21,8 @@ const flexProducts: CSSProperties = {
   flexWrap: "wrap",
   gap: "2rem",
   justifyContent: "center",
-  alignItems: 'center',
+  alignItems: "center",
   margin: "5rem 0",
-  maxWidth: '80%'
 };
 
 const collectionsTitle: CSSProperties = {
@@ -31,9 +30,10 @@ const collectionsTitle: CSSProperties = {
 };
 
 const collectionPageLayout: CSSProperties = {
-  display: 'flex',
-  alignItems: 'center',
-  flexDirection: 'column'
+  display: "flex",
+  alignItems: "center",
+  flexDirection: "column",
+  maxWidth: "80rem",
 };
 
 export default AllCollections;

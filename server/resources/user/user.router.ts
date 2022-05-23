@@ -1,5 +1,5 @@
 import express from "express";
-import { addUser, deleteUser, getAllUsers, getUser, updateUser } from "./user.controller";
+import { addUser, deleteUser, getAllUsers, getUser, updateUser, loginUser } from "./user.controller";
 import {authorize, ifAdmin, ifAdminOrSelf} from '../middlewares'
 
 export const userRouter = express
@@ -11,6 +11,7 @@ export const userRouter = express
   // .delete("/user/:id", authorize, ifAdminOrSelf, deleteUser);
   .get("/users", getAllUsers)
   .get("/user/:id", getUser)
+  .post('/user/login', loginUser)
   .post("/user", addUser)
   .put("/user/:id", updateUser)
   .delete("/user/:id", deleteUser);
