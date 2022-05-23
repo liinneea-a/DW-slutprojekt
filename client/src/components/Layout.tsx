@@ -14,6 +14,7 @@ import StartPage from "../pages/Startpage";
 import CartModal from "./CartModal";
 import { CartProvider } from "./context/CartContext";
 import { ProductProvider } from "./context/ProductContext";
+import { ShipperProvider } from "./context/ShipperContext";
 import Footer from "./Footer";
 import Header from "./Header";
 
@@ -25,6 +26,7 @@ function Layout() {
     <div>
       <CartProvider>
         <ProductProvider>
+          <ShipperProvider>
           <BrowserRouter>
             <Header
               modalState={modalState}
@@ -73,6 +75,7 @@ function Layout() {
             </div>
             <ToastContainer />
           </BrowserRouter>
+          </ShipperProvider>
         </ProductProvider>
       </CartProvider>
     </div>

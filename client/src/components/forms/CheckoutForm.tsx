@@ -8,11 +8,12 @@ import {
   TextField
 } from "@mui/material";
 import { useFormik } from "formik";
-import { CSSProperties, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { CSSProperties, useContext, useEffect, useState } from "react";
 import * as yup from "yup";
+import { useNavigate } from "react-router-dom";
 import { DeliveryDataInfo } from "../../data/collections/deliveryData";
 import DeliveryBox from "../checkoutComponents/shipping/deliveryBox";
+import { ShipperContext } from "../context/ShipperContext";
 
 interface Props {
   deliveryInfo: DeliveryDataInfo;
@@ -35,11 +36,14 @@ const validationSchema = yup.object({
 
 function CheckoutForm(props: Props) {
   const [deliveryOption, setDeliveryOption] = useState("");
-  const handleChange = (event: any) => {
-    setDeliveryOption(event.target.value);
-  };
+
+  const { getAllShippers, selectedShipping, setSelectedShipping } =
+    useContext(ShipperContext);
+  const [shippers, setShippers] = useState([]);
 
   const navigate = useNavigate();
+
+  console.log(selectedShipping);
 
   const formik = useFormik({
     initialValues: {
@@ -56,12 +60,26 @@ function CheckoutForm(props: Props) {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      values.deliveryMethod = deliveryOption;
-      props.setDeliveryInfo(values);
+      //values.deliveryMethod = deliveryOption;
+      //props.setDeliveryInfo(values);
       console.log(values);
       navigate("/paymentpage");
     },
   });
+
+  const handleChange = (event: any) => {
+    setSelectedShipping(event.target.value);
+  };
+
+  async function getShippers() {
+    const shippers = await getAllShippers();
+    setShippers(shippers);
+  }
+
+  useEffect(() => {
+    getShippers();
+  }, []);
+
   return (
     <div style={rootStyle}>
       <div style={detailFormContainer}>
@@ -170,23 +188,26 @@ function CheckoutForm(props: Props) {
                 <Select
                   labelId="deliveryOptionLabel"
                   id="deliveryOption"
-                  value={deliveryOption}
+                  value={selectedShipping}
                   label="Delivery Option"
-                  onChange={handleChange} 
                   required
+                  onChange={handleChange}
                 >
-                  <MenuItem value={"Postnord agent"}>
-                    Postnord - Postal agent - Free!
-                  </MenuItem>
-                  <MenuItem value={"DHL agent"}>
-                    DHL - Postal agent - 2 SEK{" "}
-                  </MenuItem>
-                  <MenuItem value={"Postnord home delivery"}>
-                    Postnord - Home delivery day/evening - 4 SEK
-                  </MenuItem>
-                  <MenuItem value={"DHL express"}>
-                    DHL express - Home delivery within 24h - 6 SEK
-                  </MenuItem>
+                  {shippers.map((shipper: any) => {
+                    return (
+                      <MenuItem
+                        value={shipper}
+                        key={shipper._id}
+                        style={{ display: "flex", justifyContent: "center" }}
+                      >
+                        <p style={{ width: "33%", fontWeight: "bold" }}>
+                          {shipper.shipper}
+                        </p>
+                        <p style={{ width: "33%" }}>{shipper.days} days</p>
+                        <p style={{ width: "33%" }}>{shipper.cost} SEK</p>
+                      </MenuItem>
+                    );
+                  })}
                 </Select>
               </FormControl>
               <div style={deliveryBox}>
