@@ -42,9 +42,14 @@ function Header(headerProps: any) {
           </Link>
         </div>
         <div style={headerDiv2}>
-          <Link style={linkStyle} to="/CollectionPage">
+          <Link style={linkStyle} to="/all">
             <Button style={StyledButton} variant="contained" href="">
               EXPLORE
+            </Button>
+          </Link>
+          <Link style={linkStyle} to="/login">
+            <Button style={StyledButton} variant="contained" href="">
+              Login
             </Button>
           </Link>
         </div>

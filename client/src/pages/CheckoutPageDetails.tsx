@@ -1,5 +1,5 @@
 import { CSSProperties } from "react";
-import CheckoutForm from "../components/checkoutComponents/CheckoutForm";
+import CheckoutForm from "../components/forms/CheckoutForm";
 import { DeliveryDataInfo } from "../data/collections/deliveryData";
 
 

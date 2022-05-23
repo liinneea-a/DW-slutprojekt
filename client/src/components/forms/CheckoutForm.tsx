@@ -5,14 +5,14 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  TextField,
+  TextField
 } from "@mui/material";
 import { useFormik } from "formik";
 import { CSSProperties, useState } from "react";
-import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
 import { DeliveryDataInfo } from "../../data/collections/deliveryData";
-import DeliveryBox from "./shipping/deliveryBox";
+import DeliveryBox from "../checkoutComponents/shipping/deliveryBox";
 
 interface Props {
   deliveryInfo: DeliveryDataInfo;
@@ -59,7 +59,7 @@ function CheckoutForm(props: Props) {
       values.deliveryMethod = deliveryOption;
       props.setDeliveryInfo(values);
       console.log(values);
-      navigate("/PaymentPage");
+      navigate("/paymentpage");
     },
   });
   return (
@@ -179,13 +179,13 @@ function CheckoutForm(props: Props) {
                     Postnord - Postal agent - Free!
                   </MenuItem>
                   <MenuItem value={"DHL agent"}>
-                    DHL - Postal agent - 2 ETH{" "}
+                    DHL - Postal agent - 2 SEK{" "}
                   </MenuItem>
                   <MenuItem value={"Postnord home delivery"}>
-                    Postnord - Home delivery day/evening - 4 ETH
+                    Postnord - Home delivery day/evening - 4 SEK
                   </MenuItem>
                   <MenuItem value={"DHL express"}>
-                    DHL express - Home delivery within 24h - 6 ETH
+                    DHL express - Home delivery within 24h - 6 SEK
                   </MenuItem>
                 </Select>
               </FormControl>

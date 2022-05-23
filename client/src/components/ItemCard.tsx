@@ -1,12 +1,10 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCoins } from "@fortawesome/free-solid-svg-icons";
-import { CSSProperties } from "react";
-import { collectionDataItem, NftItem } from "../data/collections/collection";
 import { Button } from "@mui/material";
+import { CSSProperties } from "react";
 import { Link } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import { collectionDataItem, NftItem } from "../data/collections/collection";
 import { useCart } from "./context/CartContext";
 import FlipCard from "./FlipCard";
-import "react-toastify/dist/ReactToastify.css";
 
 interface cardInfo {
   nftCard?: NftItem;
@@ -51,13 +49,12 @@ function ItemCard(props: cardInfo) {
             <h1 style={priceStyle}>
               FROM:&nbsp;{" "}
               <div>
-                <FontAwesomeIcon icon={faCoins} style={coinIconStyle} />
-                {collectionInfo.floorPrice}
+                {collectionInfo.floorPrice} SEK
               </div>
             </h1>
             <Link
               style={{ textDecoration: "none" }}
-              to={`/Collections/${collectionInfo.id}`}
+              to={`/collection/${collectionInfo.id}`}
             >
               <Button style={buttonStyle} variant="contained" href="">
                 VIEW COLLECTION
@@ -81,8 +78,7 @@ function ItemCard(props: cardInfo) {
               <div style={priceStyle}>
                 Price:
                 <div>
-                  <FontAwesomeIcon icon={faCoins} style={coinIconStyle} />
-                  {nftInfo.buyPrice}
+                  {nftInfo.buyPrice} SEK
                 </div>
               </div>
             </div>

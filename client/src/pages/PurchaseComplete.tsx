@@ -1,5 +1,3 @@
-import { faCoins } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CSSProperties } from "react";
 import DeliveryInfoTableWithPay from "../components/checkoutComponents/DeliveryInfoTableWithPay";
 import GenerateOrderNumber from "../components/checkoutComponents/OrderNumber";
@@ -39,9 +37,8 @@ function PurchaseComplete(props: Props) {
           </div>
           <div style={totalPriceContainer}>
             <h2 style={totalPriceTextStyle}>
-              Total price: {totalSumWithShipping}
+              Total price: {totalSumWithShipping} SEK
             </h2>
-            <FontAwesomeIcon icon={faCoins} style={coinIcon} />
           </div>
           <h2>Your purchase:</h2>
           <div style={cardContainer}>
@@ -71,8 +68,7 @@ function PurchaseComplete(props: Props) {
                   </div>
                   <div style={cardFooter}>
                     <div>
-                      Price per item: {item.price} &nbsp;
-                      <FontAwesomeIcon icon={faCoins} style={coinIcon2} />
+                      Price per item: {item.price} SEK
                     </div>
                   </div>
                 </div>

@@ -1,5 +1,3 @@
-import { faCoins } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CSSProperties } from "react";
 import { DeliveryDataInfo } from "../../../data/collections/deliveryData";
 import { useCart } from "../../context/CartContext";
@@ -32,9 +30,7 @@ function TotalSumWithShipping(props: deliveryItem) {
           <div>
           Total price with shipping:  
           </div>
-          <div>
-          <FontAwesomeIcon icon={faCoins} />
-          &nbsp;{totalSumWithShipping}
+          <div>{totalSumWithShipping} SEK
           </div>
         </p>
       </div>

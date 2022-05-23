@@ -6,7 +6,7 @@ import {
 } from "../../data/collections/collection";
 
 interface ProductContext {
-  randomCollections: collectionDataItem[];
+  // randomCollections: collectionDataItem[];
   collections: collectionDataItem[];
   addCollection: (collection: collectionDataItem) => void;
   closeAddCollectionModal: () => void;
@@ -37,7 +37,7 @@ interface ProductContext {
 }
 
 const ProductsContext = createContext<ProductContext>({
-  randomCollections: [],
+  // randomCollections: [],
   collections: [],
   addCollection: (collection: collectionDataItem) => {},
   removeCollection: (collectionID: number) => {},
@@ -121,9 +121,9 @@ export const ProductProvider: FC = (props) => {
       },
     ],
   });
-  const [randomCollections, setRandomCollections] = useState(
-    collections.sort(() => Math.random() - Math.random()).slice(0, 3)
-  );
+  // const [randomCollections, setRandomCollections] = useState(
+  //   collections.sort(() => Math.random() - Math.random()).slice(0, 3)
+  // );
 
   const openAddCollectionModal = () => {
     setAddCollectionModal(true);
@@ -240,7 +240,7 @@ export const ProductProvider: FC = (props) => {
     <ProductsContext.Provider
       value={{
         closeEditCollectionModal,
-        randomCollections,
+        // randomCollections,
         openEditCollectionModal,
         editCollectionModal,
         selectedNFT,
