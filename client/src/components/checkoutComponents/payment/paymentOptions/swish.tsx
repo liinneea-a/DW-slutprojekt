@@ -1,9 +1,9 @@
-import { useFormik } from "formik";
-import { DeliveryDataInfo } from "../../../../data/collections/deliveryData";
-import * as yup from "yup";
 import { Button, TextField } from "@mui/material";
+import { useFormik } from "formik";
 import { CSSProperties } from "react";
 import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
+import { DeliveryDataInfo } from "../../../../data/collections/deliveryData";
 import { useCart } from "../../../context/CartContext";
 
 interface Props {
@@ -30,7 +30,7 @@ function Swish(props: Props) {
   const closeModal = () =>
     setTimeout(() => {
       props.setPaymentModal(false);
-      navigate("/PurchaseComplete");
+      navigate("/purchasecomplete");
     }, 5000);
   const formik = useFormik({
     initialValues: {
