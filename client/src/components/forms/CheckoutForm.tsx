@@ -5,14 +5,14 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  TextField,
+  TextField
 } from "@mui/material";
 import { useFormik } from "formik";
 import { CSSProperties, useContext, useEffect, useState } from "react";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { DeliveryDataInfo } from "../../data/collections/deliveryData";
-import DeliveryBox from "./shipping/deliveryBox";
+import DeliveryBox from "../checkoutComponents/shipping/deliveryBox";
 import { ShipperContext } from "../context/ShipperContext";
 
 interface Props {
@@ -63,7 +63,7 @@ function CheckoutForm(props: Props) {
       //values.deliveryMethod = deliveryOption;
       //props.setDeliveryInfo(values);
       console.log(values);
-      navigate("/PaymentPage");
+      navigate("/paymentpage");
     },
   });
 

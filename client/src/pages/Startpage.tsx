@@ -3,9 +3,12 @@ import { useProducts } from "../components/context/ProductContext";
 import ItemCard from "../components/ItemCard";
 
 function StartPage(startPageProps: any) {
-  const { randomCollections } = useProducts();
+  const { collections } = useProducts();
+  
 
-  // let randomList =  collections.sort(() => Math.random() - Math.random()).slice(0, 3)
+  let randomList =  collections.sort(() => Math.random() - Math.random()).slice(0, 3)
+  console.log(randomList);
+  
 
   return (
     <div style={rootStyle}>
@@ -24,10 +27,11 @@ function StartPage(startPageProps: any) {
           <div style={hottestTitle}>
             <h1>HOTTEST COLLECTIONS RIGHT NOW</h1>
           </div>
+          
           <div style={flexProducts}>
-            {randomCollections.map((collection, index) => (
+            {randomList.map((collection, index) => (
               <ItemCard key={index} collectionCard={collection} />
-            ))}
+              ))}
           </div>
         </div>
         <div style={hottestStyle}>
@@ -35,7 +39,7 @@ function StartPage(startPageProps: any) {
             <h1>HOTTEST ITEMS RIGHT NOW</h1>
           </div>
           <div style={flexItems}>
-            {randomCollections.map((collection, index) => (
+            {randomList.map((collection, index) => (
               <ItemCard
                 key={index}
                 nftCard={collection.NFTS[0]}

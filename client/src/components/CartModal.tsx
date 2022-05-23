@@ -1,9 +1,7 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faMinus, faCoins } from "@fortawesome/free-solid-svg-icons";
 import { Box, Button, Modal, Typography } from "@mui/material";
 import { CSSProperties, useState } from "react";
-import { collectionData } from "../data/collections/collection";
 import { Link } from "react-router-dom";
+import { collectionData } from "../data/collections/collection";
 import { useCart } from "./context/CartContext";
 
 interface CartProps {
@@ -55,33 +53,26 @@ function CartModal(props: CartProps) {
                         }
                         &nbsp;#{item.NFTid}
                       </div>
-                      <div style={itemDescStyle}>{item.description}</div>
                     </div>
                     <div style={qtyCol}>
-                      <FontAwesomeIcon
-                        icon={faMinus}
-                        style={iconStyle}
-                        onClick={() => decQty(item.NFTid)}
-                      />
-                      {item.count}
-                      <FontAwesomeIcon
-                        icon={faPlus}
-                        style={iconStyle}
-                        onClick={() => incQty(item.NFTid)}
-                      />
+                        <Button variant="contained"
+                        style={qtyBtn}
+                        aria-label="outlined primary button"
+                        onClick={() => decQty(item.NFTid)}> -
+                        </Button>
+                        {item.count}
+                        <Button variant="contained"
+                        style={qtyBtn}
+                        aria-label="outlined primary button"
+                        onClick={() => incQty(item.NFTid)}>
+                          +
+                        </Button>
                     </div>
-                    <div style={priceCol}>
-                      <FontAwesomeIcon icon={faCoins} />
-                      &nbsp;{item.price}
-                    </div>
+                    <div style={priceCol}>{item.price} SEK</div>
                   </div>
                 ))}
-                <div style={priceStyle}>
-                  Your total:&nbsp;{" "}
-                  <FontAwesomeIcon style={coinIcon} icon={faCoins} />
-                  {totalPrice}
-                </div>
                 <div style={cartFooter}>
+                <div style={priceStyle}>Your total: {totalPrice} SEK</div>
                   <div style={cartButton}>
                     <Button
                       style={buttonStyle}
@@ -93,7 +84,7 @@ function CartModal(props: CartProps) {
                     <Link
                       style={linkStyle}
                       onClick={handleClose}
-                      to={"/Checkout"}
+                      to={"/checkout"}
                     >
                       <Button style={buttonStyle} variant="contained">
                         Proceed to checkout
@@ -115,10 +106,10 @@ const boxStyle: CSSProperties = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "40%",
-  minWidth: "20rem",
-  maxHeight: '90vh',
-  overflowY: 'scroll',
+  width: '85%',
+  maxWidth: '40rem',
+  maxHeight: "90vh",
+  overflowY: "scroll",
   background: "#202225",
   border: "1px solid #303339",
   borderRadius: "1rem",
@@ -127,6 +118,16 @@ const boxStyle: CSSProperties = {
   color: "white",
   scrollbarWidth: "none",
 };
+
+const qtyBtn: CSSProperties = {
+  padding: 0,
+  margin: 0,
+  textAlign: 'center',
+  minWidth: '1.2rem',
+  width: '2rem',
+  minHeight: '1.2rem',
+  height: '1.5rem'
+}
 
 const emptyCartTextStyle: CSSProperties = { textAlign: "center" };
 
@@ -138,20 +139,15 @@ const cartHeader: CSSProperties = {
   fontSize: "clamp(1vmin, 3vmin, 1.5rem)",
 };
 
-const itemDescStyle: CSSProperties = { 
-  fontSize: "clamp(1vmin, 2.5vmin, .9rem)", 
-};
-
-const nameColMid: CSSProperties = { 
+const nameColMid: CSSProperties = {
   fontWeight: "bold",
-  fontSize: 'clamp(1vmin, 3vmin, 1.5rem)'
+  fontSize: "clamp(1vmin, 3vmin, 1.5rem)",
 };
 
 const cartFooter: CSSProperties = {
   display: "flex",
-  flexDirection: "row",
-  justifyContent: "center",
-  flexWrap: "wrap-reverse",
+  flexDirection: "column",
+  alignItems: "center",
   gap: "1rem",
   width: "100%",
   marginTop: "0.7rem",
@@ -169,7 +165,7 @@ const prodCol: CSSProperties = {
 };
 
 const prodColMid: CSSProperties = {
-  width: "60%",
+  width: "50%",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
@@ -177,7 +173,8 @@ const prodColMid: CSSProperties = {
 };
 
 const qtyCol: CSSProperties = {
-  width: "15%",
+  width: "25%",
+  gap:'.5rem',
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -190,9 +187,8 @@ const priceCol: CSSProperties = {
   justifyContent: "center",
   alignItems: "center",
   fontSize: "clamp(1vmin, 3vmin, 1.5rem)",
+  textAlign: 'center'
 };
-
-const coinIcon: CSSProperties = { marginRight: ".2rem" };
 
 const buttonStyle: CSSProperties = {
   fontWeight: "bold",
@@ -221,7 +217,6 @@ const cartButton: CSSProperties = {
 
 const iconStyle: CSSProperties = {
   width: "100%",
-  cursor: "pointer",
 };
 
 const priceStyle: CSSProperties = {
@@ -230,6 +225,7 @@ const priceStyle: CSSProperties = {
   marginTop: "1rem",
   fontSize: "1.5rem",
   alignItems: "center",
+  textAlign: 'center'
 };
 
 const linkStyle: CSSProperties = {

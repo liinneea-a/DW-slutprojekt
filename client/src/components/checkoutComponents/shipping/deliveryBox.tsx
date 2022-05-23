@@ -1,7 +1,5 @@
-import { getDelivery } from "./deliverySwitch";
 import { CSSProperties } from "react";
-import { faCoins } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getDelivery } from "./deliverySwitch";
 
 interface deliveryItem {
   deliveryOption: string;
@@ -23,8 +21,7 @@ function DeliveryBox(props: deliveryItem) {
             </p>
           </div>
           <div style={shippingPriceContainer}>
-            <p> Shipping price: {getDelivery(props.deliveryOption).price} </p>
-            <FontAwesomeIcon icon={faCoins} style={coinIcon} />
+            <p> Shipping price: {getDelivery(props.deliveryOption).price} SEK </p>
           </div>
         </div>
       )}

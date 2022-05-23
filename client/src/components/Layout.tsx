@@ -3,10 +3,11 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { DeliveryDataInfoObject } from "../data/collections/deliveryData";
 import AdminPage from "../pages/AdminPage";
+import AllCollections from "../pages/AllCollectionsPage";
 import CheckoutPage from "../pages/CheckoutPage";
 import CheckoutPageDetails from "../pages/CheckoutPageDetails";
-import CollectionPage from "../pages/CollectionPage";
-import Collections from "../pages/Collections";
+import Collection from "../pages/CollectionPage";
+import LoginPage from "../pages/LoginPage";
 import PaymentPage from "../pages/PaymentPage";
 import PurchaseComplete from "../pages/PurchaseComplete";
 import StartPage from "../pages/Startpage";
@@ -19,7 +20,6 @@ import Header from "./Header";
 
 function Layout() {
   const [modalState, setModalState] = useState(false);
-  const [searchFocused, setSearchFocused] = useState(false);
   const [deliveryInfo, setDeliveryInfo] = useState(DeliveryDataInfoObject);
   const [finalTotalSum, setFinalTotalSum] = useState<number>(1);
   return (
@@ -31,25 +31,24 @@ function Layout() {
             <Header
               modalState={modalState}
               setModalState={setModalState}
-              searchBarFocused={searchFocused}
-              searchBarFocusOut={() => setSearchFocused(false)}
             />
             <CartModal modalState={modalState} setModalState={setModalState} />
             <div style={rootStyle}>
               <Routes>
                 <Route path="/" element={<StartPage />} />
+                <Route path="/login" element={<LoginPage />} />
                 <Route path="/admin" element={<AdminPage />} />
-                <Route path="/CollectionPage" element={<CollectionPage />} />
-                <Route path="/Collections/:id" element={<Collections />} />
+                <Route path="/all" element={<AllCollections />} />
+                <Route path="/collection/:id" element={<Collection />} />
                 <Route
                   path="/"
                   element={
-                    <StartPage focusHeader={() => setSearchFocused(true)} />
+                    <StartPage/>
                   }
                 />
-                <Route path="/Checkout" element={<CheckoutPage />} />
+                <Route path="/checkout" element={<CheckoutPage />} />
                 <Route
-                  path="/CheckoutDetails"
+                  path="/checkoutdetails"
                   element={
                     <CheckoutPageDetails
                       deliveryInfo={deliveryInfo}
@@ -58,7 +57,7 @@ function Layout() {
                   }
                 />
                 <Route
-                  path="/PaymentPage"
+                  path="/paymentpage"
                   element={
                     <PaymentPage
                       deliveryInfo={deliveryInfo}
@@ -69,7 +68,7 @@ function Layout() {
                   }
                 />
 
-                <Route path="/PurchaseComplete" element={<PurchaseComplete deliveryInfo={deliveryInfo} finalTotalSum={finalTotalSum}/>}
+                <Route path="/purchasecomplete" element={<PurchaseComplete deliveryInfo={deliveryInfo} finalTotalSum={finalTotalSum}/>}
                 />
               </Routes>
               <Footer/>
@@ -85,7 +84,10 @@ function Layout() {
 
 const rootStyle: CSSProperties = {
   maxWidth: "85vw",
-  display: "block",
+  display: "flex",
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: "center",
   margin: "0 auto",
   marginTop: "2rem",
   color: "white",

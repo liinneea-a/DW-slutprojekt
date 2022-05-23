@@ -20,7 +20,7 @@ function Invoice(props: Props) {
     addPurchaseList(cart);
     newPurchaseTotal(totalPrice);
     clearCart();
-    navigate("/PurchaseComplete");
+    navigate("/purchasecomplete");
   };
   return (
     <div style={invoiceInfoBox}>

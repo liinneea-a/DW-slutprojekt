@@ -4,9 +4,21 @@ import { Shipper, ShipperModel } from "./shipper.model";
 
 export const getAllShippers = async (req: Request, res: Response) => {
   // TODO: Who is allowed to use this endpoint?
-  const shippers = await ShipperModel.find({})//.populate<{ customer: User }>("customer"); ?
+  const shippers = await ShipperModel.find({})//.populate<{ customer: Shipper }>("customer"); ?
   res.status(200).json(shippers);
 };
+
+export const getOneShipper = async (req: Request, res: Response) => {
+  try {
+    const shipper = await ShipperModel.findById(req.params.id);
+    if(!shipper) {
+      return res.status(400).json(shipper)
+    }
+    res.status(200).json(shipper);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+}
 
 export const addShipper = async (req: Request<{}, {}, Shipper>, res: Response, next: NextFunction) => {
   // TODO: How do we handle errors in async middlewares?
@@ -18,3 +30,7 @@ export const addShipper = async (req: Request<{}, {}, Shipper>, res: Response, n
     next(err);
   }
 };
+
+export const deleteShipper = (req: Request, res: Response) => {
+  
+}

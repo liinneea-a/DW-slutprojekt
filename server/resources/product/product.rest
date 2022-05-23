@@ -1,24 +1,40 @@
-GET http://localhost:3000/api/product
+### Get all products
+GET http://localhost:4000/api/products
 
-###
+### Get one product
 
-POST http://localhost:3000/api/product
+GET http://localhost:4000/api/product/628b7b9c7c96ee2f9fbb54f1
+
+### Get all products of one category
+
+GET http://localhost:4000/api/products/category/stol
+
+### Post new product
+POST http://localhost:4000/api/product
 Content-Type: application/json
 
 {
-  "customer": "6283598560765e36787c6867",
-  "products": ["Product 1", "Product 2"]
+  "name": "Matbord",
+  "description": "Matbord med 15 plåtben",
+  "price": 2979,
+  "imageId": "628b7030d071e31e672871b4",
+  "stock": 180,
+  "categories": ["bord", "plåt"],
+  "legacy": false
 }
 
-###
-
-PUT http://localhost:3000/api/product/6283515af3f6ab16ccf62710
+### Update product
+PUT http://localhost:4000/api/product/628b8b0b6a2095adb626f181
 Content-Type: application/json
 
 {
-  
+  "name": "STOOOL",
+  "description": "en röd stol",
+  "price": 299,
+  "imageId": "628b7030d071e31e672871b4",
+  "stock": 200,
+  "categories": ["stol", "trä"]
 }
 
-###
-
-DELETE http://localhost:3000/api/product/1234
+### Delete product
+DELETE http://localhost:4000/api/product/628b7b9c7c96ee2f9fbb54f1
