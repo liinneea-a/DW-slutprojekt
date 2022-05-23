@@ -1,8 +1,12 @@
-GET http://localhost:3000/api/product
+### Get all products
+GET http://localhost:4000/api/products
 
-###
+### Get one product
 
-POST http://localhost:3000/api/product
+GET http://localhost:4000/api/product/
+
+### Post new product
+POST http://localhost:4000/api/product
 Content-Type: application/json
 
 {
@@ -10,15 +14,13 @@ Content-Type: application/json
   "products": ["Product 1", "Product 2"]
 }
 
-###
-
-PUT http://localhost:3000/api/product/6283515af3f6ab16ccf62710
+### Update product
+PUT http://localhost:4000/api/product/6283515af3f6ab16ccf62710
 Content-Type: application/json
 
 {
   
 }
 
-###
-
-DELETE http://localhost:3000/api/product/1234
+### Delete product
+DELETE http://localhost:4000/api/product/1234

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 import bcrypt from "bcrypt"
 
 export interface User {
@@ -10,6 +10,7 @@ export interface User {
   email: string;
   // createdAt: Date;
   // updatedAt: Date;
+
 }
 
 const UserSchema = new mongoose.Schema<User>( //? Stor bokstav och <User> 
@@ -30,6 +31,8 @@ const UserSchema = new mongoose.Schema<User>( //? Stor bokstav och <User>
 UserSchema.virtual("fullname").get(function (this: User) {
   return this.firstname + " " + this.lastname;
 });
+
+
 
 UserSchema.pre("save", encryptPassword);
 UserSchema.pre("updateOne", encryptPassword);
