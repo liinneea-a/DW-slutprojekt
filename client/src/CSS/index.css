@@ -92,9 +92,9 @@ code {
 .popupClosed {
   display: none
 }
-* {
+/* * {
   color: white !important;
-}
+} */
 
 :root {
   --toastify-color-success: white !important;
