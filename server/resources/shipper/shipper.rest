@@ -2,13 +2,19 @@ GET http://localhost:4000/api/shipper
 
 ###
 
+GET http://localhost:4000/api/shipper/62875028ad3688cf640d2168
+
+###
+
 POST http://localhost:4000/api/shipper
 Content-Type: application/json
 
 {
-  "shipper": "",
-  "cost": "69",
-  "days": "1"
+  "shipper": "InstaBox",
+  "cost": "0",
+  "days": "3"
 }
 
 ###
+
+DELETE http://localhost:4000/api/shipper/62875028ad3688cf640d2168
