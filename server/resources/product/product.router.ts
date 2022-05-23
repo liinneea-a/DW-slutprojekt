@@ -3,7 +3,7 @@ import { addProduct, deleteProduct, getAllProducts, getProduct, updateProduct } 
 
 export const productRouter = express
   .Router()
-  .get("/product", /* adminSecure, */ getAllProducts)
+  .get("/products", /* adminSecure, */ getAllProducts)
   .get("/product/:id", getProduct)
   .post("/product", addProduct)
   .put("/product/:id", updateProduct)
