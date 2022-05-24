@@ -1,12 +1,16 @@
 import { Button, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import { CSSProperties } from "react";
+import { useProducts } from "../../context/ProductContext";
 import { collectionDataItem } from "../../data/collections/collection";
-import { useProducts } from "../context/ProductContext";
 
-function AddNewCollection() {
-  const { addCollection, closeAddCollectionModal, addCollectionModal } =
-    useProducts();
+interface Props {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+function AddNewCollection(props: Props) {
+  const { addCollection } = useProducts();
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -26,86 +30,85 @@ function AddNewCollection() {
       };
       addCollection(newCollection);
       formik.resetForm();
-      closeAddCollectionModal();
+      props.onClose();
     },
   });
+  
+  if (!props.isOpen) return null;
+
   return (
-    <div>
-      {addCollectionModal && (
-        <div style={newCollectionContainer}>
-          <div>
-            <form style={formStyle} onSubmit={formik.handleSubmit}>
-              <h3>Add new collection</h3>
-              <div style={textFieldsContainer}>
-                <TextField
-                  style={textFieldStyle}
-                  fullWidth
-                  autoComplete="off"
-                  id="name"
-                  name="name"
-                  label="Collection Name"
-                  value={formik.values.name}
-                  onChange={formik.handleChange}
-                  error={formik.touched.name && Boolean(formik.errors.name)}
-                  helperText={formik.touched.name && formik.errors.name}
-                />
-                <TextField
-                  style={textFieldStyle}
-                  fullWidth
-                  autoComplete="off"
-                  id="description"
-                  name="description"
-                  label="Collection description"
-                  value={formik.values.description}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.description &&
-                    Boolean(formik.errors.description)
-                  }
-                  helperText={
-                    formik.touched.description && formik.errors.description
-                  }
-                />
-                <TextField
-                  style={textFieldStyle}
-                  fullWidth
-                  autoComplete="off"
-                  id="productImage"
-                  name="productImage"
-                  label="Collection Image URL"
-                  value={formik.values.productImage}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.productImage &&
-                    Boolean(formik.errors.productImage)
-                  }
-                  helperText={
-                    formik.touched.productImage && formik.errors.productImage
-                  }
-                />
-              </div>
-              <Button
-                style={addNewCollectionButton}
-                color="primary"
-                variant="contained"
-                fullWidth
-                type="submit"
-              >
-                Add new collection
-              </Button>
-              <Button
-                style={closeWindowButton}
-                color="primary"
-                variant="contained"
-                fullWidth
-                onClick={closeAddCollectionModal}
-              >
-                Close window
-              </Button>
-            </form>
+    <div style={newCollectionContainer}>
+      <div>
+        <form style={formStyle} onSubmit={formik.handleSubmit}>
+          <h3>Add new collection</h3>
+          <div style={textFieldsContainer}>
+            <TextField
+              style={textFieldStyle}
+              fullWidth
+              autoComplete="off"
+              id="name"
+              name="name"
+              label="Collection Name"
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              error={formik.touched.name && Boolean(formik.errors.name)}
+              helperText={formik.touched.name && formik.errors.name}
+            />
+            <TextField
+              style={textFieldStyle}
+              fullWidth
+              autoComplete="off"
+              id="description"
+              name="description"
+              label="Collection description"
+              value={formik.values.description}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.description &&
+                Boolean(formik.errors.description)
+              }
+              helperText={
+                formik.touched.description && formik.errors.description
+              }
+            />
+            <TextField
+              style={textFieldStyle}
+              fullWidth
+              autoComplete="off"
+              id="productImage"
+              name="productImage"
+              label="Collection Image URL"
+              value={formik.values.productImage}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.productImage &&
+                Boolean(formik.errors.productImage)
+              }
+              helperText={
+                formik.touched.productImage && formik.errors.productImage
+              }
+            />
           </div>
-        </div>
-      )}
+          <Button
+            style={addNewCollectionButton}
+            color="primary"
+            variant="contained"
+            fullWidth
+            type="submit"
+          >
+            Add new collection
+          </Button>
+          <Button
+            style={closeWindowButton}
+            color="primary"
+            variant="contained"
+            fullWidth
+            onClick={props.onClose}
+          >
+            Close window
+          </Button>
+        </form>
+      </div>
     </div>
   );
 }

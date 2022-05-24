@@ -1,8 +1,8 @@
 import { Box, Button, Modal, Typography } from "@mui/material";
 import { CSSProperties, useState } from "react";
 import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 import { collectionData } from "../data/collections/collection";
-import { useCart } from "./context/CartContext";
 
 interface CartProps {
   modalState: boolean;

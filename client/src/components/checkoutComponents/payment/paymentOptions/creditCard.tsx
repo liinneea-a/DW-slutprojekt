@@ -3,8 +3,8 @@ import { useFormik } from "formik";
 import { CSSProperties } from "react";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import { useCart } from "../../../../context/CartContext";
 import { DeliveryDataInfo } from "../../../../data/collections/deliveryData";
-import { useCart } from "../../../context/CartContext";
 
 interface Props {
   deliveryInfo: DeliveryDataInfo;

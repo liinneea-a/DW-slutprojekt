@@ -1,8 +1,8 @@
 // @ts-ignore
 
 import { createContext, FC, useContext, useState } from "react";
-import { NftItem } from "../../data/collections/collection";
 import { toast } from "react-toastify";
+import { NftItem } from "../data/collections/collection";
 
 interface CartContext {
   purchaseList: NftItem[];

@@ -1,6 +1,8 @@
 import { CSSProperties, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { CartProvider } from "../context/CartContext";
+import { ProductProvider } from "../context/ProductContext";
 import { DeliveryDataInfoObject } from "../data/collections/deliveryData";
 import AdminPage from "../pages/AdminPage";
 import AllCollections from "../pages/AllCollectionsPage";
@@ -9,11 +11,10 @@ import CheckoutPageDetails from "../pages/CheckoutPageDetails";
 import Collection from "../pages/CollectionPage";
 import LoginPage from "../pages/LoginPage";
 import PaymentPage from "../pages/PaymentPage";
+import ProfilePage from "../pages/ProfilePage";
 import PurchaseComplete from "../pages/PurchaseComplete";
 import StartPage from "../pages/Startpage";
 import CartModal from "./CartModal";
-import { CartProvider } from "./context/CartContext";
-import { ProductProvider } from "./context/ProductContext";
 import Footer from "./Footer";
 import Header from "./Header";
 
@@ -38,6 +39,7 @@ function Layout() {
                 <Route path="/admin" element={<AdminPage />} />
                 <Route path="/all" element={<AllCollections />} />
                 <Route path="/collection/:id" element={<Collection />} />
+                <Route path="/profile" element={<ProfilePage />} />
                 <Route
                   path="/"
                   element={

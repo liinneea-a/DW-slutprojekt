@@ -3,15 +3,13 @@ import {
   collectionData,
   collectionDataItem,
   NftItem
-} from "../../data/collections/collection";
+} from "../data/collections/collection";
 
 interface ProductContext {
   // randomCollections: collectionDataItem[];
   collections: collectionDataItem[];
   addCollection: (collection: collectionDataItem) => void;
-  closeAddCollectionModal: () => void;
   removeCollection: (collectionID: number) => void;
-  openAddCollectionModal: () => void;
   editCollection: (collection: collectionDataItem) => void;
   addNft: (nft: NftItem, collectionID: number) => void;
   removeNft: (collectionID: number, nftID: number) => void;
@@ -33,7 +31,6 @@ interface ProductContext {
   selectedNFT: NftItem;
   openEditCollectionModal: (collection: collectionDataItem) => void;
   closeEditCollectionModal: () => void;
-  addCollectionModal: boolean;
 }
 
 const ProductsContext = createContext<ProductContext>({
@@ -41,9 +38,6 @@ const ProductsContext = createContext<ProductContext>({
   collections: [],
   addCollection: (collection: collectionDataItem) => {},
   removeCollection: (collectionID: number) => {},
-  addCollectionModal: false,
-  openAddCollectionModal: () => {},
-  closeAddCollectionModal: () => {},
   editCollection: (collection: collectionDataItem) => {},
   addNft: (nft: NftItem, collectionID: number) => {},
   removeNft: (collectionID: number, nftID: number) => {},
@@ -85,7 +79,6 @@ const ProductsContext = createContext<ProductContext>({
 
 export const ProductProvider: FC = (props) => {
   let localData = localStorage.getItem("collections");
-  const [addCollectionModal, setAddCollectionModal] = useState(false);
   const [addNftModal, setAddNftModal] = useState(false);
   const [editCollectionModal, setEditCollectionModal] = useState(false);
   const [editNftModal, setEditNftModal] = useState(false);
@@ -124,14 +117,6 @@ export const ProductProvider: FC = (props) => {
   // const [randomCollections, setRandomCollections] = useState(
   //   collections.sort(() => Math.random() - Math.random()).slice(0, 3)
   // );
-
-  const openAddCollectionModal = () => {
-    setAddCollectionModal(true);
-  };
-
-  const closeAddCollectionModal = () => {
-    setAddCollectionModal(false);
-  };
 
   const openAddNftModal = (collectionID: number) => {
     setAddNftModal(true);
@@ -260,9 +245,6 @@ export const ProductProvider: FC = (props) => {
         closeEditNftModal,
         selectedCollectionID,
         selectedNftID,
-        openAddCollectionModal,
-        closeAddCollectionModal,
-        addCollectionModal,
       }}
     >
       {props.children}

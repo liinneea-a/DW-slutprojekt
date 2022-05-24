@@ -1,6 +1,6 @@
 import { CSSProperties } from "react";
+import { useCart } from "../../../context/CartContext";
 import { DeliveryDataInfo } from "../../../data/collections/deliveryData";
-import { useCart } from "../../context/CartContext";
 
 interface deliveryItem {
   deliveryInfo: DeliveryDataInfo;

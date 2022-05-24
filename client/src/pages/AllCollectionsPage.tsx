@@ -1,6 +1,6 @@
 import { CSSProperties } from "react";
-import { useProducts } from "../components/context/ProductContext";
 import ItemCard from "../components/ItemCard";
+import { useProducts } from "../context/ProductContext";
 
 function AllCollections() {
   const { collections } = useProducts();

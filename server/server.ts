@@ -1,11 +1,10 @@
+import cookieSession from "cookie-session";
+import dotenv from 'dotenv';
 import express from "express";
-import { ErrorRequestHandler } from "./error";
 // require("express-async-errors");
 import mongoose from "mongoose";
-import { userRouter, orderRouter, productRouter, shipperRouter } from "./resources";
-import dotenv from 'dotenv'
-import cookieSession from "cookie-session";
 import { mediaRouter } from "./media/media.router";
+import { orderRouter, productRouter, shipperRouter, userRouter } from "./resources";
 
 //import {errorRequestHandler} from "./error";
 
@@ -20,7 +19,7 @@ app.use(
   cookieSession({
     secret: 'th1s1SaK3y',
     sameSite: 'strict',
-    httpOnly: false,
+    httpOnly: true,
     secure: false,
     maxAge: 1000 * 60000,
   })

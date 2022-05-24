@@ -1,8 +1,8 @@
 import { CSSProperties } from "react";
 import DeliveryInfoTableWithPay from "../components/checkoutComponents/DeliveryInfoTableWithPay";
 import GenerateOrderNumber from "../components/checkoutComponents/OrderNumber";
-import { useCart } from "../components/context/CartContext";
-import { useProducts } from "../components/context/ProductContext";
+import { useCart } from "../context/CartContext";
+import { useProducts } from "../context/ProductContext";
 import { NftItem } from "../data/collections/collection";
 import { DeliveryDataInfo } from "../data/collections/deliveryData";
 

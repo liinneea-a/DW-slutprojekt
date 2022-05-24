@@ -1,8 +1,8 @@
 import { Button } from "@mui/material";
 import { CSSProperties } from "react";
 import { Link } from "react-router-dom";
-import { useCart } from "../components/context/CartContext";
-import { useProducts } from "../components/context/ProductContext";
+import { useCart } from "../context/CartContext";
+import { useProducts } from "../context/ProductContext";
 import { NftItem } from "../data/collections/collection";
 
 function CheckoutPage() {

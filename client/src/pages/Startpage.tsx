@@ -1,6 +1,6 @@
 import { CSSProperties } from "react";
-import { useProducts } from "../components/context/ProductContext";
 import ItemCard from "../components/ItemCard";
+import { useProducts } from "../context/ProductContext";
 
 function StartPage(startPageProps: any) {
   const { collections } = useProducts();
@@ -8,7 +8,6 @@ function StartPage(startPageProps: any) {
   let randomList = collections
     .sort(() => Math.random() - Math.random())
     .slice(0, 3);
-  console.log(randomList);
 
   return (
     <div style={rootStyle}>

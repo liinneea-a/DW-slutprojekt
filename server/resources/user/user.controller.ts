@@ -1,7 +1,6 @@
-import { NextFunction, Request, Response } from "express";
-import { orderRouter } from "../order";
-import { User, UserModel } from "./user.model";
 import bcrypt from "bcrypt";
+import { NextFunction, Request, Response } from "express";
+import { UserModel } from "./user.model";
 
 export const getAllUsers = async (req: Request, res: Response) => {
   // TODO: Who is allowed to use this endpoint?
@@ -34,8 +33,9 @@ export const addUser = async (
   res: Response,
   next: NextFunction
 ) => {
-  // TODO: How do we handle errors in async middlewares?
   try {
+    let FoundUser = await UserModel.findOne({ email: req.body.email });
+    if (FoundUser) return res.status(409).json("That email is already in use.");
     const user = new UserModel(req.body);
     await user.save();
     res.status(200).json(user);
@@ -45,11 +45,34 @@ export const addUser = async (
 };
 
 export const loginUser = async (req: Request, res: Response) => {
-  let email = await UserModel.findOne({ email: req.body.email });
-  if (!email) return res.status(404).json("Email doesnt exist");
-  let matchPassword = await bcrypt.compare(req.body.password, email.password);
-  if (!matchPassword) return res.status(401).json("Wrong username or password");
-  req.session.user = user;
+  try {
+    let user = await UserModel.findOne({ email: req.body.email }).select(
+      "+password"
+    );
+    console.log(user);
+    if (!user) return res.status(404).send("User not found");
+    let matchingPassword = await bcrypt.compare(
+      req.body.password,
+      user.password!
+    );
+    if (!matchingPassword) {
+      return res.status(401).json("Wrong email or password");
+    }
+    if (!req.session) {
+      return res.status(500).json("Missing session object");
+    }
+    delete user.password;
+    req.session.user = user;
+    res.json(user);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+};
+
+export const getLoggedInUser = async (req: Request, res: Response) => {
+  if (!req.session) return res.status(401).send("You are not logged in");
+
+  res.json(req.session.user);
 };
 
 export const updateUser = async (
@@ -84,4 +107,10 @@ export const deleteUser = async (req: Request, res: Response) => {
       res.status(400).json(err.message);
     }
   }
+};
+
+export const logoutUser = async (req: Request, res: Response) => {
+  if (!req.session?.user) return res.status(401).json("You are not logged in.");
+  req.session = null;
+  res.json("You have logged out.");
 };
