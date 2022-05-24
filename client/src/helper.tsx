@@ -1,4 +1,4 @@
-export const makeReq = async (url, method, body) => {
+export const makeReq = async (url: string, method: string, body?: any) => {
   let response = await fetch(url, {
     method,
     body: JSON.stringify(body),
