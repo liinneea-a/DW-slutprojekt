@@ -45,4 +45,17 @@ const orderSchema = new mongoose.Schema(
 //     }
 // })
 
+orderSchema.virtual('quantityOfProducts').get(function() {
+    const priceTotal = 1000;
+    const priceSingle = 200;
+  let quantity: number;
+
+  for (let x = 0; priceTotal / x > priceSingle; x++) {
+    quantity = x;
+    return quantity;
+  };
+
+
+})
+
 export const OrderModel = mongoose.model<Order>("order", orderSchema);
