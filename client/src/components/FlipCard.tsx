@@ -1,15 +1,14 @@
 import { CSSProperties, useState } from "react";
-import { collectionDataItem, NftItem } from "../data/collections/collection";
 import "../CSS/FlipCard.css";
+import { productDataItem } from "../data/collections/dataTest";
 
-interface cardInfo {
-  nftCard?: NftItem;
-  collectionCard?: collectionDataItem;
+interface productInfo {
+  productCard?: productDataItem;
   nftHeader?: string;
   collectionName?: string;
 }
 
-function FlipCard(props: cardInfo) {
+function FlipCard(props: productInfo) {
   const [flip, setFlip] = useState(false);
 
   return (
@@ -18,9 +17,9 @@ function FlipCard(props: cardInfo) {
       className={`card ${flip ? "flip" : ""}`}
       onClick={() => setFlip(!flip)}
     >
-      <div className="back"> {props.nftCard?.description}</div>
+      <div className="back"> {props.productCard?.description}</div>
       <div className="front">
-        <img className="image" srcSet={props.nftCard?.image} alt="" />
+        <img className="image" srcSet={props.productCard?.image} alt="" />
       </div>
     </div>
   );

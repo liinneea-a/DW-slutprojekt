@@ -9,11 +9,11 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import { CSSProperties, useContext, useEffect, useState } from "react";
-import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
+import { ShipperContext } from "../../context/ShipperContext";
 import { DeliveryDataInfo } from "../../data/collections/deliveryData";
 import DeliveryBox from "../checkoutComponents/shipping/deliveryBox";
-import { ShipperContext } from "../context/ShipperContext";
 
 interface Props {
   deliveryInfo: DeliveryDataInfo;

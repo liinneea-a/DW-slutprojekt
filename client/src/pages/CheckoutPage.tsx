@@ -3,11 +3,10 @@ import { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useProducts } from "../context/ProductContext";
-import { NftItem } from "../data/collections/collection";
 
 function CheckoutPage() {
   const { cart, totalPrice } = useCart();
-  const { collections } = useProducts();
+  const { products } = useProducts();
 
   return (
     <div style={rootStyle}>
@@ -15,7 +14,7 @@ function CheckoutPage() {
         <h1>Checkout</h1>
         <h2>Your purchase:</h2>
         <div style={cardContainer}>
-          <div style={purchasedItems}>
+          {/* <div style={purchasedItems}>
             {cart.map((item: NftItem, index: number) => (
               <div style={purchasedItemTestCard} key={index}>
                 <div style={itemCountBadge}>
@@ -27,7 +26,7 @@ function CheckoutPage() {
                       collections.find((col) => col.id === item.collectionID)
                         ?.name
                     }
-                    &nbsp;#{item.NFTid}
+                    &nbsp;#{item.productID}
                   </h3>
                 </div>
                 <div style={cardBody}>
@@ -44,7 +43,7 @@ function CheckoutPage() {
                 </div>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
         <div style={totalPriceContainer}>
           <h2 style={totalPriceStyle}>Total price: {totalPrice} SEK</h2>

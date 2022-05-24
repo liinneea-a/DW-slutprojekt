@@ -1,31 +1,29 @@
 import { Button } from "@mui/material";
 import { CSSProperties, useState } from "react";
-import AddNewCollection from "../components/admin/addNewCollection";
-import AddNewNFT from "../components/admin/addNewNFT";
-import EditCollection from "../components/admin/editCollection";
-import EditNFT from "../components/admin/editNFT";
+import AddNewCollection from "../components/admin/addNewProduct";
+// import EditCollection from "../components/admin/editCollection";
 import { useProducts } from "../context/ProductContext";
 
 function AdminPage() {
   const [openAddCollectionModal, setOpenAddCollectionModal] = useState(false);
+  const [openEditCollectionModal, setOpenEditCollectionModal] = useState(false);
+  const [openAddNftModal, setOpenAddNftModal] = useState(false);
+  const [openEditNftModal, setOpenEditNftModal] = useState(false);
   const {
-    collections,
-    removeCollection,
-    removeNft,
-    openAddNftModal,
-    openEditNftModal,
-    openEditCollectionModal,
+    products,
+    removeProduct,
   } = useProducts();
 
   return (
     <div style={adminPageLayout}>
       <Button
-        onClick={() => localStorage.clear()}
+        onClick={() => 
+          localStorage.clear()}
         style={buttonStyle}
         variant="contained"
         href=""
       >
-        Clear local storage
+        Clear LS
       </Button>
       <Button
         onClick={() => setOpenAddCollectionModal(true)}
@@ -33,90 +31,54 @@ function AdminPage() {
         variant="contained"
         href=""
       >
-        Add Collection
+        Add product
       </Button>
       <div>
-        <AddNewCollection isOpen={openAddCollectionModal} onClose={() => setOpenAddCollectionModal(false)} />
-        <AddNewNFT />
-        <EditNFT />
-        <EditCollection />
+        <AddNewCollection
+          isOpen={openAddCollectionModal}
+          onClose={() => setOpenAddCollectionModal(false)}
+        />
       </div>
-      {collections.map((collection, index) => (
-        <div style={adminCollections} key={index}>
-          <div style={adminCollectionsHeader}>
-            <div style={headerLeft}>
-              <h1>{collection.name}</h1>
-              <p>Innehåller {collections.length} NFTS</p>
+      <div style={adminProducts}>
+        {products.map((product, index) => (
+          <div style={adminAddStyle} key={index}>
+            <div style={adminCardHeader}>
+              <div
+                style={{ display: "flex", flexDirection: "row", gap: "2rem" }}
+              >
+                <div>Product #{product.productID}</div>
+                <div>{product.price} SEK</div>
+              </div>
+              <div style={buttonDivStyle}>
+                <Button
+                  onClick={() => setOpenEditNftModal(true)}
+                  style={editButtonStyle}
+                  variant="contained"
+                  href=""
+                >
+                  Edit
+                </Button>
+                <Button
+                  onClick={() => removeProduct(product.productID)}
+                  style={editButtonStyle}
+                  variant="contained"
+                  href=""
+                >
+                  Remove
+                </Button>
+              </div>
             </div>
-            <div style={headerRight}>
-              <Button
-                onClick={() => removeCollection(collection.id)}
-                style={buttonStyle}
-                variant="contained"
-                href=""
-              >
-                Remove
-              </Button>
-              <Button
-                style={buttonStyle}
-                variant="contained"
-                href=""
-                onClick={() => openEditCollectionModal(collection)}
-              >
-                Edit
-              </Button>
-              <Button
-                onClick={() => openAddNftModal(collection.id)}
-                style={buttonStyle}
-                variant="contained"
-                href=""
-              >
-                Add NFT
-              </Button>
+            <div style={adminCardMiddle}>
+              <div style={adminCardMidLeft}>
+                <img style={adminImageStyle} alt="" srcSet={product.image} />
+              </div>
+              <div style={adminCardMidRight}>
+                <div style={descStyle}>{product.description}</div>
+              </div>
             </div>
           </div>
-          <div style={adminCollectionMain}>
-            {collection.NFTS.map((nft, index) => (
-              <div style={adminAddStyle} key={index}>
-                <div style={adminCardHeader}>
-                  <div style={{display: 'flex', flexDirection: 'row', gap: '2rem'}}>
-                  <div>ID #{nft.NFTid}</div>
-                  <div>{nft.price} SEK</div>
-                  </div>
-                  <div style={buttonDivStyle}>
-                  <Button
-                    onClick={() =>
-                      openEditNftModal(nft, collection.id, collection)
-                    }
-                    style={editButtonStyle}
-                    variant="contained"
-                    href=""
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    onClick={() => removeNft(collection.id, nft.NFTid)}
-                    style={editButtonStyle}
-                    variant="contained"
-                    href=""
-                  >
-                    Remove
-                  </Button>
-                </div>
-                </div>
-                <div style={adminCardMiddle}>
-                  <div style={adminCardMidLeft}>
-                    <img style={adminImageStyle} alt="" srcSet={nft.image} />
-                  </div>
-                  <div style={adminCardMidRight}>
-                    <div style={descStyle}>{nft.description}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div> 
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }
@@ -133,14 +95,14 @@ const adminPageLayout: CSSProperties = {
   width: "100%",
 };
 
-const adminCollections: CSSProperties = {
-  // display: "flex",
-  // flexDirection: "column",
-  // boxShadow: "1px 1px 6px black",
-  // borderRadius: ".5rem",
-  // width: "90%",
-  // padding: "0 1rem 1rem 1rem",
-  // gap: "1rem",
+const adminProducts: CSSProperties = {
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: 'center',
+  flexWrap: 'wrap',
+  width: "90%",
+  padding: "0 1rem 1rem 1rem",
+  gap: "1rem",
 };
 
 const adminCollectionsHeader: CSSProperties = {
@@ -175,7 +137,7 @@ const adminCardHeader: CSSProperties = {
 
 const adminImageStyle: CSSProperties = {
   width: "5rem",
-  height: '5rem'
+  height: "5rem",
 };
 
 const adminCollectionMain: CSSProperties = {
@@ -233,14 +195,14 @@ const removeButton: CSSProperties = {
 
 const buttonDivStyle: CSSProperties = {
   display: "flex",
-  gap: '1rem',
+  gap: "1rem",
   flexDirection: "row",
   justifyContent: "space-around",
 };
 
 const adminCardMiddle: CSSProperties = {
   display: "flex",
-  gap: '1rem',
+  gap: "1rem",
   flexDirection: "row",
   justifyContent: "space-around",
   width: "100%",

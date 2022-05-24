@@ -1,6 +1,5 @@
-import { CSSProperties, useEffect, useState } from "react";
+import { CSSProperties, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import ItemCard from "../components/ItemCard";
 import { useProducts } from "../context/ProductContext";
 
 function Collection() {
@@ -8,14 +7,12 @@ function Collection() {
   const { id } = useParams();
 
   // Hämtar hem den orgienlla listan för sedan kunna leta igenom den
-  const { collections } = useProducts();
+  const { products } = useProducts();
 
   // Letar i colllection listan efter id som matchar URL routerns ID och sedan sätter det objectet till "Collection"
-  const [collection, setCollection] = useState(
-    collections.find((p) => p.id.toString() === id)
-  );
-
-  const [nft, setNFT] = useState(collection?.NFTS);
+  // const [product, setProduct] = useState(
+  //   products.find((p) => p.id.toString() === id)
+  // );
 
   // Sedar passar vi in "nft" då i varje productCard som är NFTSEN :)
 
@@ -24,7 +21,7 @@ function Collection() {
   return (
     <div style={collectionsPage}>
       <div style={CollectionDescription}>
-        <div style={collectionNameContainer}>
+        {/* <div style={collectionNameContainer}>
           <h1 style={collectionNameStyle}>{collection?.name}</h1>
         </div>
         <div style={descriptionStyle}>
@@ -34,17 +31,17 @@ function Collection() {
             alt="test"
           />
           <h2 style={collectionDescriptionStyle}>{collection?.description}</h2>
-        </div>
+        </div> */}
       </div>
       <div style={flexProducts}>
-        {nft?.map((nftItem, index) => (
+        {/* {nft?.map((nftItem, index) => (
           <ItemCard
             key={index}
             nftCard={nftItem}
             nftHeader={collection?.header}
             collectionName={collection?.name}
           />
-        ))}
+        ))} */}
       </div>
     </div>
   );

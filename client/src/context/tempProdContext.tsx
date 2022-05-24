@@ -1,4 +1,4 @@
-import { createContext, FC, useContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { productData, productDataItem } from "../data/collections/dataTest";
 import { makeReq } from "../helper";
 
@@ -24,7 +24,7 @@ const ProductsContext = createContext<ProductContext>({
   closeEditProductModal: () => {},
 });
 
-export const ProductProvider: FC = (props) => {
+export const ProductProvider = () => {
   let localData = localStorage.getItem("products");
   const [editProductModal, setEditProductModal] = useState(false);
   const [products, setProducts] = useState(
@@ -41,7 +41,7 @@ export const ProductProvider: FC = (props) => {
 
   const fetchProducts = async () => {
     try {
-      let response = await makeReq(`/api/testdata`, "GET");
+      let response = await makeReq(`/api/product`, "GET");
       console.log(response);
     } catch (err) {
       return console.log(err);
@@ -87,7 +87,7 @@ export const ProductProvider: FC = (props) => {
         removeProduct,
         editProduct,
       }}
-    > {props.children}</ProductsContext.Provider>
+    ></ProductsContext.Provider>
   );
 };
 

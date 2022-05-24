@@ -2,57 +2,58 @@ import { Button, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import { CSSProperties } from "react";
 import { useProducts } from "../../context/ProductContext";
-import { collectionDataItem } from "../../data/collections/collection";
+import { productDataItem } from "../../data/collections/dataTest";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
 }
 
-function AddNewCollection(props: Props) {
-  const { addCollection } = useProducts();
+function AddNewProduct(props: Props) {
+  const { addProduct } = useProducts();
   const formik = useFormik({
     initialValues: {
-      name: "",
+      productID: 0,
+      image: "",
+      price: 0,
       description: "",
-      productImage: "",
+      count: 0,
+      categories: 0,
     },
     onSubmit: (values) => {
-      let newCollection: collectionDataItem = {
-        id: 0,
-        name: values.name,
+      let newProduct: productDataItem = {
+        productID: values.productID,
+        image: values.image,
+        price: values.price,
         description: values.description,
-        volumeTraded: 302,
-        floorPrice: 320,
-        header: "not-working",
-        productImage: values.productImage,
-        NFTS: [],
+        count: values.count,
+        categories: values.categories,
       };
-      addCollection(newCollection);
+      addProduct(newProduct);
       formik.resetForm();
       props.onClose();
     },
   });
-  
+
   if (!props.isOpen) return null;
 
   return (
-    <div style={newCollectionContainer}>
+    <div style={newProductContainer}>
       <div>
         <form style={formStyle} onSubmit={formik.handleSubmit}>
-          <h3>Add new collection</h3>
+          <h3>Add new product</h3>
           <div style={textFieldsContainer}>
             <TextField
               style={textFieldStyle}
               fullWidth
               autoComplete="off"
-              id="name"
-              name="name"
-              label="Collection Name"
-              value={formik.values.name}
+              id="productID"
+              name="productID"
+              label="Product id"
+              value={formik.values.productID}
               onChange={formik.handleChange}
-              error={formik.touched.name && Boolean(formik.errors.name)}
-              helperText={formik.touched.name && formik.errors.name}
+              error={formik.touched.productID && Boolean(formik.errors.productID)}
+              helperText={formik.touched.productID && formik.errors.productID}
             />
             <TextField
               style={textFieldStyle}
@@ -60,12 +61,11 @@ function AddNewCollection(props: Props) {
               autoComplete="off"
               id="description"
               name="description"
-              label="Collection description"
+              label="Product description"
               value={formik.values.description}
               onChange={formik.handleChange}
               error={
-                formik.touched.description &&
-                Boolean(formik.errors.description)
+                formik.touched.description && Boolean(formik.errors.description)
               }
               helperText={
                 formik.touched.description && formik.errors.description
@@ -77,26 +77,26 @@ function AddNewCollection(props: Props) {
               autoComplete="off"
               id="productImage"
               name="productImage"
-              label="Collection Image URL"
-              value={formik.values.productImage}
+              label="Product Image URL"
+              value={formik.values.image}
               onChange={formik.handleChange}
               error={
-                formik.touched.productImage &&
-                Boolean(formik.errors.productImage)
+                formik.touched.image &&
+                Boolean(formik.errors.image)
               }
               helperText={
-                formik.touched.productImage && formik.errors.productImage
+                formik.touched.image && formik.errors.image
               }
             />
           </div>
           <Button
-            style={addNewCollectionButton}
+            style={addNewProductButton}
             color="primary"
             variant="contained"
             fullWidth
             type="submit"
           >
-            Add new collection
+            Add new product
           </Button>
           <Button
             style={closeWindowButton}
@@ -113,9 +113,9 @@ function AddNewCollection(props: Props) {
   );
 }
 
-export default AddNewCollection;
+export default AddNewProduct;
 
-const newCollectionContainer: CSSProperties = {
+const newProductContainer: CSSProperties = {
   backgroundColor: "black",
   position: "fixed",
   top: "50%",
@@ -129,7 +129,7 @@ const newCollectionContainer: CSSProperties = {
   width: "clamp(10rem, 90vmin, 40rem",
 };
 
-const addNewCollectionButton: CSSProperties = {
+const addNewProductButton: CSSProperties = {
   marginTop: "1rem",
   width: "40%",
   marginBottom: "1rem",

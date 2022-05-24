@@ -1,70 +1,76 @@
 import { Button, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import { CSSProperties } from "react";
+import * as yup from "yup";
 import { useProducts } from "../../context/ProductContext";
-import { NftItem } from "../../data/collections/collection";
+import { productDataItem } from "../../data/collections/dataTest";
 
-function AddNewNFT() {
-  const { addNft, addNftModal, closeAddNftModal, selectedCollectionID } =
-    useProducts();
-  //   const handleChange = (event: any) => {
-  //     setCollectionID(event.target.value);
-  //   };
+interface Props {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const validationSchema = yup.object({
+  name: yup.string().required("Please enter new name").min(1),
+  description: yup.string().required("Please enter a new description").min(2),
+  productImage: yup.string().required("Please enter a new image URL").min(10),
+});
+
+function EditProduct(props: Props) {
+  const {
+    editProductModal,
+    editProduct,
+    closeEditProductModal,
+  } = useProducts();
+
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
-      collection: 0,
-      NFTid: 0,
-      nftImage: "",
-      description: "",
+      productID: 0,
+      image: "",
       price: 0,
+      description: "",
+      count: 0,
+      categories: 0,
     },
+    validationSchema: validationSchema,
     onSubmit: (values) => {
-      let newNft: NftItem = {
-        NFTid: values.NFTid,
-        image: values.nftImage,
-        description: values.description,
+      let newProduct: productDataItem = {
+        productID: values.productID,
+        image: values.image,
         price: values.price,
-        count: 1,
-        collectionID: values.collection,
+        description: values.description,
+        count: values.count,
+        categories: values.categories,
       };
-      addNft(newNft, selectedCollectionID);
+      editProduct(newProduct);
       formik.resetForm();
-      closeAddNftModal();
+      closeEditProductModal();
     },
   });
+
+  if (!props.isOpen) return null;
+
   return (
     <div>
-      {addNftModal && (
-        <div style={newCollectionContainer}>
+        <div style={newProductContainer}>
           <div>
             <form style={formStyle} onSubmit={formik.handleSubmit}>
-              <h3>Add new NFT</h3>
+              <h3>Edit Product</h3>
+              <h3>Editing:</h3>
+
               <div style={textFieldsContainer}>
                 <TextField
                   style={textFieldStyle}
                   fullWidth
                   autoComplete="off"
-                  id="NFTid"
-                  name="NFTid"
-                  label="NFT ID"
-                  value={formik.values.NFTid}
+                  id="name"
+                  name="name"
+                  label="Colleciton name"
+                  value={formik.values.productID}
                   onChange={formik.handleChange}
-                  error={formik.touched.NFTid && Boolean(formik.errors.NFTid)}
-                  helperText={formik.touched.NFTid && formik.errors.NFTid}
-                />
-                <TextField
-                  style={textFieldStyle}
-                  fullWidth
-                  autoComplete="off"
-                  id="nftImage"
-                  name="nftImage"
-                  label="NFT image URL"
-                  value={formik.values.nftImage}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.nftImage && Boolean(formik.errors.nftImage)
-                  }
-                  helperText={formik.touched.nftImage && formik.errors.nftImage}
+                  error={formik.touched.productID && Boolean(formik.errors.productID)}
+                  helperText={formik.touched.productID && formik.errors.productID}
                 />
                 <TextField
                   style={textFieldStyle}
@@ -72,7 +78,7 @@ function AddNewNFT() {
                   autoComplete="off"
                   id="description"
                   name="description"
-                  label="NFT description"
+                  label="Product description"
                   value={formik.values.description}
                   onChange={formik.handleChange}
                   error={
@@ -87,44 +93,48 @@ function AddNewNFT() {
                   style={textFieldStyle}
                   fullWidth
                   autoComplete="off"
-                  id="price"
-                  name="price"
-                  label="Set NFT price"
-                  value={formik.values.price}
+                  id="productImage"
+                  name="productImage"
+                  label="Set product image URL"
+                  value={formik.values.image}
                   onChange={formik.handleChange}
-                  error={formik.touched.price && Boolean(formik.errors.price)}
-                  helperText={formik.touched.price && formik.errors.price}
+                  error={
+                    formik.touched.image &&
+                    Boolean(formik.errors.image)
+                  }
+                  helperText={
+                    formik.touched.image && formik.errors.image
+                  }
                 />
               </div>
               <Button
-                style={addNewNFTButton}
+                style={saveCloseEditButton}
                 color="primary"
                 variant="contained"
                 fullWidth
                 type="submit"
               >
-                Add new NFT
+                Save Edit
               </Button>
               <Button
-                style={closeWindowButton}
+                style={saveCloseEditButton}
                 color="primary"
                 variant="contained"
                 fullWidth
-                onClick={closeAddNftModal}
+                onClick={props.onClose}
               >
                 Close window
               </Button>
             </form>
           </div>
         </div>
-      )}
     </div>
   );
 }
 
-export default AddNewNFT;
+export default EditProduct;
 
-const newCollectionContainer: CSSProperties = {
+const newProductContainer: CSSProperties = {
   backgroundColor: "black",
   position: "fixed",
   top: "50%",
@@ -143,18 +153,6 @@ const textFieldStyle: CSSProperties = {
   width: "100%",
 };
 
-const addNewNFTButton: CSSProperties = {
-  marginTop: "1rem",
-  width: "40%",
-  marginBottom: "1rem",
-};
-
-const closeWindowButton: CSSProperties = {
-  marginTop: "1rem",
-  width: "40%",
-  marginBottom: "1rem",
-};
-
 const formStyle: CSSProperties = {
   display: "flex",
   justifyContent: "center",
@@ -169,4 +167,10 @@ const textFieldsContainer: CSSProperties = {
   flexDirection: "column",
   width: "90%",
   margin: "1rem",
+};
+
+const saveCloseEditButton: CSSProperties = {
+  marginTop: "1rem",
+  width: "40%",
+  marginBottom: "1rem",
 };

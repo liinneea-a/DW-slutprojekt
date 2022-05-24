@@ -3,13 +3,13 @@ import ItemCard from "../components/ItemCard";
 import { useProducts } from "../context/ProductContext";
 
 function AllCollections() {
-  const { collections } = useProducts();
+  const { products } = useProducts();
   return (
     <div style={collectionPageLayout}>
-      <h1 style={collectionsTitle}>Here are all the available collections:</h1>
+      <h1 style={collectionsTitle}>Here are all the available products:</h1>
       <div style={flexProducts}>
-        {collections.map((collection, index) => (
-          <ItemCard key={index} collectionCard={collection} />
+        {products.map((product, index) => (
+          <ItemCard key={index} productCard={product} />
         ))}
       </div>
     </div>

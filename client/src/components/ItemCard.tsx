@@ -1,101 +1,48 @@
 import { Button } from "@mui/material";
 import { CSSProperties } from "react";
-import { Link } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { useCart } from "../context/CartContext";
-import { collectionDataItem, NftItem } from "../data/collections/collection";
+import { productDataItem } from "../data/collections/dataTest";
 import FlipCard from "./FlipCard";
 
 interface cardInfo {
-  nftCard?: NftItem;
-  collectionCard?: collectionDataItem;
-  nftHeader?: string;
-  collectionName?: string;
+  productCard?: productDataItem;
 }
 
 function ItemCard(props: cardInfo) {
   const { addProduct } = useCart();
 
-  const nftInfo = {
-    id: props.nftCard?.NFTid,
-    buyPrice: props.nftCard?.price,
-    image: props.nftCard?.image,
-    headerImage: props.nftHeader,
-    collectionName: props.collectionName,
-    description: props.nftCard?.description,
-  };
-
-  const collectionInfo = {
-    id: props.collectionCard?.id,
-    name: props.collectionCard?.name,
-    floorPrice: props.collectionCard?.floorPrice,
-    volumeTraded: props.collectionCard?.volumeTraded,
-    productImageURL: props.collectionCard?.productImage,
+  const productInfo = {
+    id: props.productCard?.productID,
+    price: props.productCard?.price,
+    image: props.productCard?.image,
+    description: props.productCard?.description,
+    count: props.productCard?.count,
+    categories: props.productCard?.categories,
   };
 
   return (
-    <div>
-      {props.collectionCard && (
-        <div>
-          <div style={cardContainer}>
-            <h1> {collectionInfo.name}</h1>
-            <div style={cardPicture}>
-              <img
-                style={productImage}
-                srcSet={collectionInfo.productImageURL}
-                alt="test"
-              />
-            </div>
-            <h1 style={priceStyle}>
-              FROM:&nbsp;{" "}
-              <div>
-                {collectionInfo.floorPrice} SEK
-              </div>
-            </h1>
-            <Link
-              style={{ textDecoration: "none" }}
-              to={`/collection/${collectionInfo.id}`}
-            >
-              <Button style={buttonStyle} variant="contained" href="">
-                VIEW COLLECTION
-              </Button>
-            </Link>
+    <div style={cardContainer}>
+      <div style={cardHeader}>
+        <div style={headerText}>
+          <div> Product #{productInfo.id}
+          </div>
+          <div style={priceStyle}>
+            Price: {productInfo.price} SEK
           </div>
         </div>
-      )}
-      {props.nftCard && (
-        <div style={cardContainer}>
-          <div style={cardHeader}>
-            <img
-              style={collectionImage}
-              srcSet={nftInfo.headerImage}
-              alt="headerImg"
-            />
-            <div style={headerText}>
-              <div>
-                {nftInfo.collectionName} #{nftInfo.id}
-              </div>
-              <div style={priceStyle}>
-                Price:
-                <div>
-                  {nftInfo.buyPrice} SEK
-                </div>
-              </div>
-            </div>
-          </div>
-          <p style={clickMeStyle}>Click me!</p>
-          <div style={cardContent}>
-            <FlipCard nftCard={props.nftCard} />
-            <Button
-              style={buttonStyle}
-              variant="contained"
-              onClick={() => addProduct(props.nftCard)}
-            >
-              BUY NOW
-            </Button>
-          </div>
-        </div>
-      )}
+      </div>
+      <p style={clickMeStyle}>Click me!</p>
+      <div style={cardContent}>
+        <FlipCard productCard={props.productCard} />
+        <Button
+          style={buttonStyle}
+          variant="contained"
+          // onClick={() => addProduct(props.productCard)}
+        >
+          BUY NOW
+        </Button>
+      </div>
     </div>
   );
 }
