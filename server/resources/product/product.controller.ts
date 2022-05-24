@@ -117,7 +117,9 @@ export const deleteProduct = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
     const product = await ProductModel.findByIdAndDelete(id);
-
+    if(!product) {
+      return res.status(200).json(product);
+    }
     res.status(200).json(product);
   } catch (err: unknown) {
     if (err instanceof Error) {

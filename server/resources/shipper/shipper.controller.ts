@@ -31,6 +31,19 @@ export const addShipper = async (req: Request<{}, {}, Shipper>, res: Response, n
   }
 };
 
-export const deleteShipper = (req: Request, res: Response) => {
-  
+export const deleteShipper = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const shipper = await ShipperModel.findByIdAndDelete(id);
+   
+    if(!shipper) {
+      return res.status(404).json(shipper);
+    }
+
+    res.status(200).json(shipper);
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      res.status(400).json(err.message);
+    }
+  }
 }
