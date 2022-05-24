@@ -1,9 +1,9 @@
 import { Button, TextField } from "@mui/material";
 import { useFormik } from "formik";
-import * as yup from "yup";
 import { CSSProperties } from "react";
+import * as yup from "yup";
+import { useProducts } from "../../context/ProductContext";
 import { collectionDataItem } from "../../data/collections/collection";
-import { useProducts } from "../context/ProductContext";
 
 const validationSchema = yup.object({
   name: yup.string().required("Please enter new name").min(1),

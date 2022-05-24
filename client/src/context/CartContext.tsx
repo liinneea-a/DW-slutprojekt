@@ -1,8 +1,8 @@
 // @ts-ignore
 
 import { createContext, FC, useContext, useState } from "react";
-import { NftItem } from "../../data/collections/collection";
 import { toast } from "react-toastify";
+import { NftItem } from "../data/collections/collection";
 
 interface CartContext {
   purchaseList: NftItem[];
@@ -15,8 +15,6 @@ interface CartContext {
   totalPrice: number;
   purchaseTotal: number;
   newPurchaseTotal: (total : number) => void
-  // purchaseTotal : number;
-  // addPurchaseTotal: (plus: number) => void;
 }
 
 export const CartContext = createContext<CartContext>({
@@ -30,8 +28,6 @@ export const CartContext = createContext<CartContext>({
   totalPrice: 1,
   purchaseTotal: 1,
   newPurchaseTotal: (total : number) => {}
-  // purchaseTotal: 1,
-  // addPurchaseTotal: (plus : number) => {},
 });
 
 export const CartProvider: FC = (props) => {
@@ -44,11 +40,9 @@ export const CartProvider: FC = (props) => {
     cart.reduce((sum, nft) => sum + nft.price * nft.count, 0)
   );
   const [purchaseTotal, setPurchaseTotal] = useState(1)
-  // const [purchaseTotal, setPurchaseTotal] = useState(purchaseList.reduce((sum, nft) => sum + nft.price * nft.count, 0))
 
   const addPurchaseList = (list: NftItem[]) => {
     setPurchaseList(list);
-    // setPurchaseTotal(totalPrice);
   };
 
   const newPurchaseTotal = (total : number) => {setPurchaseTotal(total)}

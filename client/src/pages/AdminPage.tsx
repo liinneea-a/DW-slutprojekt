@@ -1,17 +1,17 @@
 import { Button } from "@mui/material";
-import { CSSProperties } from "react";
+import { CSSProperties, useState } from "react";
 import AddNewCollection from "../components/admin/addNewCollection";
 import AddNewNFT from "../components/admin/addNewNFT";
 import EditCollection from "../components/admin/editCollection";
 import EditNFT from "../components/admin/editNFT";
-import { useProducts } from "../components/context/ProductContext";
+import { useProducts } from "../context/ProductContext";
 
 function AdminPage() {
+  const [openAddCollectionModal, setOpenAddCollectionModal] = useState(false);
   const {
     collections,
     removeCollection,
     removeNft,
-    openAddCollectionModal,
     openAddNftModal,
     openEditNftModal,
     openEditCollectionModal,
@@ -27,16 +27,16 @@ function AdminPage() {
       >
         Clear local storage
       </Button>
-      {/* <Button
-        onClick={() => openAddCollectionModal()}
+      <Button
+        onClick={() => setOpenAddCollectionModal(true)}
         style={buttonStyle}
         variant="contained"
         href=""
       >
         Add Collection
-      </Button> */}
+      </Button>
       <div>
-        <AddNewCollection />
+        <AddNewCollection isOpen={openAddCollectionModal} onClose={() => setOpenAddCollectionModal(false)} />
         <AddNewNFT />
         <EditNFT />
         <EditCollection />
@@ -48,7 +48,7 @@ function AdminPage() {
               <h1>{collection.name}</h1>
               <p>Innehåller {collections.length} NFTS</p>
             </div>
-            {/* <div style={headerRight}>
+            <div style={headerRight}>
               <Button
                 onClick={() => removeCollection(collection.id)}
                 style={buttonStyle}
@@ -73,7 +73,7 @@ function AdminPage() {
               >
                 Add NFT
               </Button>
-            </div> */}
+            </div>
           </div>
           <div style={adminCollectionMain}>
             {collection.NFTS.map((nft, index) => (

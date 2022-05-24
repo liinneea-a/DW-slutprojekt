@@ -1,9 +1,9 @@
 import { Button, TextField } from "@mui/material";
 import { useFormik } from "formik";
+import { CSSProperties } from "react";
 import * as yup from "yup";
-import { CSSProperties, useState } from "react";
+import { useProducts } from "../../context/ProductContext";
 import { NftItem } from "../../data/collections/collection";
-import { useProducts } from "../context/ProductContext";
 
 const validationSchema = yup.object({
   nftImage: yup.string().required("Please enter new image URL").min(10),

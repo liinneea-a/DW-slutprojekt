@@ -1,8 +1,8 @@
 import { CSSProperties } from "react";
 import DeliveryInfoTableWithPay from "../components/checkoutComponents/DeliveryInfoTableWithPay";
 import GenerateOrderNumber from "../components/checkoutComponents/OrderNumber";
-import { useCart } from "../components/context/CartContext";
-import { useProducts } from "../components/context/ProductContext";
+import { useCart } from "../context/CartContext";
+import { useProducts } from "../context/ProductContext";
 import { NftItem } from "../data/collections/collection";
 import { DeliveryDataInfo } from "../data/collections/deliveryData";
 
@@ -26,54 +26,50 @@ function PurchaseComplete(props: Props) {
   }
 
   return (
-    <div>
-      <div style={rootStyle}>
-        <div style={purchaseCompleteContainer}>
-          <h2 style={purchaseCompleteTextStyle}>Purchase complete!</h2>
-          <div>
-            <GenerateOrderNumber />
-            <h2 style={deliveryDetailsTextStyle}>Delivery details</h2>
-            <DeliveryInfoTableWithPay deliveryInfo={props.deliveryInfo} />
-          </div>
-          <div style={totalPriceContainer}>
-            <h2 style={totalPriceTextStyle}>
-              Total price: {totalSumWithShipping} SEK
-            </h2>
-          </div>
-          <h2>Your purchase:</h2>
-          <div style={cardContainer}>
-            <div style={purchasedItems}>
-              {purchaseList.map((item: NftItem, index: number) => (
-                <div style={purchasedItemTestCard} key={index}>
-                  <div style={itemCountBadge}>
-                    <p style={itemCountTextStyle}>{item.count}</p>
-                  </div>
-                  <div style={cardHeader}>
-                    <h3 style={cardHeaderTextStyle}>
-                      {
-                        collections.find((col) => col.id === item.collectionID)
-                          ?.name
-                      }
-                      &nbsp;#{item.NFTid}
-                    </h3>
-                  </div>
-                  <div style={cardBody}>
-                    <div style={cardImageContainer}>
-                      <img
-                        srcSet={item.image}
-                        style={cardImageStyle}
-                        alt="item"
-                      />
-                    </div>
-                  </div>
-                  <div style={cardFooter}>
-                    <div>
-                      Price per item: {item.price} SEK
-                    </div>
+    <div style={rootStyle}>
+      <div style={purchaseCompleteContainer}>
+        <h2 style={purchaseCompleteTextStyle}>Purchase complete!</h2>
+        <div>
+          <GenerateOrderNumber />
+          <h2 style={deliveryDetailsTextStyle}>Delivery details</h2>
+          <DeliveryInfoTableWithPay deliveryInfo={props.deliveryInfo} />
+        </div>
+        <div style={totalPriceContainer}>
+          <h2 style={totalPriceTextStyle}>
+            Total price: {totalSumWithShipping} SEK
+          </h2>
+        </div>
+        <h2>Your purchase:</h2>
+        <div style={cardContainer}>
+          <div style={purchasedItems}>
+            {purchaseList.map((item: NftItem, index: number) => (
+              <div style={purchasedItemTestCard} key={index}>
+                <div style={itemCountBadge}>
+                  <p style={itemCountTextStyle}>{item.count}</p>
+                </div>
+                <div style={cardHeader}>
+                  <h3 style={cardHeaderTextStyle}>
+                    {
+                      collections.find((col) => col.id === item.collectionID)
+                        ?.name
+                    }
+                    &nbsp;#{item.NFTid}
+                  </h3>
+                </div>
+                <div style={cardBody}>
+                  <div style={cardImageContainer}>
+                    <img
+                      srcSet={item.image}
+                      style={cardImageStyle}
+                      alt="item"
+                    />
                   </div>
                 </div>
-              ))}
-            </div>
+                <div style={cardFooter}>
+                  <div>Price per item: {item.price} SEK</div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -100,7 +96,10 @@ const purchaseCompleteContainer: CSSProperties = {
   marginBottom: "2rem",
 };
 
-const purchaseCompleteTextStyle: CSSProperties = { fontSize: "2rem", textAlign: 'center' };
+const purchaseCompleteTextStyle: CSSProperties = {
+  fontSize: "2rem",
+  textAlign: "center",
+};
 
 const deliveryDetailsTextStyle: CSSProperties = {
   textAlign: "center",

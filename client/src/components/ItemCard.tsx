@@ -2,8 +2,8 @@ import { Button } from "@mui/material";
 import { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
+import { useCart } from "../context/CartContext";
 import { collectionDataItem, NftItem } from "../data/collections/collection";
-import { useCart } from "./context/CartContext";
 import FlipCard from "./FlipCard";
 
 interface cardInfo {

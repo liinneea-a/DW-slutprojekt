@@ -1,6 +1,5 @@
 import express from "express";
-import { addUser, deleteUser, getAllUsers, getUser, updateUser } from "./user.controller";
-import {authorize, ifAdmin, ifAdminOrSelf} from '../middlewares'
+import { addUser, deleteUser, getAllUsers, getLoggedInUser, getUser, loginUser, logoutUser, updateUser } from "./user.controller";
 
 export const userRouter = express
   .Router()
@@ -9,8 +8,13 @@ export const userRouter = express
   // .post("/user", validate, addUser)
   // .put("/user/:id", authorize, ifAdminOrSelf, updateUser)
   // .delete("/user/:id", authorize, ifAdminOrSelf, deleteUser);
+  
+  // TODO: lägg till säkerhet
   .get("/users", getAllUsers)
   .get("/user/:id", getUser)
   .post("/user", addUser)
   .put("/user/:id", updateUser)
-  .delete("/user/:id", deleteUser);
+  .delete("/user/:id", deleteUser)
+  .post('/login', loginUser)
+  .get('/loggedIn', getLoggedInUser)
+  .delete('/logout', logoutUser)

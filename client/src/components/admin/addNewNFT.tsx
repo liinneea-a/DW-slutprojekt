@@ -1,8 +1,8 @@
 import { Button, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import { CSSProperties } from "react";
+import { useProducts } from "../../context/ProductContext";
 import { NftItem } from "../../data/collections/collection";
-import { useProducts } from "../context/ProductContext";
 
 function AddNewNFT() {
   const { addNft, addNftModal, closeAddNftModal, selectedCollectionID } =
