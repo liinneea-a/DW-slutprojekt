@@ -59,7 +59,7 @@ export const CartProvider: FC = (props) => {
     });
     let NewProductList = cart;
     let foundItem = NewProductList.find(
-      (listedItem: any) => listedItem.NFTid === item?.NFTid
+      (listedItem: any) => listedItem.productID === item?.productID
     );
     if (foundItem) {
       foundItem.count += 1;
@@ -69,7 +69,7 @@ export const CartProvider: FC = (props) => {
       }
       NewProductList.push(
         item || {
-          NFTid: 12,
+          productID: 12,
           image: "blabla",
           price: 12,
           description: "bla",
@@ -85,7 +85,7 @@ export const CartProvider: FC = (props) => {
 
   const incQty = (itemID: number) => {
     let updatedList = cart.map((item: any) => {
-      if (item.NFTid === itemID) {
+      if (item.productID === itemID) {
         item.count += 1;
       }
       return item;
@@ -97,7 +97,7 @@ export const CartProvider: FC = (props) => {
 
   const decQty = (itemID: number) => {
     let updatedList = cart.filter((item: NftItem) => {
-      if (item.NFTid === itemID) {
+      if (item.productID === itemID) {
         if (item.count > 1) {
           item.count -= 1;
           return item;

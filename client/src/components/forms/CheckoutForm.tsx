@@ -5,15 +5,15 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  TextField
+  TextField,
 } from "@mui/material";
 import { useFormik } from "formik";
 import { CSSProperties, useContext, useEffect, useState } from "react";
-import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
+import { ShipperContext } from "../../context/ShipperContext";
 import { DeliveryDataInfo } from "../../data/collections/deliveryData";
 import DeliveryBox from "../checkoutComponents/shipping/deliveryBox";
-import { ShipperContext } from "../../context/ShipperContext";
 
 interface Props {
   deliveryInfo: DeliveryDataInfo;
@@ -42,6 +42,7 @@ function CheckoutForm(props: Props) {
   const [shippers, setShippers] = useState([]);
 
   const navigate = useNavigate();
+  console.log(shippers);
 
   console.log(selectedShipping);
 
@@ -74,6 +75,7 @@ function CheckoutForm(props: Props) {
   async function getShippers() {
     const shippers = await getAllShippers();
     setShippers(shippers);
+    console.log(shippers);
   }
 
   useEffect(() => {

@@ -1,15 +1,20 @@
-import { CSSProperties } from "react";
+import { CSSProperties, useEffect } from "react";
 import ItemCard from "../components/ItemCard";
 import { useProducts } from "../context/ProductContext";
 
-function AllCollections() {
-  const { collections } = useProducts();
+function AllProducts() {
+  const { getAllProducts, products } = useProducts();
+
+  useEffect(() => {
+    getAllProducts();
+  }, []);
+
   return (
     <div style={collectionPageLayout}>
-      <h1 style={collectionsTitle}>Here are all the available collections:</h1>
+      <h1 style={collectionsTitle}>Here are all the available products:</h1>
       <div style={flexProducts}>
-        {collections.map((collection, index) => (
-          <ItemCard key={index} collectionCard={collection} />
+        {products.map((product, index) => (
+          <ItemCard key={product.id} product={product} />
         ))}
       </div>
     </div>
@@ -36,4 +41,4 @@ const collectionPageLayout: CSSProperties = {
   maxWidth: "80rem",
 };
 
-export default AllCollections;
+export default AllProducts;

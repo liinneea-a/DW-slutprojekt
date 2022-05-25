@@ -1,10 +1,12 @@
 import mongoose, { Schema, Types } from "mongoose";
-import { Product } from '../product/product.model';
+import { Product, productSchema } from "../product/product.model";
+import { User } from "../user";
 import { Address, addressSchema } from "./address.schema";
 import { Shipper, shippperSchema } from "./shipper.schema";
 
 export interface Order {
-  customer: Types.ObjectId;
+  id: string;
+  customer: User;
   products: Product[];
   shipper: Shipper;
   deliveryAddress: Address;
@@ -12,24 +14,22 @@ export interface Order {
   // updatedAt: Date;
   paymentMethod: string;
   isSent: Boolean;
-  /** virtual */totalPrice: number
-  
+  /** virtual */ totalPrice: number;
 }
 
-const orderSchema = new mongoose.Schema(
+const orderSchema = new mongoose.Schema<Order>(
   {
     customer: { type: Schema.Types.ObjectId, ref: "user", required: true },
-    products: { type: [Schema.Types.ObjectId], ref: "product", required: true },
-    shipper: { type: shippperSchema, required: true},
-    deliveryAddress: { type: addressSchema, required: true},
-    isSent: { type: Boolean, required: true, default: false},
-    paymentMethod: { type: String, required: true}
-
+    products: { type: [productSchema], required: true },
+    shipper: { type: shippperSchema, required: true },
+    deliveryAddress: { type: addressSchema, required: true },
+    isSent: { type: Boolean, required: true, default: false },
+    paymentMethod: { type: String, required: true },
   },
   {
     timestamps: true,
-    toJSON: { virtuals: true},
-    toObject: { virtuals: true}
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 );
 
@@ -45,17 +45,15 @@ const orderSchema = new mongoose.Schema(
 //     }
 // })
 
-orderSchema.virtual('quantityOfProducts').get(function() {
-    const priceTotal = 1000;
-    const priceSingle = 200;
+orderSchema.virtual("quantityOfProducts").get(function () {
+  const priceTotal = 1000;
+  const priceSingle = 200;
   let quantity: number;
 
   for (let x = 0; priceTotal / x > priceSingle; x++) {
     quantity = x;
     return quantity;
-  };
+  }
+});
 
-
-})
-
-export const OrderModel = mongoose.model<Order>("order", orderSchema);
+export const OrderModel = mongoose.model("order", orderSchema);
