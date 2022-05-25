@@ -11,7 +11,7 @@ export interface User {
 const UserSchema = new mongoose.Schema<User>( //? Stor bokstav och <User>
   {
     email: { type: String, required: true },
-    password: { type: String, required: true, select: false },
+    password: { type: String, required: true, select: true },
     isAdmin: { type: Boolean, required: true, default: false },
   },
   {
@@ -25,13 +25,6 @@ UserSchema.pre('save', encryptPassword);
 UserSchema.pre('updateOne', encryptPassword);
 
 export async function encryptPassword(this: User, next: Function) {
- console.log('in crypt password')
- console.log(this)
-  // if (!this.isModified('password')) {
-  //   console.log('password is not modified');
-  //   return next();
-  // }
-  
   this.password = await bcrypt.hash(this.password!, 10);
   next();
 }
