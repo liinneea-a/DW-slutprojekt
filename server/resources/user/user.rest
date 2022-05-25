@@ -1,46 +1,42 @@
+# Get all user
 GET http://localhost:4000/api/users
 
-###
-
+### Get logged in user
 GET http://localhost:4000/api/loggedin
 
-###
+### Get one user
+GET http://localhost:4000/api/user/628deb767ce663a2f365b650
 
-GET http://localhost:4000/api/user/628b815b1ee6608822f08c21
-
-###
-
+### Post new user
 POST http://localhost:4000/api/user
 Content-Type: application/json
 
 {
-  "email": "r@r.com",
-  "password": "123123"
+  "email": "lii@lii.com",
+  "password": "123123",
 }
 
-###
-
+### Log in 
 POST http://localhost:4000/api/login
 Content-Type: application/json
 
 {
-  "email": "linnea@linnea.com",
-  "password": "123123"
+  "email": "lii@lii.com",
+  "password": "123"
 }
 
-### 
-
-PUT http://localhost:4000/api/user/628cddc38fd273202d34d860
+### Update user
+PUT http://localhost:4000/api/user/628ded258bfd9f9bd9e5902a
 Content-Type: application/json
 
 {
-  "email": "linnea@linnea.com"
+  "email": "lii@lii.com",
+  "password": "123",
+  "isAdmin": false
 }
 
-###
-
+### Delete user
 DELETE http://localhost:4000/api/user/628792ccdd2e580d8d820450
 
-###
-
+### Log out
 DELETE http://localhost:4000/api/logout
