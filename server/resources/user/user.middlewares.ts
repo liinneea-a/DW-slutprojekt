@@ -23,9 +23,8 @@ export const authorize = (req: Request, res: Response, next: NextFunction) => {
   
   export const ifAdminOrSelf = async (req: Request, res: Response, next: NextFunction) => {
     const user = await UserModel.findById(req.params.id);
-    const isAdmin = req.session?.user.isAdmin;
+    const isAdmin = req.session?.isAdmin;
     const myContent = user?.id && user === req.session?.user.id 
-  
     if(!isAdmin && !myContent) {
       res.status(403).json('forbidden')
     }
