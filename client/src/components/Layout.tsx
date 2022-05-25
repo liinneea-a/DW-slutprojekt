@@ -16,6 +16,7 @@ import CartModal from "./CartModal";
 import { CartProvider } from '../context/CartContext'
 import { ProductProvider } from "../context/ProductContext";
 import { ShipperProvider } from "../context/ShipperContext";
+import { UserProvider } from "../context/LoginContext";
 import Footer from "./Footer";
 import Header from "./Header";
 
@@ -29,6 +30,7 @@ function Layout() {
       <CartProvider>
         <ProductProvider>
           <ShipperProvider>
+            <UserProvider>
           <BrowserRouter>
             <Header
               modalState={modalState}
@@ -78,6 +80,7 @@ function Layout() {
             </div>
             <ToastContainer />
           </BrowserRouter>
+          </UserProvider>
           </ShipperProvider>
         </ProductProvider>
       </CartProvider>
