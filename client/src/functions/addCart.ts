@@ -1,7 +1,7 @@
 // @ts-ignore
 
 interface testNft {
-  NFTid: number;
+  productID: number;
   image: string;
   price: number;
   description: string;
@@ -9,7 +9,7 @@ interface testNft {
 
 export function addCart(setCart : any, cart: any, item: testNft | undefined) {
     let CartList = cart || [];
-    let foundItem = CartList.find((listedItem : any) => listedItem.NFTid === item?.NFTid)
+    let foundItem = CartList.find((listedItem : any) => listedItem.productID === item?.productID)
     if(foundItem) {
       foundItem.count += 1
       console.log('Finns redan')

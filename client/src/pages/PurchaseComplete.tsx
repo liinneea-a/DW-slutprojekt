@@ -3,7 +3,6 @@ import DeliveryInfoTableWithPay from "../components/checkoutComponents/DeliveryI
 import GenerateOrderNumber from "../components/checkoutComponents/OrderNumber";
 import { useCart } from "../context/CartContext";
 import { useProducts } from "../context/ProductContext";
-import { NftItem } from "../data/collections/collection";
 import { DeliveryDataInfo } from "../data/collections/deliveryData";
 
 interface Props {
@@ -13,7 +12,7 @@ interface Props {
 
 function PurchaseComplete(props: Props) {
   const { purchaseList, purchaseTotal } = useCart();
-  const { collections } = useProducts();
+  // const { products } = useProducts();
 
   let totalSumWithShipping = 0;
 
@@ -42,7 +41,7 @@ function PurchaseComplete(props: Props) {
         <h2>Your purchase:</h2>
         <div style={cardContainer}>
           <div style={purchasedItems}>
-            {purchaseList.map((item: NftItem, index: number) => (
+            {/* {purchaseList.map((item: NftItem, index: number) => (
               <div style={purchasedItemTestCard} key={index}>
                 <div style={itemCountBadge}>
                   <p style={itemCountTextStyle}>{item.count}</p>
@@ -53,7 +52,7 @@ function PurchaseComplete(props: Props) {
                       collections.find((col) => col.id === item.collectionID)
                         ?.name
                     }
-                    &nbsp;#{item.NFTid}
+                    &nbsp;#{item.productID}
                   </h3>
                 </div>
                 <div style={cardBody}>
@@ -69,7 +68,7 @@ function PurchaseComplete(props: Props) {
                   <div>Price per item: {item.price} SEK</div>
                 </div>
               </div>
-            ))}
+            ))} */}
           </div>
         </div>
       </div>

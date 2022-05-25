@@ -1,7 +1,9 @@
 import { Button, TextField } from "@mui/material";
 import { useFormik } from "formik";
-import { CSSProperties } from "react";
+import { CSSProperties, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import { UserContext } from "../../context/LoginContext";
 
 const validationSchema = yup.object({
   email: yup
@@ -16,6 +18,13 @@ const validationSchema = yup.object({
 });
 
 function LoginForm() {
+
+  const { loginUser, isLoggedIn, loggedInUser} = useContext(UserContext);
+  const [failedLogin, setFailedLogin] = useState(false);
+  const navigate = useNavigate();
+
+  console.log(loggedInUser)
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -23,9 +32,26 @@ function LoginForm() {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
+      let user = {
+        email: values.email,
+        password: values.password
+      }
+      handleLoginUser(user)
       console.log(values);
     },
   });
+
+  async function handleLoginUser(user: {}) {
+    console.log(user)
+    const userToBeLogedIn = await loginUser(user)
+    console.log(userToBeLogedIn)
+
+    if (!userToBeLogedIn) {
+      setFailedLogin(true)
+    }  else {
+      navigate("/all")
+    } 
+  }
 
   return (
       <form style={loginForm} onSubmit={formik.handleSubmit}>
@@ -54,6 +80,9 @@ function LoginForm() {
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
           />
+          <p style={{ color: "red", fontSize: ".8rem" }}>
+                {failedLogin ? "Wrong username or password" : undefined}
+              </p>
           <Button
             style={nextButtonStyle}
             color="primary"
