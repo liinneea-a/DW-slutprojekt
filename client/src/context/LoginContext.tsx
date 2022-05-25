@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { boolean } from "yup/lib/locale";
 import { makeReq } from "../helper";
 
 interface User {
@@ -9,7 +10,11 @@ interface User {
 
 interface UserContext {
   loggedInUser: User;
-  fetchLoggedInUser: () => void;
+  /* setIsLoggedIn: React.Dispatch<React.SetStateAction<any[]>>,
+  setLoggedInUser: React.Dispatch<React.SetStateAction<any[]>>, */
+  postUser: ({}) => Promise<any>
+  loginUser: ({}) => Promise<any>
+  //fetchLoggedInUser: () => void;
   isLoggedIn: boolean;
   signOut: () => void;
 }
@@ -20,7 +25,9 @@ export const UserContext = createContext<UserContext>({
     password: "test",
     isAdmin: false,
   },
-  fetchLoggedInUser: () => {},
+  postUser: async () => {},
+  loginUser: async () => {},
+  //fetchLoggedInUser: () => {},
   isLoggedIn: false,
   signOut: () => {},
 });
@@ -33,13 +40,38 @@ export const UserProvider = (props: any) => {
     isAdmin: false,
   });
 
-  useEffect(() => {
+  console.log(loggedInUser, isLoggedIn)
+
+  const postUser = async (user: {}) => {
+    try {
+      let response = await makeReq("/api/user", "POST", user);
+      console.log(response)
+      return response
+    } catch (err) {
+      return console.log(err);
+    }
+  }
+
+  const loginUser = async (user: {}) => {
+    try {
+      let response = await makeReq("/api/login", "POST", user);
+      /* console.log(response) */
+      setLoggedInUser(response)
+      setIsLoggedIn(true)
+      return response
+    } catch (err) {
+      return console.log(err);
+    }
+  }
+
+
+  /* useEffect(() => {
     fetchLoggedInUser();
   }, []);
 
   const fetchLoggedInUser = async () => {
     try {
-      let response = await makeReq(`/api/loggedin`, "GET");
+      let response = await makeReq("/api/loggedin", "GET");
       if (!response.email) {
         return setIsLoggedIn(false);
       }
@@ -49,7 +81,7 @@ export const UserProvider = (props: any) => {
     } catch (err) {
       return console.log(err);
     }
-  };
+  }; */
 
   const signOut = async () => {
     let response = await makeReq("/api/logout", "DELETE");
@@ -66,8 +98,12 @@ export const UserProvider = (props: any) => {
     <UserContext.Provider
       value={{
         loggedInUser,
+        postUser,
+        loginUser,
         isLoggedIn,
-        fetchLoggedInUser,
+        /* setIsLoggedIn,
+        setLoggedInUser, */
+        //fetchLoggedInUser,
         signOut,
       }}
     >

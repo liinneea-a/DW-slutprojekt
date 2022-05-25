@@ -1,7 +1,8 @@
 import { Button, TextField } from "@mui/material";
 import { useFormik } from "formik";
-import { CSSProperties } from "react";
+import { CSSProperties, useContext } from "react";
 import * as yup from "yup";
+import { UserContext } from "../../context/LoginContext";
 
 const validationSchema = yup.object({
   email: yup
@@ -20,6 +21,9 @@ const validationSchema = yup.object({
 });
 
 function RegisterForm() {
+
+  const { postUser } = useContext(UserContext);
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -28,9 +32,21 @@ function RegisterForm() {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values);
+      let user = {
+        email: values.email,
+        password: values.password,
+      }
+      createNewUser(user)
+      //console.log(values);
+    
     },
   });
+
+  async function createNewUser(user: {}) {
+    console.log(user)
+    const newUser = await postUser(user)
+    console.log(newUser)
+  }
 
   return (
     <form style={registerForm} onSubmit={formik.handleSubmit}>

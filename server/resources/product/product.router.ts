@@ -9,5 +9,3 @@ export const productRouter = express
   .post("/product", addProduct)
   .put("/product/:id", updateProduct)
   .delete("/product/:id", deleteProduct);
-
-  // .patch?
