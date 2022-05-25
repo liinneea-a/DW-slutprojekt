@@ -1,67 +1,49 @@
 import { createContext, FC, useContext, useState } from "react";
-import { productData, productDataItem } from "../data/collections/dataTest";
+import { Product } from "@shared/types";
 
 interface ProductContext {
-  products: productDataItem[];
-  getAllProducts: () => void;
-  addProduct: (product: productDataItem) => void;
-  removeProduct: (productID: number) => void;
-  editProduct: (product: productDataItem) => void;
+  selectedProduct: {};
+  setSelectedProduct: {};
+  products: Product[];
+  getAllProducts: () => Promise<any>;
+  addProduct: () => void;
+  removeProduct: () => void;
+  editProduct: () => void;
 }
 
 const ProductsContext = createContext<ProductContext>({
+  selectedProduct: {},
+  setSelectedProduct: {},
   products: [],
-  addProduct: (product: productDataItem) => {},
-  getAllProducts: () => {},
-  removeProduct: (productID: number) => {},
-  editProduct: (product: productDataItem) => {},
+  addProduct: () => {},
+  getAllProducts: async () => void [],
+  removeProduct: () => {},
+  editProduct: () => {},
 });
 
 export const ProductProvider: FC = (props) => {
-  let localData = localStorage.getItem("products");
-  const [products, setProducts] = useState(
-    localData ? JSON.parse(localData) : productData
-  );
+  const [selectedProduct, setSelectedProduct] = useState({});
+  const [products, setProducts] = useState<Product[]>([]);
 
   const getAllProducts = async () => {
-    const response = await fetch("/api/testproduct");
-    const result = await Promise.resolve(response.json);
-    const products: String[] = result;
-    return products;
+    const response = await fetch("/api/testproducts");
+    const result = await response.json();
+    setProducts(result);
   };
 
-  const addProduct = (product: productDataItem) => {
-    product.productID = products.length + 1;
-    let updatedList = [...products, product];
-    setProducts(updatedList);
-    localStorage.setItem("products", JSON.stringify(updatedList));
-  };
+  const addProduct = () => {};
 
-  const removeProduct = (productproductID: number) => {
-    let updatedList = products.filter(
-      (item: any) => item.productID !== productproductID
-    );
-    setProducts(updatedList);
-    localStorage.setItem("products", JSON.stringify(updatedList));
-  };
+  const removeProduct = () => {};
 
-  const editProduct = (newProduct: productDataItem) => {
-    let updatedList = products.map((product: productDataItem) => {
-      if (product.productID === newProduct.productID) {
-        product = newProduct;
-        return product;
-      }
-      return product;
-    });
-    setProducts(updatedList);
-    localStorage.setItem("products", JSON.stringify(updatedList));
-  };
+  const editProduct = () => {};
 
   return (
     <ProductsContext.Provider
       value={{
-        getAllProducts,
+        selectedProduct,
+        setSelectedProduct,
         products,
+        getAllProducts,
         addProduct,
         removeProduct,
         editProduct,

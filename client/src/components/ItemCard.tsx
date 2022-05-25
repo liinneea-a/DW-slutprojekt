@@ -1,12 +1,12 @@
 import { Button } from "@mui/material";
 import { CSSProperties } from "react";
 import "react-toastify/dist/ReactToastify.css";
+import { Product } from "@shared/types";
 import { useCart } from "../context/CartContext";
-import { productDataItem } from "../data/collections/dataTest";
 import FlipCard from "./FlipCard";
 
 interface cardInfo {
-  productCard?: productDataItem;
+  productCard?: Product[];
 }
 
 function ItemCard(props: cardInfo) {
@@ -25,11 +25,8 @@ function ItemCard(props: cardInfo) {
     <div style={cardContainer}>
       <div style={cardHeader}>
         <div style={headerText}>
-          <div> Product #{productInfo.id}
-          </div>
-          <div style={priceStyle}>
-            Price: {productInfo.price} SEK
-          </div>
+          <div> Product #{productInfo.id}</div>
+          <div style={priceStyle}>Price: {productInfo.price} SEK</div>
         </div>
       </div>
       <p style={clickMeStyle}>Click me!</p>

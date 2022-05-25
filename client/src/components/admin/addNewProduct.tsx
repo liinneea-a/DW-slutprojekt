@@ -29,7 +29,7 @@ function AddNewProduct(props: Props) {
         count: values.count,
         categories: values.categories,
       };
-      addProduct(newProduct);
+      // addProduct(newProduct);
       formik.resetForm();
       props.onClose();
     },
@@ -52,8 +52,34 @@ function AddNewProduct(props: Props) {
               label="Product id"
               value={formik.values.productID}
               onChange={formik.handleChange}
-              error={formik.touched.productID && Boolean(formik.errors.productID)}
+              error={
+                formik.touched.productID && Boolean(formik.errors.productID)
+              }
               helperText={formik.touched.productID && formik.errors.productID}
+            />
+            <TextField
+              style={textFieldStyle}
+              fullWidth
+              autoComplete="off"
+              id="image"
+              name="image"
+              label="Product Image URL"
+              value={formik.values.image}
+              onChange={formik.handleChange}
+              error={formik.touched.image && Boolean(formik.errors.image)}
+              helperText={formik.touched.image && formik.errors.image}
+            />
+            <TextField
+              style={textFieldStyle}
+              fullWidth
+              autoComplete="off"
+              id="price"
+              name="price"
+              label="Product Price"
+              value={formik.values.price}
+              onChange={formik.handleChange}
+              error={formik.touched.price && Boolean(formik.errors.price)}
+              helperText={formik.touched.price && formik.errors.price}
             />
             <TextField
               style={textFieldStyle}
@@ -75,18 +101,27 @@ function AddNewProduct(props: Props) {
               style={textFieldStyle}
               fullWidth
               autoComplete="off"
-              id="productImage"
-              name="productImage"
-              label="Product Image URL"
-              value={formik.values.image}
+              id="count"
+              name="count"
+              label="Count"
+              value={formik.values.count}
+              onChange={formik.handleChange}
+              error={formik.touched.count && Boolean(formik.errors.count)}
+              helperText={formik.touched.count && formik.errors.count}
+            />
+            <TextField
+              style={textFieldStyle}
+              fullWidth
+              autoComplete="off"
+              id="categories"
+              name="categories"
+              label="Product Categories"
+              value={formik.values.categories}
               onChange={formik.handleChange}
               error={
-                formik.touched.image &&
-                Boolean(formik.errors.image)
+                formik.touched.categories && Boolean(formik.errors.categories)
               }
-              helperText={
-                formik.touched.image && formik.errors.image
-              }
+              helperText={formik.touched.categories && formik.errors.categories}
             />
           </div>
           <Button

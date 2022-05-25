@@ -1,15 +1,17 @@
 import { CSSProperties, useState } from "react";
+import { Product } from "@shared/types";
 import "../CSS/FlipCard.css";
-import { productDataItem } from "../data/collections/dataTest";
 
 interface productInfo {
-  productCard?: productDataItem;
-  nftHeader?: string;
-  collectionName?: string;
+  productCard?: Product[];
 }
 
 function FlipCard(props: productInfo) {
   const [flip, setFlip] = useState(false);
+
+  const productInfo = {
+    id: props.productCard?.
+  }
 
   return (
     <div

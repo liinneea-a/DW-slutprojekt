@@ -5,7 +5,6 @@ import { useCart } from "../context/CartContext";
 import { useProducts } from "../context/ProductContext";
 import { DeliveryDataInfo } from "../data/collections/deliveryData";
 
-
 interface Props {
   deliveryInfo: DeliveryDataInfo;
   finalTotalSum: number;
@@ -13,7 +12,7 @@ interface Props {
 
 function PurchaseComplete(props: Props) {
   const { purchaseList, purchaseTotal } = useCart();
-  const { products } = useProducts();
+  // const { products } = useProducts();
 
   let totalSumWithShipping = 0;
 

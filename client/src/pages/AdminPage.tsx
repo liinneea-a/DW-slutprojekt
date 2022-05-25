@@ -1,24 +1,23 @@
 import { Button } from "@mui/material";
-import { CSSProperties, useState } from "react";
+import { CSSProperties, useEffect, useState } from "react";
 import AddNewCollection from "../components/admin/addNewProduct";
-// import EditCollection from "../components/admin/editCollection";
 import { useProducts } from "../context/ProductContext";
+import EditProduct from "../components/admin/editProduct";
 
 function AdminPage() {
-  const [openAddCollectionModal, setOpenAddCollectionModal] = useState(false);
-  const [openEditCollectionModal, setOpenEditCollectionModal] = useState(false);
-  const [openAddNftModal, setOpenAddNftModal] = useState(false);
-  const [openEditNftModal, setOpenEditNftModal] = useState(false);
-  const {
-    products,
-    removeProduct,
-  } = useProducts();
+  const [openAddProductModal, setOpenAddProductModal] = useState(false);
+  const [openEditProductModal, setOpenEditProductModal] = useState(false);
+  const { getAllProducts, products, addProduct, editProduct, removeProduct } =
+    useProducts();
+
+  useEffect(() => {
+    getAllProducts();
+  }, []);
 
   return (
     <div style={adminPageLayout}>
       <Button
-        onClick={() => 
-          localStorage.clear()}
+        onClick={() => localStorage.clear()}
         style={buttonStyle}
         variant="contained"
         href=""
@@ -26,7 +25,7 @@ function AdminPage() {
         Clear LS
       </Button>
       <Button
-        onClick={() => setOpenAddCollectionModal(true)}
+        onClick={() => setOpenAddProductModal(true)}
         style={buttonStyle}
         variant="contained"
         href=""
@@ -35,23 +34,27 @@ function AdminPage() {
       </Button>
       <div>
         <AddNewCollection
-          isOpen={openAddCollectionModal}
-          onClose={() => setOpenAddCollectionModal(false)}
+          isOpen={openAddProductModal}
+          onClose={() => setOpenAddProductModal(false)}
+        />
+        <EditProduct
+          isOpen={openEditProductModal}
+          onClose={() => setOpenEditProductModal(false)}
         />
       </div>
       <div style={adminProducts}>
         {products.map((product, index) => (
-          <div style={adminAddStyle} key={index}>
+          <div style={adminAddStyle} key={product.id}>
             <div style={adminCardHeader}>
               <div
                 style={{ display: "flex", flexDirection: "row", gap: "2rem" }}
               >
-                <div>Product #{product.productID}</div>
+                <div>Product #{product.name}</div>
                 <div>{product.price} SEK</div>
               </div>
               <div style={buttonDivStyle}>
                 <Button
-                  onClick={() => setOpenEditNftModal(true)}
+                  onClick={() => setOpenEditProductModal(true)}
                   style={editButtonStyle}
                   variant="contained"
                   href=""
@@ -59,7 +62,7 @@ function AdminPage() {
                   Edit
                 </Button>
                 <Button
-                  onClick={() => removeProduct(product.productID)}
+                  onClick={() => removeProduct()}
                   style={editButtonStyle}
                   variant="contained"
                   href=""
@@ -70,7 +73,7 @@ function AdminPage() {
             </div>
             <div style={adminCardMiddle}>
               <div style={adminCardMidLeft}>
-                <img style={adminImageStyle} alt="" srcSet={product.image} />
+                <img style={adminImageStyle} alt="" srcSet={product.imageId} />
               </div>
               <div style={adminCardMidRight}>
                 <div style={descStyle}>{product.description}</div>
@@ -98,8 +101,8 @@ const adminPageLayout: CSSProperties = {
 const adminProducts: CSSProperties = {
   display: "flex",
   flexDirection: "row",
-  justifyContent: 'center',
-  flexWrap: 'wrap',
+  justifyContent: "center",
+  flexWrap: "wrap",
   width: "90%",
   padding: "0 1rem 1rem 1rem",
   gap: "1rem",

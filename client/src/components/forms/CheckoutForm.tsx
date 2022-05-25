@@ -5,7 +5,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  TextField
+  TextField,
 } from "@mui/material";
 import { useFormik } from "formik";
 import { CSSProperties, useContext, useEffect, useState } from "react";
@@ -42,6 +42,7 @@ function CheckoutForm(props: Props) {
   const [shippers, setShippers] = useState([]);
 
   const navigate = useNavigate();
+  console.log(shippers);
 
   console.log(selectedShipping);
 
@@ -74,6 +75,7 @@ function CheckoutForm(props: Props) {
   async function getShippers() {
     const shippers = await getAllShippers();
     setShippers(shippers);
+    console.log(shippers);
   }
 
   useEffect(() => {

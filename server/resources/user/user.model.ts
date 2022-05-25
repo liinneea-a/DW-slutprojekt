@@ -1,7 +1,8 @@
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 import mongoose from "mongoose";
 
 export interface User {
+  id: string;
   email: string;
   password?: string;
   isAdmin: boolean;
@@ -10,7 +11,7 @@ export interface User {
 const UserSchema = new mongoose.Schema<User>( //? Stor bokstav och <User>
   {
     email: { type: String, required: true },
-    password: { type: String, required: true, select: false  },
+    password: { type: String, required: true, select: false },
     isAdmin: { type: Boolean, required: true, default: false },
   },
   {

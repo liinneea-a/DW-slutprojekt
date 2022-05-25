@@ -3,11 +3,11 @@ import ItemCard from "../components/ItemCard";
 import { useProducts } from "../context/ProductContext";
 
 function StartPage(startPageProps: any) {
-  const { products } = useProducts();
+  // const { products } = useProducts();
 
-  let randomList = products
-    .sort(() => Math.random() - Math.random())
-    .slice(0, 6);
+  // let randomList = products
+  //   .sort(() => Math.random() - Math.random())
+  //   .slice(0, 6);
 
   return (
     <div style={rootStyle}>
@@ -27,11 +27,11 @@ function StartPage(startPageProps: any) {
             <h1>HOTTEST ITEMS RIGHT NOW</h1>
           </div>
 
-          <div style={flexProducts}>
+          {/* <div style={flexProducts}>
             {randomList.map((products, index) => (
               <ItemCard key={index} productCard={products} />
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

@@ -6,7 +6,7 @@ import { useProducts } from "../context/ProductContext";
 
 function CheckoutPage() {
   const { cart, totalPrice } = useCart();
-  const { products } = useProducts();
+  // const { products } = useProducts();
 
   return (
     <div style={rootStyle}>
