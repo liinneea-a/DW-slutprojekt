@@ -1,51 +1,33 @@
 import { createContext, FC, useContext, useState } from "react";
 import { productData, productDataItem } from "../data/collections/dataTest";
-import { makeReq } from "../helper";
 
 interface ProductContext {
   products: productDataItem[];
-  fetchProducts: () => void;
+  getAllProducts: () => void;
   addProduct: (product: productDataItem) => void;
   removeProduct: (productID: number) => void;
   editProduct: (product: productDataItem) => void;
-  editProductModal: boolean;
-  openEditProductModal: (product: productDataItem) => void;
-  closeEditProductModal: () => void;
 }
 
 const ProductsContext = createContext<ProductContext>({
   products: [],
   addProduct: (product: productDataItem) => {},
-  fetchProducts: () => {},
+  getAllProducts: () => {},
   removeProduct: (productID: number) => {},
   editProduct: (product: productDataItem) => {},
-  editProductModal: false,
-  openEditProductModal: (product: productDataItem) => {},
-  closeEditProductModal: () => {},
 });
 
 export const ProductProvider: FC = (props) => {
   let localData = localStorage.getItem("products");
-  const [editProductModal, setEditProductModal] = useState(false);
   const [products, setProducts] = useState(
     localData ? JSON.parse(localData) : productData
   );
 
-  const openEditProductModal = (product: productDataItem) => {
-    setEditProductModal(true);
-  };
-
-  const closeEditProductModal = () => {
-    setEditProductModal(false);
-  };
-
-  const fetchProducts = async () => {
-    try {
-      let response = await makeReq(`/api/testdata`, "GET");
-      console.log(response);
-    } catch (err) {
-      return console.log(err);
-    }
+  const getAllProducts = async () => {
+    const response = await fetch("/api/testproduct");
+    const result = await Promise.resolve(response.json);
+    const products: String[] = result;
+    return products;
   };
 
   const addProduct = (product: productDataItem) => {
@@ -78,16 +60,16 @@ export const ProductProvider: FC = (props) => {
   return (
     <ProductsContext.Provider
       value={{
-        closeEditProductModal,
-        openEditProductModal,
-        fetchProducts,
-        editProductModal,
+        getAllProducts,
         products,
         addProduct,
         removeProduct,
         editProduct,
       }}
-    > {props.children}</ProductsContext.Provider>
+    >
+      {" "}
+      {props.children}
+    </ProductsContext.Provider>
   );
 };
 
