@@ -14,7 +14,7 @@ function AllProducts() {
       <h1 style={collectionsTitle}>Here are all the available products:</h1>
       <div style={flexProducts}>
         {products.map((product, index) => (
-          <ItemCard key={product.id} />
+          <ItemCard key={product.id} product={product} />
         ))}
       </div>
     </div>

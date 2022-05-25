@@ -1,13 +1,17 @@
-import { CSSProperties } from "react";
+import { CSSProperties, useEffect } from "react";
 import ItemCard from "../components/ItemCard";
 import { useProducts } from "../context/ProductContext";
 
 function StartPage(startPageProps: any) {
-  // const { products } = useProducts();
+  const { getAllProducts, products } = useProducts();
 
-  // let randomList = products
-  //   .sort(() => Math.random() - Math.random())
-  //   .slice(0, 6);
+  let randomList = products
+    .sort(() => Math.random() - Math.random())
+    .slice(0, 6);
+
+  useEffect(() => {
+    getAllProducts();
+  }, []);
 
   return (
     <div style={rootStyle}>
@@ -27,11 +31,11 @@ function StartPage(startPageProps: any) {
             <h1>HOTTEST ITEMS RIGHT NOW</h1>
           </div>
 
-          {/* <div style={flexProducts}>
+          <div style={flexProducts}>
             {randomList.map((products, index) => (
-              <ItemCard key={index} productCard={products} />
+              <ItemCard key={index} product={products} />
             ))}
-          </div> */}
+          </div>
         </div>
       </div>
     </div>

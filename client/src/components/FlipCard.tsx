@@ -2,16 +2,12 @@ import { CSSProperties, useState } from "react";
 import { Product } from "@shared/types";
 import "../CSS/FlipCard.css";
 
-interface productInfo {
-  productCard?: Product[];
+interface Props {
+  product: Product;
 }
 
-function FlipCard(props: productInfo) {
+function FlipCard(props: Props) {
   const [flip, setFlip] = useState(false);
-
-  const productInfo = {
-    id: props.productCard?.
-  }
 
   return (
     <div
@@ -19,9 +15,9 @@ function FlipCard(props: productInfo) {
       className={`card ${flip ? "flip" : ""}`}
       onClick={() => setFlip(!flip)}
     >
-      <div className="back"> {props.productCard?.description}</div>
+      <div className="back"> {props.product.description}</div>
       <div className="front">
-        <img className="image" srcSet={props.productCard?.image} alt="" />
+        <img className="image" srcSet={props.product.imageId} alt="" />
       </div>
     </div>
   );

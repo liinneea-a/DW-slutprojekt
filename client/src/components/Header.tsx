@@ -9,7 +9,6 @@ import { useCart } from "../context/CartContext";
 function Header(headerProps: any) {
   const { cart } = useCart();
   // const { loggedInUser } = useUser();
-  let isLoggedIn;
 
   const openModal = () => headerProps.setModalState(true);
   const [shippers, setShippers] = useState([]);
@@ -22,7 +21,6 @@ function Header(headerProps: any) {
 
   useEffect(() => {
     getAllShippers();
-    
   }, []);
 
   return (
@@ -44,14 +42,6 @@ function Header(headerProps: any) {
               Login
             </Button>
           </Link>
-          {isLoggedIn ? <div>
-          <Link style={linkStyle} to="/profile">
-            <Button style={StyledButton} variant="contained" href="">
-              profile
-            </Button>
-          </Link>
-          </div>
-          : <h1>No</h1>}
         </div>
         <div style={headerDiv3}>
           <Button style={headerCartLink} onClick={openModal}>

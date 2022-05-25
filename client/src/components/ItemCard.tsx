@@ -1,41 +1,34 @@
 import { Button } from "@mui/material";
-import { CSSProperties } from "react";
+import { CSSProperties, useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { Product } from "@shared/types";
-import { useCart } from "../context/CartContext";
+import { useProducts } from "../context/ProductContext";
 import FlipCard from "./FlipCard";
 
-interface cardInfo {
-  productCard?: Product[];
+interface Props {
+  product: Product;
 }
 
-function ItemCard(props: cardInfo) {
-  const { addProduct } = useCart();
+function ItemCard(props: Props) {
+  const { getAllProducts } = useProducts();
 
-  const productInfo = {
-    id: props.productCard?.productID,
-    price: props.productCard?.price,
-    image: props.productCard?.image,
-    description: props.productCard?.description,
-    count: props.productCard?.count,
-    categories: props.productCard?.categories,
-  };
+  useEffect(() => {
+    getAllProducts();
+  }, []);
 
   return (
     <div style={cardContainer}>
       <div style={cardHeader}>
-        <div style={headerText}>
-          <div> Product #{productInfo.id}</div>
-          <div style={priceStyle}>Price: {productInfo.price} SEK</div>
-        </div>
+        <div style={headerText}> Product nr: {props.product.name}</div>
+        <div style={priceStyle}>Price: {props.product.price} SEK</div>
       </div>
       <p style={clickMeStyle}>Click me!</p>
       <div style={cardContent}>
-        <FlipCard productCard={props.productCard} />
+        <FlipCard key={props.product.id} product={props.product} />
         <Button
           style={buttonStyle}
           variant="contained"
-          // onClick={() => addProduct(props.productCard)}
+          onClick={() => console.log("added to cart")}
         >
           BUY NOW
         </Button>
@@ -97,7 +90,7 @@ const buttonStyle: CSSProperties = {
 const cardHeader: CSSProperties = {
   width: "100%",
   display: "flex",
-  flexDirection: "row",
+  flexDirection: "column",
   alignItems: "center",
   justifyContent: "space-around",
   margin: "1rem",
