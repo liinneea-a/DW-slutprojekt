@@ -39,7 +39,7 @@ export const UserProvider = (props: any) => {
 
   const fetchLoggedInUser = async () => {
     try {
-      let response = await makeReq(`/api/loggedIn`, "GET");
+      let response = await makeReq(`/api/loggedin`, "GET");
       if (!response.email) {
         return setIsLoggedIn(false);
       }

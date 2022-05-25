@@ -13,7 +13,7 @@ import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { DeliveryDataInfo } from "../../data/collections/deliveryData";
 import DeliveryBox from "../checkoutComponents/shipping/deliveryBox";
-import { ShipperContext } from "../context/ShipperContext";
+import { ShipperContext } from "../../context/ShipperContext";
 
 interface Props {
   deliveryInfo: DeliveryDataInfo;
