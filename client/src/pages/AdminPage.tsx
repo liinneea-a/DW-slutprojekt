@@ -1,8 +1,8 @@
 import { Button } from "@mui/material";
 import { CSSProperties, useEffect, useState } from "react";
-import AddNewCollection from "../components/admin/addNewProduct";
 import { useProducts } from "../context/ProductContext";
 import EditProduct from "../components/admin/editProduct";
+import AddNewProduct from "../components/admin/addNewProduct";
 
 function AdminPage() {
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
@@ -33,7 +33,7 @@ function AdminPage() {
         Add product
       </Button>
       <div>
-        <AddNewCollection
+        <AddNewProduct
           isOpen={openAddProductModal}
           onClose={() => setOpenAddProductModal(false)}
         />

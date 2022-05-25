@@ -15,5 +15,6 @@ export const productRouter = express
   .get("/product/:id", getProduct)
   .get("/products/category/:category", getOneCategory)
   .post("/product", addProduct)
+  .post("/testproducts", addProduct)
   .put("/product/:id", updateProduct)
   .delete("/product/:id", deleteProduct);

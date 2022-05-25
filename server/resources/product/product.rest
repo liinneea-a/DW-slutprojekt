@@ -4,6 +4,20 @@ GET http://localhost:4000/api/products
 ### Get all products
 GET http://localhost:4000/api/testproductS
 
+###
+
+POST http://localhost:4000/api/testproducts
+Content-Type: application/json
+
+{
+  "name": 123,
+  "description": "Matbord med 15 plåtben",
+  "price": 2979,
+  "imageId": "11111111111",
+  "stock": 1123123,
+  "categories": 2
+}
+
 ### Get one product
 
 GET http://localhost:4000/api/product/628b7b9c7c96ee2f9fbb54f1

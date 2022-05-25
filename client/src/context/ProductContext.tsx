@@ -1,21 +1,22 @@
 import { createContext, FC, useContext, useState } from "react";
 import { Product } from "@shared/types";
+import { makeReq } from "../helper";
 
 interface ProductContext {
   selectedProduct: {};
   setSelectedProduct: {};
   products: Product[];
   getAllProducts: () => Promise<any>;
-  addProduct: () => void;
+  addProduct: ({}) => Promise<any>;
   removeProduct: () => void;
   editProduct: () => void;
 }
 
-const ProductsContext = createContext<ProductContext>({
+export const ProductsContext = createContext<ProductContext>({
   selectedProduct: {},
   setSelectedProduct: {},
   products: [],
-  addProduct: () => {},
+  addProduct: async () => {},
   getAllProducts: async () => void [],
   removeProduct: () => {},
   editProduct: () => {},
@@ -31,9 +32,14 @@ export const ProductProvider: FC = (props) => {
     setProducts(result);
   };
 
-  const addProduct = () => {};
+  const addProduct = async (product: {}) => {
+    console.log(product);
 
-  const removeProduct = () => {};
+    let response = await makeReq("/api/testproduct", "POST", product);
+    return response;
+  };
+
+  const removeProduct = async () => {};
 
   const editProduct = () => {};
 
