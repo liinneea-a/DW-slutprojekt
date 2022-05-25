@@ -2,6 +2,8 @@ import * as bcrypt from 'bcrypt';
 import { NextFunction, Request, Response } from 'express';
 import { encryptPassword, User, UserModel } from './user.model';
 
+/**------GET ALL USERS---------- */
+
 export const getAllUsers = async (req: Request, res: Response) => {
   // TODO: Who is allowed to use this endpoint?
 
@@ -11,6 +13,8 @@ export const getAllUsers = async (req: Request, res: Response) => {
   }
   res.status(200).json(users);
 };
+
+/**------GET ONE USER---------- */
 
 export const getUser = async (req: Request, res: Response) => {
   // TODO: Who is allowed to use this endpoint?
@@ -22,11 +26,19 @@ export const getUser = async (req: Request, res: Response) => {
   res.status(200).json(user);
 };
 
+/**------ADD USER---------- */
+
 export const addUser = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
+  if (req.session?.isPopulated) {
+    return res
+      .status(403)
+      .json('you cant create an account while being logged in');
+  }
+
   let FoundUser = await UserModel.findOne({ email: req.body.email });
   if (FoundUser) return res.status(409).json('That email is already in use.');
   const user = new UserModel(req.body);
@@ -34,7 +46,13 @@ export const addUser = async (
   res.status(200).json(user);
 };
 
+/**------LOG IN---------- */
+
 export const loginUser = async (req: Request, res: Response) => {
+  if (req.session?.isPopulated) {
+    return res.status(403).json('You are already signed in');
+  }
+
   let user = await UserModel.findOne({ email: req.body.email }).select(
     '+password'
   );
@@ -61,6 +79,8 @@ export const loginUser = async (req: Request, res: Response) => {
   res.json(user);
 };
 
+/**------GET LOGGED IN USER---------- */
+
 export const getLoggedInUser = async (req: Request, res: Response) => {
   if (!req.session?.isPopulated) {
     return res.status(401).send('You are not logged in');
@@ -69,7 +89,12 @@ export const getLoggedInUser = async (req: Request, res: Response) => {
   }
 };
 
-export const updateUser = async (req: Request, res: Response) => {
+/**------UPDATE USER---------- */
+
+export const updateUser = async (
+  req: Request,
+  res: Response,
+) => {
   const user = await UserModel.findById(req.params.id);
   if (!user) return res.status(404).json('makjskbdha');
 
@@ -86,6 +111,8 @@ export const updateUser = async (req: Request, res: Response) => {
   res.status(200).json(user);
 };
 
+/**------DELETE USER---------- */
+
 export const deleteUser = async (req: Request, res: Response) => {
   const { id } = req.params;
 
@@ -93,13 +120,9 @@ export const deleteUser = async (req: Request, res: Response) => {
   res.status(200).json(user);
 };
 
+/**------LOG OUT---------- */
+
 export const logoutUser = async (req: Request, res: Response) => {
-  if (!req.session?.user) {
-    return res.status(401).json('You are not logged in.');
-  }
-
   req.session = null;
-  res.json('You have logged out.');
+  res.status(200).json(req.session);
 };
-
-

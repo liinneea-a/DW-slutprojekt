@@ -1,11 +1,11 @@
-# Get one user
+# Get all user
 GET http://localhost:4000/api/users
 
 ### Get logged in user
 GET http://localhost:4000/api/loggedin
 
 ### Get one user
-GET http://localhost:4000/api/user/628b815b1ee6608822f08c21
+GET http://localhost:4000/api/user/628deb767ce663a2f365b650
 
 ### Post new user
 POST http://localhost:4000/api/user
@@ -33,7 +33,7 @@ Content-Type: application/json
 {
   "email": "lii@lii.com",
   "password": "123",
-  "isAdmin": true
+  "isAdmin": false
 }
 
 ### Delete user
