@@ -12,7 +12,7 @@ export const userRouter = express
   .post("/user", addUser) //fungerar
   .post('/login', loginUser) // fungerar
 
-  .put("/user/:id", authorize, ifAdminOrSelf, setUpdateData(a, b), updateUser)
+  .put("/user/:id", authorize, ifAdminOrSelf, updateUser)
 
   .delete("/user/:id", authorize, ifAdminOrSelf, deleteUser)
   .delete('/logout', authorize, logoutUser);

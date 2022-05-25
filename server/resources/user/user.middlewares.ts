@@ -1,4 +1,4 @@
-import { NextFunction, NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { UserModel } from "./user.model";
 
 /** Stops users that aren't logged in */
@@ -32,18 +32,18 @@ export const authorize = (req: Request, res: Response, next: NextFunction) => {
 
     const isAdmin = req.session?.isAdmin;
 
-    if (myAccount && !isAdmin) {
-      return next(myAccount, isAdmin);
+    // if (myAccount && !isAdmin) {
+    //   return next(myAccount, isAdmin);
 
-    } else if (!myAccount && isAdmin) {
-      return next();
+    // } else if (!myAccount && isAdmin) {
+    //   return next();
 
-    } else if (myAccount && isAdmin){
-      return next();
+    // } else if (myAccount && isAdmin){
+    //   return next();
 
-    } else if(!isAdmin && !myAccount) {
-      return res.status(403).json('You are not admin and the user youre looking for is not you')
-    } 
+    // } else if(!isAdmin && !myAccount) {
+    //   return res.status(403).json('You are not admin and the user youre looking for is not you')
+    // } 
 
   }
 
