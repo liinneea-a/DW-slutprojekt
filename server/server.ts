@@ -1,9 +1,10 @@
-import cookieSession from "cookie-session";
-import dotenv from 'dotenv';
+
 import express from "express";
 // require("express-async-errors");
 import mongoose from "mongoose";
-import { orderRouter, productRouter, shipperRouter, userRouter } from "./resources";
+import { userRouter, orderRouter, productRouter, shipperRouter } from "./resources";
+import dotenv from 'dotenv'
+import cookieSession from "cookie-session";
 import { mediaRouter } from "./resources/media/media.router";
 
 
