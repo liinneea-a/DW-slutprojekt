@@ -51,20 +51,20 @@ function CartModal(props: CartProps) {
                             (col) => col.id === item.collectionID
                           )?.name
                         }
-                        &nbsp;#{item.NFTid}
+                        &nbsp;#{item.productID}
                       </div>
                     </div>
                     <div style={qtyCol}>
                         <Button variant="contained"
                         style={qtyBtn}
                         aria-label="outlined primary button"
-                        onClick={() => decQty(item.NFTid)}> -
+                        onClick={() => decQty(item.productID)}> -
                         </Button>
                         {item.count}
                         <Button variant="contained"
                         style={qtyBtn}
                         aria-label="outlined primary button"
-                        onClick={() => incQty(item.NFTid)}>
+                        onClick={() => incQty(item.productID)}>
                           +
                         </Button>
                     </div>

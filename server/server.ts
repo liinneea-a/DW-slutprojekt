@@ -1,6 +1,6 @@
 
-import express from "express";
-// require("express-async-errors");
+import express, { ErrorRequestHandler } from "express";
+require("express-async-errors");
 import mongoose from "mongoose";
 import { userRouter, orderRouter, productRouter, shipperRouter } from "./resources";
 import dotenv from 'dotenv'
@@ -35,8 +35,13 @@ app.use("/api", shipperRouter);
 app.use('/api', mediaRouter);
 // Add more routers here....
 
+
 //error handler
-//app.use(errorRequestHandler);
+const errorRequestHandler: ErrorRequestHandler = (err, req, res, next) => {
+  console.error(err);
+  res.status(500).json(err.message);
+}
+app.use(errorRequestHandler);
 
 // mongoDB connection
 const MONGO_URI =

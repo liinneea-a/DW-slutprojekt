@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 
 export interface User {
+  id: string;
   email: string;
   password?: string;
   isAdmin: boolean;

@@ -3,10 +3,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { DeliveryDataInfoObject } from "../data/collections/deliveryData";
 import AdminPage from "../pages/AdminPage";
-import AllCollections from "../pages/AllCollectionsPage";
+import AllProducts from "../pages/AllProductsPage";
 import CheckoutPage from "../pages/CheckoutPage";
 import CheckoutPageDetails from "../pages/CheckoutPageDetails";
-import Collection from "../pages/CollectionPage";
 import LoginPage from "../pages/LoginPage";
 import PaymentPage from "../pages/PaymentPage";
 import ProfilePage from "../pages/ProfilePage";
@@ -16,6 +15,7 @@ import CartModal from "./CartModal";
 import { CartProvider } from '../context/CartContext'
 import { ProductProvider } from "../context/ProductContext";
 import { ShipperProvider } from "../context/ShipperContext";
+import { UserProvider } from "../context/LoginContext";
 import Footer from "./Footer";
 import Header from "./Header";
 
@@ -29,6 +29,7 @@ function Layout() {
       <CartProvider>
         <ProductProvider>
           <ShipperProvider>
+            <UserProvider>
           <BrowserRouter>
             <Header
               modalState={modalState}
@@ -40,15 +41,8 @@ function Layout() {
                 <Route path="/" element={<StartPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/admin" element={<AdminPage />} />
-                <Route path="/all" element={<AllCollections />} />
-                <Route path="/collection/:id" element={<Collection />} />
+                <Route path="/all" element={<AllProducts />} />
                 <Route path="/profile" element={<ProfilePage />} />
-                <Route
-                  path="/"
-                  element={
-                    <StartPage/>
-                  }
-                />
                 <Route path="/checkout" element={<CheckoutPage />} />
                 <Route
                   path="/checkoutdetails"
@@ -78,6 +72,7 @@ function Layout() {
             </div>
             <ToastContainer />
           </BrowserRouter>
+          </UserProvider>
           </ShipperProvider>
         </ProductProvider>
       </CartProvider>
@@ -88,8 +83,8 @@ function Layout() {
 const rootStyle: CSSProperties = {
   maxWidth: "85vw",
   display: "flex",
-  flexDirection: 'column',
-  justifyContent: 'center',
+  flexDirection: "column",
+  justifyContent: "center",
   alignItems: "center",
   margin: "0 auto",
   marginTop: "2rem",
