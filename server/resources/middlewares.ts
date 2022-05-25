@@ -11,11 +11,12 @@ export const authorize = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const ifAdmin = (req: Request, res: Response, next: NextFunction) => {
+  console.log(req.session)
   if (req.session?.user?.isAdmin) {
     console.log(req.session.user);
     next();
   } else {
-    res.status(403).json("You don't have the rights to do this...");
+    res.status(403).json("in ifAdmin. You don't have the rights to do this...");
   }
 };
 

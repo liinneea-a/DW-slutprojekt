@@ -1,8 +1,6 @@
 import { CSSProperties, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import { CartProvider } from "../context/CartContext";
-import { ProductProvider } from "../context/ProductContext";
 import { DeliveryDataInfoObject } from "../data/collections/deliveryData";
 import AdminPage from "../pages/AdminPage";
 import AllCollections from "../pages/AllCollectionsPage";
@@ -15,9 +13,9 @@ import ProfilePage from "../pages/ProfilePage";
 import PurchaseComplete from "../pages/PurchaseComplete";
 import StartPage from "../pages/Startpage";
 import CartModal from "./CartModal";
-import { CartProvider } from "./context/CartContext";
-import { ProductProvider } from "./context/ProductContext";
-import { ShipperProvider } from "./context/ShipperContext";
+import { CartProvider } from '../context/CartContext'
+import { ProductProvider } from "../context/ProductContext";
+import { ShipperProvider } from "../context/ShipperContext";
 import Footer from "./Footer";
 import Header from "./Header";
 
@@ -25,6 +23,7 @@ function Layout() {
   const [modalState, setModalState] = useState(false);
   const [deliveryInfo, setDeliveryInfo] = useState(DeliveryDataInfoObject);
   const [finalTotalSum, setFinalTotalSum] = useState<number>(1);
+  
   return (
     <div>
       <CartProvider>
