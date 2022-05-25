@@ -10,7 +10,6 @@ import { UserContext } from "../context/LoginContext";
 function Header(headerProps: any) {
   const { cart } = useCart();
   // const { loggedInUser } = useUser();
-  //let isLoggedIn;
 
   const { isLoggedIn, loggedInUser, signOut } = useContext(UserContext);
   const navigate = useNavigate();
