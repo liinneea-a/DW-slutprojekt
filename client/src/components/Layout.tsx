@@ -41,8 +41,7 @@ function Layout() {
                 <Route path="/" element={<StartPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/admin" element={<AdminPage />} />
-                <Route path="/all" element={<AllCollections />} />
-                <Route path="/collection/:id" element={<Collection />} />
+                <Route path="/all" element={<AllProducts />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/checkout" element={<CheckoutPage />} />
                 <Route
