@@ -13,7 +13,7 @@ export const userRouter = express
   .get("/users", getAllUsers)
   .get("/user/:id", getUser)
   .post("/user", addUser)
-  .put("/user/:id", updateUser)
+  .put("/userUpdate/:id", updateUser)
   .delete("/user/:id", deleteUser)
   .post('/login', loginUser)
   .get('/loggedin', getLoggedInUser)

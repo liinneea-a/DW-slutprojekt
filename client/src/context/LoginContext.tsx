@@ -6,6 +6,7 @@ interface User {
   email: string;
   password: string;
   isAdmin: boolean;
+  _id: string;
 }
 
 interface UserContext {
@@ -14,6 +15,7 @@ interface UserContext {
   setLoggedInUser: React.Dispatch<React.SetStateAction<any[]>>, */
   postUser: ({}) => Promise<any>
   loginUser: ({}) => Promise<any>
+  updateUser: ({}) => Promise<any>
   //fetchLoggedInUser: () => void;
   isLoggedIn: boolean;
   signOut: () => void;
@@ -24,9 +26,11 @@ export const UserContext = createContext<UserContext>({
     email: "test@test.se",
     password: "test",
     isAdmin: false,
+    _id: "",
   },
   postUser: async () => {},
   loginUser: async () => {},
+  updateUser: async () => {},
   //fetchLoggedInUser: () => {},
   isLoggedIn: false,
   signOut: () => {},
@@ -38,6 +42,7 @@ export const UserProvider = (props: any) => {
     email: "",
     password: "",
     isAdmin: false,
+    _id: "",
   });
 
   console.log(loggedInUser, isLoggedIn)
@@ -62,6 +67,19 @@ export const UserProvider = (props: any) => {
     } catch (err) {
       return console.log(err);
     }
+  }
+
+  const updateUser = async (user: any) => {
+    console.log(user)
+     try {
+      let response = await makeReq(`/api/userUpdate/${user.id}`, "PUT", user);
+      console.log(response)
+      setLoggedInUser(response)
+      setIsLoggedIn(true)
+      return response
+    } catch (err) {
+      return console.log(err);
+    } 
   }
 
 
@@ -90,6 +108,7 @@ export const UserProvider = (props: any) => {
       email: "",
       password: "",
       isAdmin: false,
+      _id: "",
     });
     window.location.reload();
   };
@@ -100,6 +119,7 @@ export const UserProvider = (props: any) => {
         loggedInUser,
         postUser,
         loginUser,
+        updateUser,
         isLoggedIn,
         /* setIsLoggedIn,
         setLoggedInUser, */
