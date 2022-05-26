@@ -106,7 +106,7 @@ export const updateUser = async (
 
   // Update the cookie session
   delete user.password;
-  req.session = user;
+  req.session!.user = user;
 
   console.log('user: ', user);
   res.status(200).json(user);
