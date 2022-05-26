@@ -42,7 +42,7 @@ function Layout() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/admin" element={<AdminPage />} />
                 <Route path="/all" element={<AllProducts />} />
-                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/profile" element={<ProfilePage />} /> 
                 <Route path="/checkout" element={<CheckoutPage />} />
                 <Route
                   path="/checkoutdetails"
