@@ -1,6 +1,10 @@
 import { createContext, FC, useContext, useState } from "react";
-import { Product } from "@shared/types";
+import type { Product } from "@server/types";
 
+/* const product: Product = {
+  _id: "",
+  
+} */
 interface ProductContext {
   selectedProduct: {};
   setSelectedProduct: {};

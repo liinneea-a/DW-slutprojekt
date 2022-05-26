@@ -15,7 +15,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "paths": { "@shared/*": ["../server/shared/*"] }
+    //"paths": { "@shared/*": ["../server/shared/*"] }
+    "paths": { "@server/*": ["../server/shared/types"]}
   },
   "include": ["src"]
 }

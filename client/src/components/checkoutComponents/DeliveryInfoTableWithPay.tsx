@@ -1,11 +1,22 @@
-import { CSSProperties } from "react";
+import { CSSProperties, useContext } from "react";
+import { ShipperContext } from "../../context/ShipperContext";
 import { DeliveryDataInfo } from "../../data/collections/deliveryData";
 
 interface Props {
   deliveryInfo: DeliveryDataInfo;
+  selectedShipping: {
+    shipper: string, 
+    cost: number,
+    days: number,
+  };
 }
 
+
 function DeliveryInfoTable(props: Props) {
+
+  const { selectedShipping } =
+  useContext(ShipperContext);
+  
   return (
     <div>
       <table style={tableStyle}>
@@ -42,7 +53,7 @@ function DeliveryInfoTable(props: Props) {
           </tr>
           <tr>
             <td>Delivery</td>
-            <td style={tableDataStyle}>{props.deliveryInfo.deliveryMethod}</td>
+            <td style={tableDataStyle}>{props.selectedShipping.shipper}</td>
           </tr>
           <tr>
             <td>Payment method</td>
