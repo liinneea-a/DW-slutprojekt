@@ -1,16 +1,13 @@
 import {
-  faShoppingCart,
-  faUser,
-  faArrowRightFromBracket,
-  faArrowRightToBracket,
-  faShield,
+  faArrowRightToBracket, faShoppingCart
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
-import { CSSProperties, useContext, useEffect, useState } from "react";
+import { CSSProperties, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { UserContext } from "../context/LoginContext";
+import AccountMenu from "./AccountMenu";
 
 function Header(headerProps: any) {
   const { cart } = useCart();
@@ -39,11 +36,6 @@ function Header(headerProps: any) {
           </Link>
         </div>
         <div style={headerDiv2}>
-          <Link style={linkStyle} to="/all">
-            <Button style={StyledButton} variant="contained" href="">
-              EXPLORE
-            </Button>
-          </Link>
         </div>
         <div style={headerDiv3}>
           {!loggedInUser ? (
@@ -53,32 +45,8 @@ function Header(headerProps: any) {
               </Button>
             </Link>
           ) : (
-            <div style={{ display: "flex" }}>
-              <Link style={linkStyle} to="/profile">
-                <Button style={headerCartLink}>
-                  <FontAwesomeIcon icon={faUser} />
-                </Button>
-              </Link>
-              <Button
-                onClick={() => {
-                  handleLogOut();
-                }}
-                style={headerCartLink}
-              >
-                <FontAwesomeIcon icon={faArrowRightFromBracket} />
-              </Button>
-            </div>
+              <AccountMenu/>
           )}
-          {loggedInUser && loggedInUser.isAdmin === true ? (
-            <Link style={linkStyle} to="/admin">
-              <Button style={headerCartLink}>
-                <FontAwesomeIcon icon={faShield} />
-              </Button>
-            </Link>
-          ) : (
-            <></>
-          )}
-
           <Button style={headerCartLink} onClick={openModal}>
             {cart.reduce((sum, nft) => sum + nft.count, 0) !== 0 && (
               <div style={itemCountBadge}>
@@ -140,13 +108,6 @@ const headerDiv3: CSSProperties = {
 };
 
 const linkStyle: CSSProperties = { textDecoration: "none" };
-
-const StyledButton: CSSProperties = {
-  background: "#2081e2",
-  margin: "1rem",
-  fontSize: "3vmin",
-  fontWeight: "bold",
-};
 
 const itemCountBadge: CSSProperties = {
   position: "absolute",

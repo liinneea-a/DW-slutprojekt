@@ -7,7 +7,7 @@ function LoginPage() {
   return (
     <div style={loginPageLayout}>
       <h1>
-        Log in below
+        Log in below 
         <i style={{ color: "rgb(32, 129, 226)" }}> or register now</i>
       </h1>
       <div style={tempFormLayout}>
@@ -25,6 +25,7 @@ const loginPageLayout: CSSProperties = {
   flexDirection: "column",
   alignItems: "center",
   gap: "3rem",
+  textAlign: 'center'
 };
 
 const tempFormLayout: CSSProperties = {
