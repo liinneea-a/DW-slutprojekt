@@ -1,4 +1,6 @@
 export const makeReq = async (url: string, method: string, body?: any) => {
+  console.log(url, method, body)
+  
   let response = await fetch(url, {
     method,
     body: JSON.stringify(body),
@@ -7,5 +9,5 @@ export const makeReq = async (url: string, method: string, body?: any) => {
     },
   });
 
-  return await response.json();
+  return { data: await response.json(), ok: response.ok };
 };

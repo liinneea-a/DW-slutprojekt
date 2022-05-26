@@ -38,15 +38,21 @@ export const addOrder = async (
   res: Response,
   next: NextFunction
 ) => {
+  console.log(req.body);
   // TODO: How do we handle errors in async middlewares?
 
-  try {
-    const order = new OrderModel(req.body);
+    const order = new OrderModel({
+      customer: req.session?.user.id,
+      products: req.body.products,
+      shipper: req.body.shipper,
+      deliveryAddress: req.body.deliveryAddress,
+      paymentMethod: req.body.paymentMethod
+      });
     await order.save();
     res.status(200).json(order);
-  } catch (err) {
-    console.log(err);
-  }
+
+
+
 };
 
 export const updateOrder = async (

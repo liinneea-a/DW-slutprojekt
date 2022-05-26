@@ -50,7 +50,7 @@ export const addUser = async (
 
 export const loginUser = async (req: Request, res: Response) => {
   if (req.session?.isPopulated) {
-    return res.status(403).json('You are already signed in');
+    return res.status(403).json(req.body);
   }
 
   let user = await UserModel.findOne({ email: req.body.email }).select(
@@ -95,6 +95,7 @@ export const updateUser = async (
   req: Request,
   res: Response,
 ) => {
+  console.log('in update user ')
   const user = await UserModel.findById(req.params.id);
   if (!user) return res.status(404).json('makjskbdha');
 
@@ -105,7 +106,7 @@ export const updateUser = async (
 
   // Update the cookie session
   delete user.password;
-  req.session = user;
+  req.session!.user = user;
 
   console.log('user: ', user);
   res.status(200).json(user);
