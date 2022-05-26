@@ -1,4 +1,4 @@
-import mongoose, { Schema, Types } from "mongoose";
+import mongoose from "mongoose";
 
 export interface Product {
   id: string;
@@ -19,12 +19,11 @@ export const productSchema = new mongoose.Schema<Product>(
     description: { type: String, required: true },
     price: { type: Number, required: true },
     // imageId: { type: Schema.Types.ObjectId, required: true },
-    imageId: { type: String, required: true },
+    imageId: { type: String, required: false },
     stock: { type: Number, required: true },
     // image: {type: String, required: true},
     categories: { type: [String], required: true },
     // legacy: { type: Boolean, required: true, default: false },
-    // version?
   },
   {
     toJSON: { virtuals: true },
@@ -36,4 +35,4 @@ productSchema.virtual("imageUrl").get(function () {
   return "/api/media/" + " " + this.imageId;
 });
 
-export const ProductModel = mongoose.model("testproduct", productSchema);
+export const ProductModel = mongoose.model("product", productSchema);

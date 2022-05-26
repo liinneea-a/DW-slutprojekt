@@ -9,7 +9,7 @@ interface Props {
 }
 
 function AddNewProduct(props: Props) {
-  const { addProduct } = useProducts();
+  const { addProduct, getAllProducts } = useProducts();
 
   const formik = useFormik({
     initialValues: {
@@ -23,23 +23,21 @@ function AddNewProduct(props: Props) {
     onSubmit: (values) => {
       let product = {
         name: values.name,
-        image: values.imageId,
+        imageId: values.imageId,
         price: values.price,
         description: values.description,
         stock: values.stock,
         categories: values.categories,
       };
       createNewProduct(product);
-      // formik.resetForm();
-      // props.onClose();
+      formik.resetForm();
+      props.onClose();
     },
   });
 
   async function createNewProduct(product: {}) {
-    console.log(product);
-
     const newProduct = await addProduct(product);
-    console.log(newProduct);
+    getAllProducts();
   }
 
   if (!props.isOpen) return null;
@@ -108,7 +106,7 @@ function AddNewProduct(props: Props) {
               autoComplete="off"
               id="stock"
               name="stock"
-              label="Count"
+              label="Stock"
               value={formik.values.stock}
               onChange={formik.handleChange}
               error={formik.touched.stock && Boolean(formik.errors.stock)}

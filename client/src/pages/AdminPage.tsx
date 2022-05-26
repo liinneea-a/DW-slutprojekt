@@ -1,11 +1,21 @@
 import { Button } from "@mui/material";
 import { CSSProperties, useEffect, useState } from "react";
-import { useProducts } from "../context/ProductContext";
-import EditProduct from "../components/admin/editProduct";
+import { Product } from "../../../server/resources";
 import AddNewProduct from "../components/admin/addNewProduct";
+import EditProduct from "../components/admin/editProduct";
+import { useProducts } from "../context/ProductContext";
 
 function AdminPage() {
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product>({
+      id: "",
+      name: 0,
+      imageId: "",
+      price: 0,
+      description: "",
+      stock: 0,
+      categories: [],
+   });
   const [openEditProductModal, setOpenEditProductModal] = useState(false);
   const { getAllProducts, products, addProduct, editProduct, removeProduct } =
     useProducts();
@@ -20,7 +30,6 @@ function AdminPage() {
         onClick={() => localStorage.clear()}
         style={buttonStyle}
         variant="contained"
-        href=""
       >
         Clear LS
       </Button>
@@ -28,7 +37,6 @@ function AdminPage() {
         onClick={() => setOpenAddProductModal(true)}
         style={buttonStyle}
         variant="contained"
-        href=""
       >
         Add product
       </Button>
@@ -39,6 +47,7 @@ function AdminPage() {
         />
         <EditProduct
           isOpen={openEditProductModal}
+          product={selectedProduct}
           onClose={() => setOpenEditProductModal(false)}
         />
       </div>
@@ -54,7 +63,10 @@ function AdminPage() {
               </div>
               <div style={buttonDivStyle}>
                 <Button
-                  onClick={() => setOpenEditProductModal(true)}
+                  onClick={() => [
+                    setOpenEditProductModal(true),
+                    setSelectedProduct(product),
+                  ]}
                   style={editButtonStyle}
                   variant="contained"
                   href=""
@@ -62,7 +74,7 @@ function AdminPage() {
                   Edit
                 </Button>
                 <Button
-                  onClick={() => removeProduct()}
+                  onClick={() => [removeProduct(product), getAllProducts()]}
                   style={editButtonStyle}
                   variant="contained"
                   href=""

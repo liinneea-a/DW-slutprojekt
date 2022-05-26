@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
+import { Product } from "@shared/types";
 import { CSSProperties, useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
-import { Product } from "@shared/types";
 import { useProducts } from "../context/ProductContext";
 import FlipCard from "./FlipCard";
 
@@ -25,13 +25,20 @@ function ItemCard(props: Props) {
       <p style={clickMeStyle}>Click me!</p>
       <div style={cardContent}>
         <FlipCard key={props.product.id} product={props.product} />
+        {props.product.stock ? (
         <Button
-          style={buttonStyle}
-          variant="contained"
-          onClick={() => console.log("added to cart")}
+        style={buttonStyle}
+        variant="contained"
+        onClick={() => console.log("added to cart")}
         >
           BUY NOW
-        </Button>
+        </Button>) : (<Button
+        style={NotInStockStyle}
+        variant="contained"
+        >
+          Not in stock
+        </Button>)
+        } 
       </div>
     </div>
   );
@@ -84,6 +91,12 @@ const coinIconStyle: CSSProperties = { paddingRight: ".3rem" };
 const buttonStyle: CSSProperties = {
   fontWeight: "bold",
   background: "#2081e2",
+  color: "white",
+};
+
+const NotInStockStyle: CSSProperties = {
+  fontWeight: "bold",
+  background: "grey",
   color: "white",
 };
 

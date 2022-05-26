@@ -5,16 +5,14 @@ import {
   getAllProducts,
   getOneCategory,
   getProduct,
-  updateProduct,
+  updateProduct
 } from "./product.controller";
 
 export const productRouter = express
   .Router()
   .get("/products", /* adminSecure, */ getAllProducts)
-  .get("/testproducts", /* adminSecure, */ getAllProducts)
-  .get("/product/:id", getProduct)
+  .get("/products/:id", getProduct)
   .get("/products/category/:category", getOneCategory)
   .post("/product", addProduct)
-  .post("/testproducts", addProduct)
-  .put("/product/:id", updateProduct)
-  .delete("/product/:id", deleteProduct);
+  .put("/products/:id", updateProduct)
+  .delete("/products/:id", deleteProduct)

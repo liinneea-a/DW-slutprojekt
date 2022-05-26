@@ -74,14 +74,6 @@ const flexProducts: CSSProperties = {
   margin: "1rem 0",
 };
 
-const flexItems: CSSProperties = {
-  display: "flex",
-  flexWrap: "wrap",
-  gap: "2rem",
-  justifyContent: "space-evenly",
-  margin: "1rem 1rem",
-};
-
 const startPageWelcomeText: CSSProperties = {
   maxWidth: "40rem",
   display: "flex",
