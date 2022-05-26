@@ -2,6 +2,11 @@ import { Product } from "@shared/types";
 import { createContext, FC, useContext, useState } from "react";
 import { makeReq } from "../helper";
 
+
+/* const product: Product = {
+  _id: "",
+  
+} */
 interface ProductContext {
   selectedProduct: {};
   setSelectedProduct: {};
