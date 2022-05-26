@@ -4,7 +4,7 @@ GET http://localhost:4000/api/orders
 
 ### Get one order
 
-GET http://localhost:4000/api/order/628b7d8a1ee6608822f08c02
+GET http://localhost:4000/api/order/628785dc1fbd71f9fc387d0c
 
 ### Create new order
 
@@ -12,7 +12,6 @@ POST http://localhost:4000/api/order
 Content-Type: application/json
 
 {
-  "customer": "6283598560765e36787c6867",
   "products": ["6283598560765e36787c6868", "6283598560765e36787c6869"],
   "shipper": {
     "cost": 123,
@@ -25,7 +24,6 @@ Content-Type: application/json
     "zipcode": 12300,
     "city": "Göteborg"
   },
-  "isSent": "false",
   "paymentMethod": "swish"
 }
 
@@ -35,7 +33,7 @@ PUT http://localhost:4000/api/order/628785dc1fbd71f9fc387d0c
 Content-Type: application/json
 
 {
-   "customer": "6283598560765e36787c6867",
+  "customer": "6283598560765e36787c6867",
   "products": ["6283598560765e36787c6868", "6283598560765e36787c6869"],
   "shipper": {
     "cost": 123,
@@ -48,7 +46,7 @@ Content-Type: application/json
     "zipcode": 12300,
     "city": "Göteborg"
   },
-  "isSent": "false",
+  "isSent": false,
   "paymentMethod": "swish"
 }
 
