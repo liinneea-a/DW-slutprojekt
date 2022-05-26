@@ -6,91 +6,95 @@ interface User {
   email: string;
   password: string;
   isAdmin: boolean;
+  _id: string;
 }
 
 interface UserContext {
-  loggedInUser: User;
+  loggedInUser?: User;
   /* setIsLoggedIn: React.Dispatch<React.SetStateAction<any[]>>,
   setLoggedInUser: React.Dispatch<React.SetStateAction<any[]>>, */
   postUser: ({}) => Promise<any>
   loginUser: ({}) => Promise<any>
+  updateUser: ({}) => Promise<any>
   //fetchLoggedInUser: () => void;
-  isLoggedIn: boolean;
   signOut: () => void;
 }
 
 export const UserContext = createContext<UserContext>({
-  loggedInUser: {
-    email: "test@test.se",
-    password: "test",
-    isAdmin: false,
-  },
   postUser: async () => {},
   loginUser: async () => {},
+  updateUser: async () => {},
   //fetchLoggedInUser: () => {},
-  isLoggedIn: false,
   signOut: () => {},
 });
 
 export const UserProvider = (props: any) => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [loggedInUser, setLoggedInUser] = useState<User>({
-    email: "",
-    password: "",
-    isAdmin: false,
-  });
+  const [isLoading, setIsLoading] = useState(true);
+  const [loggedInUser, setLoggedInUser] = useState<User>();
 
-  console.log(loggedInUser, isLoggedIn)
+  console.log(loggedInUser)
 
   const postUser = async (user: {}) => {
     try {
-      let response = await makeReq("/api/user", "POST", user);
-      console.log(response)
-      return response
+      let { ok } = await makeReq("/api/user", "POST", user);
+      return ok
     } catch (err) {
       return console.log(err);
     }
   }
 
-  const loginUser = async (user: {}) => {
+  const loginUser = async (user: any) => {
+    console.log(user)
     try {
-      let response = await makeReq("/api/login", "POST", user);
-      /* console.log(response) */
-      setLoggedInUser(response)
-      setIsLoggedIn(true)
-      return response
+      let { data, ok } = await makeReq("/api/login", "POST", user);
+      if (ok) {
+        setLoggedInUser(data);
+        return true
+      } else {
+        setLoggedInUser(undefined);
+        return false
+      }
     } catch (err) {
-      return console.log(err);
+      console.log(err);
+      return false
     }
   }
 
+  const updateUser = async (user: any) => {
+    console.log('in update user')
+    console.log(user.id)
+      
+    let { data }  = await makeReq('/api/user/628deca2a1832c5492d79d9a', "PUT", user);
+    setLoggedInUser(data)
+    return data
+  }
 
-  /* useEffect(() => {
+
+  useEffect(() => {
+    const fetchLoggedInUser = async () => {
+      try {
+        let { data, ok } = await makeReq("/api/loggedin", "GET");
+        if (ok) {
+          setLoggedInUser(data);
+        } else {
+          setLoggedInUser(undefined);
+        } 
+        setIsLoading(false)
+      } catch (err) {
+        setIsLoading(false)
+        return console.log(err);
+      }
+    };
     fetchLoggedInUser();
   }, []);
 
-  const fetchLoggedInUser = async () => {
-    try {
-      let response = await makeReq("/api/loggedin", "GET");
-      if (!response.email) {
-        return setIsLoggedIn(false);
-      }
-      console.log(response);
-      setLoggedInUser(response);
-      setIsLoggedIn(true);
-    } catch (err) {
-      return console.log(err);
-    }
-  }; */
+  
 
   const signOut = async () => {
     let response = await makeReq("/api/logout", "DELETE");
-    setIsLoggedIn(false);
-    setLoggedInUser({
-      email: "",
-      password: "",
-      isAdmin: false,
-    });
+    setLoggedInUser(undefined);
+
+    // todo: navigate ist'llet...
     window.location.reload();
   };
 
@@ -100,7 +104,7 @@ export const UserProvider = (props: any) => {
         loggedInUser,
         postUser,
         loginUser,
-        isLoggedIn,
+        updateUser,
         /* setIsLoggedIn,
         setLoggedInUser, */
         //fetchLoggedInUser,
@@ -113,5 +117,5 @@ export const UserProvider = (props: any) => {
 };
 
 export const useUser = () => useContext(UserContext);
-export { };
+
 

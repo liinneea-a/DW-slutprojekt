@@ -14,7 +14,6 @@ export const authorize = (req: Request, res: Response, next: NextFunction) => {
   export const ifAdmin = (req: Request, res: Response, next: NextFunction) => {
    
     if (req.session?.isAdmin) {
-      console.log(req.session);
       next();
     } else {
      return res.status(403).json("in ifAdmin. You don't have the rights to do this...");
@@ -25,8 +24,8 @@ export const authorize = (req: Request, res: Response, next: NextFunction) => {
     const user = await UserModel.findById(req.params.id);
     const myAccount = user?.id === req.session?.id; 
 
-    console.log(user?.id);
-    console.log(req.session?.id)
+    // console.log(user?.id);
+    // console.log(req.session?.id)
 
   
 

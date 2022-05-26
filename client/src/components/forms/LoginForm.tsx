@@ -19,7 +19,7 @@ const validationSchema = yup.object({
 
 function LoginForm() {
 
-  const { loginUser, isLoggedIn, loggedInUser} = useContext(UserContext);
+  const { loginUser, loggedInUser} = useContext(UserContext);
   const [failedLogin, setFailedLogin] = useState(false);
   const navigate = useNavigate();
 
