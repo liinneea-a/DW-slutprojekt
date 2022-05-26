@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import mongoose, { Schema, Types } from "mongoose";
 import { Product, productSchema } from "../product/product.model";
 import { User } from "../user";
@@ -6,8 +7,8 @@ import { Shipper, shippperSchema } from "./shipper.schema";
 
 export interface Order {
   id: string;
-  customer: User;
-  products: Product[];
+  customer: ObjectId;
+  products: ObjectId;
   shipper: Shipper;
   deliveryAddress: Address;
   createdAt: Date;
@@ -20,7 +21,7 @@ export interface Order {
 const orderSchema = new mongoose.Schema<Order>(
   {
     customer: { type: Schema.Types.ObjectId, ref: "user", required: true },
-    products: { type: [productSchema], required: true },
+    products: { type: [Schema.Types.ObjectId], required: true },
     shipper: { type: shippperSchema, required: true },
     deliveryAddress: { type: addressSchema, required: true },
     isSent: { type: Boolean, required: true, default: false },
