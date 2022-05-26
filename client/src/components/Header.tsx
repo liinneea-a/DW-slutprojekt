@@ -1,43 +1,34 @@
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import {
+  faShoppingCart,
+  faUser,
+  faArrowRightFromBracket,
+  faArrowRightToBracket,
+  faShield,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
 import { CSSProperties, useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { UserContext } from "../context/LoginContext";
-// import { useUser } from "./context/LoginContext";
 
 function Header(headerProps: any) {
   const { cart } = useCart();
-  // const { loggedInUser } = useUser();
 
-  const { isLoggedIn, loggedInUser, signOut } = useContext(UserContext);
+  const { loggedInUser, signOut } = useContext(UserContext);
   const navigate = useNavigate();
 
   const openModal = () => headerProps.setModalState(true);
 
-
   const handleLogOut = () => {
-    console.log('hejko')
+    console.log("hejko");
     if (loggedInUser) {
       signOut();
-      navigate("/")
+      navigate("/");
     } else if (!loggedInUser) {
       console.log("error");
     }
   };
-
-  /* const [shippers, setShippers] = useState([]);
-
-  const getAllShippers = async () => {
-    const response = await fetch("/api/shipper");
-    const result = await response.json();
-    setShippers(result);
-  };
-
-  useEffect(() => {
-    getAllShippers();
-  }, []); */
 
   return (
     <div style={rootStyle}>
@@ -53,33 +44,41 @@ function Header(headerProps: any) {
               EXPLORE
             </Button>
           </Link>
-          {!isLoggedIn ? (
+        </div>
+        <div style={headerDiv3}>
+          {!loggedInUser ? (
             <Link style={linkStyle} to="/login">
-              <Button style={StyledButton} variant="contained" href="">
-                Login
+              <Button style={headerCartLink}>
+                <FontAwesomeIcon icon={faArrowRightToBracket} />
               </Button>
             </Link>
           ) : (
             <div style={{ display: "flex" }}>
               <Link style={linkStyle} to="/profile">
-                <Button style={StyledButton} variant="contained" href="">
-                  profile
+                <Button style={headerCartLink}>
+                  <FontAwesomeIcon icon={faUser} />
                 </Button>
               </Link>
-              <Button onClick={() => {
+              <Button
+                onClick={() => {
                   handleLogOut();
-                }} style={StyledButton} variant="contained" href="">
-                Logout
+                }}
+                style={headerCartLink}
+              >
+                <FontAwesomeIcon icon={faArrowRightFromBracket} />
               </Button>
             </div>
           )}
-          {loggedInUser.isAdmin === true ? (<Link style={linkStyle} to="/admin">
-              <Button style={StyledButton} variant="contained" href="">
-                Admin
+          {loggedInUser && loggedInUser.isAdmin === true ? (
+            <Link style={linkStyle} to="/admin">
+              <Button style={headerCartLink}>
+                <FontAwesomeIcon icon={faShield} />
               </Button>
-              </Link>) : (<></>)}
-        </div>
-        <div style={headerDiv3}>
+            </Link>
+          ) : (
+            <></>
+          )}
+
           <Button style={headerCartLink} onClick={openModal}>
             {cart.reduce((sum, nft) => sum + nft.count, 0) !== 0 && (
               <div style={itemCountBadge}>

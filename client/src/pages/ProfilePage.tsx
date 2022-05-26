@@ -1,3 +1,4 @@
+
 import * as React from 'react';
 import { CSSProperties, useContext } from "react";
 import * as yup from "yup";
@@ -5,7 +6,7 @@ import { useFormik } from "formik";
 import { Button, TextField } from '@mui/material';
 import { UserContext } from '../context/LoginContext';
 
-const validationSchema = yup.object({
+/* const validationSchema = yup.object({
   email: yup
     .string()
     .email("Please enter a valid email")
@@ -19,12 +20,12 @@ const validationSchema = yup.object({
     .string()
     .required("Please confirm your password")
     .oneOf([yup.ref("password")], "The passwords need to match"),
-});
+}); */
 
 function ProfilePage() {
-  const { updateUser, isLoggedIn, loggedInUser} = useContext(UserContext);
+ /*  const { updateUser, loggedInUser} = useContext(UserContext);
 
-console.log(loggedInUser._id)
+  console.log(loggedInUser)
 
   const formik = useFormik({
     initialValues: {
@@ -40,14 +41,14 @@ console.log(loggedInUser._id)
         id: loggedInUser._id,
       }
       updateUserInfo(user)
-      console.log(values);
+      
     },
   });
 
    async function updateUserInfo(user: any) {
-    console.log(user)
+ 
     const userToBeLogedIn = await updateUser(user)
-    console.log(userToBeLogedIn)} 
+    console.log(userToBeLogedIn)}  */
 
 
 
@@ -55,10 +56,20 @@ console.log(loggedInUser._id)
 
     return (
         <div style={loginPageLayout}>
-          {/* <h1>Change your profile below</h1>
-          <div style={tempFormLayout}>
-          </div> */}
-          <form style={loginForm} onSubmit={formik.handleSubmit}>
+                 <h1>Your orders:</h1>
+          <div /* style={tempFormLayout} */>
+           <div style={{display: "flex", width: "100%"}}>
+             <p style={{width: "20%"}}>Order no:</p>
+             <p style={{width: "20%"}}>Order date:</p>
+             <p style={{width: "20%"}}>Items:</p>
+             <p style={{width: "20%"}}>Quantity:</p>
+             <p style={{width: "20%"}}>Price:</p>
+             </div>Lista ordernummer, produkter, antal, pris, datum ordern lades och om den är skickad eller ej. 
+          </div> 
+        </div>
+    )
+} 
+        {/*   <form style={loginForm} onSubmit={formik.handleSubmit}>
         <h1>Change account details</h1>
           <TextField
             style={textFieldStyle}
@@ -106,13 +117,9 @@ console.log(loggedInUser._id)
           >
             Update
           </Button>
-      </form>
-       <h1>Your orders:</h1>
-          <div style={tempFormLayout}>
-          </div> 
-        </div>
-    )
-}
+      </form> */}
+
+
 
 export default ProfilePage
 
@@ -123,7 +130,7 @@ const loginPageLayout: CSSProperties = {
   gap: '3rem'
 }
 
-const tempFormLayout: CSSProperties = {
+/* const tempFormLayout: CSSProperties = {
   display: 'flex',
   gap: '2rem',
   alignItems: 'center'
@@ -152,4 +159,4 @@ const nextButtonStyle: CSSProperties = {
   width: "10rem",
   background: "#2081e2",
   fontWeight: "bold",
-};
+};  */

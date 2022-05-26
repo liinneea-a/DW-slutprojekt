@@ -37,8 +37,6 @@ function RegisterForm() {
         password: values.password,
       }
       createNewUser(user)
-      //console.log(values);
-    
     },
   });
 
