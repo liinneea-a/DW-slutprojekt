@@ -21,7 +21,6 @@ const validationSchema = yup.object({
 });
 
 function RegisterForm() {
-
   const { postUser } = useContext(UserContext);
 
   const formik = useFormik({
@@ -35,15 +34,16 @@ function RegisterForm() {
       let user = {
         email: values.email,
         password: values.password,
-      }
-      createNewUser(user)
+      };
+      createNewUser(user);
+      //console.log(values);
     },
   });
 
   async function createNewUser(user: {}) {
-    console.log(user)
-    const newUser = await postUser(user)
-    console.log(newUser)
+    console.log(user);
+    const newUser = await postUser(user);
+    console.log(newUser);
   }
 
   return (
@@ -82,8 +82,13 @@ function RegisterForm() {
         type="password"
         value={formik.values.confirmPassword}
         onChange={formik.handleChange}
-        error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
-        helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+        error={
+          formik.touched.confirmPassword &&
+          Boolean(formik.errors.confirmPassword)
+        }
+        helperText={
+          formik.touched.confirmPassword && formik.errors.confirmPassword
+        }
       />
       <Button
         style={nextButtonStyle}
@@ -105,7 +110,7 @@ const registerForm: CSSProperties = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  paddingBottom: '1rem',
+  paddingBottom: "1rem",
   background: "#303339",
   boxShadow: "1px 1px 6px black",
   borderRadius: ".5rem",

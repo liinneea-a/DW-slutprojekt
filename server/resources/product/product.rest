@@ -1,37 +1,35 @@
 ### Get all products
 GET http://localhost:4000/api/products
 
-### Get all products
-GET http://localhost:4000/api/testproductS
+###
+
+POST http://localhost:4000/api/product
+Content-Type: application/json
+
+{
+  "name": 123,
+  "description": "Matbord med 15 plåtben",
+  "price": 2979,
+  "imageId": "11111111111",
+  "stock": 1123123,
+  "categories": 2
+}
 
 ### Get one product
 
-GET http://localhost:4000/api/product/628b7b9c7c96ee2f9fbb54f1
+GET http://localhost:4000/api/products/628f408b21bbf42102dc7a22
 
 ### Get all products of one category
 
 GET http://localhost:4000/api/products/category/stol
 
-### Post new product
-POST http://localhost:4000/api/product
-Content-Type: application/json
-
-{
-  "name": "Matbord",
-  "description": "Matbord med 15 plåtben",
-  "price": 2979,
-  "imageId": "628b7030d071e31e672871b4",
-  "stock": 180,
-  "categories": ["bord", "plåt"],
-  "legacy": false
-}
 
 ### Update product
-PUT http://localhost:4000/api/product/628b8b0b6a2095adb626f181
+PUT http://localhost:4000/api/products/628f408b21bbf42102dc7a24
 Content-Type: application/json
 
 {
-  "name": "STOOOL",
+  "name": 444444,
   "description": "en röd stol",
   "price": 299,
   "imageId": "628b7030d071e31e672871b4",
@@ -40,4 +38,4 @@ Content-Type: application/json
 }
 
 ### Delete product
-DELETE http://localhost:4000/api/product/628b7b9c7c96ee2f9fbb54f1
+DELETE http://localhost:4000/api/products/628f408b21bbf42102dc7a22

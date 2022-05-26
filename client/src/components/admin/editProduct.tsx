@@ -1,165 +1,162 @@
 import { Button, TextField } from "@mui/material";
+import { Product } from "@shared/types";
 import { useFormik } from "formik";
 import { CSSProperties } from "react";
-import * as yup from "yup";
 import { useProducts } from "../../context/ProductContext";
-import { productDataItem } from "../../data/collections/dataTest";
 
 interface Props {
   isOpen: boolean;
+  product?: Product;
   onClose: () => void;
 }
 
-const validationSchema = yup.object({
-  name: yup.string().required("Please enter new name").min(1),
-  description: yup.string().required("Please enter a new description").min(2),
-  productImage: yup.string().required("Please enter a new image URL").min(10),
-});
+// const validationSchema = yup.object({
+//   name: yup.string().required("Please enter new name").min(1),
+//   description: yup.string().required("Please enter a new description").min(2),
+//   productImage: yup.string().required("Please enter a new image URL").min(10),
+// });
 
 function EditProduct(props: Props) {
-  const { editProduct } = useProducts();
+  
+  const { editProduct, getAllProducts } = useProducts();
+
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      productID: 0,
-      image: "",
-      price: 0,
-      description: "",
-      count: 0,
-      categories: 0,
+      name: props.product!.name,
+      imageId: props.product!.imageId,
+      price: props.product!.price,
+      description: props.product!.description,
+      stock: props.product!.stock,
+      categories: props.product!.categories,
     },
-    validationSchema: validationSchema,
+    // validationSchema: validationSchema,
     onSubmit: (values) => {
-      let newProduct: productDataItem = {
-        productID: values.productID,
-        image: values.image,
-        price: values.price,
+      let updatedProduct = {
+        id: props.product!.id,
+        name: values.name,
         description: values.description,
-        count: values.count,
+        price: values.price,
+        imageId: values.imageId,
+        stock: values.stock,
         categories: values.categories,
       };
-      // editProduct(newProduct);
+      editOldProduct(updatedProduct);
       formik.resetForm();
       props.onClose();
     },
   });
 
+   function editOldProduct(updatedProduct: Product) {
+    const update = editProduct(updatedProduct);
+    getAllProducts();
+  }
+
   if (!props.isOpen) return null;
 
   return (
-    <div>
-      <div style={newProductContainer}>
-        <div>
-          <form style={formStyle} onSubmit={formik.handleSubmit}>
-            <h3>Edit Product</h3>
-            <div style={textFieldsContainer}>
-              <TextField
-                style={textFieldStyle}
-                fullWidth
-                autoComplete="off"
-                id="productID"
-                name="productID"
-                label="Product id"
-                value={formik.values.productID}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.productID && Boolean(formik.errors.productID)
-                }
-                helperText={formik.touched.productID && formik.errors.productID}
-              />
-              <TextField
-                style={textFieldStyle}
-                fullWidth
-                autoComplete="off"
-                id="image"
-                name="image"
-                label="Product Image URL"
-                value={formik.values.image}
-                onChange={formik.handleChange}
-                error={formik.touched.image && Boolean(formik.errors.image)}
-                helperText={formik.touched.image && formik.errors.image}
-              />
-              <TextField
-                style={textFieldStyle}
-                fullWidth
-                autoComplete="off"
-                id="price"
-                name="price"
-                label="Product Price"
-                value={formik.values.price}
-                onChange={formik.handleChange}
-                error={formik.touched.price && Boolean(formik.errors.price)}
-                helperText={formik.touched.price && formik.errors.price}
-              />
-              <TextField
-                style={textFieldStyle}
-                fullWidth
-                autoComplete="off"
-                id="description"
-                name="description"
-                label="Product description"
-                value={formik.values.description}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.description &&
-                  Boolean(formik.errors.description)
-                }
-                helperText={
-                  formik.touched.description && formik.errors.description
-                }
-              />
-              <TextField
-                style={textFieldStyle}
-                fullWidth
-                autoComplete="off"
-                id="count"
-                name="count"
-                label="Count"
-                value={formik.values.count}
-                onChange={formik.handleChange}
-                error={formik.touched.count && Boolean(formik.errors.count)}
-                helperText={formik.touched.count && formik.errors.count}
-              />
-              <TextField
-                style={textFieldStyle}
-                fullWidth
-                autoComplete="off"
-                id="categories"
-                name="categories"
-                label="Product Categories"
-                value={formik.values.categories}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.categories && Boolean(formik.errors.categories)
-                }
-                helperText={
-                  formik.touched.categories && formik.errors.categories
-                }
-              />
-            </div>
-
-            <Button
-              style={saveCloseEditButton}
-              color="primary"
-              variant="contained"
-              fullWidth
-              type="submit"
-            >
-              Save Edit
-            </Button>
-            <Button
-              style={saveCloseEditButton}
-              color="primary"
-              variant="contained"
-              fullWidth
-              onClick={props.onClose}
-            >
-              Close window
-            </Button>
-          </form>
+    <div style={newProductContainer}>
+      <form style={formStyle} onSubmit={formik.handleSubmit}>
+        <h3>Edit Product {props.product!.name}</h3>
+        <div style={textFieldsContainer}>
+          <TextField
+            style={textFieldStyle}
+            fullWidth
+            autoComplete="off"
+            id="name"
+            name="name"
+            label="Name"
+            value={formik.values.name}
+            onChange={formik.handleChange}
+            error={formik.touched.name && Boolean(formik.errors.name)}
+            helperText={formik.touched.name && formik.errors.name}
+          />
+          <TextField
+            style={textFieldStyle}
+            fullWidth
+            autoComplete="off"
+            id="imageId"
+            name="imageId"
+            label="Product Image URL"
+            value={formik.values.imageId}
+            onChange={formik.handleChange}
+            error={formik.touched.imageId && Boolean(formik.errors.imageId)}
+            helperText={formik.touched.imageId && formik.errors.imageId}
+          />
+          <TextField
+            style={textFieldStyle}
+            fullWidth
+            autoComplete="off"
+            id="price"
+            name="price"
+            label="Product Price"
+            value={formik.values.price}
+            onChange={formik.handleChange}
+            error={formik.touched.price && Boolean(formik.errors.price)}
+            helperText={formik.touched.price && formik.errors.price}
+          />
+          <TextField
+            style={textFieldStyle}
+            fullWidth
+            autoComplete="off"
+            id="description"
+            name="description"
+            label="Product description"
+            value={formik.values.description}
+            onChange={formik.handleChange}
+            error={
+              formik.touched.description && Boolean(formik.errors.description)
+            }
+            helperText={formik.touched.description && formik.errors.description}
+          />
+          <TextField
+            style={textFieldStyle}
+            fullWidth
+            autoComplete="off"
+            id="stock"
+            name="stock"
+            label="Stock"
+            value={formik.values.stock}
+            onChange={formik.handleChange}
+            error={formik.touched.stock && Boolean(formik.errors.stock)}
+            helperText={formik.touched.stock && formik.errors.stock}
+          />
+          <TextField
+            style={textFieldStyle}
+            fullWidth
+            autoComplete="off"
+            id="categories"
+            name="categories"
+            label="Product Categories"
+            value={formik.values.categories}
+            onChange={formik.handleChange}
+            error={
+              formik.touched.categories && Boolean(formik.errors.categories)
+            }
+            helperText={formik.touched.categories && formik.errors.categories}
+          />
         </div>
-      </div>
+
+        <Button
+          style={saveCloseEditButton}
+          color="primary"
+          variant="contained"
+          fullWidth
+          type="submit"
+        >
+          Save Edit
+        </Button>
+        <Button
+          style={saveCloseEditButton}
+          color="primary"
+          variant="contained"
+          fullWidth
+          onClick={props.onClose}
+        >
+          Close window
+        </Button>
+      </form>
     </div>
   );
 }

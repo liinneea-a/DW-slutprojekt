@@ -2,7 +2,6 @@ import { Button, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import { CSSProperties } from "react";
 import { useProducts } from "../../context/ProductContext";
-import { productDataItem } from "../../data/collections/dataTest";
 
 interface Props {
   isOpen: boolean;
@@ -10,30 +9,36 @@ interface Props {
 }
 
 function AddNewProduct(props: Props) {
-  const { addProduct } = useProducts();
+  const { addProduct, getAllProducts } = useProducts();
+
   const formik = useFormik({
     initialValues: {
-      productID: 0,
-      image: "",
+      name: 0,
+      imageId: "",
       price: 0,
       description: "",
-      count: 0,
+      stock: 0,
       categories: 0,
     },
     onSubmit: (values) => {
-      let newProduct: productDataItem = {
-        productID: values.productID,
-        image: values.image,
+      let product = {
+        name: values.name,
+        imageId: values.imageId,
         price: values.price,
         description: values.description,
-        count: values.count,
+        stock: values.stock,
         categories: values.categories,
       };
-      // addProduct(newProduct);
+      createNewProduct(product);
       formik.resetForm();
       props.onClose();
     },
   });
+
+  async function createNewProduct(product: {}) {
+    const newProduct = await addProduct(product);
+    getAllProducts();
+  }
 
   if (!props.isOpen) return null;
 
@@ -47,27 +52,25 @@ function AddNewProduct(props: Props) {
               style={textFieldStyle}
               fullWidth
               autoComplete="off"
-              id="productID"
-              name="productID"
+              id="name"
+              name="name"
               label="Product id"
-              value={formik.values.productID}
+              value={formik.values.name}
               onChange={formik.handleChange}
-              error={
-                formik.touched.productID && Boolean(formik.errors.productID)
-              }
-              helperText={formik.touched.productID && formik.errors.productID}
+              error={formik.touched.name && Boolean(formik.errors.name)}
+              helperText={formik.touched.name && formik.errors.name}
             />
             <TextField
               style={textFieldStyle}
               fullWidth
               autoComplete="off"
-              id="image"
-              name="image"
+              id="imageId"
+              name="imageId"
               label="Product Image URL"
-              value={formik.values.image}
+              value={formik.values.imageId}
               onChange={formik.handleChange}
-              error={formik.touched.image && Boolean(formik.errors.image)}
-              helperText={formik.touched.image && formik.errors.image}
+              error={formik.touched.imageId && Boolean(formik.errors.imageId)}
+              helperText={formik.touched.imageId && formik.errors.imageId}
             />
             <TextField
               style={textFieldStyle}
@@ -101,13 +104,13 @@ function AddNewProduct(props: Props) {
               style={textFieldStyle}
               fullWidth
               autoComplete="off"
-              id="count"
-              name="count"
-              label="Count"
-              value={formik.values.count}
+              id="stock"
+              name="stock"
+              label="Stock"
+              value={formik.values.stock}
               onChange={formik.handleChange}
-              error={formik.touched.count && Boolean(formik.errors.count)}
-              helperText={formik.touched.count && formik.errors.count}
+              error={formik.touched.stock && Boolean(formik.errors.stock)}
+              helperText={formik.touched.stock && formik.errors.stock}
             />
             <TextField
               style={textFieldStyle}

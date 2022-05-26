@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { boolean } from "yup/lib/locale";
 import { makeReq } from "../helper";
 
 interface User {
@@ -13,6 +12,7 @@ interface UserContext {
   loggedInUser?: User;
   /* setIsLoggedIn: React.Dispatch<React.SetStateAction<any[]>>,
   setLoggedInUser: React.Dispatch<React.SetStateAction<any[]>>, */
+
   postUser: ({}) => Promise<any>
   loginUser: ({}) => Promise<any>
   updateUser: ({}) => Promise<any>
@@ -32,6 +32,7 @@ export const UserProvider = (props: any) => {
   const [isLoading, setIsLoading] = useState(true);
   const [loggedInUser, setLoggedInUser] = useState<User>();
 
+
   console.log(loggedInUser)
 
   const postUser = async (user: {}) => {
@@ -41,11 +42,12 @@ export const UserProvider = (props: any) => {
     } catch (err) {
       return console.log(err);
     }
-  }
+  };
 
   const loginUser = async (user: any) => {
     console.log(user)
     try {
+
       let { data, ok } = await makeReq("/api/login", "POST", user);
       if (ok) {
         setLoggedInUser(data);
@@ -58,6 +60,7 @@ export const UserProvider = (props: any) => {
       console.log(err);
       return false
     }
+
   }
 
   const updateUser = async (user: any) => {
@@ -68,8 +71,7 @@ export const UserProvider = (props: any) => {
     setLoggedInUser(data)
     return data
   }
-
-
+  
   useEffect(() => {
     const fetchLoggedInUser = async () => {
       try {
@@ -117,5 +119,3 @@ export const UserProvider = (props: any) => {
 };
 
 export const useUser = () => useContext(UserContext);
-
-
