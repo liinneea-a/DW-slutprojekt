@@ -16,6 +16,17 @@ code {
     monospace;
 }
 
+a{
+  color: black!important
+}
+a:visited{
+  color: black !important
+}
+
+.MuiListItemIcon-root { 
+  color: black !important
+}
+
 .MuiFormLabel-root.Mui-focused {
   color: white !important;
 }

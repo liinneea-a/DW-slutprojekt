@@ -41,10 +41,10 @@ function LoginForm() {
 
   async function handleLoginUser(user: {}) {
     console.log(user);
-    const userToBeLogedIn = await loginUser(user);
-    console.log(userToBeLogedIn);
+    const userToBeLoggedIn = await loginUser(user);
+    console.log(userToBeLoggedIn);
 
-    if (!userToBeLogedIn) {
+    if (!userToBeLoggedIn) {
       setFailedLogin(true);
     } else {
       navigate("/all");
@@ -79,7 +79,7 @@ function LoginForm() {
         helperText={formik.touched.password && formik.errors.password}
       />
       <p style={{ color: "red", fontSize: ".8rem" }}>
-        {failedLogin ? "Wrong username or password" : undefined}
+        {failedLogin ? "Wrong email or password" : undefined}
       </p>
       <Button
         style={nextButtonStyle}
@@ -88,7 +88,7 @@ function LoginForm() {
         fullWidth
         type="submit"
       >
-        Next
+        Login
       </Button>
     </form>
   );

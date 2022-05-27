@@ -1,7 +1,9 @@
 import { Button } from "@mui/material";
-import { Product } from "@shared/types";
+import { Product } from "@server/types";
 import { CSSProperties, useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
+// import { Product } from "../../../server/resources";
+import { useCart } from "../context/CartContext";
 import { useProducts } from "../context/ProductContext";
 import FlipCard from "./FlipCard";
 
@@ -11,10 +13,15 @@ interface Props {
 
 function ItemCard(props: Props) {
   const { getAllProducts } = useProducts();
+  const { addProductToCart } = useCart();
 
   useEffect(() => {
     getAllProducts();
   }, []);
+
+  const handleOnClickBuy = (product: Product) => {
+    addProductToCart(product)
+  }
 
   return (
     <div style={cardContainer}>
@@ -29,7 +36,7 @@ function ItemCard(props: Props) {
         <Button
         style={buttonStyle}
         variant="contained"
-        onClick={() => console.log("added to cart")}
+        onClick={() => handleOnClickBuy(props.product)}
         >
           BUY NOW
         </Button>) : (<Button

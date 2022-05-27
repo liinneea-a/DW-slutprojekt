@@ -15,14 +15,17 @@ function AdminPage() {
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
   const [userInfo, setUserInfo] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product>({
-    id: "",
-    name: 0,
-    imageId: "",
-    price: 0,
-    description: "",
-    stock: 0,
-    categories: [],
-  });
+
+      id: "",
+      name: 0,
+      imageId: "",
+      price: 0,
+      description: "",
+      stock: 0,
+      categories: [""],
+      quantity: 0
+   });
+
   const [openEditProductModal, setOpenEditProductModal] = useState(false);
   const { getAllProducts, products, addProduct, editProduct, removeProduct } =
     useProducts();
@@ -114,6 +117,7 @@ function AdminPage() {
               </div>
               <div style={adminCardMidRight}>
                 <div style={descStyle}>{product.description}</div>
+                <div style={descStyle}>Items in stock: {product.stock}</div>
               </div>
             </div>
           </div>
@@ -273,7 +277,7 @@ const adminCardMiddle: CSSProperties = {
 
 const adminCardMidRight: CSSProperties = {
   display: "flex",
-  flexDirection: "row",
+  flexDirection: "column",
   justifyContent: "space-around",
   width: "100%",
 };

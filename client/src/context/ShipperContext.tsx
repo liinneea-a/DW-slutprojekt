@@ -1,40 +1,63 @@
-import { createContext, FC, useContext, useState } from "react";
-import { toast } from "react-toastify";
+import { createContext, FC, useContext, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { number, string } from 'yup';
+import { getAllShippers } from '../../../server/resources';
+import { makeReq } from '../helper';
+//import type {ClientShipper} from "@server/types"
 
-interface ShipperContext {
-  setSelectedShipping: React.Dispatch<React.SetStateAction<any[]>>,
-   selectedShipping: {},
-   //deliveryDate: (""), 
-    getAllShippers: () => Promise<any>
+interface Shipper {
+  shipper: string;
+  cost: number;
+  daysToDelivery: number;
 }
 
+interface ShipperContext {
+  setSelectedShipping: Function;
+  selectedShipping: Shipper;
+  getAllShippers: () => Promise<any>;
+}
+
+// useEffect(() => {
+//   getAllShippers();
+// })
+
 export const ShipperContext = createContext<ShipperContext>({
-  setSelectedShipping: () => undefined,
-  selectedShipping: {},
-  //deliveryDate: () => undefined, 
-  getAllShippers: async () => void[] 
+  setSelectedShipping: () => {},
+  selectedShipping: { shipper: '', cost: 0, daysToDelivery: 0 },
+  getAllShippers: async () => void [],
 });
 
 export const ShipperProvider: FC = (props) => {
-    const [selectedShipping, setSelectedShipping] = useState({});
-    //const [deliveryDate, setDeliveryDate] = useState<string>("");
+  const [selectedShipping, setSelectedShipping] = useState<any>({
+    shipper: '',
+    cost: 0,
+    daysToDelivery: 0,
+  });
 
+  useEffect(() => {
+    console.log(selectedShipping);
+  }, [selectedShipping]);
 
-    const getAllShippers = async () => {
-        const response = await fetch("/api/shipper");
-        const result = await Promise.resolve(response.json());
-        const shippers: String[] = result;
-        return shippers;
+  const getAllShippers = async () => {
+    try {
+      let { data, ok } = await makeReq('/api/shipper', 'GET');
+
+      console.log(data);
+
+      if (ok) {
+        return data;
       }
-  
+    } catch (err) {
+      return console.log(err);
+    }
+  };
+
   return (
     <ShipperContext.Provider
       value={{
-          getAllShippers,
-          setSelectedShipping,
-          selectedShipping,
-          //deliveryDate,
-          //setDeliveryDate, 
+        getAllShippers,
+        setSelectedShipping,
+        selectedShipping,
       }}
     >
       {props.children}

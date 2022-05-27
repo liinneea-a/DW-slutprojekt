@@ -10,6 +10,7 @@ export interface Product {
   stock: number;
   // image: {type: String, required: true},
   categories: string[];
+  quantity?: number;
   // legacy: boolean;
 }
 
@@ -34,5 +35,9 @@ export const productSchema = new mongoose.Schema<Product>(
 productSchema.virtual("imageUrl").get(function () {
   return "/api/media/" + " " + this.imageId;
 });
+
+productSchema.virtual("quantity").get(function (quantity: number) {
+  
+})
 
 export const ProductModel = mongoose.model("product", productSchema);
