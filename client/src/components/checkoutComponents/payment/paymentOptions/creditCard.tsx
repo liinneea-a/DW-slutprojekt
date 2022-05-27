@@ -5,10 +5,9 @@ import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useCart } from "../../../../context/CartContext";
 import { DeliveryDataInfo } from "../../../../data/collections/deliveryData";
+import { CompleteButton } from "../../../CompleteButton";
 
 interface Props {
-  deliveryInfo: DeliveryDataInfo;
-  setDeliveryInfo: any;
   paymentModalOpen: boolean;
   setPaymentModal: any;
 }
@@ -36,8 +35,10 @@ const validationSchema = yup.object({
 });
 
 function CreditCard(props: Props) {
+  const { deliveryInfo, setDeliveryInfo } = useCart(); 
+
   const navigate = useNavigate();
-  const { addPurchaseList, cart, clearCart, newPurchaseTotal } =
+  const { cart, clearCart, newPurchaseTotal } =
     useCart();
   const closeModal = () =>
     setTimeout(() => {
@@ -54,12 +55,12 @@ function CreditCard(props: Props) {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      let newObject = props.deliveryInfo;
+      let newObject = deliveryInfo;
       newObject.paymentMethod = "Card";
-      props.setDeliveryInfo(newObject);
-      console.log(props.deliveryInfo);
+      setDeliveryInfo(newObject);
+      console.log(deliveryInfo);
       props.setPaymentModal(true);
-      addPurchaseList(cart);
+      // addPurchaseList(cart);
       // newPurchaseTotal(totalPrice);
       clearCart();
       closeModal();
@@ -126,14 +127,7 @@ function CreditCard(props: Props) {
           />
         </div>
 
-        <Button
-          style={completePurchaseButton}
-          color="primary"
-          variant="contained"
-          type="submit"
-        >
-          Complete Purchase
-        </Button>
+        <CompleteButton paymentMethod={"Card"} />
       </form>
     </div>
   );

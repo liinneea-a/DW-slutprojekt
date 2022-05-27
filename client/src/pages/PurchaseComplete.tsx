@@ -3,26 +3,25 @@ import DeliveryInfoTableWithPay from "../components/checkoutComponents/DeliveryI
 import GenerateOrderNumber from "../components/checkoutComponents/OrderNumber";
 import { useCart } from "../context/CartContext";
 import { useProducts } from "../context/ProductContext";
+import { useShipper } from "../context/ShipperContext";
 import { DeliveryDataInfo } from "../data/collections/deliveryData";
 
-interface Props {
-  deliveryInfo: DeliveryDataInfo;
-  finalTotalSum: number;
-}
 
-function PurchaseComplete(props: Props) {
-  const { purchaseList, purchaseTotal } = useCart();
+
+function PurchaseComplete() {
+  const { purchaseList, purchaseTotal, totalPrice } = useCart();
+  const { selectedShipping } = useShipper();
   // const { products } = useProducts();
 
   let totalSumWithShipping = 0;
 
-  if (props.deliveryInfo.deliveryMethod === "DHL agent") {
-    totalSumWithShipping = purchaseTotal + 2;
-  } else if (props.deliveryInfo.deliveryMethod === "DHL express") {
-    totalSumWithShipping = purchaseTotal + 6;
-  } else if (props.deliveryInfo.deliveryMethod === "Postnord home delivery") {
-    totalSumWithShipping = purchaseTotal + 4;
-  }
+  // if (props.deliveryInfo.deliveryMethod === "DHL agent") {
+  //   totalSumWithShipping = purchaseTotal + 2;
+  // } else if (props.deliveryInfo.deliveryMethod === "DHL express") {
+  //   totalSumWithShipping = purchaseTotal + 6;
+  // } else if (props.deliveryInfo.deliveryMethod === "Postnord home delivery") {
+  //   totalSumWithShipping = purchaseTotal + 4;
+  // }
 
   return (
     <div style={rootStyle}>
@@ -31,11 +30,12 @@ function PurchaseComplete(props: Props) {
         <div>
           <GenerateOrderNumber />
           <h2 style={deliveryDetailsTextStyle}>Delivery details</h2>
-          <DeliveryInfoTableWithPay deliveryInfo={props.deliveryInfo} />
+
+          {/* <DeliveryInfoTableWithPay /> */}
         </div>
         <div style={totalPriceContainer}>
           <h2 style={totalPriceTextStyle}>
-            Total price: {totalSumWithShipping} SEK
+            Total price: { totalPrice + selectedShipping.cost} SEK
           </h2>
         </div>
         <h2>Your purchase:</h2>

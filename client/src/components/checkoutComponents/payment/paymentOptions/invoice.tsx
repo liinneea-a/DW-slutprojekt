@@ -3,40 +3,24 @@ import { CSSProperties } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../../../context/CartContext";
 import { DeliveryDataInfo } from "../../../../data/collections/deliveryData";
+import { CompleteButton } from "../../../CompleteButton";
 
-interface Props {
-  deliveryInfo: DeliveryDataInfo;
-  setDeliveryInfo: any;
-}
 
-function Invoice(props: Props) {
+
+function Invoice() {
   const navigate = useNavigate();
-  const { addPurchaseList, cart, clearCart, newPurchaseTotal } =
+  const { sendOrder, cart, clearCart, newPurchaseTotal } =
     useCart();
-  const completePayment = (props: Props) => {
-    let newObject = props.deliveryInfo;
-    newObject.paymentMethod = "Card";
-    props.setDeliveryInfo(newObject);
-    addPurchaseList(cart);
-    // newPurchaseTotal(totalPrice);
-    clearCart();
-    navigate("/purchasecomplete");
-  };
+
+
+
   return (
     <div style={invoiceInfoBox}>
       <p>
         When choosing invoice as the payment option, the invoice will be sent
         together with your order to your chosen delivery address.
       </p>
-      <Button
-        style={completePurchaseButton}
-        color="primary"
-        variant="contained"
-        fullWidth
-        onClick={() => completePayment(props)}
-      >
-        Complete purchase
-      </Button>
+        <CompleteButton paymentMethod={"invoice"} />
     </div>
   );
 }

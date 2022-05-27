@@ -2,7 +2,6 @@ export interface DeliveryDataInfo {
   firstName: string;
   lastName: string;
   email: string;
-  deliveryMethod: string;
   number: number;
   address: string;
   zipCode: number;
@@ -15,7 +14,6 @@ export const DeliveryDataInfoObject: DeliveryDataInfo = {
   firstName: "",
   lastName: "",
   email: "",
-  deliveryMethod: "",
   number: 1,
   address: "",
   zipCode: 1,

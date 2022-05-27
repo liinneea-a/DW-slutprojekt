@@ -11,14 +11,11 @@ import { useFormik } from "formik";
 import { CSSProperties, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import { ShipperContext } from "../../context/ShipperContext";
+import { useCart } from "../../context/CartContext";
+import { ShipperContext, useShipper } from "../../context/ShipperContext";
 import { DeliveryDataInfo } from "../../data/collections/deliveryData";
 import DeliveryBox from "../checkoutComponents/shipping/deliveryBox";
 
-interface Props {
-  deliveryInfo: DeliveryDataInfo;
-  setDeliveryInfo: any;
-}
 
 const validationSchema = yup.object({
   firstName: yup.string().required("Please enter first name").min(2),
@@ -34,12 +31,13 @@ const validationSchema = yup.object({
   country: yup.string().required("Please enter your country").min(2),
 });
 
-function CheckoutForm(props: Props) {
+function CheckoutForm() {
   const [deliveryOption, setDeliveryOption] = useState("");
+    const [shippers, setShippers] = useState([])
 
-  const { getAllShippers, selectedShipping, setSelectedShipping } =
-    useContext(ShipperContext);
-  const [shippers, setShippers] = useState([]);
+  const { deliveryInfo, setDeliveryInfo } = useCart(); 
+  const { getAllShippers, selectedShipping, setSelectedShipping } = useShipper();
+;
 
   const navigate = useNavigate();
   console.log(shippers);
@@ -60,21 +58,34 @@ function CheckoutForm(props: Props) {
       paymentMethod: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
+
+    onSubmit: (values, event) => {
       values.deliveryMethod = deliveryOption;
-      props.setDeliveryInfo(values);
+      setDeliveryInfo(values);
       console.log(values);
       navigate("/paymentpage");
     },
+
   });
 
   const handleChange = (event: any) => {
-    setSelectedShipping(event.target.value);
+    console.log(selectedShipping)
   };
+
+  const handleChangeShipping = (event: any) => {
+    setSelectedShipping(event.target.value);
+    console.log(selectedShipping);
+  }
+
+
+  const handleOnSubmit = (e: any) => {
+    e.preventDefault();
+  }
+
 
   async function getShippers() {
     const result =  await getAllShippers();
-   setShippers(result.data);
+    setShippers(result);
     console.log(result);
   }
 
@@ -87,7 +98,7 @@ function CheckoutForm(props: Props) {
       <div style={detailFormContainer}>
         <h2>Shipment details</h2>
         <div>
-          <form style={formStyle} onSubmit={formik.handleSubmit}>
+          <form style={formStyle} onSubmit={(e) => {formik.handleSubmit}}>
             <div style={textFieldsContainer}>
               <TextField
                 style={textFieldStyle}
@@ -193,7 +204,7 @@ function CheckoutForm(props: Props) {
                   value={selectedShipping}
                   label="Delivery Option"
                   required
-                  onChange={handleChange}
+                  onChange={handleChangeShipping}
                 >
                  {shippers.map((shipper: any) => {
                     return (

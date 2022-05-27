@@ -5,10 +5,10 @@ import DeliveryInfoTable from "../components/checkoutComponents/DeliveryInfoTabl
 import { DeliveryDataInfo } from "../data/collections/deliveryData";
 import PaymentBox from "../components/checkoutComponents/payment/paymentBox";
 import TotalSumWithShipping from "../components/checkoutComponents/payment/TotalSumWithShipping";
+import { useCart } from "../context/CartContext";
+import { useShipper } from "../context/ShipperContext";
 
 interface Props {
-  deliveryInfo: DeliveryDataInfo;
-  setDeliveryInfo: any;
   finalTotalSum: number;
   setFinalTotalSum: any;
 }
@@ -16,6 +16,11 @@ interface Props {
 // const navigate = useNavigate();
 
 function PaymentPage(props: Props) {
+
+  const { selectedShipping } = useShipper();
+  console.log(selectedShipping);
+
+
   const handleChange = (event: any) => {
     setPaymentOption(event.target.value);
   };
@@ -35,14 +40,10 @@ function PaymentPage(props: Props) {
       <div style={checkoutContainer}>
         <h2 style={headlineStyle}>Checkout</h2>
         <div>
-          <DeliveryInfoTable deliveryInfo={props.deliveryInfo} />
+          <DeliveryInfoTable />
         </div>
         <div>
-          <TotalSumWithShipping
-            deliveryInfo={props.deliveryInfo}
-            finalTotalSum={finalTotalSum}
-            setFinalTotalSum={setFinalTotalSum}
-          />
+          <TotalSumWithShipping />
         </div>
         <form onSubmit={formik.handleSubmit}>
           <h2 style={paymentDetailsTextStyle}>Payment details</h2>
@@ -63,11 +64,7 @@ function PaymentPage(props: Props) {
             </FormControl>
           </Box>
         </form>
-        <PaymentBox
-          paymentOption={paymentOption}
-          deliveryInfo={props.deliveryInfo}
-          setDeliveryInfo={props.setDeliveryInfo}
-        />
+        <PaymentBox paymentOption={paymentOption} />
       </div>
     </div>
   );

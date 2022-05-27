@@ -1,8 +1,9 @@
 import { Button, TextField } from "@mui/material";
-import { Product } from "@shared/types";
 import { useFormik } from "formik";
 import { CSSProperties } from "react";
+import { Product } from "../../../../server/resources";
 import { useProducts } from "../../context/ProductContext";
+
 
 interface Props {
   isOpen: boolean;

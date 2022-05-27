@@ -1,14 +1,13 @@
-import { Button, TextField } from "@mui/material";
-import { useFormik } from "formik";
-import { CSSProperties } from "react";
-import { useNavigate } from "react-router-dom";
-import * as yup from "yup";
-import { useCart } from "../../../../context/CartContext";
-import { DeliveryDataInfo } from "../../../../data/collections/deliveryData";
+import { Button, TextField } from '@mui/material';
+import { useFormik } from 'formik';
+import { CSSProperties } from 'react';
+import { useNavigate } from 'react-router-dom';
+import * as yup from 'yup';
+import { useCart } from '../../../../context/CartContext';
+import { DeliveryDataInfo } from '../../../../data/collections/deliveryData';
+import { CompleteButton } from '../../../CompleteButton';
 
 interface Props {
-  deliveryInfo: DeliveryDataInfo;
-  setDeliveryInfo: any;
   paymentModalOpen: boolean;
   setPaymentModal: any;
 }
@@ -17,38 +16,42 @@ const validationSchema = yup.object({
   // number: yup.number().required("Please enter number").min(10),
   number: yup
     .string()
-    .typeError("Not a valid phone number. Example: 0738986845")
-    .max(10, "Not a valid phone number. Example: 0738986845")
-    .matches(/([0-9]{10})/, "Not a valid phone number. Example: 0738986845")
-    .required("Phone number date is required"),
+    .typeError('Not a valid phone number. Example: 0738986845')
+    .max(10, 'Not a valid phone number. Example: 0738986845')
+    .matches(/([0-9]{10})/, 'Not a valid phone number. Example: 0738986845')
+    .required('Phone number date is required'),
 });
 
 function Swish(props: Props) {
+  const { deliveryInfo, setDeliveryInfo } = useCart();
+
   const navigate = useNavigate();
-  const { addPurchaseList, cart, clearCart, newPurchaseTotal} =
-    useCart();
+  const { cart, clearCart, newPurchaseTotal } = useCart();
   const closeModal = () =>
     setTimeout(() => {
       props.setPaymentModal(false);
-      navigate("/purchasecomplete");
+      navigate('/purchasecomplete');
     }, 5000);
+
   const formik = useFormik({
     initialValues: {
-      number: props.deliveryInfo.number,
+      number: deliveryInfo.number,
     },
     validationSchema: validationSchema,
+
     onSubmit: (values) => {
-      let newObject = props.deliveryInfo;
-      newObject.paymentMethod = "Swish";
-      props.setDeliveryInfo(newObject);
+      let newObject = deliveryInfo;
+      newObject.paymentMethod = 'Swish';
+      setDeliveryInfo(newObject);
       props.setPaymentModal(true);
       console.log(props.paymentModalOpen);
       closeModal();
-      addPurchaseList(cart);
+      // addPurchaseList(cart);
       // newPurchaseTotal(totalPrice);
       clearCart();
     },
   });
+  
   return (
     <div style={swishForm}>
       <form onSubmit={formik.handleSubmit}>
@@ -63,15 +66,7 @@ function Swish(props: Props) {
           error={formik.touched.number && Boolean(formik.errors.number)}
           helperText={formik.touched.number && formik.errors.number}
         />
-        <Button
-          style={completePurchaseButton}
-          color="primary"
-          variant="contained"
-          fullWidth
-          type="submit"
-        >
-          Complete purchase
-        </Button>
+        <CompleteButton paymentMethod={'Swish'} />
       </form>
     </div>
   );
@@ -80,15 +75,15 @@ function Swish(props: Props) {
 export default Swish;
 
 const swishForm: CSSProperties = {
-margin: '0 1rem'
+  margin: '0 1rem',
 };
 
 const textFieldStyle: CSSProperties = {
-  marginBottom: "1rem",
+  marginBottom: '1rem',
 };
 
 const completePurchaseButton: CSSProperties = {
-  marginTop: "1rem",
-  marginBottom: "1rem",
-  background: "#2081e2",
+  marginTop: '1rem',
+  marginBottom: '1rem',
+  background: '#2081e2',
 };

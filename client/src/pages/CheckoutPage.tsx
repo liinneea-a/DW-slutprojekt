@@ -6,7 +6,7 @@ import { useCart } from "../context/CartContext";
 import { useProducts } from "../context/ProductContext";
 
 function CheckoutPage() {
-  const { cart,  } = useCart();
+  const { cart, totalPrice } = useCart();
   // const { products } = useProducts();
 
   return (
@@ -47,7 +47,7 @@ function CheckoutPage() {
           </div>
         </div>
         <div style={totalPriceContainer}>
-          <h2 style={totalPriceStyle}>Total price:  SEK</h2>
+          <h2 style={totalPriceStyle}>Total price: {totalPrice} SEK</h2>
         </div>
         <Link style={nextButton} to="/checkoutdetails">
           <Button style={buttonStyle} variant="contained" href="">

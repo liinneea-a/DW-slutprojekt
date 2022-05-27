@@ -1,37 +1,44 @@
 // @ts-ignore
 
+import { SelfImprovement } from '@mui/icons-material';
 import { createContext, FC, useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Product } from '../../../server/resources';
-// import { Product } from '../data/collections/collection';
+import { DeliveryDataInfoObject, DeliveryDataInfo } from '../data/collections/deliveryData';
+import { makeReq } from '../helper';
+import { useShipper } from './ShipperContext';
 
 
 interface CartContext {
   purchaseList: Product[];
   cart: Product[];
   addProductToCart: (item: Product) => void;
-  incQty: (itemID: number) => void;
-  decQty: (itemID: number) => void;
+  incQty: (itemID: string) => void;
+  decQty: (itemID: string) => void;
   clearCart: () => void;
-  addPurchaseList: (list: Product[]) => void;
+  sendOrder: () => void;
   totalPrice: number;
   calculatePrice: Function;
   purchaseTotal: number;
   newPurchaseTotal: (total: number) => void;
+  deliveryInfo: DeliveryDataInfo,
+  setDeliveryInfo: Function
 }
 
 export const CartContext = createContext<CartContext>({
   purchaseList: [],
-  addPurchaseList: (list: Product[]) => {},
+  sendOrder: () => {},
   cart: [],
   addProductToCart: (item: Product) => {},
-  incQty: (itemID: number) => {},
-  decQty: (itemID: number) => {},
+  incQty: (itemID: string) => {},
+  decQty: (itemID: string) => {},
   clearCart: () => {},
-  totalPrice: 1,
+  totalPrice: 0,
   calculatePrice: () => 0,
   purchaseTotal: 1,
   newPurchaseTotal: (total: number) => {},
+  deliveryInfo: DeliveryDataInfoObject,
+  setDeliveryInfo: () => {}
 });
 
 export const CartProvider: FC = (props) => {
@@ -43,8 +50,40 @@ export const CartProvider: FC = (props) => {
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [purchaseTotal, setPurchaseTotal] = useState(1);
 
-  const addPurchaseList = (list: Product[]) => {
-    setPurchaseList(list);
+  const [deliveryInfo, setDeliveryInfo] = useState(DeliveryDataInfoObject);
+  
+  const { selectedShipping } = useShipper();
+
+
+  const sendOrder = async () => {
+    
+    const address = {
+      fullname: deliveryInfo.firstName + deliveryInfo.lastName,
+      street: deliveryInfo.address,
+      zipcode: deliveryInfo.zipCode,
+      city: deliveryInfo.city
+    }
+
+    console.log(deliveryInfo);
+    console.log(selectedShipping);
+    console.log(test)
+
+    const order = {
+      products: cart,
+      shipper: test,
+      deliveryAddress: address,
+      paymentMethod: deliveryInfo.paymentMethod
+    }
+    console.log(order);
+
+    // try {
+    //   const { data, ok } = await makeReq("/api/order", "POST", order);
+    //   console.log(data, ok)
+
+    // }catch(err) {
+    //    return console.log(err);
+    // }
+
   };
 
   const newPurchaseTotal = (total: number) => {
@@ -55,6 +94,7 @@ export const CartProvider: FC = (props) => {
     let sum = 0;
     for (let item of cart){
       sum += item.price * item.quantity!
+      console.log(sum);
     }
     setTotalPrice(sum);
     return sum
@@ -87,10 +127,10 @@ export const CartProvider: FC = (props) => {
 
   };
 
-  const incQty = (itemID: number) => {
-    let updatedList = cart.map((item: any) => {
+  const incQty = (itemID: string) => {
+    let updatedList = cart.map((item: Product) => {
       if (item.id === itemID) {
-        item.count += 1;
+        item.quantity! += 1;
       }
       return item;
     });
@@ -99,23 +139,22 @@ export const CartProvider: FC = (props) => {
     localStorage.setItem('cart', JSON.stringify(updatedList));
   };
 
-  const decQty = (itemID: number) => {
-    // let updatedList = cart.filter((item: Product) => {
-    //   if (item.id === itemID) {
-    //     if (item.count > 1) {
-    //       item.count -= 1;
-    //       return item;
-    //     } else {
-    //       item.count = 0;
-    //     }
-    //   } else {
-    //     return item;
-    //   }
-    // })!;
-    // setCart(updatedList);
-    // setTotalPrice(cart.reduce((sum, nft) => sum + nft.price * nft.count, 0));
+  const decQty = (itemID: string) => {
+    let updatedList = cart.filter((item: Product) => {
+      if (item.id === itemID) {
+        if (item.quantity! > 1) {
+          item.quantity! -= 1;
+          return item;
+        } else {
+          item.quantity! = 0;
+        }
+      } else {
+        return item;
+      }
+    })!;
+    setCart(updatedList);
     calculatePrice();
-    // localStorage.setItem('cart', JSON.stringify(updatedList));
+    localStorage.setItem('cart', JSON.stringify(updatedList));
   };
 
   const clearCart = () => {
@@ -127,7 +166,7 @@ export const CartProvider: FC = (props) => {
   return (
     <CartContext.Provider
       value={{
-        addPurchaseList,
+        sendOrder,
         purchaseList,
         cart,
         addProductToCart,
@@ -138,6 +177,8 @@ export const CartProvider: FC = (props) => {
         calculatePrice,
         purchaseTotal,
         newPurchaseTotal,
+        deliveryInfo, 
+        setDeliveryInfo
       }}
     >
       {props.children}

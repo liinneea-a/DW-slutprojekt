@@ -1,5 +1,6 @@
 import { CSSProperties } from "react";
 import CheckoutForm from "../components/forms/CheckoutForm";
+import { useCart } from "../context/CartContext";
 import { DeliveryDataInfo } from "../data/collections/deliveryData";
 
 
@@ -8,15 +9,14 @@ interface Props {
   setDeliveryInfo: any;
 }
 
-function CheckoutPageDetails(props: Props) {
+function CheckoutPageDetails() {
+  const { deliveryInfo, setDeliveryInfo } = useCart(); 
+
   return (
     <div style={rootStyle}>
       <div style={checkoutContainer}>
         <h2 style={headlineStyle}>Checkout</h2>
-        <CheckoutForm
-          deliveryInfo={props.deliveryInfo}
-          setDeliveryInfo={props.setDeliveryInfo}
-        />
+        <CheckoutForm />
       </div>
     </div>
   );

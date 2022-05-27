@@ -1,8 +1,8 @@
 import { Box, Button, Modal, Typography } from "@mui/material";
 import { CSSProperties, useState } from "react";
 import { Link } from "react-router-dom";
+import { Product } from "../../../server/resources";
 import { useCart } from "../context/CartContext";
-import { collectionData } from "../data/collections/collection";
 
 interface CartProps {
   modalState: boolean;
@@ -10,9 +10,9 @@ interface CartProps {
 }
 
 function CartModal(props: CartProps) {
-  const { cart, decQty, incQty, clearCart} = useCart();
+  const { cart, decQty, incQty, clearCart, totalPrice} = useCart();
   const handleClose = () => props.setModalState(false);
-  const [collectionList, setCollectionList] = useState(collectionData);
+  // const [collectionList, setCollectionList] = useState(collectionData);
 
   return (
     <div>
@@ -39,32 +39,32 @@ function CartModal(props: CartProps) {
                 sx={{ mt: 2 }}
                 component="div"
               >
-                {cart.map((item: any, index: number) => (
+                {cart.map((item: Product, index: number) => (
                   <div style={nftContainer} key={index}>
                     <div style={iconCol}>
-                      <img style={iconStyle} srcSet={item.image} alt="test" />
+                      <img style={iconStyle} srcSet={item.imageId} alt="test" />
                     </div>
                     <div style={prodColMid}>
                       <div style={nameColMid}>
-                        {
+                        {/* {
                           collectionList.find(
                             (col) => col.id === item.collectionID
                           )?.name
-                        }
-                        &nbsp;#{item.productID}
+                        } */}
+                        &nbsp;#{item.id}
                       </div>
                     </div>
                     <div style={qtyCol}>
                         <Button variant="contained"
                         style={qtyBtn}
                         aria-label="outlined primary button"
-                        onClick={() => decQty(item.productID)}> -
+                        onClick={() => decQty(item.id)}> -
                         </Button>
-                        {item.count}
+                        {item.quantity}
                         <Button variant="contained"
                         style={qtyBtn}
                         aria-label="outlined primary button"
-                        onClick={() => incQty(item.productID)}>
+                        onClick={() => incQty(item.id)}>
                           +
                         </Button>
                     </div>
@@ -72,7 +72,7 @@ function CartModal(props: CartProps) {
                   </div>
                 ))}
                 <div style={cartFooter}>
-                <div style={priceStyle}>Your total:  SEK</div>
+                <div style={priceStyle}>Your total: {totalPrice} SEK</div>
                   <div style={cartButton}>
                     <Button
                       style={buttonStyle}

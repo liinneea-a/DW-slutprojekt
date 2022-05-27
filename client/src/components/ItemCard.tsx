@@ -1,7 +1,8 @@
 import { Button } from "@mui/material";
-import { Product } from "@shared/types";
+
 import { CSSProperties, useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
+import { Product } from "../../../server/resources";
 import { useCart } from "../context/CartContext";
 import { useProducts } from "../context/ProductContext";
 import FlipCard from "./FlipCard";
