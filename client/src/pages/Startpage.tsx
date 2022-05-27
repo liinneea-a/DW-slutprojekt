@@ -1,8 +1,10 @@
+import { Button } from "@mui/material";
 import { CSSProperties, useEffect } from "react";
+import { Link } from "react-router-dom";
 import ItemCard from "../components/ItemCard";
 import { useProducts } from "../context/ProductContext";
 
-function StartPage(startPageProps: any) {
+function StartPage() {
   const { getAllProducts, products } = useProducts();
 
   let randomList = products
@@ -26,6 +28,11 @@ function StartPage(startPageProps: any) {
             handpicked the best NFTS for you! Enjoy!
           </p>
         </div>
+        <Link style={linkStyle} to="/all">
+            <Button style={StyledButton} variant="contained" href="">
+               ALL PRODUCTS
+            </Button>
+          </Link>
         <div style={hottestStyle}>
           <div style={hottestTitle}>
             <h1>HOTTEST ITEMS RIGHT NOW</h1>
@@ -48,7 +55,7 @@ const rootStyle: CSSProperties = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  margin: "0 auto",
+  margin: "0",
   maxWidth: "80rem",
   // border: "2px solid #88D9E6",
 };
@@ -98,4 +105,13 @@ const hottestStyle: CSSProperties = {
 const hottestTitle: CSSProperties = {
   textAlign: "center",
   margin: "0 1rem",
+};
+
+const linkStyle: CSSProperties = { textDecoration: "none" };
+
+const StyledButton: CSSProperties = {
+  background: "#2081e2",
+  margin: "1rem",
+  fontSize: "3vmin",
+  fontWeight: "bold",
 };

@@ -61,8 +61,8 @@ function CheckoutForm(props: Props) {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      //values.deliveryMethod = deliveryOption;
-      //props.setDeliveryInfo(values);
+      values.deliveryMethod = deliveryOption;
+      props.setDeliveryInfo(values);
       console.log(values);
       navigate("/paymentpage");
     },
@@ -73,9 +73,9 @@ function CheckoutForm(props: Props) {
   };
 
   async function getShippers() {
-    const shippers = await getAllShippers();
-    setShippers(shippers);
-    console.log(shippers);
+    const result =  await getAllShippers();
+   setShippers(result.data);
+    console.log(result);
   }
 
   useEffect(() => {
@@ -195,7 +195,7 @@ function CheckoutForm(props: Props) {
                   required
                   onChange={handleChange}
                 >
-                  {shippers.map((shipper: any) => {
+                 {shippers.map((shipper: any) => {
                     return (
                       <MenuItem
                         value={shipper}
@@ -209,7 +209,7 @@ function CheckoutForm(props: Props) {
                         <p style={{ width: "33%" }}>{shipper.cost} SEK</p>
                       </MenuItem>
                     );
-                  })}
+                  })} 
                 </Select>
               </FormControl>
               <div style={deliveryBox}>

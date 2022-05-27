@@ -1,40 +1,52 @@
 import { createContext, FC, useContext, useState } from "react";
 import { toast } from "react-toastify";
+import { number, string } from "yup";
+import { makeReq } from "../helper";
+//import type {ClientShipper} from "@server/types"
 
 interface ShipperContext {
-  setSelectedShipping: React.Dispatch<React.SetStateAction<any[]>>,
-   selectedShipping: {},
-   //deliveryDate: (""), 
-    getAllShippers: () => Promise<any>
+  setSelectedShipping: React.Dispatch<React.SetStateAction<any[]>>;
+  selectedShipping: {
+    /* shipper: string, 
+    cost: number,
+    days: number, */
+  };
+  getAllShippers: () => Promise<any>;
 }
 
 export const ShipperContext = createContext<ShipperContext>({
   setSelectedShipping: () => undefined,
-  selectedShipping: {},
-  //deliveryDate: () => undefined, 
-  getAllShippers: async () => void[] 
+  selectedShipping: {
+    /* shipper: string, 
+    cost: number,
+    days: number,  */
+  },
+  getAllShippers: async () => void [],
 });
 
 export const ShipperProvider: FC = (props) => {
-    const [selectedShipping, setSelectedShipping] = useState({});
-    //const [deliveryDate, setDeliveryDate] = useState<string>("");
+  const [selectedShipping, setSelectedShipping] = useState({
+    /* shipper: string, cost: number, days: number */
+  });
 
+  console.log(selectedShipping);
 
-    const getAllShippers = async () => {
-        const response = await fetch("/api/shipper");
-        const result = await Promise.resolve(response.json());
-        const shippers: String[] = result;
-        return shippers;
-      }
-  
+  const getAllShippers = async () => {
+    try {
+      let response = await makeReq("/api/shipper", "GET");
+      console.log(response);
+      return response;
+    } catch (err) {
+      return console.log(err);
+    }
+  };
+
   return (
     <ShipperContext.Provider
       value={{
-          getAllShippers,
-          setSelectedShipping,
-          selectedShipping,
-          //deliveryDate,
-          //setDeliveryDate, 
+        getAllShippers,
+        setSelectedShipping,
+        selectedShipping,
       }}
     >
       {props.children}
