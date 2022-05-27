@@ -6,7 +6,7 @@ import { useProducts } from "../../context/ProductContext";
 
 interface Props {
   isOpen: boolean;
-  product?: Product;
+  product: Product;
   onClose: () => void;
 }
 
@@ -24,17 +24,17 @@ function EditProduct(props: Props) {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      name: props.product!.name,
-      imageId: props.product!.imageId,
-      price: props.product!.price,
-      description: props.product!.description,
-      stock: props.product!.stock,
-      categories: props.product!.categories,
+      name: props.product.name,
+      imageId: props.product.imageId, 
+      price: props.product.price,
+      description: props.product.description,
+      stock: props.product.stock,
+      categories: props.product.categories,
     },
     // validationSchema: validationSchema,
     onSubmit: (values) => {
       let updatedProduct = {
-        id: props.product!.id,
+        id: props.product.id,
         name: values.name,
         description: values.description,
         price: values.price,
@@ -58,7 +58,7 @@ function EditProduct(props: Props) {
   return (
     <div style={newProductContainer}>
       <form style={formStyle} onSubmit={formik.handleSubmit}>
-        <h3>Edit Product {props.product!.name}</h3>
+        <h3>Edit Product {props.product.name}</h3>
         <div style={textFieldsContainer}>
           <TextField
             style={textFieldStyle}

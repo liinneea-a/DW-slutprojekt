@@ -32,22 +32,33 @@ export const ProductProvider: FC = (props) => {
   const [products, setProducts] = useState<Product[]>([]);
 
   const getAllProducts = async () => {
-    let response = await makeReq(`/api/products`, "GET");
-    setProducts(response);
+    try {
+      let { data, ok } = await makeReq("/api/products", "GET");
+      if (ok) {
+        setProducts(data);
+        return true;
+      }
+    } catch (err) {
+      return console.log(err);
+    }
   };
 
   const addProduct = async (product: {}) => {
-      let response = await makeReq(`/api/product/`, "POST", product);
-      return response;
+    let response = await makeReq(`/api/product/`, "POST", product);
+    return response;
   };
 
   const removeProduct = async (product: Product) => {
-      let response = await makeReq(`/api/products/${product.id}`, 'DELETE')
-      return response;
+    let response = await makeReq(`/api/products/${product.id}`, "DELETE");
+    return response;
   };
 
   const editProduct = async (editedProduct: Product) => {
-    let response = await makeReq(`/api/products/${editedProduct.id}`, 'PUT', editedProduct)
+    let response = await makeReq(
+      `/api/products/${editedProduct.id}`,
+      "PUT",
+      editedProduct
+    );
     return response;
   };
 

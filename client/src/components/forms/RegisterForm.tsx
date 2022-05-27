@@ -1,6 +1,6 @@
 import { Button, TextField } from "@mui/material";
 import { useFormik } from "formik";
-import { CSSProperties, useContext } from "react";
+import { CSSProperties, useContext, useState } from "react";
 import * as yup from "yup";
 import { UserContext } from "../../context/LoginContext";
 
@@ -23,6 +23,9 @@ const validationSchema = yup.object({
 function RegisterForm() {
   const { postUser } = useContext(UserContext);
 
+  const [alreadyRegistered, setAlreadyRegistered] = useState(false);
+  const [successfullyRegistered, setSuccessfullyRegistered] = useState(false);
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -44,7 +47,15 @@ function RegisterForm() {
     console.log(user);
     const newUser = await postUser(user);
     console.log(newUser);
+    if (!newUser) {
+      setAlreadyRegistered(true)
+    } else {
+      setAlreadyRegistered(false)
+      setSuccessfullyRegistered(true)
+    }
   }
+  
+  if (successfullyRegistered) return null;
 
   return (
     <form style={registerForm} onSubmit={formik.handleSubmit}>
@@ -90,6 +101,9 @@ function RegisterForm() {
           formik.touched.confirmPassword && formik.errors.confirmPassword
         }
       />
+      <p style={{ color: "red", fontSize: ".8rem" }}>
+      {alreadyRegistered ? "That email is already in use." : undefined}
+    </p>
       <Button
         style={nextButtonStyle}
         color="primary"
@@ -97,7 +111,7 @@ function RegisterForm() {
         fullWidth
         type="submit"
       >
-        Next
+        Register
       </Button>
     </form>
   );
