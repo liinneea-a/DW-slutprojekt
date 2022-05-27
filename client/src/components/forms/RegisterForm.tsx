@@ -3,6 +3,9 @@ import { useFormik } from "formik";
 import { CSSProperties, useContext } from "react";
 import * as yup from "yup";
 import { UserContext } from "../../context/LoginContext";
+import Checkbox from '@mui/material/Checkbox';
+
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 const validationSchema = yup.object({
   email: yup
@@ -21,22 +24,28 @@ const validationSchema = yup.object({
 });
 
 function RegisterForm() {
-  const { postUser } = useContext(UserContext);
+  const { postUser, setAdminRequest, adminRequest } = useContext(UserContext);
+
+   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAdminRequest(event.target.checked);
+  }; 
 
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
       confirmPassword: "",
+      adminRequest: adminRequest,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
       let user = {
         email: values.email,
         password: values.password,
+        adminRequest: adminRequest
       };
       createNewUser(user);
-      //console.log(values);
+      console.log(values);
     },
   });
 
@@ -90,6 +99,8 @@ function RegisterForm() {
           formik.touched.confirmPassword && formik.errors.confirmPassword
         }
       />
+      Admin request
+      <Checkbox {...label}  onChange={handleChange} />
       <Button
         style={nextButtonStyle}
         color="primary"

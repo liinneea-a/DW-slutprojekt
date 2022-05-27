@@ -4,31 +4,43 @@ import { User, Product } from "../../../server/resources";
 import AddNewProduct from "../components/admin/addNewProduct";
 import EditProduct from "../components/admin/editProduct";
 import { useProducts } from "../context/ProductContext";
-import {UserContext} from "../context/LoginContext"
+import { UserContext } from "../context/LoginContext";
+import Switch from '@mui/material/Switch';
+
+const label = { inputProps: { 'aria-label': 'Switch demo' } };
+
+
 
 function AdminPage() {
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
   const [userInfo, setUserInfo] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product>({
-      id: "",
-      name: 0,
-      imageId: "",
-      price: 0,
-      description: "",
-      stock: 0,
-      categories: [],
-   });
+    id: "",
+    name: 0,
+    imageId: "",
+    price: 0,
+    description: "",
+    stock: 0,
+    categories: [],
+  });
   const [openEditProductModal, setOpenEditProductModal] = useState(false);
   const { getAllProducts, products, addProduct, editProduct, removeProduct } =
     useProducts();
-    const { getAllUsers, allUsers } = useContext(UserContext)
+  const { getAllUsers, allUsers, adminRequest, updateUser } = useContext(UserContext);
 
   useEffect(() => {
     getAllProducts();
     getAllUsers();
   }, []);
 
-  console.log(allUsers)
+  
+ 
+
+  async function handleRoleChange(user: User) {
+  await updateUser(user);
+  }
+
+  console.log(adminRequest);
 
   return (
     <div style={adminPageLayout}>
@@ -108,26 +120,28 @@ function AdminPage() {
         ))}
       </div>
       {userInfo ? (
-      <div>
-        <h2>EDIT USERS</h2>
-        {allUsers.map((user) => {
-          return (
-            <div key={user._id}>
-              <div style={{backgroundColor: "grey"}}>
-              <p>Email: {user.email}</p>
-              <p>Role: {user.isAdmin ? ("Admin") : ("User") }</p>
+        <div>
+          <h2>EDIT USERS</h2>
+          {allUsers.map((user) => {
+            return (
+              <div key={user.id}>
+                <div style={{border: "1px grey solid", borderRadius: "5px", margin: "1rem", padding: "1rem"}}>
+                  <p>Email: {user.email}</p>
+                  <p style={{color: "yellow"}}> {user.adminRequest === true ? ("User requests admin role") : ("") }</p>
+                  <p>Role: {user.isAdmin ? "Admin" : "User"}
+                  {user.isAdmin ?  (<Switch {...label} defaultChecked onClick={ () => {handleRoleChange(user)}}/>)
+                  : 
+                 ( <Switch {...label} onClick={ () => {handleRoleChange(user)}} />)}
+                 </p>
+                 
+                </div>
               </div>
-            </div>
-          )
-
-        })}
-
-
-      </div>
+            );
+          })}
+        </div>
       ) : (
-      <></>
+        <></>
       )}
-      
     </div>
   );
 }

@@ -6,6 +6,7 @@ export interface User {
   email: string;
   password?: string;
   isAdmin: boolean;
+  adminRequest: boolean;
   isModified?: any;
 }
 
@@ -14,6 +15,7 @@ const UserSchema = new mongoose.Schema<User>( //? Stor bokstav och <User>
     email: { type: String, required: true },
     password: { type: String, required: true, select: true },
     isAdmin: { type: Boolean, required: true, default: false },
+    adminRequest: { type: Boolean, required: true, default: false }
   },
   {
     // timestamps: true,

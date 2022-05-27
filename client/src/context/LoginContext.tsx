@@ -1,11 +1,14 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { boolean } from "yup";
 import { makeReq } from "../helper";
 
 interface User {
   email: string;
   password: string;
   isAdmin: boolean;
-  _id: string;
+  id: string;
+  //_id: string;
+  adminRequest: boolean;
 }
 
 interface UserContext {
@@ -15,10 +18,12 @@ interface UserContext {
   allUsers: User[];
   postUser: ({}) => Promise<any>
   loginUser: ({}) => Promise<any>
-  updateUser: ({}) => Promise<any>
+  updateUser: (user: User) => Promise<any>
   getAllUsers: () => Promise<any>
   //fetchLoggedInUser: () => void;
   signOut: () => void;
+  setAdminRequest: React.Dispatch<React.SetStateAction<boolean>>
+  adminRequest: Boolean
 }
 
 export const UserContext = createContext<UserContext>({
@@ -30,15 +35,18 @@ export const UserContext = createContext<UserContext>({
   //fetchLoggedInUser: () => {},
   //allUsers: [],
   signOut: () => {},
+  setAdminRequest: () => boolean,
+  adminRequest: false,
 });
 
 export const UserProvider = (props: any) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [adminRequest, setAdminRequest] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState<User>();
   const [allUsers, setAllUsers] = useState<User[]>([]);
 
 
-  console.log(loggedInUser)
+  console.log(adminRequest)
 
   const postUser = async (user: {}) => {
     try {
@@ -68,11 +76,11 @@ export const UserProvider = (props: any) => {
 
   }
 
-  const updateUser = async (user: any) => {
+  const updateUser = async (user: User) => {
     console.log('in update user')
-    console.log(user.id)
+    console.log(user.id, user.id)
       
-    let { data }  = await makeReq('/api/user/628deca2a1832c5492d79d9a', "PUT", user);
+    let { data }  = await makeReq(`/api/users/${user.id}`, "PUT", user.isAdmin);
     setLoggedInUser(data)
     return data
   }
@@ -122,6 +130,8 @@ export const UserProvider = (props: any) => {
   return (
     <UserContext.Provider
       value={{
+        setAdminRequest,
+        adminRequest,
         loggedInUser,
         postUser,
         loginUser,
