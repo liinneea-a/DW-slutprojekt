@@ -27,8 +27,11 @@ export const ProductProvider: FC = (props) => {
   const [products, setProducts] = useState<Product[]>([]);
 
   const getAllProducts = async () => {
-    let response = await makeReq(`/api/products`, "GET");
-    setProducts(response);
+    let { data, ok } = await makeReq(`/api/products`, "GET");
+    if (ok) {
+      setProducts(data);
+    }
+ 
   };
 
   const addProduct = async (product: {}) => {

@@ -1,5 +1,5 @@
-export interface NftItem {
-  productID: number;
+export interface Product {
+  id: number;
   image: string;
   price: number;
   description: string;
@@ -15,7 +15,7 @@ export interface collectionDataItem {
   floorPrice: number;
   header: string;
   productImage: string;
-  NFTS: NftItem[];
+  NFTS: Product[];
 }
 
 export const collectionData: collectionDataItem[] = [
@@ -30,7 +30,7 @@ export const collectionData: collectionDataItem[] = [
     productImage: "/assets/images/Products/CollectionImages/MeinerColPic.png",
     NFTS: [
       {
-        productID: 1,
+        id: 1,
         image: "/assets/images/Products/MeinerNFT/GymPicNFT.png",
         price: 19,
         description:
@@ -39,7 +39,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 1,
       },
       {
-        productID: 2,
+        id: 2,
         image: "/assets/images/Products/MeinerNFT/PopsicleNFT.png",
         price: 14,
         description:
@@ -48,7 +48,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 1,
       },
       {
-        productID: 3,
+        id: 3,
         image: "/assets/images/Products/MeinerNFT/LookAwayNFT.png",
         price: 11,
         description: "Meiner not looking at you. He's looking at someone else.",
@@ -56,7 +56,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 1,
       },
       {
-        productID: 4,
+        id: 4,
         image: "/assets/images/Products/MeinerNFT/TravelNFT.png",
         price: 12,
         description:
@@ -65,7 +65,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 1,
       },
       {
-        productID: 5,
+        id: 5,
         image: "/assets/images/Products/MeinerNFT/StaringAtYouNFT.png",
         price: 12,
         description:
@@ -74,7 +74,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 1,
       },
       {
-        productID: 6,
+        id: 6,
         image: "/assets/images/Products/MeinerNFT/BellpepperNFT.png",
         price: 12,
         description:
@@ -95,7 +95,7 @@ export const collectionData: collectionDataItem[] = [
     productImage: "/assets/images/Products/CollectionImages/BakkumColPic.png",
     NFTS: [
       {
-        productID: 7,
+        id: 7,
         image: "/assets/images/Products/BakkumNFT/BlåtiraBakkumNFT.png",
         price: 16,
         description:
@@ -104,7 +104,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 2,
       },
       {
-        productID: 8,
+        id: 8,
         image: "/assets/images/Products/BakkumNFT/BlåtiraBilBakkumNFT.png",
         price: 13,
         description:
@@ -113,7 +113,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 2,
       },
       {
-        productID: 9,
+        id: 9,
         image: "/assets/images/Products/BakkumNFT/ElvisBakkumNFT.png",
         price: 20,
         description:
@@ -122,7 +122,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 2,
       },
       {
-        productID: 10,
+        id: 10,
         image: "/assets/images/Products/BakkumNFT/FredBakkumNFT.png",
         price: 10,
         description:
@@ -131,7 +131,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 2,
       },
       {
-        productID: 11,
+        id: 11,
         image: "/assets/images/Products/BakkumNFT/StaroBakkumNFT.png",
         price: 15,
         description:
@@ -140,7 +140,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 2,
       },
       {
-        productID: 12,
+        id: 12,
         image: "/assets/images/Products/BakkumNFT/TungaBakkumNFT.png",
         price: 17,
         description:
@@ -161,7 +161,7 @@ export const collectionData: collectionDataItem[] = [
     productImage: "/assets/images/Products/CollectionImages/PappaColPic.png",
     NFTS: [
       {
-        productID: 13,
+        id: 13,
         image: "/assets/images/Products/PappaNFT/FullPappaNFT.png",
         price: 22,
         description:
@@ -170,7 +170,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 3,
       },
       {
-        productID: 14,
+        id: 14,
         image: "/assets/images/Products/PappaNFT/GladPappaNFT.png",
         price: 24,
         description:
@@ -179,7 +179,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 3,
       },
       {
-        productID: 15,
+        id: 15,
         image: "/assets/images/Products/PappaNFT/HawkingPappaNFT.png",
         price: 13,
         description:
@@ -188,7 +188,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 3,
       },
       {
-        productID: 16,
+        id: 16,
         image: "/assets/images/Products/PappaNFT/SovaPappaNFT.png",
         price: 14,
         description: "Pappa very sleepy. Even a god gets tired.",
@@ -196,7 +196,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 3,
       },
       {
-        productID: 17,
+        id: 17,
         image: "/assets/images/Products/PappaNFT/StaringAtYouPappaNFT.png",
         price: 12,
         description: "Pappa staring into your soul. He's very disappointed.",
@@ -204,7 +204,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 3,
       },
       {
-        productID: 18,
+        id: 18,
         image: "/assets/images/Products/PappaNFT/VectorPappaNFT.png",
         price: 10,
         description:
@@ -225,7 +225,7 @@ export const collectionData: collectionDataItem[] = [
     productImage: "/assets/images/Products/CollectionImages/F1ColPic.png",
     NFTS: [
       {
-        productID: 19,
+        id: 19,
         image: "/assets/images/Products/F1NFT/afF1NFT.png",
         price: 14,
         description:
@@ -234,7 +234,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 4,
       },
       {
-        productID: 20,
+        id: 20,
         image: "/assets/images/Products/F1NFT/atF1NFT.png",
         price: 16,
         description:
@@ -243,7 +243,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 4,
       },
       {
-        productID: 21,
+        id: 21,
         image: "/assets/images/Products/F1NFT/ferF1NFT.png",
         price: 24,
         description:
@@ -252,7 +252,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 4,
       },
       {
-        productID: 22,
+        id: 22,
         image: "/assets/images/Products/F1NFT/haasF1NFT.png",
         price: 21,
         description:
@@ -261,7 +261,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 4,
       },
       {
-        productID: 23,
+        id: 23,
         image: "/assets/images/Products/F1NFT/mercF1NFT.png",
         price: 9,
         description:
@@ -270,7 +270,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 4,
       },
       {
-        productID: 24,
+        id: 24,
         image: "/assets/images/Products/F1NFT/rbF1NFT.png",
         price: 18,
         description:
@@ -290,7 +290,7 @@ export const collectionData: collectionDataItem[] = [
     productImage: "/assets/images/Products/CollectionImages/DCColPic.png",
     NFTS: [
       {
-        productID: 25,
+        id: 25,
         image: "/assets/images/Products/DCNFT/SupermanDCNFT.png",
         price: 20,
         description:
@@ -299,7 +299,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 5,
       },
       {
-        productID: 26,
+        id: 26,
         image: "/assets/images/Products/DCNFT/BatmanDCNFT.png",
         price: 18,
         description:
@@ -308,7 +308,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 5,
       },
       {
-        productID: 27,
+        id: 27,
         image: "/assets/images/Products/DCNFT/WonderWomanDCNFT.png",
         price: 12,
         description: "Diana's truthful and equal NFT",
@@ -316,7 +316,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 5,
       },
       {
-        productID: 28,
+        id: 28,
         image: "/assets/images/Products/DCNFT/FlashDCNFT.png",
         price: 15,
         description:
@@ -325,7 +325,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 5,
       },
       {
-        productID: 29,
+        id: 29,
         image: "/assets/images/Products/DCNFT/GreenLanternDCNFT.png",
         price: 14,
         description:
@@ -334,7 +334,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 5,
       },
       {
-        productID: 30,
+        id: 30,
         image: "/assets/images/Products/DCNFT/AquamanDCNFT.png",
         price: 17,
         description:
@@ -355,7 +355,7 @@ export const collectionData: collectionDataItem[] = [
     productImage: "/assets/images/Products/CollectionImages/NoccoColPic.png",
     NFTS: [
       {
-        productID: 31,
+        id: 31,
         image: "/assets/images/Products/NoccoNFT/BloodOrangeNoccoNFT.png",
         price: 11,
         description:
@@ -364,7 +364,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 6,
       },
       {
-        productID: 32,
+        id: 32,
         image: "/assets/images/Products/NoccoNFT/CaribbeanNoccoNFT.png",
         price: 24,
         description:
@@ -373,7 +373,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 6,
       },
       {
-        productID: 33,
+        id: 33,
         image: "/assets/images/Products/NoccoNFT/IceSodaNoccoNFT.png",
         price: 13,
         description:
@@ -382,7 +382,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 6,
       },
       {
-        productID: 34,
+        id: 34,
         image: "/assets/images/Products/NoccoNFT/JuicyBreezeNoccoNFT.png",
         price: 20,
         description:
@@ -391,7 +391,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 6,
       },
       {
-        productID: 35,
+        id: 35,
         image: "/assets/images/Products/NoccoNFT/LimonNoccoNFT.png",
         price: 26,
         description:
@@ -400,7 +400,7 @@ export const collectionData: collectionDataItem[] = [
         collectionID: 6,
       },
       {
-        productID: 36,
+        id: 36,
         image: "/assets/images/Products/NoccoNFT/RamonadeNoccoNFT.png",
         price: 21,
         description:
