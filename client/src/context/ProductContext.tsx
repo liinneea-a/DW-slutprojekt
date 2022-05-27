@@ -28,7 +28,7 @@ export const ProductProvider: FC = (props) => {
 
   const getAllProducts = async () => {
     let response = await makeReq(`/api/products`, "GET");
-    setProducts(response);
+    //setProducts(response);
   };
 
   const addProduct = async (product: {}) => {

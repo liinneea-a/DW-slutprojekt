@@ -12,25 +12,30 @@ interface UserContext {
   loggedInUser?: User;
   /* setIsLoggedIn: React.Dispatch<React.SetStateAction<any[]>>,
   setLoggedInUser: React.Dispatch<React.SetStateAction<any[]>>, */
-
+  allUsers: User[];
   postUser: ({}) => Promise<any>
   loginUser: ({}) => Promise<any>
   updateUser: ({}) => Promise<any>
+  getAllUsers: () => Promise<any>
   //fetchLoggedInUser: () => void;
   signOut: () => void;
 }
 
 export const UserContext = createContext<UserContext>({
+  allUsers: [],
   postUser: async () => {},
   loginUser: async () => {},
+  getAllUsers: async () => void [],
   updateUser: async () => {},
   //fetchLoggedInUser: () => {},
+  //allUsers: [],
   signOut: () => {},
 });
 
 export const UserProvider = (props: any) => {
   const [isLoading, setIsLoading] = useState(true);
   const [loggedInUser, setLoggedInUser] = useState<User>();
+  const [allUsers, setAllUsers] = useState<User[]>([]);
 
 
   console.log(loggedInUser)
@@ -91,6 +96,20 @@ export const UserProvider = (props: any) => {
   }, []);
 
   
+  const getAllUsers = async () => {
+    try {
+      let { data, ok } = await makeReq("/api/users", "GET");
+      if (ok) {
+        setAllUsers(data);
+      } else {
+        //setAllUsers(undefined);
+      }
+      setIsLoading(false);
+    } catch (err) {
+      setIsLoading(false);
+      return console.log(err);
+    }
+  }
 
   const signOut = async () => {
     let response = await makeReq("/api/logout", "DELETE");
@@ -107,6 +126,8 @@ export const UserProvider = (props: any) => {
         postUser,
         loginUser,
         updateUser,
+        getAllUsers,
+        allUsers,
         /* setIsLoggedIn,
         setLoggedInUser, */
         //fetchLoggedInUser,
