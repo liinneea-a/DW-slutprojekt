@@ -21,7 +21,7 @@ import Header from "./Header";
 
 function Layout() {
   const [modalState, setModalState] = useState(false);
-  const [deliveryInfo, setDeliveryInfo] = useState(DeliveryDataInfoObject);
+
   const [finalTotalSum, setFinalTotalSum] = useState<number>(1);
   
   return (
@@ -47,25 +47,20 @@ function Layout() {
                 <Route
                   path="/checkoutdetails"
                   element={
-                    <CheckoutPageDetails
-                      deliveryInfo={deliveryInfo}
-                      setDeliveryInfo={setDeliveryInfo}
-                    />
+                    <CheckoutPageDetails />
                   }
                 />
                 <Route
                   path="/paymentpage"
                   element={
                     <PaymentPage
-                      deliveryInfo={deliveryInfo}
-                      setDeliveryInfo={setDeliveryInfo}
                       finalTotalSum={finalTotalSum}
                       setFinalTotalSum={setFinalTotalSum}
                     />
                   }
                 />
 
-                <Route path="/purchasecomplete" element={<PurchaseComplete deliveryInfo={deliveryInfo} finalTotalSum={finalTotalSum}/>}
+                <Route path="/purchasecomplete" element={<PurchaseComplete />}
                 />
               </Routes>
               <Footer/>
