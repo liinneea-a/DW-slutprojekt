@@ -11,14 +11,14 @@ interface Props {
 
 function Invoice(props: Props) {
   const navigate = useNavigate();
-  const { addPurchaseList, cart, clearCart, totalPrice, newPurchaseTotal } =
+  const { addPurchaseList, cart, clearCart, newPurchaseTotal } =
     useCart();
   const completePayment = (props: Props) => {
     let newObject = props.deliveryInfo;
     newObject.paymentMethod = "Card";
     props.setDeliveryInfo(newObject);
     addPurchaseList(cart);
-    newPurchaseTotal(totalPrice);
+    // newPurchaseTotal(totalPrice);
     clearCart();
     navigate("/purchasecomplete");
   };

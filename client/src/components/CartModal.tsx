@@ -10,7 +10,7 @@ interface CartProps {
 }
 
 function CartModal(props: CartProps) {
-  const { cart, decQty, incQty, clearCart, totalPrice } = useCart();
+  const { cart, decQty, incQty, clearCart} = useCart();
   const handleClose = () => props.setModalState(false);
   const [collectionList, setCollectionList] = useState(collectionData);
 
@@ -72,7 +72,7 @@ function CartModal(props: CartProps) {
                   </div>
                 ))}
                 <div style={cartFooter}>
-                <div style={priceStyle}>Your total: {totalPrice} SEK</div>
+                <div style={priceStyle}>Your total:  SEK</div>
                   <div style={cartButton}>
                     <Button
                       style={buttonStyle}

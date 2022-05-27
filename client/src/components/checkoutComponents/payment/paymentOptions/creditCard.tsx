@@ -37,7 +37,7 @@ const validationSchema = yup.object({
 
 function CreditCard(props: Props) {
   const navigate = useNavigate();
-  const { addPurchaseList, cart, clearCart, totalPrice, newPurchaseTotal } =
+  const { addPurchaseList, cart, clearCart, newPurchaseTotal } =
     useCart();
   const closeModal = () =>
     setTimeout(() => {
@@ -60,7 +60,7 @@ function CreditCard(props: Props) {
       console.log(props.deliveryInfo);
       props.setPaymentModal(true);
       addPurchaseList(cart);
-      newPurchaseTotal(totalPrice);
+      // newPurchaseTotal(totalPrice);
       clearCart();
       closeModal();
     },
