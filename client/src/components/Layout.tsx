@@ -1,7 +1,13 @@
 import { CSSProperties, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { CartProvider } from "../context/CartContext";
+import { UserProvider } from "../context/LoginContext";
+import { OrderProvider } from "../context/OrderContext";
+import { ProductProvider } from "../context/ProductContext";
+import { ShipperProvider } from "../context/ShipperContext";
 import { DeliveryDataInfoObject } from "../data/collections/deliveryData";
+import AdminOrderPage from "../pages/AdminOrderPage";
 import AdminPage from "../pages/AdminPage";
 import AllProducts from "../pages/AllProductsPage";
 import CheckoutPage from "../pages/CheckoutPage";
@@ -12,10 +18,6 @@ import ProfilePage from "../pages/ProfilePage";
 import PurchaseComplete from "../pages/PurchaseComplete";
 import StartPage from "../pages/Startpage";
 import CartModal from "./CartModal";
-import { CartProvider } from '../context/CartContext'
-import { ProductProvider } from "../context/ProductContext";
-import { ShipperProvider } from "../context/ShipperContext";
-import { UserProvider } from "../context/LoginContext";
 import Footer from "./Footer";
 import Header from "./Header";
 
@@ -23,13 +25,14 @@ function Layout() {
   const [modalState, setModalState] = useState(false);
 
   const [finalTotalSum, setFinalTotalSum] = useState<number>(1);
-  
+
   return (
     <div>
       <CartProvider>
         <ProductProvider>
           <ShipperProvider>
             <UserProvider>
+          <OrderProvider>
           <BrowserRouter>
             <Header
               modalState={modalState}
@@ -44,6 +47,7 @@ function Layout() {
                 <Route path="/all" element={<AllProducts />} />
                 <Route path="/profile" element={<ProfilePage />} /> 
                 <Route path="/checkout" element={<CheckoutPage />} />
+                <Route path="/adminorder" element={<AdminOrderPage />} />
                 <Route
                   path="/checkoutdetails"
                   element={
@@ -67,6 +71,7 @@ function Layout() {
             </div>
             <ToastContainer />
           </BrowserRouter>
+                </OrderProvider>
           </UserProvider>
           </ShipperProvider>
         </ProductProvider>

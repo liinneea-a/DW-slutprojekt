@@ -1,7 +1,6 @@
 import console from 'console';
 import { NextFunction, Request, Response } from 'express';
-import { User } from '../user';
-import { Order, OrderModel } from './order.model';
+import { OrderModel } from './order.model';
 
 /** GET ALL ORDERS */
 export const getAllOrders = async (req: Request, res: Response) => {

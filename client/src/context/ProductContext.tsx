@@ -1,8 +1,8 @@
-// import { Product } from "@shared/types";
+import { Product } from "@server/types";
 import { createContext, FC, useContext, useState } from "react";
 import { Product } from "../../../server/resources";
 import { makeReq } from "../helper";
-
+// import { Product } from "../../../../server/resources";
 
 /* const product: Product = {
   _id: "",

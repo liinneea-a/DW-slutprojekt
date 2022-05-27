@@ -90,6 +90,7 @@ function AdminPage() {
               </div>
               <div style={adminCardMidRight}>
                 <div style={descStyle}>{product.description}</div>
+                <div style={descStyle}>Items in stock: {product.stock}</div>
               </div>
             </div>
           </div>
@@ -226,7 +227,7 @@ const adminCardMiddle: CSSProperties = {
 
 const adminCardMidRight: CSSProperties = {
   display: "flex",
-  flexDirection: "row",
+  flexDirection: "column",
   justifyContent: "space-around",
   width: "100%",
 };

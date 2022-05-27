@@ -90,10 +90,12 @@ export default function AccountMenu(headerProps: any) {
         </MenuItem>
         {loggedInUser && loggedInUser.isAdmin ? (
           <MenuItem>
+          <Link style={linkStyle} to="/adminorder">
             <ListItemIcon>
               <AssignmentIcon fontSize="small" />
             </ListItemIcon>
             Manage orders
+          </Link>
           </MenuItem>
         ) : null}{" "}
         {loggedInUser && loggedInUser.isAdmin ? (
