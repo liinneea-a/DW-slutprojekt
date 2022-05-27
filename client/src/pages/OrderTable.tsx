@@ -23,6 +23,7 @@ export default function OrderTable() {
         <TableHead>
           <TableRow>
             <TableCell>Ordernr</TableCell>
+            <TableCell>Total price</TableCell>
             <TableCell align="right">Order date</TableCell>
             <TableCell align="right">Shipped</TableCell>
           </TableRow>
