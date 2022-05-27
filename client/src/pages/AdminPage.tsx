@@ -14,7 +14,8 @@ function AdminPage() {
       price: 0,
       description: "",
       stock: 0,
-      categories: [],
+      categories: [""],
+      quantity: 0
    });
   const [openEditProductModal, setOpenEditProductModal] = useState(false);
   const { getAllProducts, products, addProduct, editProduct, removeProduct } =

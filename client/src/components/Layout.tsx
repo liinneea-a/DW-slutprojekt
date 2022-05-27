@@ -23,7 +23,7 @@ import Header from "./Header";
 
 function Layout() {
   const [modalState, setModalState] = useState(false);
-  const [deliveryInfo, setDeliveryInfo] = useState(DeliveryDataInfoObject);
+
   const [finalTotalSum, setFinalTotalSum] = useState<number>(1);
 
   return (
@@ -32,62 +32,47 @@ function Layout() {
         <ProductProvider>
           <ShipperProvider>
             <UserProvider>
-              <OrderProvider>
-                <BrowserRouter>
-                  <Header
-                    modalState={modalState}
-                    setModalState={setModalState}
-                  />
-                  <CartModal
-                    modalState={modalState}
-                    setModalState={setModalState}
-                  />
-                  <div style={rootStyle}>
-                    <Routes>
-                      <Route path="/" element={<StartPage />} />
-                      <Route path="/login" element={<LoginPage />} />
-                      <Route path="/admin" element={<AdminPage />} />
-                      <Route path="/all" element={<AllProducts />} />
-                      <Route path="/profile" element={<ProfilePage />} />
-                      <Route path="/checkout" element={<CheckoutPage />} />
-                      <Route path="/adminorder" element={<AdminOrderPage />} />
-                      <Route
-                        path="/checkoutdetails"
-                        element={
-                          <CheckoutPageDetails
-                            deliveryInfo={deliveryInfo}
-                            setDeliveryInfo={setDeliveryInfo}
-                          />
-                        }
-                      />
-                      <Route
-                        path="/paymentpage"
-                        element={
-                          <PaymentPage
-                            deliveryInfo={deliveryInfo}
-                            setDeliveryInfo={setDeliveryInfo}
-                            finalTotalSum={finalTotalSum}
-                            setFinalTotalSum={setFinalTotalSum}
-                          />
-                        }
-                      />
+          <OrderProvider>
+          <BrowserRouter>
+            <Header
+              modalState={modalState}
+              setModalState={setModalState}
+            />
+            <CartModal modalState={modalState} setModalState={setModalState} />
+            <div style={rootStyle}>
+              <Routes>
+                <Route path="/" element={<StartPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/admin" element={<AdminPage />} />
+                <Route path="/all" element={<AllProducts />} />
+                <Route path="/profile" element={<ProfilePage />} /> 
+                <Route path="/checkout" element={<CheckoutPage />} />
+                <Route path="/adminorder" element={<AdminOrderPage />} />
+                <Route
+                  path="/checkoutdetails"
+                  element={
+                    <CheckoutPageDetails />
+                  }
+                />
+                <Route
+                  path="/paymentpage"
+                  element={
+                    <PaymentPage
+                      finalTotalSum={finalTotalSum}
+                      setFinalTotalSum={setFinalTotalSum}
+                    />
+                  }
+                />
 
-                      <Route
-                        path="/purchasecomplete"
-                        element={
-                          <PurchaseComplete
-                            deliveryInfo={deliveryInfo}
-                            finalTotalSum={finalTotalSum}
-                          />
-                        }
-                      />
-                    </Routes>
-                    <Footer />
-                  </div>
-                  <ToastContainer />
-                </BrowserRouter>
-              </OrderProvider>
-            </UserProvider>
+                <Route path="/purchasecomplete" element={<PurchaseComplete />}
+                />
+              </Routes>
+              <Footer/>
+            </div>
+            <ToastContainer />
+          </BrowserRouter>
+                </OrderProvider>
+          </UserProvider>
           </ShipperProvider>
         </ProductProvider>
       </CartProvider>

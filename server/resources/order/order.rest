@@ -19,7 +19,7 @@ Content-Type: application/json
     "shipper": "postnord" 
   },
   "deliveryAddress": {
-    "fullName": "Linnea Albertsson",
+    "fullname": "Linnea Albertsson",
     "street": "Runiusgatan 7",
     "zipcode": 12300,
     "city": "Göteborg"

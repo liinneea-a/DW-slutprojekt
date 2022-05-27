@@ -50,8 +50,6 @@ export const addOrder = async (
     await order.save();
     res.status(200).json(order);
 
-
-
 };
 
 export const updateOrder = async (
