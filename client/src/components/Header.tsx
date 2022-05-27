@@ -21,7 +21,6 @@ function Header(headerProps: any) {
   const openModal = () => headerProps.setModalState(true);
 
   const handleLogOut = () => {
-    console.log("hejko");
     if (loggedInUser) {
       signOut();
       navigate("/");
@@ -80,10 +79,10 @@ function Header(headerProps: any) {
           )}
 
           <Button style={headerCartLink} onClick={openModal}>
-            {cart.reduce((sum, nft) => sum + nft.count, 0) !== 0 && (
+            {cart.reduce((sum, nft) => sum + nft.quantity!, 0) !== 0 && (
               <div style={itemCountBadge}>
                 <p style={countStyle}>
-                  {cart.reduce((sum, nft) => sum + nft.count, 0)}
+                  {cart.reduce((sum, nft) => sum + nft.quantity!, 0)}
                 </p>
               </div>
             )}

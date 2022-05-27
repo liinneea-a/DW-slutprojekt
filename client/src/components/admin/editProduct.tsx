@@ -41,6 +41,7 @@ function EditProduct(props: Props) {
         imageId: values.imageId,
         stock: values.stock,
         categories: values.categories,
+      
       };
       editOldProduct(updatedProduct);
       formik.resetForm();
