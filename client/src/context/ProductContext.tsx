@@ -1,4 +1,4 @@
-import { Product } from "@shared/types";
+import { Product } from "@server/types";
 import { createContext, FC, useContext, useState } from "react";
 import { makeReq } from "../helper";
 

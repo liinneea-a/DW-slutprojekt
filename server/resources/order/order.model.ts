@@ -1,16 +1,15 @@
 import { ObjectId } from "mongodb";
-import mongoose, { Schema, Types } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import { Product, productSchema } from "../product/product.model";
-import { User } from "../user";
 import { Address, addressSchema } from "./address.schema";
 import { Shipper, shippperSchema } from "./shipper.schema";
 
 export interface Order {
   id: string;
   customer: ObjectId;
-  products: ObjectId;
+  products: Product[];
   shipper: Shipper;
-  deliveryAddress: Address;
+  deliveryAddress: Address[];
   createdAt: Date;
   // updatedAt: Date;
   paymentMethod: string;
@@ -21,9 +20,10 @@ export interface Order {
 const orderSchema = new mongoose.Schema<Order>(
   {
     customer: { type: Schema.Types.ObjectId, ref: "user", required: true },
-    products: { type: [Schema.Types.ObjectId], required: true },
+    // products: { type: [Schema.Types.ObjectId], required: true },
+    products: { type: [productSchema], required: true },
     shipper: { type: shippperSchema, required: true },
-    deliveryAddress: { type: addressSchema, required: true },
+    deliveryAddress: { type: [addressSchema], required: true },
     isSent: { type: Boolean, required: true, default: false },
     paymentMethod: { type: String, required: true },
   },

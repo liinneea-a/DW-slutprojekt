@@ -1,5 +1,5 @@
 import { Button, TextField } from "@mui/material";
-import { Product } from "@shared/types";
+import { Product } from "@server/types";
 import { useFormik } from "formik";
 import { CSSProperties } from "react";
 import { useProducts } from "../../context/ProductContext";

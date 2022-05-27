@@ -1,5 +1,5 @@
+import { Product } from "@server/types";
 import { CSSProperties, useState } from "react";
-import { Product } from "@shared/types";
 import "../CSS/FlipCard.css";
 
 interface Props {
