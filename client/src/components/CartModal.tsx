@@ -1,5 +1,5 @@
 import { Box, Button, Modal, Typography } from "@mui/material";
-import { CSSProperties, useState } from "react";
+import { CSSProperties, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Product } from "../../../server/resources";
 import { useCart } from "../context/CartContext";
@@ -10,9 +10,13 @@ interface CartProps {
 }
 
 function CartModal(props: CartProps) {
-  const { cart, decQty, incQty, clearCart, totalPrice} = useCart();
+  const { cart, decQty, incQty, clearCart, totalPrice, calculatePrice} = useCart();
   const handleClose = () => props.setModalState(false);
   // const [collectionList, setCollectionList] = useState(collectionData);
+
+  useEffect(() => {
+    calculatePrice();
+  })
 
   return (
     <div>
@@ -51,7 +55,7 @@ function CartModal(props: CartProps) {
                             (col) => col.id === item.collectionID
                           )?.name
                         } */}
-                        &nbsp;#{item.id}
+                        &nbsp;#{item.name}
                       </div>
                     </div>
                     <div style={qtyCol}>
