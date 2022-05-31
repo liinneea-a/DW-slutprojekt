@@ -9,6 +9,7 @@ import { ShipperProvider } from "../context/ShipperContext";
 import { DeliveryDataInfoObject } from "../data/collections/deliveryData";
 import AdminOrderPage from "../pages/AdminOrderPage";
 import AdminPage from "../pages/AdminPage";
+import AdminEditUserPage from "../pages/AdminEditUserPage";
 import AllProducts from "../pages/AllProductsPage";
 import CheckoutPage from "../pages/CheckoutPage";
 import CheckoutPageDetails from "../pages/CheckoutPageDetails";
@@ -44,6 +45,7 @@ function Layout() {
                 <Route path="/" element={<StartPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/admin" element={<AdminPage />} />
+                <Route path="/adminusers" element={<AdminEditUserPage />} />
                 <Route path="/all" element={<AllProducts />} />
                 <Route path="/profile" element={<ProfilePage />} /> 
                 <Route path="/checkout" element={<CheckoutPage />} />

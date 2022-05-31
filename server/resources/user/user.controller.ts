@@ -99,15 +99,16 @@ export const updateUser = async (
   const user = await UserModel.findById(req.params.id);
   if (!user) return res.status(404).json('makjskbdha');
 
-  (user.email = req.body.email),
-    (user.password = req.body.password),
+   /* (user.email = req.body.email),
+    (user.password = req.body.password),  */
     (user.isAdmin = req.body.isAdmin);
-  user.save();
-
-  // Update the cookie session
-  delete user.password;
-  req.session!.user = user;
-
+    user.save();
+    
+    // Update the cookie session
+    delete user.password;
+    req.session!.user = user;
+    
+    console.log('i update:', user.isAdmin)
   console.log('user: ', user);
   res.status(200).json(user);
 };

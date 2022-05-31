@@ -1,6 +1,7 @@
-import { Order } from "@server/*";
+//import { Order } from "@server/*";
 import { createContext, FC, useContext, useState } from "react";
 import { makeReq } from "../helper";
+import { Order } from "../../../server/resources/"
 
 interface OrderContext {
     orders: Order[];
