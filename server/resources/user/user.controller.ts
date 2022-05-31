@@ -1,15 +1,15 @@
-import * as bcrypt from 'bcrypt';
-import { NextFunction, Request, Response } from 'express';
-import { encryptPassword, User, UserModel } from './user.model';
+import * as bcrypt from "bcrypt";
+import { NextFunction, Request, Response } from "express";
+import { encryptPassword, User, UserModel } from "./user.model";
 
 /**------GET ALL USERS---------- */
 
 export const getAllUsers = async (req: Request, res: Response) => {
   // TODO: Who is allowed to use this endpoint?
 
-  const users = await UserModel.find({}).select('+password');
+  const users = await UserModel.find({}).select("+password");
   if (!users.length) {
-    return res.status(400).json('No users found');
+    return res.status(400).json("No users found");
   }
   res.status(200).json(users);
 };
@@ -36,11 +36,11 @@ export const addUser = async (
   if (req.session?.isPopulated) {
     return res
       .status(403)
-      .json('you cant create an account while being logged in');
+      .json("you cant create an account while being logged in");
   }
 
   let FoundUser = await UserModel.findOne({ email: req.body.email });
-  if (FoundUser) return res.status(409).json('That email is already in use.');
+  if (FoundUser) return res.status(409).json("That email is already in use.");
   const user = new UserModel(req.body);
   await user.save();
   res.status(200).json(user);
@@ -54,11 +54,11 @@ export const loginUser = async (req: Request, res: Response) => {
   }
 
   let user = await UserModel.findOne({ email: req.body.email }).select(
-    '+password'
+    "+password"
   );
 
   if (!user) {
-    return res.status(404).send('User not found');
+    return res.status(404).send("User not found");
   }
 
   let matchingPassword = await bcrypt.compare(
@@ -67,11 +67,11 @@ export const loginUser = async (req: Request, res: Response) => {
   );
 
   if (!matchingPassword) {
-    return res.status(401).json('Wrong email or password');
+    return res.status(401).json("Wrong email or password");
   }
 
   if (!req.session) {
-    return res.status(500).json('Missing session object');
+    return res.status(500).json("Missing session object");
   }
 
   delete user.password;
@@ -83,7 +83,7 @@ export const loginUser = async (req: Request, res: Response) => {
 
 export const getLoggedInUser = async (req: Request, res: Response) => {
   if (!req.session?.isPopulated) {
-    return res.status(401).send('You are not logged in');
+    return res.status(401).send("You are not logged in");
   } else {
     res.json(req.session);
   }
@@ -92,25 +92,27 @@ export const getLoggedInUser = async (req: Request, res: Response) => {
 /**------UPDATE USER---------- */
 
 export const updateUser = async (
-  req: Request,
-  res: Response,
+  req: Request<{ id: string }>,
+  res: Response
 ) => {
-  console.log('in update user ')
-  const user = await UserModel.findById(req.params.id);
-  if (!user) return res.status(404).json('makjskbdha');
+  const { id } = req.params;
 
-   /* (user.email = req.body.email),
-    (user.password = req.body.password),  */
-    (user.isAdmin = req.body.isAdmin);
-    user.save();
-    
-    // Update the cookie session
-    delete user.password;
-    req.session!.user = user;
-    
-    console.log('i update:', user.isAdmin)
-  console.log('user: ', user);
-  res.status(200).json(user);
+  try {
+    const user = await UserModel.findByIdAndUpdate(id, req.body, {
+      isAdmin: req.body.isAdmin,
+    }).select("-password");
+    console.log("in update user ", user);
+
+    if (!user) {
+      return res.status(404).json(user);
+    }
+
+    await user.save();
+    res.status(200).json(user);
+  } catch (err) {
+    console.log("error while updating user");
+    res.status(400).json(err);
+  }
 };
 
 /**------DELETE USER---------- */

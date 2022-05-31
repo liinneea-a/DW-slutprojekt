@@ -73,14 +73,14 @@ export const UserProvider = (props: any) => {
 
   }
 
- /* const updateUser = async (user: User) => {
+  const updateUser = async (user: User, isAdmin: boolean) => {
     console.log('in update user')
-    console.log(user._id, user._id)
+    console.log(user.id, user.id)
       
-    let { data }  = await makeReq(`/api/user/${user._id}`, "PUT", user.isAdmin);
+    let { data }  = await makeReq(`/api/user/${user.id}`, "PUT", user.isAdmin);
     setLoggedInUser(data)
     return data
-  }  */
+  }  
   
   useEffect(() => {
     const fetchLoggedInUser = async () => {

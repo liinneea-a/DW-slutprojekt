@@ -1,17 +1,13 @@
-import {
-  Button,
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  FormHelperText,
-  FormLabel,
-} from "@mui/material";
 import { CSSProperties, useContext, useEffect, useState } from "react";
 //import { User, Product } from "../../../server/resources";
 import { UserContext } from "../context/LoginContext";
 import { User } from "@server/*";
+//import { User } from "../../../server/resources"
+import { updateUser } from "../../../server/resources";
 
 //const label = { inputProps: { 'aria-label': 'Switch demo' } };
+
+
 
 function AdminEditUserPage() {
   const {
@@ -28,14 +24,15 @@ function AdminEditUserPage() {
   }, []);
 
   function handleChange(user: User) {
-    postEditedRole(user, !user.isAdmin);
+      postEditedRole(user, !user.isAdmin)
+    //const userToUpdate = updateUser(id, !user.isAdmin);
   }
 
   async function postEditedRole(user: User, isAdmin: boolean) {
     const response = await fetch(`/api/user/${user.id}`, {
       method: "PUT",
       body: JSON.stringify({
-        ...user,
+        //...user,
         isAdmin,
       }),
       headers: {
@@ -79,6 +76,7 @@ function AdminEditUserPage() {
                     <p
                       style={{ color: "lightgray" }}
                       onClick={() => {
+                        
                         handleChange(user);
                       }}
                     >
