@@ -41,7 +41,6 @@ const checkoutContainer: CSSProperties = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  width: "80%",
   background: "#303339",
   boxShadow: "2px 5px 12px black",
   marginBottom: "2rem",

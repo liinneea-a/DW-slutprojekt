@@ -55,7 +55,7 @@ export const UserProvider = (props: any) => {
   };
 
   const loginUser = async (user: any) => {
-    console.log(user)
+ 
     try {
 
       let { data, ok } = await makeReq("/api/login", "POST", user);

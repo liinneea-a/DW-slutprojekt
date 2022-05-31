@@ -1,6 +1,6 @@
 import { Box, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { useFormik } from "formik";
-import { CSSProperties, useState } from "react";
+import { CSSProperties, useEffect, useState } from "react";
 import DeliveryInfoTable from "../components/checkoutComponents/DeliveryInfoTable";
 import { DeliveryDataInfo } from "../data/collections/deliveryData";
 import PaymentBox from "../components/checkoutComponents/payment/paymentBox";
@@ -17,8 +17,13 @@ interface Props {
 
 function PaymentPage(props: Props) {
 
-  const { selectedShipping } = useShipper();
-  console.log(selectedShipping);
+
+const { selectedShipping } = useShipper();
+  useEffect(() => {
+      
+     console.log(selectedShipping);
+  })
+ 
 
 
   const handleChange = (event: any) => {

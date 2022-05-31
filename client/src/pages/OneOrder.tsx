@@ -6,8 +6,9 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
-import { Order } from "@server/types";
+// import { Order } from "@server/types";
 import { Fragment, useEffect, useState } from "react";
+import { Order } from "../../../server/resources";
 import { useOrders } from "../context/OrderContext";
 
 interface Props {
@@ -38,8 +39,11 @@ export default function OneOrder(props: Props) {
         <TableCell component="th" scope="row">
           {props.order.id}
         </TableCell>
+        <TableCell component="th" scope="row">
+          TOTAL PRICE HERE
+        </TableCell>
         <TableCell align="right">{props.order.createdAt}</TableCell>
-        <TableCell align="right">{props.order.isSent}</TableCell>
+        <TableCell align="right">{props.order.isSent ? ('Yes') : ('No')}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -51,15 +55,15 @@ export default function OneOrder(props: Props) {
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Customer</TableCell>
-                    <TableCell>Address</TableCell>
-                    <TableCell align="right">Zipcode</TableCell>
-                    <TableCell align="right">City</TableCell>
+                    <TableCell style={{fontWeight: 'bold'}}>Customer</TableCell>
+                    <TableCell style={{fontWeight: 'bold'}}>Address</TableCell>
+                    <TableCell style={{fontWeight: 'bold'}} align="right">Zipcode</TableCell>
+                    <TableCell style={{fontWeight: 'bold'}} align="right">City</TableCell>
                   </TableRow>
                   {props.order.deliveryAddress.map((deliveryAddress) => (
                     <TableRow>
                       <TableCell scope="row">
-                        {deliveryAddress.fullName}
+                        {deliveryAddress.fullname}
                       </TableCell>
                       <TableCell>{deliveryAddress.street}</TableCell>
                       <TableCell align="right">
@@ -71,16 +75,16 @@ export default function OneOrder(props: Props) {
                     </TableRow>
                   ))}
                   <TableRow>
-                    <TableCell>Item</TableCell>
-                    <TableCell>Description</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
+                    <TableCell style={{fontWeight: 'bold'}}>Item</TableCell>
+                    <TableCell style={{fontWeight: 'bold'}}>Description</TableCell>
+                    <TableCell style={{fontWeight: 'bold'}} align="right">Amount</TableCell>
+                    <TableCell style={{fontWeight: 'bold'}} align="right">Price per item</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                     {props.order.products.map(product => {
                        return (
-                        <TableRow key={product.name}>
+                        <TableRow key={product.id}>
                           <TableCell component="th" scope="row">
                             {product.name}
                           </TableCell>

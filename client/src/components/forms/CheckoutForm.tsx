@@ -37,56 +37,52 @@ function CheckoutForm() {
 
   const { deliveryInfo, setDeliveryInfo } = useCart(); 
   const { getAllShippers, selectedShipping, setSelectedShipping } = useShipper();
-;
+
 
   const navigate = useNavigate();
-  console.log(shippers);
-
-  console.log(selectedShipping);
-
   const formik = useFormik({
     initialValues: {
       firstName: "",
       lastName: "",
       email: "",
       number: "",
-      deliveryMethod: "",
       address: "",
       zipCode: "",
       city: "",
       country: "",
-      paymentMethod: "",
     },
     validationSchema: validationSchema,
 
     onSubmit: (values, event) => {
-      values.deliveryMethod = deliveryOption;
+      // values.deliveryMethod = deliveryOption;
+   
       setDeliveryInfo(values);
-      console.log(values);
+ 
       navigate("/paymentpage");
     },
 
   });
 
   const handleChange = (event: any) => {
-    console.log(selectedShipping)
+
   };
 
   const handleChangeShipping = (event: any) => {
     setSelectedShipping(event.target.value);
-    console.log(selectedShipping);
+ 
   }
 
 
   const handleOnSubmit = (e: any) => {
     e.preventDefault();
+    formik.handleSubmit();
   }
 
 
   async function getShippers() {
     const result =  await getAllShippers();
     setShippers(result);
-    console.log(result);
+
   }
 
   useEffect(() => {
@@ -98,7 +94,7 @@ function CheckoutForm() {
       <div style={detailFormContainer}>
         <h2>Shipment details</h2>
         <div>
-          <form style={formStyle} onSubmit={(e) => {formik.handleSubmit}}>
+          <form style={formStyle} onSubmit={(e) => handleOnSubmit(e)} >
             <div style={textFieldsContainer}>
               <TextField
                 style={textFieldStyle}

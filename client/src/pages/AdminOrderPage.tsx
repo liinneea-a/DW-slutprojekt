@@ -4,7 +4,7 @@ import OrderTable from "./OrderTable";
 function AdminOrderPage() {
 
   return (
-    <div style={loginPageLayout}>
+    <div style={adminOrderPage}>
       <OrderTable />
     </div>
   );
@@ -12,18 +12,10 @@ function AdminOrderPage() {
 
 export default AdminOrderPage;
 
-const loginPageLayout: CSSProperties = {
+const adminOrderPage: CSSProperties = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  gap: "3rem",
-  textAlign: 'center'
-};
-
-const tempFormLayout: CSSProperties = {
-  display: "flex",
-  gap: "2rem",
-  alignItems: "center",
-  justifyContent: "center",
-  flexWrap: "wrap"
+  textAlign: 'center',
+  width:'80%'
 };

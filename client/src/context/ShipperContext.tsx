@@ -13,7 +13,7 @@ interface Shipper {
 
 interface ShipperContext {
   setSelectedShipping: Function;
-  selectedShipping: Shipper;
+  selectedShipping: Shipper | any;
   getAllShippers: () => Promise<any>;
 }
 
@@ -22,27 +22,22 @@ interface ShipperContext {
 // })
 
 export const ShipperContext = createContext<ShipperContext>({
-  setSelectedShipping: () => {},
-  selectedShipping: { shipper: '', cost: 0, daysToDelivery: 0 },
+  setSelectedShipping: () => void {},
   getAllShippers: async () => void [],
+  selectedShipping: ''
 });
 
 export const ShipperProvider: FC = (props) => {
-  const [selectedShipping, setSelectedShipping] = useState<any>({
-    shipper: '',
-    cost: 0,
-    daysToDelivery: 0,
-  });
+
+  const [selectedShipping, setSelectedShipping] = useState<string>('');
 
   useEffect(() => {
-    console.log(selectedShipping);
-  }, [selectedShipping]);
+    
+  });
 
   const getAllShippers = async () => {
     try {
       let { data, ok } = await makeReq('/api/shipper', 'GET');
-
-      console.log(data);
 
       if (ok) {
         return data;
