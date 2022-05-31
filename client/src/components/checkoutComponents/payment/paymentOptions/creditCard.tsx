@@ -45,6 +45,7 @@ function CreditCard(props: Props) {
       props.setPaymentModal(false);
       navigate("/purchasecomplete");
     }, 5000);
+
   const formik = useFormik({
     initialValues: {
       CardNumber: "",
@@ -54,6 +55,7 @@ function CreditCard(props: Props) {
       CardHolder: "",
     },
     validationSchema: validationSchema,
+
     onSubmit: (values) => {
       let newObject = deliveryInfo;
       newObject.paymentMethod = "Card";
@@ -64,11 +66,18 @@ function CreditCard(props: Props) {
       // newPurchaseTotal(totalPrice);
       clearCart();
       closeModal();
-    },
+    }
+
   });
+
+    const handleOnSubmit = (e: any) => {
+      e.preventDefault();
+      formik.handleSubmit();
+    }
+
   return (
     <div style={creditCardForm}>
-      <form style={formStyle} onSubmit={formik.handleSubmit}>
+      <form style={formStyle} onSubmit={(e) => handleOnSubmit(e)}>
         <TextField
           style={CardHolderStyle}
           fullWidth

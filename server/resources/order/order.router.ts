@@ -5,7 +5,7 @@ import { addOrder, getAllOrders, getOrder, updateOrder } from "./order.controlle
 
 export const orderRouter = express
   .Router()
-  .get("/orders", /* authorize, ifAdmin, */ getAllOrders) //fungerar
+  .get("/orders", authorize, ifAdmin,  getAllOrders) //fungerar
   .get("/order/:id", authorize, ifAdmin, getOrder)
   .post("/order", authorize, addOrder) // fungerar
   .put("/order/:id", authorize, ifAdmin, updateOrder)

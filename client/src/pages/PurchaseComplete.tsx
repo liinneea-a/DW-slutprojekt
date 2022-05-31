@@ -9,7 +9,7 @@ import { DeliveryDataInfo } from "../data/collections/deliveryData";
 
 
 function PurchaseComplete() {
-  const { purchaseList, purchaseTotal, totalPrice } = useCart();
+  const { purchaseList, purchaseTotal, totalPrice, cart } = useCart();
   const { selectedShipping } = useShipper();
   // const { products } = useProducts();
 
@@ -35,42 +35,23 @@ function PurchaseComplete() {
         </div>
         <div style={totalPriceContainer}>
           <h2 style={totalPriceTextStyle}>
-            Total price: { totalPrice + selectedShipping.cost} SEK
+            Total price: { totalPrice } SEK
           </h2>
         </div>
         <h2>Your purchase:</h2>
-        <div style={cardContainer}>
+        {/* <div style={cardContainer}> */}
           <div style={purchasedItems}>
-            {/* {purchaseList.map((item: NftItem, index: number) => (
-              <div style={purchasedItemTestCard} key={index}>
-                <div style={itemCountBadge}>
-                  <p style={itemCountTextStyle}>{item.count}</p>
+            {cart.map(product => {
+             
+              return (
+                <div key={product.id}>
+                  <div>{product.name}</div>
+                  <div>{product.price} {product.quantity}</div>
                 </div>
-                <div style={cardHeader}>
-                  <h3 style={cardHeaderTextStyle}>
-                    {
-                      collections.find((col) => col.id === item.collectionID)
-                        ?.name
-                    }
-                    &nbsp;#{item.productID}
-                  </h3>
-                </div>
-                <div style={cardBody}>
-                  <div style={cardImageContainer}>
-                    <img
-                      srcSet={item.image}
-                      style={cardImageStyle}
-                      alt="item"
-                    />
-                  </div>
-                </div>
-                <div style={cardFooter}>
-                  <div>Price per item: {item.price} SEK</div>
-                </div>
-              </div>
-            ))} */}
+              )
+            })}
           </div>
-        </div>
+        {/* </div> */}
       </div>
     </div>
   );
@@ -114,9 +95,11 @@ const coinIcon: CSSProperties = { marginTop: "1.8rem" };
 const coinIcon2: CSSProperties = { marginTop: "0.1rem" };
 
 const purchasedItems: CSSProperties = {
+  border: "2px solid red",
   display: "flex",
   justifyContent: "center",
   width: "100%",
+  height: "20rem",
   gap: "1rem",
   margin: 0,
   flexWrap: "wrap",
