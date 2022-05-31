@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export interface Address {
-  fullName: string;
+  fullname: string;
   street: string;
   zipcode: number;
   city: string;

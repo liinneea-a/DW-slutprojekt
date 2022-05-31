@@ -26,6 +26,7 @@ const orderSchema = new mongoose.Schema<Order>(
     deliveryAddress: { type: [addressSchema], required: true },
     isSent: { type: Boolean, required: true, default: false },
     paymentMethod: { type: String, required: true },
+    totalPrice: { type: Number, required: false}
   },
   {
     timestamps: true,

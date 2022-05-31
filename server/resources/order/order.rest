@@ -12,7 +12,14 @@ POST http://localhost:4000/api/order
 Content-Type: application/json
 
 {
-  "products": ["6283598560765e36787c6868", "6283598560765e36787c6869"],
+  "products": [
+    {"name": 123,
+  "description": "Matbord med 15 plåtben",
+  "price": 2979,
+  "imageId": "11111111111",
+  "stock": 1123123,
+  "categories": ["Stolar", "Bord"]}
+  ],
   "shipper": {
     "cost": 123,
     "daysToDelivery": 2,
@@ -41,7 +48,7 @@ Content-Type: application/json
     "shipper": "postnord" 
   },
   "deliveryAddress": {
-    "fullName": "Lina Linnn",
+    "fullname": "Lina Linnn",
     "street": "Runiusgatan 7",
     "zipcode": 12300,
     "city": "Göteborg"
