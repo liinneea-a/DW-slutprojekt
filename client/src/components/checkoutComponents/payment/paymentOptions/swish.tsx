@@ -1,4 +1,5 @@
 import { Button, TextField } from '@mui/material';
+import { log } from 'console';
 import { useFormik } from 'formik';
 import { CSSProperties } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -40,21 +41,19 @@ function Swish(props: Props) {
     validationSchema: validationSchema,
 
     onSubmit: (values) => {
-      let newObject = deliveryInfo;
-      newObject.paymentMethod = 'Swish';
-      setDeliveryInfo(newObject);
       props.setPaymentModal(true);
-      console.log(props.paymentModalOpen);
       closeModal();
-      // addPurchaseList(cart);
-      // newPurchaseTotal(totalPrice);
-      clearCart();
     },
   });
+
+  const handleOnSubmit = (e: any) => {
+    e.preventDefault();
+    formik.handleSubmit();
+  }
   
   return (
     <div style={swishForm}>
-      <form onSubmit={formik.handleSubmit}>
+      <form onSubmit={(e) => {handleOnSubmit(e)}}>
         <TextField
           style={textFieldStyle}
           fullWidth
@@ -66,7 +65,10 @@ function Swish(props: Props) {
           error={formik.touched.number && Boolean(formik.errors.number)}
           helperText={formik.touched.number && formik.errors.number}
         />
-        <CompleteButton paymentMethod={'Swish'} />
+        <button type="submit">
+           <CompleteButton paymentMethod={'Swish'} />
+        </button>
+       
       </form>
     </div>
   );

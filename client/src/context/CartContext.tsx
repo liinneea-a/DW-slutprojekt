@@ -1,9 +1,10 @@
 // @ts-ignore
 
 import { SelfImprovement } from '@mui/icons-material';
-import { createContext, FC, useContext, useState } from 'react';
+import { createContext, FC, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Product } from '../../../server/resources';
+import { shippperSchema } from '../../../server/resources/order/shipper.schema';
 import { DeliveryDataInfoObject, DeliveryDataInfo } from '../data/collections/deliveryData';
 import { makeReq } from '../helper';
 import { useShipper } from './ShipperContext';
@@ -54,9 +55,12 @@ export const CartProvider: FC = (props) => {
   
   const { selectedShipping } = useShipper();
 
+  useEffect(() => {
+   console.log("cart: ", cart);
+
+  }, [cart])
 
   const sendOrder = async () => {
-    
     const address = {
       fullname: deliveryInfo.firstName + deliveryInfo.lastName,
       street: deliveryInfo.address,
@@ -66,23 +70,24 @@ export const CartProvider: FC = (props) => {
 
     console.log(deliveryInfo);
     console.log(selectedShipping);
-    console.log(test)
+
 
     const order = {
       products: cart,
-      shipper: test,
+      shipper: {cost: 10, deliveryDays: 1, shipper: "Postnord"},
       deliveryAddress: address,
       paymentMethod: deliveryInfo.paymentMethod
     }
-    console.log(order);
+    console.log("order: ", order);
+    console.log("del.paymentM: ", deliveryInfo.paymentMethod)
 
-    // try {
-    //   const { data, ok } = await makeReq("/api/order", "POST", order);
-    //   console.log(data, ok)
+    try {
+      const { data, ok } = await makeReq("/api/order", "POST", order);
+      console.log(data, ok)
 
-    // }catch(err) {
-    //    return console.log(err);
-    // }
+    }catch(err) {
+       return console.log(err);
+    }
 
   };
 
@@ -94,7 +99,7 @@ export const CartProvider: FC = (props) => {
     let sum = 0;
     for (let item of cart){
       sum += item.price * item.quantity!
-      console.log(sum);
+ 
     }
     setTotalPrice(sum);
     return sum

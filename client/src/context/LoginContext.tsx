@@ -33,7 +33,7 @@ export const UserProvider = (props: any) => {
   const [loggedInUser, setLoggedInUser] = useState<User>();
 
 
-  console.log(loggedInUser)
+  
 
   const postUser = async (user: {}) => {
     try {
@@ -45,7 +45,7 @@ export const UserProvider = (props: any) => {
   };
 
   const loginUser = async (user: any) => {
-    console.log(user)
+ 
     try {
 
       let { data, ok } = await makeReq("/api/login", "POST", user);
@@ -64,8 +64,7 @@ export const UserProvider = (props: any) => {
   }
 
   const updateUser = async (user: any) => {
-    console.log('in update user')
-    console.log(user.id)
+
       
     let { data }  = await makeReq('/api/user/628deca2a1832c5492d79d9a', "PUT", user);
     setLoggedInUser(data)
