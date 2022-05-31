@@ -1,9 +1,9 @@
 import { Button, TextField } from "@mui/material";
+import Checkbox from '@mui/material/Checkbox';
 import { useFormik } from "formik";
 import { CSSProperties, useContext, useState } from "react";
 import * as yup from "yup";
 import { UserContext } from "../../context/LoginContext";
-import Checkbox from '@mui/material/Checkbox';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -110,9 +110,10 @@ function RegisterForm() {
           formik.touched.confirmPassword && formik.errors.confirmPassword
         }
       />
-
+<div>
       Admin request
       <Checkbox {...label}  onChange={handleChange} />
+</div>
 
       <p style={{ color: "red", fontSize: ".8rem" }}>
       {alreadyRegistered ? "That email is already in use." : undefined}
@@ -151,7 +152,6 @@ const textFieldStyle: CSSProperties = {
 };
 
 const nextButtonStyle: CSSProperties = {
-  marginTop: "1rem",
   width: "10rem",
   background: "#2081e2",
   fontWeight: "bold",
