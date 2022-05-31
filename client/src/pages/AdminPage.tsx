@@ -15,12 +15,11 @@ function AdminPage() {
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
   const [userInfo, setUserInfo] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product>({
-
       id: "",
-      name: 0,
-      imageId: "",
-      price: 0,
+      name: "",
       description: "",
+      price: 0,
+      imageId: "",
       stock: 0,
       categories: [""],
       quantity: 0
@@ -39,9 +38,9 @@ function AdminPage() {
   
  
 
-  async function handleRoleChange(user: User) {
-  await updateUser(user);
-  }
+  // async function handleRoleChange(user: User) {
+  // await updateUser(user);
+  // }
 
   console.log(adminRequest);
 
@@ -133,9 +132,9 @@ function AdminPage() {
                   <p>Email: {user.email}</p>
                   <p style={{color: "yellow"}}> {user.adminRequest === true ? ("User requests admin role") : ("") }</p>
                   <p>Role: {user.isAdmin ? "Admin" : "User"}
-                  {user.isAdmin ?  (<Switch {...label} defaultChecked onClick={ () => {handleRoleChange(user)}}/>)
+                  {/* {user.isAdmin ?  (<Switch {...label} defaultChecked onClick={ () => {handleRoleChange(user)}}/>)
                   : 
-                 ( <Switch {...label} onClick={ () => {handleRoleChange(user)}} />)}
+                 ( <Switch {...label} onClick={ () => {handleRoleChange(user)}} />)} */}
                  </p>
                  
                 </div>
