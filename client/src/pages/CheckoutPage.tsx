@@ -3,7 +3,6 @@ import { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { Product } from "../../../server/resources";
 import { useCart } from "../context/CartContext";
-import { useProducts } from "../context/ProductContext";
 
 function CheckoutPage() {
   const { cart, totalPrice } = useCart();
@@ -40,7 +39,7 @@ function CheckoutPage() {
                   </div>
                 </div>
                 <div style={cardFooter}>
-                  <div>Price per unit: {item.price} SEK</div>
+                  <div>Price per item: {item.price} SEK</div>
                 </div>
               </div>
             ))}
