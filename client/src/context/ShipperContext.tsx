@@ -1,15 +1,9 @@
 import { createContext, FC, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { number, string } from 'yup';
-import { getAllShippers } from '../../../server/resources';
+import { getAllShippers, Shipper } from '../../../server/resources';
 import { makeReq } from '../helper';
 //import type {ClientShipper} from "@server/types"
-
-interface Shipper {
-  shipper: string;
-  cost: number;
-  daysToDelivery: number;
-}
 
 interface ShipperContext {
   setSelectedShipping: React.Dispatch<React.SetStateAction<Shipper>>
@@ -23,10 +17,10 @@ export const ShipperContext = createContext<ShipperContext>({
 });
 
 export const ShipperProvider: FC = (props) => {
-  const [selectedShipping, setSelectedShipping] = useState<Shipper>({shipper: "", cost: 0, daysToDelivery: 0});
+  const [selectedShipping, setSelectedShipping] = useState<Shipper>({shipper: "", cost: 0, deliveryDays: 0});
 
 
-  
+
   const getAllShippers = async () => {
     try {
       let { data, ok } = await makeReq('/api/shipper', 'GET');

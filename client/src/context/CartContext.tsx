@@ -5,7 +5,6 @@ import { ObjectId } from 'mongoose';
 import { createContext, FC, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Order, Product } from '../../../server/resources';
-import { shippperSchema } from '../../../server/resources/order/shipper.schema';
 import {
   DeliveryDataInfoObject,
   DeliveryDataInfo,

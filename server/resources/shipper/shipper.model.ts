@@ -3,14 +3,14 @@ import mongoose, { Types } from "mongoose";
 export interface Shipper {
   shipper: string,
   cost: number,
-  days: number
+  deliveryDays: number
 }
 
-const ShipperSchema = new mongoose.Schema(
+export const ShipperSchema = new mongoose.Schema(
   {
     shipper: {type: String, required: true},
     cost: {type: Number, required: true},
-    days: {type: Number, required: true},
+    deliveryDays: {type: Number, required: true},
   }
 
 );
