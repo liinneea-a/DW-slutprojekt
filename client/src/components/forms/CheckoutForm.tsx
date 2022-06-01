@@ -31,56 +31,45 @@ const validationSchema = yup.object({
 
 function CheckoutForm() {
   const [deliveryOption, setDeliveryOption] = useState("");
-  const [shippers, setShippers] = useState([]);
-
-  const { deliveryInfo, setDeliveryInfo } = useCart();
-  const { getAllShippers, selectedShipping, setSelectedShipping } =
-    useShipper();
+  const [shippers, setShippers] = useState([])
+  const { deliveryInfo, setDeliveryInfo } = useCart(); 
+  const { getAllShippers, selectedShipping, setSelectedShipping } = useShipper();
   const navigate = useNavigate();
-  console.log(shippers);
-
-  console.log(selectedShipping);
-
   const formik = useFormik({
     initialValues: {
       firstName: "",
       lastName: "",
       email: "",
       number: "",
-      deliveryMethod: "",
       address: "",
       zipCode: "",
       city: "",
       country: "",
-      paymentMethod: "",
     },
     validationSchema: validationSchema,
 
     onSubmit: (values, event) => {
-      values.deliveryMethod = deliveryOption;
+      // values.deliveryMethod = deliveryOption;
+   
       setDeliveryInfo(values);
-      console.log(values);
+ 
       navigate("/paymentpage");
     },
   });
 
-  const handleChange = (event: any) => {
-    console.log(selectedShipping);
-  };
-
   const handleChangeShipping = (event: any) => {
     setSelectedShipping(event.target.value);
-    console.log(selectedShipping);
-  };
+  }
 
   const handleOnSubmit = (e: any) => {
     e.preventDefault();
-  };
+    formik.handleSubmit();
+  }
 
   async function getShippers() {
     const result = await getAllShippers();
     setShippers(result);
-    console.log(result);
+
   }
 
   useEffect(() => {
@@ -88,102 +77,105 @@ function CheckoutForm() {
   }, []);
 
   return (
-    <div style={detailFormContainer}>
-      <h2>Shipment details</h2>
-      <div>
-        <form style={formStyle} onSubmit={formik.handleSubmit}>
-          <div style={textFieldsContainer}>
-            <TextField
-              style={textFieldStyle}
-              fullWidth
-              id="firstName"
-              name="firstName"
-              label="First Name"
-              value={formik.values.firstName}
-              onChange={formik.handleChange}
-              error={
-                formik.touched.firstName && Boolean(formik.errors.firstName)
-              }
-              helperText={formik.touched.firstName && formik.errors.firstName}
-            />
-            <TextField
-              style={textFieldStyle}
-              fullWidth
-              id="lastName"
-              name="lastName"
-              label="Last Name"
-              value={formik.values.lastName}
-              onChange={formik.handleChange}
-              error={formik.touched.lastName && Boolean(formik.errors.lastName)}
-              helperText={formik.touched.lastName && formik.errors.lastName}
-            />
-            <TextField
-              style={textFieldStyle}
-              fullWidth
-              id="email"
-              name="email"
-              label="Email"
-              value={formik.values.email}
-              onChange={formik.handleChange}
-              error={formik.touched.email && Boolean(formik.errors.email)}
-              helperText={formik.touched.email && formik.errors.email}
-            />
-            <TextField
-              style={textFieldStyle}
-              fullWidth
-              id="number"
-              name="number"
-              label="Phone Number"
-              value={formik.values.number}
-              onChange={formik.handleChange}
-              error={formik.touched.number && Boolean(formik.errors.number)}
-              helperText={formik.touched.number && formik.errors.number}
-            />
-            <TextField
-              style={textFieldStyle}
-              fullWidth
-              id="address"
-              name="address"
-              label="Address"
-              value={formik.values.address}
-              onChange={formik.handleChange}
-              error={formik.touched.address && Boolean(formik.errors.address)}
-              helperText={formik.touched.address && formik.errors.address}
-            />
-            <TextField
-              style={textFieldStyle}
-              fullWidth
-              id="zipCode"
-              name="zipCode"
-              label="Zip code"
-              value={formik.values.zipCode}
-              onChange={formik.handleChange}
-              error={formik.touched.zipCode && Boolean(formik.errors.zipCode)}
-              helperText={formik.touched.zipCode && formik.errors.zipCode}
-            />
-            <TextField
-              style={textFieldStyle}
-              fullWidth
-              id="city"
-              name="city"
-              label="City"
-              value={formik.values.city}
-              onChange={formik.handleChange}
-              error={formik.touched.city && Boolean(formik.errors.city)}
-              helperText={formik.touched.city && formik.errors.city}
-            />
-            <TextField
-              style={textFieldStyle}
-              fullWidth
-              id="country"
-              name="country"
-              label="Country"
-              value={formik.values.country}
-              onChange={formik.handleChange}
-              error={formik.touched.country && Boolean(formik.errors.country)}
-              helperText={formik.touched.country && formik.errors.country}
-            />
-          </div>
+    <div style={rootStyle}>
+      <div style={detailFormContainer}>
+        <h2>Shipment details</h2>
+        <div>
+          <form style={formStyle} onSubmit={(e) => handleOnSubmit(e)} >
+            <div style={textFieldsContainer}>
+              <TextField
+                style={textFieldStyle}
+                fullWidth
+                id="firstName"
+                name="firstName"
+                label="First Name"
+                value={formik.values.firstName}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.firstName && Boolean(formik.errors.firstName)
+                }
+                helperText={formik.touched.firstName && formik.errors.firstName}
+              />
+              <TextField
+                style={textFieldStyle}
+                fullWidth
+                id="lastName"
+                name="lastName"
+                label="Last Name"
+                value={formik.values.lastName}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.lastName && Boolean(formik.errors.lastName)
+                }
+                helperText={formik.touched.lastName && formik.errors.lastName}
+              />
+              <TextField
+                style={textFieldStyle}
+                fullWidth
+                id="email"
+                name="email"
+                label="Email"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                error={formik.touched.email && Boolean(formik.errors.email)}
+                helperText={formik.touched.email && formik.errors.email}
+              />
+              <TextField
+                style={textFieldStyle}
+                fullWidth
+                id="number"
+                name="number"
+                label="Phone Number"
+                value={formik.values.number}
+                onChange={formik.handleChange}
+                error={formik.touched.number && Boolean(formik.errors.number)}
+                helperText={formik.touched.number && formik.errors.number}
+              />
+              <TextField
+                style={textFieldStyle}
+                fullWidth
+                id="address"
+                name="address"
+                label="Address"
+                value={formik.values.address}
+                onChange={formik.handleChange}
+                error={formik.touched.address && Boolean(formik.errors.address)}
+                helperText={formik.touched.address && formik.errors.address}
+              />
+              <TextField
+                style={textFieldStyle}
+                fullWidth
+                id="zipCode"
+                name="zipCode"
+                label="Zip code"
+                value={formik.values.zipCode}
+                onChange={formik.handleChange}
+                error={formik.touched.zipCode && Boolean(formik.errors.zipCode)}
+                helperText={formik.touched.zipCode && formik.errors.zipCode}
+              />
+              <TextField
+                style={textFieldStyle}
+                fullWidth
+                id="city"
+                name="city"
+                label="City"
+                value={formik.values.city}
+                onChange={formik.handleChange}
+                error={formik.touched.city && Boolean(formik.errors.city)}
+                helperText={formik.touched.city && formik.errors.city}
+              />
+              <TextField
+                style={textFieldStyle}
+                fullWidth
+                id="country"
+                name="country"
+                label="Country"
+                value={formik.values.country}
+                onChange={formik.handleChange}
+                error={formik.touched.country && Boolean(formik.errors.country)}
+                helperText={formik.touched.country && formik.errors.country}
+              />
+            </div>
 
           <Box style={deliveryBox}>
             <h2>Delivery details</h2>

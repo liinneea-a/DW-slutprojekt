@@ -4,33 +4,34 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useShipper } from "../context/ShipperContext";
 
+interface Props {
+  paymentMethod: string
+}
 
+export const CompleteButton = (props: Props) => {
 
-export const CompleteButton = (paymentMethod: any) => {
-
-    const { sendOrder, cart, clearCart } = useCart();
+    const { sendOrder } = useCart();
     const { deliveryInfo, setDeliveryInfo } = useCart(); 
-    const { selectedShipping } = useShipper();
     const navigate = useNavigate();
 
     const completePayment = () => {
+     
         let newOrder = deliveryInfo;
-        newOrder.paymentMethod = paymentMethod;
+        newOrder.paymentMethod = props.paymentMethod;
+        console.log(props.paymentMethod);
+        console.log(newOrder);
         setDeliveryInfo(newOrder);
         sendOrder();
         navigate("/purchasecomplete");
       };
 
     return (
-        <Button
+        <div
             style={completePurchaseButton}
-            color="primary"
-            variant="contained"
-            fullWidth
             onClick={() => completePayment()}
       >
         Complete purchase
-      </Button>
+      </div>
     )
 }
 

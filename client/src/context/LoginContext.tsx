@@ -44,7 +44,6 @@ export const UserProvider = (props: any) => {
   const [adminRequest, setAdminRequest] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState<User>();
   const [allUsers, setAllUsers] = useState<User[]>([]);
-
   const postUser = async (user: {}) => {
     try {
       let { ok } = await makeReq("/api/user", "POST", user);
@@ -55,7 +54,7 @@ export const UserProvider = (props: any) => {
   };
 
   const loginUser = async (user: any) => {
-    console.log(user)
+ 
     try {
 
       let { data, ok } = await makeReq("/api/login", "POST", user);
@@ -73,9 +72,9 @@ export const UserProvider = (props: any) => {
 
   }
 
+
   const updateUser = async (user: User) => {
-    console.log('in update user')
-    console.log(user.id, user.id)
+
       
     let { data }  = await makeReq(`/api/users/${user.id}`, "PUT", user.isAdmin);
     setLoggedInUser(data)
