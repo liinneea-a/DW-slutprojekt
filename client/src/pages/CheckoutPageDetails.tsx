@@ -1,22 +1,18 @@
 import { CSSProperties } from "react";
 import CheckoutForm from "../components/forms/CheckoutForm";
+import { StartPageButton } from "../components/StartPageButton";
 import { useCart } from "../context/CartContext";
 import { DeliveryDataInfo } from "../data/collections/deliveryData";
 
-
-interface Props {
-  deliveryInfo: DeliveryDataInfo;
-  setDeliveryInfo: any;
-}
-
 function CheckoutPageDetails() {
-  const { deliveryInfo, setDeliveryInfo } = useCart(); 
-
   return (
+    <>
+    <StartPageButton />
       <div style={checkoutContainer}>
         <h2 style={headlineStyle}>Checkout</h2>
         <CheckoutForm />
       </div>
+      </>
   );
 }
 

@@ -4,6 +4,7 @@ import { CSSProperties, useEffect, useState } from "react";
 import DeliveryInfoTable from "../components/checkoutComponents/DeliveryInfoTable";
 import PaymentBox from "../components/checkoutComponents/payment/paymentBox";
 import TotalSumWithShipping from "../components/checkoutComponents/payment/TotalSumWithShipping";
+import { StartPageButton } from "../components/StartPageButton";
 import { useShipper } from "../context/ShipperContext";
 
 interface Props {
@@ -39,6 +40,8 @@ const { selectedShipping } = useShipper();
   const [finalTotalSum, setFinalTotalSum] = useState(1);
 
   return (
+    <>
+    <StartPageButton />
       <div style={checkoutContainer}>
         <h2 style={headlineStyle}>Checkout</h2>
         <div>
@@ -68,6 +71,7 @@ const { selectedShipping } = useShipper();
         </form>
         <PaymentBox paymentOption={paymentOption} />
       </div>
+      </>
   );
 }
 
