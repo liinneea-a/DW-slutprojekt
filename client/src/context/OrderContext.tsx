@@ -1,7 +1,9 @@
 // import { Order } from "@server/types";
 import { createContext, FC, useContext, useState } from "react";
-import { Order } from '../../../server/shared/types';
+//import { Order } from '../../../server/shared/types';
 import { makeReq } from "../helper";
+import { Order } from "../../../server/resources/"
+
 
 interface OrderContext {
     orders: Order[];
@@ -29,6 +31,7 @@ export const OrderProvider: FC = (props) => {
           return console.log(err);
         }
       };
+
 
     const updateOrder = async () => {
         try {

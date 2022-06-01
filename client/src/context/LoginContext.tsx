@@ -2,38 +2,34 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { boolean } from "yup";
 import { makeReq } from "../helper";
 
+
 interface User {
   email: string;
   password: string;
   isAdmin: boolean;
   id: string;
-  //_id: string;
   adminRequest: boolean;
 }
 
 interface UserContext {
   loggedInUser?: User;
-  /* setIsLoggedIn: React.Dispatch<React.SetStateAction<any[]>>,
-  setLoggedInUser: React.Dispatch<React.SetStateAction<any[]>>, */
-  allUsers: User[];
+  allUsers?: User[];
+  orders: any;
   postUser: ({}) => Promise<any>
   loginUser: ({}) => Promise<any>
-  updateUser: (user: User) => Promise<any>
   getAllUsers: () => Promise<any>
-  //fetchLoggedInUser: () => void;
+  getUserOrders: () => Promise<any>
   signOut: () => void;
   setAdminRequest: React.Dispatch<React.SetStateAction<boolean>>
   adminRequest: Boolean
 }
 
 export const UserContext = createContext<UserContext>({
-  allUsers: [],
+  orders: [],
   postUser: async () => {},
   loginUser: async () => {},
   getAllUsers: async () => void [],
-  updateUser: async () => {},
-  //fetchLoggedInUser: () => {},
-  //allUsers: [],
+  getUserOrders: async () => void [],
   signOut: () => {},
   setAdminRequest: () => boolean,
   adminRequest: false,
@@ -43,7 +39,12 @@ export const UserProvider = (props: any) => {
   const [isLoading, setIsLoading] = useState(true);
   const [adminRequest, setAdminRequest] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState<User>();
-  const [allUsers, setAllUsers] = useState<User[]>([]);
+  const [allUsers, setAllUsers] = useState<User[]>();
+  const [orders, setOrders] = useState<any>([]);
+  
+
+  /** Create new user */ 
+
   const postUser = async (user: {}) => {
     try {
       let { ok } = await makeReq("/api/user", "POST", user);
@@ -53,10 +54,11 @@ export const UserProvider = (props: any) => {
     }
   };
 
-  const loginUser = async (user: any) => {
- 
-    try {
 
+   /** Login user */ 
+
+  const loginUser = async (user: any) => {
+    try {
       let { data, ok } = await makeReq("/api/login", "POST", user);
       if (ok) {
         setLoggedInUser(data);
@@ -69,17 +71,30 @@ export const UserProvider = (props: any) => {
       console.log(err);
       return false
     }
-
   }
 
 
-  const updateUser = async (user: User) => {
+   /** get logged in users orders */ 
 
-      
-    let { data }  = await makeReq(`/api/users/${user.id}`, "PUT", user.isAdmin);
-    setLoggedInUser(data)
-    return data
-  }
+  const getUserOrders = async () => {
+    try {
+      let { data, ok } = await makeReq(`/api/order/${loggedInUser?.id}`, "GET");
+      console.log(loggedInUser?.id)
+      console.log(data)
+      if (ok) {
+        setOrders(data);
+        console.log(orders)
+        return true
+      } else {
+        setOrders(undefined)
+      }
+    } catch (err) {
+      return console.log(err);
+    }
+  };  
+
+
+   /** Looks for logged in user */ 
   
   useEffect(() => {
     const fetchLoggedInUser = async () => {
@@ -100,13 +115,16 @@ export const UserProvider = (props: any) => {
   }, []);
 
   
+
+   /** Gets all users */ 
+
   const getAllUsers = async () => {
     try {
       let { data, ok } = await makeReq("/api/users", "GET");
       if (ok) {
         setAllUsers(data);
       } else {
-        //setAllUsers(undefined);
+       setAllUsers(undefined);
       }
       setIsLoading(false);
     } catch (err) {
@@ -115,12 +133,12 @@ export const UserProvider = (props: any) => {
     }
   }
 
-  const signOut = async () => {
-    let response = await makeReq("/api/logout", "DELETE");
-    setLoggedInUser(undefined);
 
-    // todo: navigate ist'llet...
-    window.location.reload();
+   /** Signout user */ 
+
+  const signOut = async () => {
+    let {data, ok} = await makeReq("/api/logout", "DELETE");
+    setLoggedInUser(undefined);
   };
 
   return (
@@ -129,9 +147,11 @@ export const UserProvider = (props: any) => {
         setAdminRequest,
         adminRequest,
         loggedInUser,
+        orders,
+        getUserOrders,
         postUser,
         loginUser,
-        updateUser,
+        //updateUser,
         getAllUsers,
         allUsers,
         /* setIsLoggedIn,

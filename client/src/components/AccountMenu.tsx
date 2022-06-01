@@ -110,10 +110,12 @@ export default function AccountMenu(headerProps: any) {
         ) : null}{" "}
         {loggedInUser && loggedInUser.isAdmin ? (
           <MenuItem>
+          <Link style={linkStyle} to="/adminusers">
             <ListItemIcon>
               <ManageAccountsIcon fontSize="small" />
             </ListItemIcon>
             Manage accounts
+            </Link>
           </MenuItem>
         ) : null}
         <Divider />

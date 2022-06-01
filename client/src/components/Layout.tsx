@@ -9,17 +9,18 @@ import { ShipperProvider } from "../context/ShipperContext";
 import { DeliveryDataInfoObject } from "../data/collections/deliveryData";
 import AdminOrderPage from "../pages/AdminOrderPage";
 import AdminPage from "../pages/AdminPage";
+import AdminEditUserPage from "../pages/AdminEditUserPage";
 import AllProducts from "../pages/AllProductsPage";
 import CheckoutPage from "../pages/CheckoutPage";
 import CheckoutPageDetails from "../pages/CheckoutPageDetails";
 import LoginPage from "../pages/LoginPage";
 import PaymentPage from "../pages/PaymentPage";
-import ProfilePage from "../pages/ProfilePage";
 import PurchaseComplete from "../pages/PurchaseComplete";
 import StartPage from "../pages/Startpage";
 import CartModal from "./CartModal";
 import Footer from "./Footer";
 import Header from "./Header";
+import UserOrderPage from "../pages/UserOrderPage";
 
 function Layout() {
   const [modalState, setModalState] = useState(false);
@@ -44,8 +45,9 @@ function Layout() {
                 <Route path="/" element={<StartPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/admin" element={<AdminPage />} />
+                <Route path="/adminusers" element={<AdminEditUserPage />} />
                 <Route path="/all" element={<AllProducts />} />
-                <Route path="/profile" element={<ProfilePage />} /> 
+                <Route path="/profile" element={<UserOrderPage />} /> 
                 <Route path="/checkout" element={<CheckoutPage />} />
                 <Route path="/adminorder" element={<AdminOrderPage />} />
                 <Route
