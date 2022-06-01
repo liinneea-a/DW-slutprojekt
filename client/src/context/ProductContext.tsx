@@ -1,9 +1,15 @@
-// import { Product } from "@server/types";
+import { Product } from "@server/types";
 import { createContext, FC, useContext, useState } from "react";
+
+        
 import { Product } from "../../../server/resources";
 // import { Product } from "../../../server/resources";
+
+        
+// import { Product } from "../../../../server/resources/shared";
+        
+
 import { makeReq } from "../helper";
-// import { Product } from "../../../../server/resources";
 
 /* const product: Product = {
   _id: "",
@@ -34,7 +40,6 @@ export const ProductProvider: FC = (props) => {
   const [products, setProducts] = useState<Product[]>([]);
 
   const getAllProducts = async () => {
-
     try {
       let { data, ok } = await makeReq("/api/products", "GET");
       if (ok) {
@@ -44,7 +49,6 @@ export const ProductProvider: FC = (props) => {
     } catch (err) {
       return console.log(err);
     }
-
   };
 
   const addProduct = async (product: {}) => {

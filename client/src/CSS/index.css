@@ -16,6 +16,16 @@ code {
     monospace;
 }
 
+.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper {
+  min-width: 0 !important;
+  display: flex;
+  justify-content: center;
+}
+
+.MuiMenuItem-root {
+  text-align: center !important;
+}
+
 a{
   color: black!important
 }

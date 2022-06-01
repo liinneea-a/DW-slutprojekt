@@ -1,3 +1,4 @@
+
 import { height } from '@mui/system';
 import { CSSProperties } from 'react';
 import { Order } from '../../../server/resources';
@@ -8,12 +9,14 @@ import { useProducts } from '../context/ProductContext';
 import { useShipper } from '../context/ShipperContext';
 import { DeliveryDataInfo } from '../data/collections/deliveryData';
 
-const PurchaseComplete = () => {
-  const { purchaseList, purchaseTotal, totalPrice, cart, deliveryInfo } =
-    useCart();
+
+function PurchaseComplete() {
+  const { purchaseList, purchaseTotal, totalPrice, cart, deliveryInfo } = useCart();
+
   const { selectedShipping } = useShipper();
   
   return (
+
     <div style={rootStyle}>
       <div style={purchaseCompleteContainer}>
         <h2 style={purchaseCompleteTextStyle}>Purchase complete!</h2>
@@ -49,12 +52,14 @@ const PurchaseComplete = () => {
           })}
         </div>
         {/* </div> */}
+
       </div>
     </div>
   );
 }
 
 export default PurchaseComplete;
+
 
 const rootStyle: CSSProperties = {
   display: 'flex',
@@ -68,7 +73,6 @@ const productImageStyle: CSSProperties = {
   objectFit: "cover",
   height: "100%",
   width: "auto"
-
 }
 
 const productCardStyle: CSSProperties = {

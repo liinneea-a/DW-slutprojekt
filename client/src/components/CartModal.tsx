@@ -1,8 +1,9 @@
 import { Box, Button, Modal, Typography } from "@mui/material";
-import { CSSProperties, useEffect } from "react";
+import { CSSProperties, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Product } from "../../../server/resources";
 import { useCart } from "../context/CartContext";
+import { UserContext } from "../context/LoginContext";
 
 interface CartProps {
   modalState: boolean;
@@ -10,13 +11,15 @@ interface CartProps {
 }
 
 function CartModal(props: CartProps) {
-  const { cart, decQty, incQty, clearCart, totalPrice, calculatePrice} = useCart();
+  const { cart, decQty, incQty, clearCart, totalPrice, calculatePrice } =
+    useCart();
   const handleClose = () => props.setModalState(false);
   // const [collectionList, setCollectionList] = useState(collectionData);
+  const { loggedInUser } = useContext(UserContext);
 
   useEffect(() => {
     calculatePrice();
-  })
+  });
 
   return (
     <div>
@@ -45,38 +48,41 @@ function CartModal(props: CartProps) {
               >
                 {cart.map((item: Product, index: number) => (
                   <div style={nftContainer} key={index}>
-                    <div style={iconCol}>
-                      <img style={iconStyle} srcSet={item.imageId} alt="test" />
-                    </div>
-                    <div style={prodColMid}>
-                      <div style={nameColMid}>
-                        {/* {
-                          collectionList.find(
-                            (col) => col.id === item.collectionID
-                          )?.name
-                        } */}
-                        &nbsp;#{item.name}
+                    <div style={prodCol}>
+                      <div style={iconCol}>
+                        <img
+                          style={iconStyle}
+                          srcSet={item.imageId}
+                          alt="test"
+                        />
                       </div>
+                      <div style={nameColMid}>{item.name}</div>
                     </div>
                     <div style={qtyCol}>
-                        <Button variant="contained"
+                      <Button
+                        variant="contained"
                         style={qtyBtn}
                         aria-label="outlined primary button"
-                        onClick={() => decQty(item.id)}> -
-                        </Button>
-                        {item.quantity}
-                        <Button variant="contained"
+                        onClick={() => decQty(item.id)}
+                      >
+                        {" "}
+                        -
+                      </Button>
+                      {item.quantity}
+                      <Button
+                        variant="contained"
                         style={qtyBtn}
                         aria-label="outlined primary button"
-                        onClick={() => incQty(item.id)}>
-                          +
-                        </Button>
+                        onClick={() => incQty(item.id)}
+                      >
+                        +
+                      </Button>
                     </div>
                     <div style={priceCol}>{item.price} SEK</div>
                   </div>
                 ))}
                 <div style={cartFooter}>
-                <div style={priceStyle}>Your total: {totalPrice} SEK</div>
+                  <div style={priceStyle}>Your total: {totalPrice} SEK</div>
                   <div style={cartButton}>
                     <Button
                       style={buttonStyle}
@@ -85,15 +91,27 @@ function CartModal(props: CartProps) {
                     >
                       Empty your cart
                     </Button>
-                    <Link
-                      style={linkStyle}
-                      onClick={handleClose}
-                      to={"/checkout"}
-                    >
-                      <Button style={buttonStyle} variant="contained">
-                        Proceed to checkout
-                      </Button>
-                    </Link>
+                    {!loggedInUser ? (
+                      <Link
+                        style={linkStyle}
+                        onClick={handleClose}
+                        to={"/login"}
+                      >
+                        <Button style={buttonStyle} variant="contained">
+                          Login to proceed
+                        </Button>
+                      </Link>
+                    ) : (
+                      <Link
+                        style={linkStyle}
+                        onClick={handleClose}
+                        to={"/checkout"}
+                      >
+                        <Button style={buttonStyle} variant="contained">
+                          Proceed to checkout
+                        </Button>
+                      </Link>
+                    )}
                   </div>
                 </div>
               </Typography>
@@ -110,8 +128,8 @@ const boxStyle: CSSProperties = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: '85%',
-  maxWidth: '40rem',
+  width: "85%",
+  maxWidth: "40rem",
   maxHeight: "90vh",
   overflowY: "scroll",
   background: "#202225",
@@ -126,12 +144,12 @@ const boxStyle: CSSProperties = {
 const qtyBtn: CSSProperties = {
   padding: 0,
   margin: 0,
-  textAlign: 'center',
-  minWidth: '1.2rem',
-  width: '2rem',
-  minHeight: '1.2rem',
-  height: '1.5rem'
-}
+  textAlign: "center",
+  minWidth: "1.2rem",
+  width: "2rem",
+  minHeight: "1.2rem",
+  height: "1.5rem",
+};
 
 const emptyCartTextStyle: CSSProperties = { textAlign: "center" };
 
@@ -158,14 +176,17 @@ const cartFooter: CSSProperties = {
 };
 
 const iconCol: CSSProperties = {
-  width: "10%",
+  width: "20%",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
 };
 
 const prodCol: CSSProperties = {
-  width: "70%",
+  width: "60%",
+  display: 'flex',
+  alignItems: 'center',
+  gap: '2rem'
 };
 
 const prodColMid: CSSProperties = {
@@ -178,7 +199,7 @@ const prodColMid: CSSProperties = {
 
 const qtyCol: CSSProperties = {
   width: "25%",
-  gap:'.5rem',
+  gap: ".5rem",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -191,7 +212,7 @@ const priceCol: CSSProperties = {
   justifyContent: "center",
   alignItems: "center",
   fontSize: "clamp(1vmin, 3vmin, 1.5rem)",
-  textAlign: 'center'
+  textAlign: "center",
 };
 
 const buttonStyle: CSSProperties = {
@@ -229,7 +250,7 @@ const priceStyle: CSSProperties = {
   marginTop: "1rem",
   fontSize: "1.5rem",
   alignItems: "center",
-  textAlign: 'center'
+  textAlign: "center",
 };
 
 const linkStyle: CSSProperties = {

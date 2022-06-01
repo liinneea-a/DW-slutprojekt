@@ -112,6 +112,9 @@ export const CartProvider: FC = (props) => {
 
   const calculatePrice = () => {
     let sum = 0;
+    
+
+        
     for (let item of cart) {
       sum += item.price * item.quantity!;
     }

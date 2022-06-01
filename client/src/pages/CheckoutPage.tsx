@@ -9,7 +9,6 @@ function CheckoutPage() {
   // const { products } = useProducts();
 
   return (
-    <div style={rootStyle}>
       <div style={purchaseCompleteContainer}>
         <h1>Checkout</h1>
         <h2>Your purchase:</h2>
@@ -22,11 +21,7 @@ function CheckoutPage() {
                 </div>
                 <div style={cardHeader}>
                   <h3 style={nftIDStyle}>
-                    {/* {
-                      collections.find((col) => col.id === item.collectionID)
-                        ?.name
-                    }
-                    &nbsp;#{item.productID} */}
+                    {item.name}
                   </h3>
                 </div>
                 <div style={cardBody}>
@@ -54,19 +49,10 @@ function CheckoutPage() {
           </Button>
         </Link>
       </div>
-    </div>
   );
 }
 
 export default CheckoutPage;
-
-const rootStyle: CSSProperties = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  margin: "0 auto",
-  width: "100%",
-};
 
 const purchaseCompleteContainer: CSSProperties = {
   display: "flex",
@@ -95,7 +81,8 @@ const purchasedItemTestCard: CSSProperties = {
   background: "#303339",
   gap: "1rem",
   padding: "1rem",
-  width: "clamp(12vmax, 30vmax, 5rem)",
+  width: "20%",
+  minWidth: '14rem',
   position: "relative",
 };
 
@@ -108,8 +95,8 @@ const cardBody: CSSProperties = {
 };
 
 const nftIDStyle: CSSProperties = {
-  margin: "0",
-  fontSize: "clamp(.8rem, 2vmin, 90%)",
+  margin: 0,
+  fontSize: "1.5rem",
 };
 
 const itemImageContainer: CSSProperties = { width: "100%" };
@@ -122,7 +109,7 @@ const cardFooter: CSSProperties = {
   display: "flex",
   flexDirection: "column",
   textAlign: "center",
-  fontSize: "clamp(2vmin, 2.5vmin, 1.2rem)",
+  fontSize: "1rem",
 };
 
 const cardContainer: CSSProperties = {
@@ -181,4 +168,4 @@ const coinIcon2: CSSProperties = { marginTop: "1.8rem" };
 
 const totalPriceContainer: CSSProperties = { display: "flex" };
 
-const totalPriceStyle: CSSProperties = { marginRight: ".1rem" };
+const totalPriceStyle: CSSProperties = { textAlign: "center" };
