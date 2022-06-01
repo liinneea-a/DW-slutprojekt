@@ -1,14 +1,17 @@
 // @ts-ignore
 
 import { SelfImprovement } from '@mui/icons-material';
+import { ObjectId } from 'mongoose';
 import { createContext, FC, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { Product } from '../../../server/resources';
+import { Order, Product } from '../../../server/resources';
 import { shippperSchema } from '../../../server/resources/order/shipper.schema';
-import { DeliveryDataInfoObject, DeliveryDataInfo } from '../data/collections/deliveryData';
+import {
+  DeliveryDataInfoObject,
+  DeliveryDataInfo,
+} from '../data/collections/deliveryData';
 import { makeReq } from '../helper';
 import { useShipper } from './ShipperContext';
-
 
 interface CartContext {
   purchaseList: Product[];
@@ -22,8 +25,8 @@ interface CartContext {
   calculatePrice: Function;
   purchaseTotal: number;
   newPurchaseTotal: (total: number) => void;
-  deliveryInfo: DeliveryDataInfo,
-  setDeliveryInfo: Function
+  deliveryInfo: DeliveryDataInfo;
+  setDeliveryInfo: Function;
 }
 
 export const CartContext = createContext<CartContext>({
@@ -39,7 +42,7 @@ export const CartContext = createContext<CartContext>({
   purchaseTotal: 1,
   newPurchaseTotal: (total: number) => {},
   deliveryInfo: DeliveryDataInfoObject,
-  setDeliveryInfo: () => {}
+  setDeliveryInfo: () => {},
 });
 
 export const CartProvider: FC = (props) => {
@@ -50,46 +53,58 @@ export const CartProvider: FC = (props) => {
   const [purchaseList, setPurchaseList] = useState<Product[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [purchaseTotal, setPurchaseTotal] = useState(1);
-
   const [deliveryInfo, setDeliveryInfo] = useState(DeliveryDataInfoObject);
-  
   const { selectedShipping } = useShipper();
 
   useEffect(() => {
-   console.log("cart: ", cart);
-
-  }, [cart])
+    console.log('cart: ', cart);
+  }, [cart]);
 
   const sendOrder = async () => {
     const address = {
-      fullname: deliveryInfo.firstName + deliveryInfo.lastName,
+      fullname: deliveryInfo.firstName + ' ' + deliveryInfo.lastName,
       street: deliveryInfo.address,
       zipcode: deliveryInfo.zipCode,
-      city: deliveryInfo.city
-    }
+      city: deliveryInfo.city,
+    };
 
     console.log(deliveryInfo);
     console.log(selectedShipping);
 
-
     const order = {
       products: cart,
-      shipper: {cost: 10, deliveryDays: 1, shipper: "Postnord"},
+      shipper: { cost: 10, deliveryDays: 1, shipper: 'Postnord' },
       deliveryAddress: address,
-      paymentMethod: deliveryInfo.paymentMethod
-    }
-    console.log("order: ", order);
-    console.log("del.paymentM: ", deliveryInfo.paymentMethod)
+      paymentMethod: deliveryInfo.paymentMethod,
+    };
+    console.log('order: ', order);
+    console.log('del.paymentM: ', deliveryInfo.paymentMethod);
 
     try {
-      const { data, ok } = await makeReq("/api/order", "POST", order);
-      console.log(data, ok)
+      const { data, ok } = await makeReq('/api/order', 'POST', order);
+      console.log(data);
 
-    }catch(err) {
-       return console.log(err);
+      if (ok) {
+        
+        for (let product of cart) {
+          console.log(product.stock);
+          product.stock -= product.quantity!;
+          console.log(product.stock);
+          const { data, ok } = await makeReq(
+            `/api/products/${product.id}`,
+            'PUT',
+            product
+          );
+          console.log(ok);
+        }
+      }
+    } catch (err) {
+      return console.log(err);
     }
-
   };
+
+
+
 
   const newPurchaseTotal = (total: number) => {
     setPurchaseTotal(total);
@@ -97,13 +112,12 @@ export const CartProvider: FC = (props) => {
 
   const calculatePrice = () => {
     let sum = 0;
-    for (let item of cart){
-      sum += item.price * item.quantity!
- 
+    for (let item of cart) {
+      sum += item.price * item.quantity!;
     }
     setTotalPrice(sum);
-    return sum
-  }
+    return sum;
+  };
 
   const addProductToCart = (item: Product) => {
     toast.success('Item added to cart', {
@@ -117,19 +131,20 @@ export const CartProvider: FC = (props) => {
     });
 
     let newCart = cart;
-    let foundItem = newCart.find((cartItem: Product) => cartItem.id === item?.id);
+    let foundItem = newCart.find(
+      (cartItem: Product) => cartItem.id === item?.id
+    );
 
     if (foundItem) {
       foundItem.quantity! += 1;
     } else {
-        item.quantity = 1;
-        newCart.push(item);
-      }
+      item.quantity = 1;
+      newCart.push(item);
+    }
 
     setCart(newCart);
     calculatePrice();
     localStorage.setItem('cart', JSON.stringify(newCart));
-
   };
 
   const incQty = (itemID: string) => {
@@ -165,7 +180,7 @@ export const CartProvider: FC = (props) => {
   const clearCart = () => {
     setCart([]);
     setTotalPrice(0);
-    localStorage.setItem('cart', JSON.stringify([]));
+    localStorage.removeItem('cart');
   };
 
   return (
@@ -182,8 +197,8 @@ export const CartProvider: FC = (props) => {
         calculatePrice,
         purchaseTotal,
         newPurchaseTotal,
-        deliveryInfo, 
-        setDeliveryInfo
+        deliveryInfo,
+        setDeliveryInfo,
       }}
     >
       {props.children}
