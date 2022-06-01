@@ -1,12 +1,7 @@
 import { CSSProperties } from "react";
-import DeliveryInfoTableWithPay from "../components/checkoutComponents/DeliveryInfoTableWithPay";
 import GenerateOrderNumber from "../components/checkoutComponents/OrderNumber";
 import { useCart } from "../context/CartContext";
-import { useProducts } from "../context/ProductContext";
 import { useShipper } from "../context/ShipperContext";
-import { DeliveryDataInfo } from "../data/collections/deliveryData";
-
-
 
 function PurchaseComplete() {
   const { purchaseList, purchaseTotal, totalPrice, cart } = useCart();
@@ -24,48 +19,36 @@ function PurchaseComplete() {
   // }
 
   return (
-    <div style={rootStyle}>
-      <div style={purchaseCompleteContainer}>
-        <h2 style={purchaseCompleteTextStyle}>Purchase complete!</h2>
-        <div>
-          <GenerateOrderNumber />
-          <h2 style={deliveryDetailsTextStyle}>Delivery details</h2>
+    <div style={purchaseCompleteContainer}>
+      <h2 style={purchaseCompleteTextStyle}>Purchase complete!</h2>
+      <div>
+        <GenerateOrderNumber />
+        <h2 style={deliveryDetailsTextStyle}>Delivery details</h2>
 
-          {/* <DeliveryInfoTableWithPay /> */}
-        </div>
-        <div style={totalPriceContainer}>
-          <h2 style={totalPriceTextStyle}>
-            Total price: { totalPrice } SEK
-          </h2>
-        </div>
-        <h2>Your purchase:</h2>
-        {/* <div style={cardContainer}> */}
-          <div style={purchasedItems}>
-            {cart.map(product => {
-             
-              return (
-                <div key={product.id}>
-                  <div>{product.name}</div>
-                  <div>{product.price} {product.quantity}</div>
-                </div>
-              )
-            })}
-          </div>
-        {/* </div> */}
+        {/* <DeliveryInfoTableWithPay /> */}
+      </div>
+      <div style={totalPriceContainer}>
+        <h2 style={totalPriceTextStyle}>Total price: {totalPrice} SEK</h2>
+      </div>
+      <h2>Your purchase:</h2>
+      {/* <div style={cardContainer}> */}
+      <div style={purchasedItems}>
+        {cart.map((product) => {
+          return (
+            <div key={product.id}>
+              <div>{product.name}</div>
+              <div>
+                {product.price} {product.quantity}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
 }
 
 export default PurchaseComplete;
-
-const rootStyle: CSSProperties = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  margin: "0 auto",
-  width: "100%",
-};
 
 const purchaseCompleteContainer: CSSProperties = {
   display: "flex",

@@ -16,33 +16,29 @@ function StartPage() {
   }, []);
 
   return (
-    <div style={rootStyle}>
-      <div style={contentContainer}>
-        <div style={startPageWelcomeText}>
-          <h2 style={startPageHeadline}>
-            Buy extreme NFTs and don't look back!
-          </h2>
-          <p style={headlineSubText}>
-            Are you looking for insane NFTs? Do you want to make money quick?
-            You've come to the right place. We scoured the internet and
-            handpicked the best NFTS for you! Enjoy!
-          </p>
+    <div style={contentContainer}>
+      <div style={startPageWelcomeText}>
+        <h2 style={startPageHeadline}>Buy extreme NFTs and don't look back!</h2>
+        <p style={headlineSubText}>
+          Are you looking for insane NFTs? Do you want to make money quick?
+          You've come to the right place. We scoured the internet and handpicked
+          the best NFTS for you! Enjoy!
+        </p>
+      </div>
+      <Link style={linkStyle} to="/all">
+        <Button style={StyledButton} variant="contained" href="">
+          ALL PRODUCTS
+        </Button>
+      </Link>
+      <div style={hottestStyle}>
+        <div style={hottestTitle}>
+          <h1>HOTTEST ITEMS RIGHT NOW</h1>
         </div>
-        <Link style={linkStyle} to="/all">
-            <Button style={StyledButton} variant="contained" href="">
-               ALL PRODUCTS
-            </Button>
-          </Link>
-        <div style={hottestStyle}>
-          <div style={hottestTitle}>
-            <h1>HOTTEST ITEMS RIGHT NOW</h1>
-          </div>
 
-          <div style={flexProducts}>
-            {randomList.map((products, index) => (
-              <ItemCard key={index} product={products} />
-            ))}
-          </div>
+        <div style={flexProducts}>
+          {randomList.map((products, index) => (
+            <ItemCard key={index} product={products} />
+          ))}
         </div>
       </div>
     </div>
@@ -50,15 +46,6 @@ function StartPage() {
 }
 
 export default StartPage;
-
-const rootStyle: CSSProperties = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  margin: "0",
-  maxWidth: "80rem",
-  // border: "2px solid #88D9E6",
-};
 
 const startPageHeadline: CSSProperties = {
   fontSize: "2rem",
@@ -93,6 +80,8 @@ const contentContainer: CSSProperties = {
   justifyContent: "center",
   flexDirection: "column",
   alignItems: "center",
+  maxWidth: "80rem",
+  margin: "0",
 };
 
 const hottestStyle: CSSProperties = {
