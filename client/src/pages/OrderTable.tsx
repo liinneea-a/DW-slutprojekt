@@ -22,10 +22,10 @@ export default function OrderTable() {
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
-            <TableCell>Ordernr</TableCell>
-            <TableCell>Total price</TableCell>
-            <TableCell align="right">Order date</TableCell>
-            <TableCell align="right">Shipped</TableCell>
+            <TableCell style={{fontWeight: 'bold'}}>Ordernr</TableCell>
+            <TableCell style={{fontWeight: 'bold'}}>Total price</TableCell>
+            <TableCell  style={{fontWeight: 'bold'}} align="right">Order date</TableCell>
+            <TableCell  style={{fontWeight: 'bold'}} align="right">Shipped</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

@@ -26,7 +26,7 @@ function ItemCard(props: Props) {
   return (
     <div style={cardContainer}>
       <div style={cardHeader}>
-        <div style={headerText}>Product nr: {props.product.name}</div>
+        <div style={headerText}>{props.product.name}</div>
         <div style={priceStyle}>Price: {props.product.price} SEK</div>
       </div>
       <p style={clickMeStyle}>Click me!</p>

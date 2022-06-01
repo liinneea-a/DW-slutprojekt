@@ -1,24 +1,18 @@
 import { CSSProperties } from "react";
 import { useCart } from "../../../context/CartContext";
 import { useShipper } from "../../../context/ShipperContext";
-import { DeliveryDataInfo } from "../../../data/collections/deliveryData";
-
-
-
 
 function TotalSumWithShipping() {
-  const {  totalPrice  } = useCart();
+  const { totalPrice } = useCart();
   const { selectedShipping } = useShipper();
 
-console.log(selectedShipping.cost)
-
+  console.log(selectedShipping.cost);
 
   return (
     <div>
       <div style={totalPriceContainer}>
-          <p style={totalPriceText}>
-           Total price with shipping:  { totalPrice + selectedShipping.cost } SEK
-          </p>
+        <p style={totalPriceText}>Total price with shipping:</p>
+        <p style={totalPriceTextTwo}>{ totalPrice + selectedShipping.cost } SEK</p>
       </div>
     </div>
   );
@@ -28,16 +22,26 @@ export default TotalSumWithShipping;
 
 const totalPriceContainer: CSSProperties = {
   display: "flex",
+  flexDirection: 'column',
   justifyContent: "center",
   alignItems: "center",
 };
 
 const totalPriceText: CSSProperties = {
-  marginRight: ".1rem",
   fontSize: "1.2rem",
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  flexWrap: 'wrap',
-  gap: '1rem'
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: "1rem",
+  textAlign: "center",
+};
+const totalPriceTextTwo: CSSProperties = {
+  fontSize: "2rem",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: "1rem",
+  textAlign: "center",
+  fontWeight: 'bold',
+  margin: 0,
 };

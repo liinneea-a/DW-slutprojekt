@@ -1,10 +1,9 @@
-import { Button, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import { CSSProperties } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { useCart } from '../../../../context/CartContext';
-import { DeliveryDataInfo } from '../../../../data/collections/deliveryData';
 import { CompleteButton } from '../../../CompleteButton';
 
 interface Props {
@@ -54,7 +53,7 @@ function Swish(props: Props) {
   
   return (
     <div style={swishForm}>
-      <form onSubmit={formik.handleSubmit}>
+      <form style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}} onSubmit={formik.handleSubmit}>
         <TextField
           style={textFieldStyle}
           fullWidth

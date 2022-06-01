@@ -45,9 +45,6 @@ export const UserProvider = (props: any) => {
   const [loggedInUser, setLoggedInUser] = useState<User>();
   const [allUsers, setAllUsers] = useState<User[]>([]);
 
-
-  console.log(adminRequest)
-
   const postUser = async (user: {}) => {
     try {
       let { ok } = await makeReq("/api/user", "POST", user);

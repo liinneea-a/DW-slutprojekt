@@ -1,11 +1,9 @@
 // @ts-ignore
 
-import { SelfImprovement } from '@mui/icons-material';
 import { createContext, FC, useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Product } from '../../../server/resources';
-import { DeliveryDataInfoObject, DeliveryDataInfo } from '../data/collections/deliveryData';
-import { makeReq } from '../helper';
+import { DeliveryDataInfo, DeliveryDataInfoObject } from '../data/collections/deliveryData';
 import { useShipper } from './ShipperContext';
 
 
@@ -94,7 +92,6 @@ export const CartProvider: FC = (props) => {
     let sum = 0;
     for (let item of cart){
       sum += item.price * item.quantity!
-      console.log(sum);
     }
     setTotalPrice(sum);
     return sum

@@ -13,12 +13,12 @@ function AddNewProduct(props: Props) {
 
   const formik = useFormik({
     initialValues: {
-      name: 0,
+      name: "",
       imageId: "",
-      price: 0,
+      price: "",
       description: "",
-      stock: 0,
-      categories: 0,
+      stock: "",
+      categories: "",
     },
     onSubmit: (values) => {
       let product = {
@@ -54,11 +54,12 @@ function AddNewProduct(props: Props) {
               autoComplete="off"
               id="name"
               name="name"
-              label="Product id"
+              label="Name"
               value={formik.values.name}
               onChange={formik.handleChange}
               error={formik.touched.name && Boolean(formik.errors.name)}
               helperText={formik.touched.name && formik.errors.name}
+              required
             />
             <TextField
               style={textFieldStyle}
@@ -66,11 +67,12 @@ function AddNewProduct(props: Props) {
               autoComplete="off"
               id="imageId"
               name="imageId"
-              label="Product Image URL"
+              label="Image url"
               value={formik.values.imageId}
               onChange={formik.handleChange}
               error={formik.touched.imageId && Boolean(formik.errors.imageId)}
               helperText={formik.touched.imageId && formik.errors.imageId}
+              required
             />
             <TextField
               style={textFieldStyle}
@@ -78,11 +80,12 @@ function AddNewProduct(props: Props) {
               autoComplete="off"
               id="price"
               name="price"
-              label="Product Price"
+              label="Price"
               value={formik.values.price}
               onChange={formik.handleChange}
               error={formik.touched.price && Boolean(formik.errors.price)}
               helperText={formik.touched.price && formik.errors.price}
+              required
             />
             <TextField
               style={textFieldStyle}
@@ -90,7 +93,7 @@ function AddNewProduct(props: Props) {
               autoComplete="off"
               id="description"
               name="description"
-              label="Product description"
+              label="Description"
               value={formik.values.description}
               onChange={formik.handleChange}
               error={
@@ -99,6 +102,7 @@ function AddNewProduct(props: Props) {
               helperText={
                 formik.touched.description && formik.errors.description
               }
+              required
             />
             <TextField
               style={textFieldStyle}
@@ -111,6 +115,7 @@ function AddNewProduct(props: Props) {
               onChange={formik.handleChange}
               error={formik.touched.stock && Boolean(formik.errors.stock)}
               helperText={formik.touched.stock && formik.errors.stock}
+              required
             />
             <TextField
               style={textFieldStyle}
@@ -118,13 +123,14 @@ function AddNewProduct(props: Props) {
               autoComplete="off"
               id="categories"
               name="categories"
-              label="Product Categories"
+              label="Categories"
               value={formik.values.categories}
               onChange={formik.handleChange}
               error={
                 formik.touched.categories && Boolean(formik.errors.categories)
               }
               helperText={formik.touched.categories && formik.errors.categories}
+              required
             />
           </div>
           <Button
