@@ -16,9 +16,6 @@ export const getAllOrders = async (req: Request, res: Response) => {
 /** GET ONE USERS ORDERS */
 
 export const getOrder = async (req: Request<{ id: string }>, res: Response) => {
-  if (req.params.id !== req.session?.user.id) {
-    return res.status(400).json();
-  }
   const order = await OrderModel.find({ customer: req.params.id });
   res.status(200).json(order);
 };
