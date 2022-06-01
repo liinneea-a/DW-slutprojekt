@@ -99,7 +99,6 @@ export const CartProvider: FC = (props) => {
     let sum = 0;
     for (let item of cart){
       sum += item.price * item.quantity!
- 
     }
     setTotalPrice(sum);
     return sum

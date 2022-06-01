@@ -133,7 +133,7 @@ function EditProduct(props: Props) {
             name="categories"
             label="Product Categories"
             value={formik.values.categories}
-            onChange={formik.handleChange}
+            onChange={(e) => formik.setFieldValue('categories', e.target.value.split(','))}
             error={
               formik.touched.categories && Boolean(formik.errors.categories)
             }

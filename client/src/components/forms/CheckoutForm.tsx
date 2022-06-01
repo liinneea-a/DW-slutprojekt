@@ -5,17 +5,15 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  TextField,
+  TextField
 } from "@mui/material";
 import { useFormik } from "formik";
-import { CSSProperties, useContext, useEffect, useState } from "react";
+import { CSSProperties, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useCart } from "../../context/CartContext";
-import { ShipperContext, useShipper } from "../../context/ShipperContext";
-import { DeliveryDataInfo } from "../../data/collections/deliveryData";
+import { useShipper } from "../../context/ShipperContext";
 import DeliveryBox from "../checkoutComponents/shipping/deliveryBox";
-
 
 const validationSchema = yup.object({
   firstName: yup.string().required("Please enter first name").min(2),
@@ -33,12 +31,9 @@ const validationSchema = yup.object({
 
 function CheckoutForm() {
   const [deliveryOption, setDeliveryOption] = useState("");
-    const [shippers, setShippers] = useState([])
-
+  const [shippers, setShippers] = useState([])
   const { deliveryInfo, setDeliveryInfo } = useCart(); 
   const { getAllShippers, selectedShipping, setSelectedShipping } = useShipper();
-
-
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -60,27 +55,19 @@ function CheckoutForm() {
  
       navigate("/paymentpage");
     },
-
   });
-
-  const handleChange = (event: any) => {
-
-  };
 
   const handleChangeShipping = (event: any) => {
     setSelectedShipping(event.target.value);
- 
   }
-
 
   const handleOnSubmit = (e: any) => {
     e.preventDefault();
     formik.handleSubmit();
   }
 
-
   async function getShippers() {
-    const result =  await getAllShippers();
+    const result = await getAllShippers();
     setShippers(result);
 
   }
@@ -90,7 +77,6 @@ function CheckoutForm() {
   }, []);
 
   return (
-    <div style={rootStyle}>
       <div style={detailFormContainer}>
         <h2>Shipment details</h2>
         <div>
@@ -190,51 +176,53 @@ function CheckoutForm() {
               />
             </div>
 
-            <Box style={deliveryBox}>
-              <h2>Delivery details</h2>
-              <FormControl fullWidth>
-                <InputLabel id="deliveryOption">Delivery Option</InputLabel>
-                <Select
-                  labelId="deliveryOptionLabel"
-                  id="deliveryOption"
-                  value={selectedShipping}
-                  label="Delivery Option"
-                  required
-                  onChange={handleChangeShipping}
-                >
-                 {shippers.map((shipper: any) => {
-                    return (
-                      <MenuItem
-                        value={shipper}
-                        key={shipper._id}
-                        style={{ display: "flex", justifyContent: "center" }}
-                      >
-                        <p style={{ width: "33%", fontWeight: "bold" }}>
-                          {shipper.shipper}
-                        </p>
-                        <p style={{ width: "33%" }}>{shipper.days} days</p>
-                        <p style={{ width: "33%" }}>{shipper.cost} SEK</p>
-                      </MenuItem>
-                    );
-                  })} 
-                </Select>
-              </FormControl>
-              <div style={deliveryBox}>
-                <DeliveryBox deliveryOption={deliveryOption} />
-              </div>
-            </Box>
+          <Box style={deliveryBox}>
+            <h2>Delivery details</h2>
+            <FormControl>
+              <InputLabel id="deliveryOption">Delivery Option</InputLabel>
+              <Select
+                labelId="deliveryOptionLabel"
+                id="deliveryOption"
+                value={selectedShipping}
+                label="Delivery Option"
+                required
+                onChange={handleChangeShipping}
+                style={testing}
+              >
+                {shippers.map((shipper: any) => {
+                  return (
+                    <MenuItem
+                      value={shipper}
+                      key={shipper._id}
+                      style={menuItemStyle}
+                    >
+                      <div style={{ fontWeight: "bold" }}>
+                        {shipper.shipper}
+                      </div>
+                      <div style={{display: 'flex', gap: '.5rem', justifyContent: 'center'}}>
+                      <div>{shipper.days} days</div>
+                      <div>{shipper.cost} SEK</div>
+                      </div>
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+            <div style={deliveryBox}>
+              <DeliveryBox deliveryOption={deliveryOption} />
+            </div>
+          </Box>
 
-            <Button
-              style={nextButtonStyle}
-              color="primary"
-              variant="contained"
-              fullWidth
-              type="submit"
-            >
-              Next
-            </Button>
-          </form>
-        </div>
+          <Button
+            style={nextButtonStyle}
+            color="primary"
+            variant="contained"
+            fullWidth
+            type="submit"
+          >
+            Next
+          </Button>
+        </form>
       </div>
     </div>
   );
@@ -242,14 +230,23 @@ function CheckoutForm() {
 
 export default CheckoutForm;
 
-const rootStyle: CSSProperties = {
+const testing: CSSProperties = {
   display: "flex",
+  flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
   margin: "0 auto",
-  width: "100%",
-  // border: "2px solid #88D9E6",
+  width: "15rem",
 };
+
+const menuItemStyle: CSSProperties ={
+  display: "flex",
+  justifyContent: "center",
+  textAlign: "center",
+  width: "10rem",
+  gap: ".5rem",
+  flexWrap: "wrap",
+}
 
 const detailFormContainer: CSSProperties = {
   color: "white",
@@ -277,6 +274,7 @@ const formStyle: CSSProperties = {
 const deliveryBox: CSSProperties = {
   display: "flex",
   flexDirection: "column",
+  alignItems: "center",
   minWidth: "60vmin",
   maxWidth: "3rem",
   textAlign: "center",
@@ -290,7 +288,7 @@ const textFieldsContainer: CSSProperties = {
 
 const nextButtonStyle: CSSProperties = {
   marginTop: "1rem",
-  width: "40vmin",
+  width: "15rem",
   background: "#2081e2",
   fontWeight: "bold",
 };

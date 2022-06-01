@@ -13,25 +13,14 @@ function CheckoutPageDetails() {
   const { deliveryInfo, setDeliveryInfo } = useCart(); 
 
   return (
-    <div style={rootStyle}>
       <div style={checkoutContainer}>
         <h2 style={headlineStyle}>Checkout</h2>
         <CheckoutForm />
       </div>
-    </div>
   );
 }
 
 export default CheckoutPageDetails;
-
-const rootStyle: CSSProperties = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  margin: "0 auto",
-  width: "100%",
-  // border: "2px solid #88D9E6",
-};
 
 const headlineStyle: CSSProperties = {
   fontSize: "2rem",
@@ -44,4 +33,5 @@ const checkoutContainer: CSSProperties = {
   background: "#303339",
   boxShadow: "2px 5px 12px black",
   marginBottom: "2rem",
+  maxWidth: '60rem'
 };

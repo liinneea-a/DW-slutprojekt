@@ -1,6 +1,7 @@
 import { Button } from "@mui/material";
+import Switch from '@mui/material/Switch';
 import { CSSProperties, useContext, useEffect, useState } from "react";
-import { User, Product } from "../../../server/resources";
+import { Product, User } from "../../../server/resources";
 import AddNewProduct from "../components/admin/addNewProduct";
 import EditProduct from "../components/admin/editProduct";
 import { useProducts } from "../context/ProductContext";
@@ -13,7 +14,7 @@ function AdminPage() {
   const [selectedProduct, setSelectedProduct] = useState<Product>({
 
       id: "",
-      name: 0,
+      name: "",
       imageId: "",
       price: 0,
       description: "",
@@ -65,7 +66,7 @@ function AdminPage() {
               <div
                 style={{ display: "flex", flexDirection: "row", gap: "2rem" }}
               >
-                <div>Product #{product.name}</div>
+                <div>{product.name}</div>
                 <div>{product.price} SEK</div>
               </div>
               <div style={buttonDivStyle}>
@@ -95,8 +96,9 @@ function AdminPage() {
                 <img style={adminImageStyle} alt="" srcSet={product.imageId} />
               </div>
               <div style={adminCardMidRight}>
-                <div style={descStyle}>{product.description}</div>
+                <div style={descStyle}>Description: {product.description}</div>
                 <div style={descStyle}>Items in stock: {product.stock}</div>
+                <div style={descStyle}>Categories: {product.categories.join(', ')}</div>
               </div>
             </div>
           </div>
@@ -236,6 +238,7 @@ const adminCardMidRight: CSSProperties = {
   flexDirection: "column",
   justifyContent: "space-around",
   width: "100%",
+  gap: '.5rem'
 };
 
 const adminCardMidLeft: CSSProperties = {

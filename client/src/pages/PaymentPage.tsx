@@ -1,11 +1,9 @@
-import { Box, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useFormik } from "formik";
 import { CSSProperties, useEffect, useState } from "react";
 import DeliveryInfoTable from "../components/checkoutComponents/DeliveryInfoTable";
-import { DeliveryDataInfo } from "../data/collections/deliveryData";
 import PaymentBox from "../components/checkoutComponents/payment/paymentBox";
 import TotalSumWithShipping from "../components/checkoutComponents/payment/TotalSumWithShipping";
-import { useCart } from "../context/CartContext";
 import { useShipper } from "../context/ShipperContext";
 
 interface Props {
@@ -41,7 +39,6 @@ const { selectedShipping } = useShipper();
   const [finalTotalSum, setFinalTotalSum] = useState(1);
 
   return (
-    <div style={rootStyle}>
       <div style={checkoutContainer}>
         <h2 style={headlineStyle}>Checkout</h2>
         <div>
@@ -71,30 +68,21 @@ const { selectedShipping } = useShipper();
         </form>
         <PaymentBox paymentOption={paymentOption} />
       </div>
-    </div>
   );
 }
 
 export default PaymentPage;
 
-const rootStyle: CSSProperties = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  margin: "0 auto",
-  width: "100%",
-  // border: "2px solid #88D9E6",
-};
-
 const checkoutContainer: CSSProperties = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  width: "80%",
   background: "#303339",
   boxShadow: "2px 5px 12px black",
   marginBottom: "2rem",
   fontSize: "clamp(2vmin, 3.2vmin, 1.2rem)",
+  minWidth: '65%',
+  width: '18rem'
 };
 
 const headlineStyle: CSSProperties = {
@@ -103,4 +91,6 @@ const headlineStyle: CSSProperties = {
 
 const paymentDetailsTextStyle: CSSProperties = { textAlign: "center" };
 
-const boxStyle: CSSProperties = { minWidth: 250 };
+const boxStyle: CSSProperties = { minWidth: "250px",
+display: 'flex',
+alignItems: 'center' };
