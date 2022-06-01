@@ -3,10 +3,6 @@ import { CSSProperties, useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/LoginContext";
 import { User } from "@server/*";
 //import { User } from "../../../server/resources"
-import { updateUser } from "../../../server/resources";
-
-//const label = { inputProps: { 'aria-label': 'Switch demo' } };
-
 
 
 function AdminEditUserPage() {
@@ -14,7 +10,7 @@ function AdminEditUserPage() {
     getAllUsers,
     allUsers,
     adminRequest,
-    loggedInUser /* updateUser  */,
+    loggedInUser
   } = useContext(UserContext);
 
   console.log(loggedInUser);
@@ -25,7 +21,6 @@ function AdminEditUserPage() {
 
   function handleChange(user: User) {
       postEditedRole(user, !user.isAdmin)
-    //const userToUpdate = updateUser(id, !user.isAdmin);
   }
 
   async function postEditedRole(user: User, isAdmin: boolean) {
@@ -47,7 +42,6 @@ function AdminEditUserPage() {
 
   return (
     <div style={adminPageLayout}>
-      {/*  <button onClick={showUsers}>Manage</button> */}
       <div>
         <h2 style={{ display: "flex", justifyContent: "center" }}>
           EDIT USERS
@@ -76,7 +70,6 @@ function AdminEditUserPage() {
                     <p
                       style={{ color: "lightgray" }}
                       onClick={() => {
-                        
                         handleChange(user);
                       }}
                     >
