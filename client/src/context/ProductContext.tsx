@@ -1,6 +1,14 @@
 import { Product } from "@server/types";
 import { createContext, FC, useContext, useState } from "react";
+
+        
+import { Product } from "../../../server/resources";
+// import { Product } from "../../../server/resources";
+
+        
 // import { Product } from "../../../../server/resources/shared";
+        
+
 import { makeReq } from "../helper";
 
 /* const product: Product = {

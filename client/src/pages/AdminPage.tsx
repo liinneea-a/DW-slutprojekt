@@ -12,12 +12,11 @@ import { useProducts } from "../context/ProductContext";
 function AdminPage() {
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product>({
-
       id: "",
       name: "",
-      imageId: "",
-      price: 0,
       description: "",
+      price: 0,
+      imageId: "",
       stock: 0,
       categories: [""],
       quantity: 0
@@ -30,7 +29,6 @@ function AdminPage() {
   useEffect(() => {
     getAllProducts();
   }, []);
-
 
   return (
     <div style={adminPageLayout}>
