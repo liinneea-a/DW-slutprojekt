@@ -49,7 +49,7 @@ function DeliveryInfoTable() {
           </tr>
           <tr>
             <td>Delivery</td>
-            <td style={tableDataStyle}>{selectedShipping.shipper}</td>
+            <td style={tableDataStyle}>{selectedShipping!.shipper}</td>
           </tr>
         </tbody>
       </table>

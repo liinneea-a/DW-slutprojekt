@@ -12,29 +12,21 @@ interface Shipper {
 }
 
 interface ShipperContext {
-  setSelectedShipping: Function;
-  selectedShipping: Shipper | any;
+  setSelectedShipping: React.Dispatch<React.SetStateAction<Shipper>>
+  selectedShipping?: Shipper;
   getAllShippers: () => Promise<any>;
 }
-
-// useEffect(() => {
-//   getAllShippers();
-// })
 
 export const ShipperContext = createContext<ShipperContext>({
   setSelectedShipping: () => void {},
   getAllShippers: async () => void [],
-  selectedShipping: ''
 });
 
 export const ShipperProvider: FC = (props) => {
+  const [selectedShipping, setSelectedShipping] = useState<Shipper>({shipper: "", cost: 0, daysToDelivery: 0});
 
-  const [selectedShipping, setSelectedShipping] = useState<string>('');
 
-  useEffect(() => {
-    
-  });
-
+  
   const getAllShippers = async () => {
     try {
       let { data, ok } = await makeReq('/api/shipper', 'GET');
