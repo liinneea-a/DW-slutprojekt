@@ -1,12 +1,13 @@
 import express from "express";
 import { authorize, ifAdmin } from "../user";
+import { ifAdminOrSelf } from "../user/user.middlewares";
 // import { ifAdminOrSelf } from "../user/user.middlewares";
 import { addOrder, getAllOrders, getOrder, updateOrder } from "./order.controller";
 
 export const orderRouter = express
   .Router()
   .get("/orders", authorize, ifAdmin,  getAllOrders) //fungerar
-  .get("/order/:id", authorize, ifAdmin, getOrder)
+  .get("/order/:id", authorize, ifAdminOrSelf, getOrder)
   .post("/order", authorize, addOrder) // fungerar
   .put("/order/:id", authorize, ifAdmin, updateOrder)
   //.delete("/order/:id", authorize, ifAdmin, deleteOrder);
