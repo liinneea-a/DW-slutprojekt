@@ -77,7 +77,6 @@ function CheckoutForm() {
   }, []);
 
   return (
-    <div style={rootStyle}>
       <div style={detailFormContainer}>
         <h2>Shipment details</h2>
         <div>
