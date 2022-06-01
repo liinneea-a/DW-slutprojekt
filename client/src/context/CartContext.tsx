@@ -27,6 +27,7 @@ interface CartContext {
   newPurchaseTotal: (total: number) => void;
   deliveryInfo: DeliveryDataInfo;
   setDeliveryInfo: Function;
+  id: string
 }
 
 export const CartContext = createContext<CartContext>({
@@ -43,6 +44,7 @@ export const CartContext = createContext<CartContext>({
   newPurchaseTotal: (total: number) => {},
   deliveryInfo: DeliveryDataInfoObject,
   setDeliveryInfo: () => {},
+  id: ""
 });
 
 export const CartProvider: FC = (props) => {
@@ -55,21 +57,20 @@ export const CartProvider: FC = (props) => {
   const [purchaseTotal, setPurchaseTotal] = useState(1);
   const [deliveryInfo, setDeliveryInfo] = useState(DeliveryDataInfoObject);
   const { selectedShipping } = useShipper();
+  const [id, setId] = useState("");
 
   useEffect(() => {
     console.log('cart: ', cart);
   }, [cart]);
 
   const sendOrder = async () => {
+    console.log('in sendOrder');
     const address = {
       fullname: deliveryInfo.firstName + ' ' + deliveryInfo.lastName,
       street: deliveryInfo.address,
       zipcode: deliveryInfo.zipCode,
       city: deliveryInfo.city,
     };
-
-    console.log(deliveryInfo);
-    console.log(selectedShipping);
 
     const order = {
       products: cart,
@@ -82,7 +83,7 @@ export const CartProvider: FC = (props) => {
 
     try {
       const { data, ok } = await makeReq('/api/order', 'POST', order);
-      console.log(data);
+      setId(data.id);
 
       if (ok) {
         
@@ -102,8 +103,6 @@ export const CartProvider: FC = (props) => {
       return console.log(err);
     }
   };
-
-
 
 
   const newPurchaseTotal = (total: number) => {
@@ -202,6 +201,7 @@ export const CartProvider: FC = (props) => {
         newPurchaseTotal,
         deliveryInfo,
         setDeliveryInfo,
+        id
       }}
     >
       {props.children}

@@ -1,7 +1,6 @@
 import { CSSProperties } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DeliveryInfoTableWithPay from '../components/checkoutComponents/DeliveryInfoTableWithPay';
-import GenerateOrderNumber from '../components/checkoutComponents/OrderNumber';
 import { StartPageButton } from '../components/StartPageButton';
 import { useCart } from '../context/CartContext';
 import { useShipper } from '../context/ShipperContext';
@@ -10,7 +9,8 @@ function PurchaseComplete() {
   const navigate = useNavigate();
   const {
     totalPrice,
-    cart
+    cart,
+    id
   } = useCart();
   const { selectedShipping } = useShipper();
 
@@ -22,7 +22,7 @@ function PurchaseComplete() {
         <div style={purchaseCompleteContainer}>
           <h2 style={purchaseCompleteTextStyle}>Purchase complete!</h2>
           <div>
-            <GenerateOrderNumber />
+            <h3>Order Nr: {id}</h3>
             <h2 style={deliveryDetailsTextStyle}>Delivery details</h2>
 
             <DeliveryInfoTableWithPay />
