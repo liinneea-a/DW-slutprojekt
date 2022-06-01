@@ -31,7 +31,7 @@ function UserOrderPage() {
       </TableHead>
       <TableBody>
         {orders.map((order: any) => (
-          <OneUserOrder key={order.order} order={order} />
+          <OneUserOrder key={order} order={order} />
         ))}
       </TableBody>
     </Table>
