@@ -1,67 +1,66 @@
-
-import { height } from '@mui/system';
 import { CSSProperties } from 'react';
-import { Order } from '../../../server/resources';
+import { useNavigate } from 'react-router-dom';
 import DeliveryInfoTableWithPay from '../components/checkoutComponents/DeliveryInfoTableWithPay';
 import GenerateOrderNumber from '../components/checkoutComponents/OrderNumber';
+import { StartPageButton } from '../components/StartPageButton';
 import { useCart } from '../context/CartContext';
-import { useProducts } from '../context/ProductContext';
 import { useShipper } from '../context/ShipperContext';
-import { DeliveryDataInfo } from '../data/collections/deliveryData';
-
 
 function PurchaseComplete() {
-  const { purchaseList, purchaseTotal, totalPrice, cart, deliveryInfo } = useCart();
-
+  const navigate = useNavigate();
+  const {
+    totalPrice,
+    cart
+  } = useCart();
   const { selectedShipping } = useShipper();
-  
+
+
   return (
+    <>
+      <StartPageButton />
+      <div style={rootStyle}>
+        <div style={purchaseCompleteContainer}>
+          <h2 style={purchaseCompleteTextStyle}>Purchase complete!</h2>
+          <div>
+            <GenerateOrderNumber />
+            <h2 style={deliveryDetailsTextStyle}>Delivery details</h2>
 
-    <div style={rootStyle}>
-      <div style={purchaseCompleteContainer}>
-        <h2 style={purchaseCompleteTextStyle}>Purchase complete!</h2>
-        <div>
-          <GenerateOrderNumber />
-          <h2 style={deliveryDetailsTextStyle}>Delivery details</h2>
-
-          <DeliveryInfoTableWithPay />
-        </div>
-        <div style={totalPriceContainer}>
-          <h2 style={totalPriceTextStyle}>Total price: {totalPrice} SEK</h2>
-        </div>
-        <h2>Your purchase:</h2>
-        {/* <div style={cardContainer}> */}
-        <div style={purchasedItems}>
-          {cart.map((product) => {
-            return (
-              <div key={product.id} style={productCardStyle}>
-                <img
-                  srcSet={product.imageId}
-                  style={productImageStyle}
-                  alt="product image"
+            <DeliveryInfoTableWithPay />
+          </div>
+          <div style={totalPriceContainer}>
+            <h2 style={totalPriceTextStyle}>Total price: {totalPrice} SEK</h2>
+          </div>
+          <h2>Your purchase:</h2>
+          {/* <div style={cardContainer}> */}
+          <div style={purchasedItems}>
+            {cart.map((product) => {
+              return (
+                <div key={product.id} style={productCardStyle}>
+                  <img
+                    srcSet={product.imageId}
+                    style={productImageStyle}
+                    alt="product image"
                   />
-                <div style={{marginRight: "1rem"}}>
-                  <p>{product.name}</p>
-                  <p>Sek: {product.price} kr</p>
-                  <p>Quantity: {product.quantity}</p>
+                  <div style={{ marginRight: '1rem' }}>
+                    <p>{product.name}</p>
+                    <p>Sek: {product.price} kr</p>
+                    <p>Quantity: {product.quantity}</p>
+                  </div>
                 </div>
-
-              </div>
-     
-            )
-          })}
+              );
+            })}
+          </div>
+          {/* </div> */}
         </div>
-        {/* </div> */}
-
       </div>
-    </div>
+    </>
   );
 }
 
 export default PurchaseComplete;
 
-
 const rootStyle: CSSProperties = {
+  border: '2px solid red',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -69,19 +68,21 @@ const rootStyle: CSSProperties = {
   width: '100%',
 };
 
+
+
 const productImageStyle: CSSProperties = {
-  objectFit: "cover",
-  height: "100%",
-  width: "auto"
-}
+  objectFit: 'cover',
+  height: '100%',
+  width: 'auto',
+};
 
 const productCardStyle: CSSProperties = {
-  display: "flex",
-  justifyContent: "space-between",
-  width: "70%",
-  height: "10rem",
-  border: "1px solid grey"
-}
+  display: 'flex',
+  justifyContent: 'space-between',
+  width: '70%',
+  height: '10rem',
+  border: '1px solid grey',
+};
 
 const purchaseCompleteContainer: CSSProperties = {
   display: 'flex',
