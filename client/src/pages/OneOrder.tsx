@@ -92,7 +92,8 @@ export default function OneOrder(props: Props) {
                     </TableCell>
                   </TableRow>
                   {props.order.deliveryAddress.map((deliveryAddress) => (
-                    <TableRow key={1}>
+
+                    <TableRow key={deliveryAddress.city}>
                       <TableCell scope="row">
                         {deliveryAddress.fullname}
                       </TableCell>

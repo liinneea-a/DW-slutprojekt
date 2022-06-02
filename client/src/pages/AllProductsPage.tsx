@@ -37,6 +37,7 @@ function AllProducts() {
         </Button>
         {uniqueCategories.map((category) => (
           <Button
+          key={category}
             onClick={() => setSearchParams({ category })}
             style={buttonStyle}
             variant="contained"

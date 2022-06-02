@@ -1,78 +1,88 @@
-import { height } from "@mui/system";
-import { CSSProperties } from "react";
-import { Order } from "../../../server/resources";
-import DeliveryInfoTableWithPay from "../components/checkoutComponents/DeliveryInfoTableWithPay";
-import GenerateOrderNumber from "../components/checkoutComponents/OrderNumber";
-import { useCart } from "../context/CartContext";
-import { useProducts } from "../context/ProductContext";
-import { useShipper } from "../context/ShipperContext";
-import { DeliveryDataInfo } from "../data/collections/deliveryData";
+
+import { CSSProperties } from 'react';
+import { useNavigate } from 'react-router-dom';
+import DeliveryInfoTableWithPay from '../components/checkoutComponents/DeliveryInfoTableWithPay';
+import { StartPageButton } from '../components/StartPageButton';
+import { useCart } from '../context/CartContext';
+import { useShipper } from '../context/ShipperContext';
 
 function PurchaseComplete() {
-  const { purchaseList, purchaseTotal, totalPrice, cart, deliveryInfo } =
-    useCart();
-
+  const navigate = useNavigate();
+  const {
+    totalPrice,
+    cart,
+    id
+  } = useCart();
   const { selectedShipping } = useShipper();
 
   return (
-    <div style={purchaseCompleteContainer}>
-      <h2 style={purchaseCompleteTextStyle}>Purchase complete!</h2>
-      <div>
-        <GenerateOrderNumber />
-        <h2 style={deliveryDetailsTextStyle}>Delivery details</h2>
+    <>
+      <StartPageButton />
+      <div style={rootStyle}>
+        <div style={purchaseCompleteContainer}>
+          <h2 style={purchaseCompleteTextStyle}>Purchase complete!</h2>
+          <div>
+            <h3>Order Nr: {id}</h3>
+            <h2 style={deliveryDetailsTextStyle}>Delivery details</h2>
 
-        <DeliveryInfoTableWithPay />
+            <DeliveryInfoTableWithPay />
+          </div>
+          <div style={totalPriceContainer}>
+            <h2 style={totalPriceTextStyle}>Total price: {totalPrice} SEK</h2>
+          </div>
+          <h2>Your purchase:</h2>
+          {/* <div style={cardContainer}> */}
+          <div style={purchasedItems}>
+            {cart.map((product) => {
+              return (
+                <div key={product.id} style={productCardStyle}>
+                  <img
+                    srcSet={product.imageId}
+                    style={productImageStyle}
+                    alt="product image"
+                  />
+                  <div style={{ marginRight: '1rem' }}>
+                    <p>{product.name}</p>
+                    <p>Sek: {product.price} kr</p>
+                    <p>Quantity: {product.quantity}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          {/* </div> */}
+        </div>
       </div>
-      <div style={totalPriceContainer}>
-        <h2 style={totalPriceTextStyle}>Total price: {totalPrice} SEK</h2>
-      </div>
-      <h2>Your purchase:</h2>
-      {/* <div style={cardContainer}> */}
-      <div style={purchasedItems}>
-        {cart.map((product) => {
-          return (
-            <div key={product.id} style={productCardStyle}>
-              <img
-                srcSet={product.imageId}
-                style={productImageStyle}
-                alt="product image"
-              />
-              <div style={{ marginRight: "1rem" }}>
-                <p>{product.name}</p>
-                <p>Price: {product.price} SEK</p>
-                <p>Quantity: {product.quantity}</p>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-      {/* </div> */}
-    </div>
+    </>
   );
 }
 
 export default PurchaseComplete;
 
 const rootStyle: CSSProperties = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  margin: "0 auto",
-  width: "100%",
+  border: '2px solid red',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  margin: '0 auto',
+  width: '100%',
 };
 
+
+
 const productImageStyle: CSSProperties = {
-  objectFit: "cover",
-  height: "100%",
-  width: "auto",
+
+  objectFit: 'cover',
+  height: '100%',
+  width: 'auto',
 };
 
 const productCardStyle: CSSProperties = {
-  display: "flex",
-  justifyContent: "space-between",
-  width: "20rem",
-  height: "10rem",
-  border: "1px solid grey",
+  display: 'flex',
+  justifyContent: 'space-between',
+  width: '70%',
+  height: '10rem',
+  border: '1px solid grey',
 };
 
 const purchaseCompleteContainer: CSSProperties = {

@@ -1,15 +1,18 @@
 import { Button } from "@mui/material";
-import { CSSProperties } from "react";
+import { CSSProperties, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Product } from "../../../server/resources";
+import { StartPageButton } from "../components/StartPageButton";
 import { useCart } from "../context/CartContext";
 
 function CheckoutPage() {
   const { cart, totalPrice } = useCart();
-  // const { products } = useProducts();
+
+
 
   return (
       <div style={purchaseCompleteContainer}>
+        <StartPageButton />
         <h1>Checkout</h1>
         <h2>Your purchase:</h2>
         <div style={cardContainer}>
