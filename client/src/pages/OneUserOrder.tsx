@@ -34,7 +34,7 @@ export default function OneOrder(props: Props) {
         <TableCell component="th" scope="row">
           TOTAL PRICE HERE
         </TableCell>
-        <TableCell align="right">{props.order.createdAt}</TableCell>
+        <TableCell align="center">{props.order.createdAt}</TableCell>
         <TableCell align="right">{props.order.isSent ? "Yes" : "No"}</TableCell>
       </TableRow>
       <TableRow>

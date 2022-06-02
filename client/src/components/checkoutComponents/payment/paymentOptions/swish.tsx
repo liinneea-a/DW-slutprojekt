@@ -64,7 +64,7 @@ function Swish(props: Props) {
           helperText={formik.touched.number && formik.errors.number}
         />
         <button type="submit">
-           <CompleteButton paymentMethod={'Swish'} />
+           <CompleteButton paymentMethod={'Swish'}/>
         </button>
        
       </form>

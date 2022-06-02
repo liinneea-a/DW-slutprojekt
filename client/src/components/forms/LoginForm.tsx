@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { CSSProperties, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
-import { UserContext } from "../../context/LoginContext";
+import { UserContext } from "../../context/UserContext";
 
 const validationSchema = yup.object({
   email: yup

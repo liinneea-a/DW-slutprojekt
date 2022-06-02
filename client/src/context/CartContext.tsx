@@ -8,9 +8,9 @@ import { Order, Product, Shipper } from '../../../server/resources';
 import {
   DeliveryDataInfoObject,
   DeliveryDataInfo,
-} from '../data/collections/deliveryData';
-import { makeReq } from '../helper';
-import { useShipper } from './ShipperContext';
+} from "../data/collections/deliveryData";
+import { makeReq } from "../helper";
+import { useShipper } from "./ShipperContext";
 
 interface CartContext {
   purchaseList: Product[];
@@ -52,7 +52,7 @@ export const CartContext = createContext<CartContext>({
 });
 
 export const CartProvider: FC = (props) => {
-  let localData = localStorage.getItem('cart');
+  let localData = localStorage.getItem("cart");
   const [cart, setCart] = useState<Product[]>(
     localData ? JSON.parse(localData) : []
   );
@@ -66,7 +66,7 @@ export const CartProvider: FC = (props) => {
   const [id, setId] = useState("");
 
   useEffect(() => {
-    console.log('cart: ', cart);
+    console.log("cart: ", cart);
   }, [cart]);
 
 
@@ -79,7 +79,7 @@ export const CartProvider: FC = (props) => {
     console.log(selectedShipping);
 
     const address = {
-      fullname: deliveryInfo.firstName + ' ' + deliveryInfo.lastName,
+      fullname: deliveryInfo.firstName + " " + deliveryInfo.lastName,
       street: deliveryInfo.address,
       zipcode: deliveryInfo.zipCode,
       city: deliveryInfo.city,
@@ -91,22 +91,21 @@ export const CartProvider: FC = (props) => {
       deliveryAddress: address,
       paymentMethod: deliveryInfo.paymentMethod,
     };
-    console.log('order: ', order);
-    console.log('del.paymentM: ', deliveryInfo.paymentMethod);
+    console.log("order: ", order);
+    console.log("del.paymentM: ", deliveryInfo.paymentMethod);
 
     try {
       const { data, ok } = await makeReq('/api/order', 'POST', order);
       setId(data.id);
 
       if (ok) {
-        
         for (let product of cart) {
           console.log(product.stock);
           product.stock -= product.quantity!;
           console.log(product.stock);
           const { data, ok } = await makeReq(
             `/api/products/${product.id}`,
-            'PUT',
+            "PUT",
             product
           );
           console.log(ok);
@@ -116,17 +115,13 @@ export const CartProvider: FC = (props) => {
       return console.log(err);
     }
   };
-
-
   const newPurchaseTotal = (total: number) => {
     setPurchaseTotal(total);
   };
 
   const calculatePrice = () => {
     let sum = 0;
-    
 
-        
     for (let item of cart) {
       sum += item.price * item.quantity!;
     }
@@ -135,8 +130,8 @@ export const CartProvider: FC = (props) => {
   };
 
   const addProductToCart = (item: Product) => {
-    toast.success('Item added to cart', {
-      position: 'bottom-left',
+    toast.success("Item added to cart", {
+      position: "bottom-left",
       autoClose: 1500,
       hideProgressBar: false,
       closeOnClick: true,
@@ -159,7 +154,7 @@ export const CartProvider: FC = (props) => {
 
     setCart(newCart);
     calculatePrice();
-    localStorage.setItem('cart', JSON.stringify(newCart));
+    localStorage.setItem("cart", JSON.stringify(newCart));
   };
 
   const incQty = (itemID: string) => {
@@ -171,7 +166,7 @@ export const CartProvider: FC = (props) => {
     });
     setCart(updatedList);
     calculatePrice();
-    localStorage.setItem('cart', JSON.stringify(updatedList));
+    localStorage.setItem("cart", JSON.stringify(updatedList));
   };
 
   const decQty = (itemID: string) => {
@@ -189,13 +184,13 @@ export const CartProvider: FC = (props) => {
     })!;
     setCart(updatedList);
     calculatePrice();
-    localStorage.setItem('cart', JSON.stringify(updatedList));
+    localStorage.setItem("cart", JSON.stringify(updatedList));
   };
 
   const clearCart = () => {
     setCart([]);
     setTotalPrice(0);
-    localStorage.removeItem('cart');
+    localStorage.removeItem("cart");
   };
 
   return (

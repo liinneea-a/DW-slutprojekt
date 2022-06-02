@@ -20,7 +20,6 @@ export const getOrder = async (req: Request<{ id: string }>, res: Response) => {
   res.status(200).json(order);
 };
 
-
 /** ADD ORDER */
 
 export const addOrder = async (
