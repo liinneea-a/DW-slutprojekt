@@ -6,13 +6,13 @@ function TotalSumWithShipping() {
   const { totalPrice } = useCart();
   const { selectedShipping } = useShipper();
 
-  console.log(selectedShipping.cost);
+
 
   return (
     <div>
       <div style={totalPriceContainer}>
         <p style={totalPriceText}>Total price with shipping:</p>
-        <p style={totalPriceTextTwo}>{ totalPrice + selectedShipping.cost } SEK</p>
+        <p style={totalPriceTextTwo}>{ totalPrice + selectedShipping!.cost } SEK</p>
       </div>
     </div>
   );

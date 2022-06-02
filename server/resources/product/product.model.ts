@@ -14,7 +14,7 @@ export interface Product {
   // legacy: boolean;
 }
 
-export const productSchema = new mongoose.Schema<Product>(
+export const ProductSchema = new mongoose.Schema<Product>(
   {
     name: { type: String, required: true },
     description: { type: String, required: true },
@@ -32,12 +32,12 @@ export const productSchema = new mongoose.Schema<Product>(
   }
 );
 
-productSchema.virtual("imageUrl").get(function () {
+ProductSchema.virtual("imageUrl").get(function () {
   return "/api/media/" + " " + this.imageId;
 });
 
-productSchema.virtual("quantity").get(function (quantity: number) {
+ProductSchema.virtual("quantity").get(function (quantity: number) {
   
 })
 
-export const ProductModel = mongoose.model("product", productSchema);
+export const ProductModel = mongoose.model("product", ProductSchema);

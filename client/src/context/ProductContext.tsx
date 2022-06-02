@@ -1,4 +1,4 @@
-//import { Product } from "@server/types";
+import { Product } from "@server/types";
 import { createContext, FC, useContext, useState } from "react";
 
         
