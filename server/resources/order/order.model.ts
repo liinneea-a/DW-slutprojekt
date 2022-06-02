@@ -12,7 +12,6 @@ export interface Order {
   shipper: Shipper;
   deliveryAddress: Address[];
   createdAt: Date;
-  // updatedAt: Date;
   paymentMethod: string;
   isSent: Boolean;
   totalPrice: number;
@@ -48,15 +47,15 @@ const orderSchema = new mongoose.Schema<Order>(
 //     }
 // })
 
-orderSchema.virtual("quantityOfProducts").get(function () {
-  const priceTotal = 1000;
-  const priceSingle = 200;
-  let quantity: number;
+// orderSchema.virtual("quantityOfProducts").get(function () {
+//   const priceTotal = 1000;
+//   const priceSingle = 200;
+//   let quantity: number;
 
-  for (let x = 0; priceTotal / x > priceSingle; x++) {
-    quantity = x;
-    return quantity;
-  }
-});
+//   for (let x = 0; priceTotal / x > priceSingle; x++) {
+//     quantity = x;
+//     return quantity;
+//   }
+// });
 
 export const OrderModel = mongoose.model("order", orderSchema);

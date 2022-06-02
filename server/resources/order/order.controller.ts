@@ -36,6 +36,7 @@ export const addOrder = async (
     shipper: req.body.shipper,
     deliveryAddress: req.body.deliveryAddress,
     paymentMethod: req.body.paymentMethod,
+    totalPrice: req.body.totalPrice
   });
   await order.save();
   res.status(200).json(order);
