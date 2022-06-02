@@ -5,6 +5,7 @@ import DeliveryInfoTable from "../components/checkoutComponents/DeliveryInfoTabl
 import PaymentBox from "../components/checkoutComponents/payment/paymentBox";
 import TotalSumWithShipping from "../components/checkoutComponents/payment/TotalSumWithShipping";
 import { StartPageButton } from "../components/StartPageButton";
+import { useCart } from "../context/CartContext";
 import { useShipper } from "../context/ShipperContext";
 
 interface Props {
@@ -15,11 +16,11 @@ interface Props {
 // const navigate = useNavigate();
 
 function PaymentPage(props: Props) {
+  const { selectedShipping } = useCart();
 
+// const { selectedShipping } = useShipper();
 
-const { selectedShipping } = useShipper();
   useEffect(() => {
-      
      console.log(selectedShipping);
   })
  
@@ -28,6 +29,7 @@ const { selectedShipping } = useShipper();
   const handleChange = (event: any) => {
     setPaymentOption(event.target.value);
   };
+  
   const formik = useFormik({
     initialValues: {
       paymentOption: "",

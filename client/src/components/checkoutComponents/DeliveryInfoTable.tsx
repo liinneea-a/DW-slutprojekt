@@ -7,9 +7,9 @@ import { useCart } from "../../context/CartContext";
 
 
 function DeliveryInfoTable() {
-  const { deliveryInfo, setDeliveryInfo } = useCart(); 
+  const { deliveryInfo, setDeliveryInfo, selectedShipping  } = useCart(); 
 
-  const { selectedShipping } = useShipper();
+  // const { selectedShipping } = useShipper();
 
   
 
@@ -49,7 +49,7 @@ function DeliveryInfoTable() {
           </tr>
           <tr>
             <td>Delivery</td>
-            <td style={tableDataStyle}>{selectedShipping!.shipper}</td>
+            <td style={tableDataStyle}>{selectedShipping.shipper}</td>
           </tr>
         </tbody>
       </table>

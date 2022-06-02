@@ -12,7 +12,7 @@ Content-Type: application/json
 {
   "shipper": "InstaBox",
   "cost": "0",
-  "days": "3"
+  "deliveryDays": "3"
 }
 
 ###

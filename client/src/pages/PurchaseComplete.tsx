@@ -10,9 +10,10 @@ function PurchaseComplete() {
   const {
     totalPrice,
     cart,
-    id
+    id,
+    selectedShipping
   } = useCart();
-  const { selectedShipping } = useShipper();
+  // const { selectedShipping } = useShipper();
 
 
   return (
@@ -28,7 +29,7 @@ function PurchaseComplete() {
             <DeliveryInfoTableWithPay />
           </div>
           <div style={totalPriceContainer}>
-            <h2 style={totalPriceTextStyle}>Total price: {totalPrice} SEK</h2>
+            <h2 style={totalPriceTextStyle}>Total price: {totalPrice + selectedShipping.cost} SEK</h2>
           </div>
           <h2>Your purchase:</h2>
           {/* <div style={cardContainer}> */}

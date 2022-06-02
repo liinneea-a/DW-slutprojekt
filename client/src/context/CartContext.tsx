@@ -4,7 +4,7 @@ import { SelfImprovement } from '@mui/icons-material';
 import { ObjectId } from 'mongoose';
 import { createContext, FC, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { Order, Product } from '../../../server/resources';
+import { Order, Product, Shipper } from '../../../server/resources';
 import {
   DeliveryDataInfoObject,
   DeliveryDataInfo,
@@ -26,7 +26,10 @@ interface CartContext {
   newPurchaseTotal: (total: number) => void;
   deliveryInfo: DeliveryDataInfo;
   setDeliveryInfo: Function;
-  id: string
+  id: string,
+  setSelectedShipping: Function;
+  selectedShipping: any;
+  
 }
 
 export const CartContext = createContext<CartContext>({
@@ -43,7 +46,9 @@ export const CartContext = createContext<CartContext>({
   newPurchaseTotal: (total: number) => {},
   deliveryInfo: DeliveryDataInfoObject,
   setDeliveryInfo: () => {},
-  id: ""
+  id: "",
+  setSelectedShipping: () => void {},
+  selectedShipping: {}
 });
 
 export const CartProvider: FC = (props) => {
@@ -55,15 +60,24 @@ export const CartProvider: FC = (props) => {
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [purchaseTotal, setPurchaseTotal] = useState(1);
   const [deliveryInfo, setDeliveryInfo] = useState(DeliveryDataInfoObject);
-  const { selectedShipping } = useShipper();
+  const [selectedShipping, setSelectedShipping] = useState<any>();
+  
+  // const { selectedShipping } = useShipper();
   const [id, setId] = useState("");
 
   useEffect(() => {
     console.log('cart: ', cart);
   }, [cart]);
 
+
+  useEffect(() => {
+    console.log(selectedShipping)
+  }, [selectedShipping])
+
   const sendOrder = async () => {
     console.log('in sendOrder');
+    console.log(selectedShipping);
+
     const address = {
       fullname: deliveryInfo.firstName + ' ' + deliveryInfo.lastName,
       street: deliveryInfo.address,
@@ -73,7 +87,7 @@ export const CartProvider: FC = (props) => {
 
     const order = {
       products: cart,
-      shipper: { cost: 10, deliveryDays: 1, shipper: 'Postnord' },
+      shipper: selectedShipping,
       deliveryAddress: address,
       paymentMethod: deliveryInfo.paymentMethod,
     };
@@ -200,7 +214,9 @@ export const CartProvider: FC = (props) => {
         newPurchaseTotal,
         deliveryInfo,
         setDeliveryInfo,
-        id
+        id,
+        setSelectedShipping,
+        selectedShipping,
       }}
     >
       {props.children}

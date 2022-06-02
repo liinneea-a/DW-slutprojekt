@@ -6,10 +6,10 @@ import { DeliveryDataInfo } from "../../data/collections/deliveryData";
 
 function DeliveryInfoTable() {
 
-  const { deliveryInfo, setDeliveryInfo } = useCart(); 
+  const { deliveryInfo, setDeliveryInfo, selectedShipping } = useCart(); 
 
-  const { selectedShipping } =
-  useContext(ShipperContext);
+  // const { selectedShipping } =
+  // useContext(ShipperContext);
   
   return (
     <div>
