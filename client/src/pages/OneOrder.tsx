@@ -18,16 +18,12 @@ interface Props {
 
 export default function OneOrder(props: Props) {
   const [open, setOpen] = useState(false);
-  const { getAllOrders, sendOrder } = useOrders();
+  const { getAllOrders, markOrder } = useOrders();
   const date = new Date(props.order.createdAt);
-  const [isSent, setIsSent] = useState<boolean>();
 
   useEffect(() => {
     getAllOrders();
-    if (props.order.isSent) {
-      return setIsSent(true);
-    } else setIsSent(false);
-  }, [props.order.isSent]);
+  }, []);
 
   return (
     <Fragment>
@@ -41,12 +37,13 @@ export default function OneOrder(props: Props) {
           {props.order.id}
         </TableCell>
         <TableCell
+          align="left"
           component="th"
           scope="row"
           sx={{ cursor: "pointer" }}
           onClick={() => setOpen(!open)}
         >
-          {props.order.totalPrice}
+          {props.order.totalPrice} SEK
         </TableCell>
         <TableCell
           align="center"
@@ -56,12 +53,14 @@ export default function OneOrder(props: Props) {
           {date.toLocaleDateString()}
         </TableCell>
         <TableCell align="center">
-          {isSent ? (
+          {props.order.isSent ? (
             "Yes"
           ) : (
             <Button
-              onClick={() => setIsSent(true)}
-              // style={buttonStyle}
+              onClick={() => [
+                markOrder({ ...props.order, isSent: true }),
+                getAllOrders(),
+              ]}
               variant="contained"
             >
               Send
@@ -93,7 +92,7 @@ export default function OneOrder(props: Props) {
                     </TableCell>
                   </TableRow>
                   {props.order.deliveryAddress.map((deliveryAddress) => (
-                    <TableRow>
+                    <TableRow key={1}>
                       <TableCell scope="row">
                         {deliveryAddress.fullname}
                       </TableCell>

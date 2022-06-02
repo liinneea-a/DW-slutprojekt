@@ -1,5 +1,6 @@
 // import { Order } from "@server/types";
 import { createContext, FC, useContext, useState } from "react";
+import { json } from "stream/consumers";
 import { Order } from "../../../server/resources/";
 //import { Order } from '../../../server/shared/types';
 import { makeReq } from "../helper";
@@ -7,13 +8,13 @@ import { makeReq } from "../helper";
 interface OrderContext {
   orders: Order[];
   getAllOrders: () => Promise<any>;
-  sendOrder: (order: Order) => void;
+  markOrder: (order: Order) => void;
 }
 
 export const OrdersContext = createContext<OrderContext>({
   orders: [],
   getAllOrders: async () => void [],
-  sendOrder: () => {},
+  markOrder: () => {},
 });
 
 export const OrderProvider: FC = (props) => {
@@ -32,17 +33,13 @@ export const OrderProvider: FC = (props) => {
     }
   };
 
-  const sendOrder = async (order: Order) => {
+  const markOrder = async (order: Order) => {
     try {
-      let { data, ok } = await makeReq(
-        `/api/orders/${order.id}`,
-        "PUT",
-        {isSent: false}
-      );
+      let { data, ok } = await makeReq(`/api/order/${order.id}`, "PUT", order);
       if (ok) {
         return data;
-      }else {
-        console.log(data)
+      } else {
+        console.log(data);
       }
     } catch (err) {
       return console.log(err);
@@ -50,10 +47,10 @@ export const OrderProvider: FC = (props) => {
   };
 
   return (
-    <OrdersContext.Provider value={{ orders, getAllOrders, sendOrder }}>
+    <OrdersContext.Provider value={{ orders, getAllOrders, markOrder }}>
       {props.children}
     </OrdersContext.Provider>
   );
-};  
+};
 
 export const useOrders = () => useContext(OrdersContext);

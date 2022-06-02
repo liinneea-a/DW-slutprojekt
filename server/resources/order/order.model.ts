@@ -14,7 +14,7 @@ export interface Order {
   // updatedAt: Date;
   paymentMethod: string;
   isSent: Boolean;
-  /** virtual */ totalPrice: number;
+  totalPrice: number;
 }
 
 const orderSchema = new mongoose.Schema<Order>(
@@ -26,7 +26,7 @@ const orderSchema = new mongoose.Schema<Order>(
     deliveryAddress: { type: [addressSchema], required: true },
     isSent: { type: Boolean, required: true, default: false },
     paymentMethod: { type: String, required: true },
-    totalPrice: { type: Number, required: false}
+    totalPrice: { type: Number, required: true },
   },
   {
     timestamps: true,
