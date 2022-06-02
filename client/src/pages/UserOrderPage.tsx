@@ -1,6 +1,6 @@
 
 import { CSSProperties, useEffect } from "react";
-import { useUser } from "../context/LoginContext";
+import { useUser } from "../context/UserContext";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";

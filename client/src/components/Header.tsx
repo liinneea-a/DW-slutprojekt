@@ -6,7 +6,7 @@ import { Button } from "@mui/material";
 import { CSSProperties, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-import { UserContext } from "../context/LoginContext";
+import { UserContext } from "../context/UserContext";
 import AccountMenu from "./AccountMenu";
 
 function Header(headerProps: any) {

@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Tooltip from "@mui/material/Tooltip";
 import { CSSProperties, Fragment, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../context/LoginContext";
+import { UserContext } from "../context/UserContext";
 
 export default function AccountMenu(headerProps: any) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

@@ -3,7 +3,7 @@ import { createContext, FC, useContext, useState } from "react";
 
         
 
-// import { Product } from "../../../server/resources";
+import { Product } from "../../../server/resources";
 
         
 // import { Product } from "../../../../server/resources/shared";

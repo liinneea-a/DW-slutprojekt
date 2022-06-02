@@ -1,33 +1,27 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { boolean } from "yup";
 import { makeReq } from "../helper";
-
-
-interface User {
-  email: string;
-  password: string;
-  isAdmin: boolean;
-  id: string;
-  adminRequest: boolean;
-}
+import { User } from "../../../server/resources";
 
 interface UserContext {
   loggedInUser?: User;
   allUsers?: User[];
   orders: any;
-  postUser: ({}) => Promise<any>
-  loginUser: ({}) => Promise<any>
-  getAllUsers: () => Promise<any>
-  getUserOrders: () => Promise<any>
+  postUser: ({}) => Promise<any>;
+  loginUser: ({}) => Promise<any>;
+  getAllUsers: () => Promise<any>;
+  getUserOrders: () => Promise<any>;
+  updateUserRole: (user: User) => Promise<any>;
   signOut: () => void;
-  setAdminRequest: React.Dispatch<React.SetStateAction<boolean>>
-  adminRequest: Boolean
+  setAdminRequest: React.Dispatch<React.SetStateAction<boolean>>;
+  adminRequest: Boolean;
 }
 
 export const UserContext = createContext<UserContext>({
   orders: [],
   postUser: async () => {},
   loginUser: async () => {},
+  updateUserRole: async () => {},
   getAllUsers: async () => void [],
   getUserOrders: async () => void [],
   signOut: () => {},
@@ -41,61 +35,72 @@ export const UserProvider = (props: any) => {
   const [loggedInUser, setLoggedInUser] = useState<User>();
   const [allUsers, setAllUsers] = useState<User[]>();
   const [orders, setOrders] = useState<any>([]);
-  
 
-  /** Create new user */ 
-
+  /** CREATE A NEW USER */
   const postUser = async (user: {}) => {
     try {
       let { ok } = await makeReq("/api/user", "POST", user);
-      return ok
+      return ok;
     } catch (err) {
       return console.log(err);
     }
   };
 
-
-   /** Login user */ 
-
+  /** LOGIN USER */
   const loginUser = async (user: any) => {
     try {
       let { data, ok } = await makeReq("/api/login", "POST", user);
       if (ok) {
         setLoggedInUser(data);
-        return true
+        return true;
       } else {
         setLoggedInUser(undefined);
-        return false
+        return false;
       }
     } catch (err) {
       console.log(err);
-      return false
+      return false;
     }
-  }
+  };
 
-
-   /** get logged in users orders */ 
-
-  const getUserOrders = async () => {
+  /** UPDATE USER ROLE, USER-ADMIN */
+  const updateUserRole = async (userToUpdate: User) => {
     try {
-      let { data, ok } = await makeReq(`/api/order/${loggedInUser?.id}`, "GET");
-      console.log(loggedInUser?.id)
-      console.log(data)
+      let { data, ok } = await makeReq(
+        `/api/user/${userToUpdate.id}`,
+        "PUT",
+        userToUpdate
+      );
       if (ok) {
-        setOrders(data);
-        console.log(orders)
-        return true
+        getAllUsers();
+        return true;
       } else {
-        setOrders(undefined)
+        return false;
       }
     } catch (err) {
       return console.log(err);
     }
-  };  
+  };
 
+  /** GET ORDERS OF LOGGED IN USER */
+  const getUserOrders = async () => {
+    try {
+      let { data, ok } = await makeReq(`/api/order/${loggedInUser?.id}`, "GET");
+      console.log(loggedInUser?.id);
+      console.log(data);
+      if (ok) {
+        setOrders(data);
+        console.log(orders);
+        return true;
+      } else {
+        setOrders(undefined);
+      }
+    } catch (err) {
+      return console.log(err);
+    }
+  };
 
-   /** Looks for logged in user */ 
-  
+  /** TRACKS THE LOGGED IN USER */
   useEffect(() => {
     const fetchLoggedInUser = async () => {
       try {
@@ -104,40 +109,35 @@ export const UserProvider = (props: any) => {
           setLoggedInUser(data);
         } else {
           setLoggedInUser(undefined);
-        } 
-        setIsLoading(false)
+        }
+        setIsLoading(false);
       } catch (err) {
-        setIsLoading(false)
+        setIsLoading(false);
         return console.log(err);
       }
     };
     fetchLoggedInUser();
   }, []);
 
-  
-
-   /** Gets all users */ 
-
+  /** GET ALL USERS */
   const getAllUsers = async () => {
     try {
       let { data, ok } = await makeReq("/api/users", "GET");
       if (ok) {
         setAllUsers(data);
       } else {
-       setAllUsers(undefined);
+        setAllUsers(undefined);
       }
       setIsLoading(false);
     } catch (err) {
       setIsLoading(false);
       return console.log(err);
     }
-  }
+  };
 
-
-   /** Signout user */ 
-
+  /** SIGN OUT USER */
   const signOut = async () => {
-    let {data, ok} = await makeReq("/api/logout", "DELETE");
+    let { data, ok } = await makeReq("/api/logout", "DELETE");
     setLoggedInUser(undefined);
   };
 
@@ -151,12 +151,9 @@ export const UserProvider = (props: any) => {
         getUserOrders,
         postUser,
         loginUser,
-        //updateUser,
+        updateUserRole,
         getAllUsers,
         allUsers,
-        /* setIsLoggedIn,
-        setLoggedInUser, */
-        //fetchLoggedInUser,
         signOut,
       }}
     >
