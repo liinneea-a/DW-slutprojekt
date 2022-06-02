@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { useEffect } from "react";
 import { useOrders } from "../context/OrderContext";
-import OneOrder from './OneOrder';
+import OneOrder from "./OneOrder";
 
 export default function OrderTable() {
   const { getAllOrders, orders } = useOrders();
@@ -16,16 +16,19 @@ export default function OrderTable() {
     getAllOrders();
   }, []);
 
-  
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
-            <TableCell style={{fontWeight: 'bold'}}>Ordernr</TableCell>
-            <TableCell style={{fontWeight: 'bold'}}>Total price</TableCell>
-            <TableCell  style={{fontWeight: 'bold'}} align="center">Order date</TableCell>
-            <TableCell  style={{fontWeight: 'bold'}} align="center">Shipped</TableCell>
+            <TableCell style={{ fontWeight: "bold" }}>Ordernr</TableCell>
+            <TableCell style={{ fontWeight: "bold" }}>Total price</TableCell>
+            <TableCell style={{ fontWeight: "bold" }} align="center">
+              Order date
+            </TableCell>
+            <TableCell style={{ fontWeight: "bold" }} align="center">
+              Shipped
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
