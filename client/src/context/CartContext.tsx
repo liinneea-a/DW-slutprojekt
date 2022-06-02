@@ -69,6 +69,9 @@ export const CartProvider: FC = (props) => {
     console.log("cart: ", cart);
   }, [cart]);
 
+  useEffect(() => {
+    console.log(totalPrice);
+  }, [totalPrice])
 
   useEffect(() => {
     console.log(selectedShipping)
@@ -77,6 +80,9 @@ export const CartProvider: FC = (props) => {
   const sendOrder = async () => {
     console.log('in sendOrder');
     console.log(selectedShipping);
+    console.log(totalPrice);
+    
+    let sum = calculatePrice();
 
     const address = {
       fullname: deliveryInfo.firstName + " " + deliveryInfo.lastName,
@@ -90,6 +96,7 @@ export const CartProvider: FC = (props) => {
       shipper: selectedShipping,
       deliveryAddress: address,
       paymentMethod: deliveryInfo.paymentMethod,
+      totalPrice: sum
     };
     console.log("order: ", order);
     console.log("del.paymentM: ", deliveryInfo.paymentMethod);
