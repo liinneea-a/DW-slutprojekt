@@ -7,10 +7,13 @@ import {
   Select,
   TextField
 } from "@mui/material";
+import e from "express";
 import { useFormik } from "formik";
 import { CSSProperties, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import { Shipper } from "../../../../server/resources";
+
 import { useCart } from "../../context/CartContext";
 import { useShipper } from "../../context/ShipperContext";
 import DeliveryBox from "../checkoutComponents/shipping/deliveryBox";
@@ -31,9 +34,9 @@ const validationSchema = yup.object({
 
 function CheckoutForm() {
   const [deliveryOption, setDeliveryOption] = useState("");
-  const [shippers, setShippers] = useState([])
-  const { deliveryInfo, setDeliveryInfo } = useCart(); 
-  const { getAllShippers, selectedShipping, setSelectedShipping } = useShipper();
+  const [shippers, setShippers] = useState<Shipper[]>([])
+  const { deliveryInfo, setDeliveryInfo, selectedShipping, setSelectedShipping } = useCart(); 
+  const { getAllShippers  } = useShipper();
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -49,16 +52,21 @@ function CheckoutForm() {
     validationSchema: validationSchema,
 
     onSubmit: (values, event) => {
-      // values.deliveryMethod = deliveryOption;
-   
       setDeliveryInfo(values);
- 
+      console.log(values)
       navigate("/paymentpage");
     },
   });
 
   const handleChangeShipping = (event: any) => {
-    setSelectedShipping(event.target.value);
+    console.log(event.target.value)
+    //setSelectedShipping(event.target.value);
+
+    for (let shipper of shippers) {
+      if(event.target.value === shipper.shipper) {
+        setSelectedShipping(shipper);
+      }
+    }
   }
 
   const handleOnSubmit = (e: any) => {
@@ -68,9 +76,13 @@ function CheckoutForm() {
 
   async function getShippers() {
     const result = await getAllShippers();
+    console.log(result)
     setShippers(result);
-
   }
+
+  useEffect(() => {
+      console.log(selectedShipping)
+  }, [selectedShipping])
 
   useEffect(() => {
     getShippers();
@@ -189,18 +201,18 @@ function CheckoutForm() {
                 onChange={handleChangeShipping}
                 style={testing}
               >
-                {shippers.map((shipper: any) => {
+                {shippers.map((shipper: Shipper) => {
                   return (
                     <MenuItem
-                      value={shipper}
-                      key={shipper._id}
+                      value={shipper.shipper}
+                      key={shipper.shipper}
                       style={menuItemStyle}
                     >
                       <div style={{ fontWeight: "bold" }}>
                         {shipper.shipper}
                       </div>
                       <div style={{display: 'flex', gap: '.5rem', justifyContent: 'center'}}>
-                      <div>{shipper.days} days</div>
+                      <div>{shipper.deliveryDays} days</div>
                       <div>{shipper.cost} SEK</div>
                       </div>
                     </MenuItem>
