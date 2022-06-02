@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { CartProvider } from '../context/CartContext';
-import { UserProvider } from '../context/LoginContext';
+import { UserProvider } from '../context/UserContext';
 import { OrderProvider } from '../context/OrderContext';
 import { ProductProvider } from '../context/ProductContext';
 import { ShipperProvider } from '../context/ShipperContext';

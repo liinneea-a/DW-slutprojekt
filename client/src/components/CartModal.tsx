@@ -3,7 +3,7 @@ import { CSSProperties, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Product } from "../../../server/resources";
 import { useCart } from "../context/CartContext";
-import { UserContext } from "../context/LoginContext";
+import { UserContext } from "../context/UserContext";
 
 interface CartProps {
   modalState: boolean;
