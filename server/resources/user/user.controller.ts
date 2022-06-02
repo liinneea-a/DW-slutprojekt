@@ -85,7 +85,7 @@ export const getLoggedInUser = async (req: Request, res: Response) => {
   if (!req.session?.isPopulated) {
     return res.status(401).send("You are not logged in");
   } else {
-    res.json(req.session);
+    res.json(req.session.user);
   }
 };
 

@@ -1,19 +1,13 @@
-
-import { CSSProperties } from 'react';
-import { useNavigate } from 'react-router-dom';
-import DeliveryInfoTableWithPay from '../components/checkoutComponents/DeliveryInfoTableWithPay';
-import { StartPageButton } from '../components/StartPageButton';
-import { useCart } from '../context/CartContext';
-import { useShipper } from '../context/ShipperContext';
+import { CSSProperties } from "react";
+import { useNavigate } from "react-router-dom";
+import DeliveryInfoTableWithPay from "../components/checkoutComponents/DeliveryInfoTableWithPay";
+import { StartPageButton } from "../components/StartPageButton";
+import { useCart } from "../context/CartContext";
+import { useShipper } from "../context/ShipperContext";
 
 function PurchaseComplete() {
   const navigate = useNavigate();
-  const {
-    totalPrice,
-    cart,
-    id,
-    selectedShipping
-  } = useCart();
+  const { totalPrice, cart, id, selectedShipping } = useCart();
   // const { selectedShipping } = useShipper();
 
   return (
@@ -29,7 +23,9 @@ function PurchaseComplete() {
             <DeliveryInfoTableWithPay />
           </div>
           <div style={totalPriceContainer}>
-            <h2 style={totalPriceTextStyle}>Total price: {totalPrice + selectedShipping.cost} SEK</h2>
+            <h2 style={totalPriceTextStyle}>
+              Total price: {totalPrice + selectedShipping.cost} SEK
+            </h2>
           </div>
           <h2>Your purchase:</h2>
           {/* <div style={cardContainer}> */}
@@ -42,7 +38,7 @@ function PurchaseComplete() {
                     style={productImageStyle}
                     alt="product image"
                   />
-                  <div style={{ marginRight: '1rem' }}>
+                  <div style={{ marginRight: "1rem" }}>
                     <p>{product.name}</p>
                     <p>Sek: {product.price} kr</p>
                     <p>Quantity: {product.quantity}</p>
@@ -61,29 +57,26 @@ function PurchaseComplete() {
 export default PurchaseComplete;
 
 const rootStyle: CSSProperties = {
-  border: '2px solid red',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  margin: '0 auto',
-  width: '100%',
+  // border: '2px solid red',
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  margin: "0 auto",
+  width: "100%",
 };
 
-
-
 const productImageStyle: CSSProperties = {
-
-  objectFit: 'cover',
-  height: '100%',
-  width: 'auto',
+  objectFit: "cover",
+  height: "100%",
+  width: "auto",
 };
 
 const productCardStyle: CSSProperties = {
-  display: 'flex',
-  justifyContent: 'space-between',
-  width: '70%',
-  height: '10rem',
-  border: '1px solid grey',
+  display: "flex",
+  justifyContent: "space-between",
+  width: "70%",
+  height: "10rem",
+  border: "1px solid grey",
 };
 
 const purchaseCompleteContainer: CSSProperties = {
