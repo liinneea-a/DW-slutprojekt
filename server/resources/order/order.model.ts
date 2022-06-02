@@ -4,7 +4,6 @@ import { Product, ProductSchema } from "../product/product.model";
 import { Shipper, ShipperSchema } from "../shipper";
 import { Address, addressSchema } from "./address.schema";
 
-
 export interface Order {
   id: string;
   customer: ObjectId;
