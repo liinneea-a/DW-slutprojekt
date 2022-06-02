@@ -1,14 +1,6 @@
 import { Product } from "@server/types";
 import { createContext, FC, useContext, useState } from "react";
-
-        
-
 import { Product } from "../../../server/resources";
-
-        
-// import { Product } from "../../../../server/resources/shared";
-        
-
 import { makeReq } from "../helper";
 
 /* const product: Product = {
@@ -52,22 +44,40 @@ export const ProductProvider: FC = (props) => {
   };
 
   const addProduct = async (product: {}) => {
-    let response = await makeReq(`/api/product/`, "POST", product);
-    return response;
+    try {
+      let { data, ok } = await makeReq(`/api/product/`, "POST", product);
+      if (ok) {
+        return data;
+      }
+    } catch (err) {
+      return console.log(err);
+    }
   };
 
   const removeProduct = async (product: Product) => {
-    let response = await makeReq(`/api/products/${product.id}`, "DELETE");
-    return response;
+    try {
+      let { data, ok } = await makeReq(`/api/products/${product.id}`, "DELETE");
+      if (ok) {
+        return data;
+      }
+    } catch (err) {
+      return console.log(err);
+    }
   };
 
   const editProduct = async (editedProduct: Product) => {
-    let response = await makeReq(
-      `/api/products/${editedProduct.id}`,
-      "PUT",
-      editedProduct
-    );
-    return response;
+    try {
+      let { data, ok } = await makeReq(
+        `/api/products/${editedProduct.id}`,
+        "PUT",
+        editedProduct
+      );
+      if (ok) {
+        return data;
+      }
+    } catch (err) {
+      return console.log(err);
+    }
   };
 
   return (

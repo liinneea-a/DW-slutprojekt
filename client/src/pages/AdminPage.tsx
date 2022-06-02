@@ -1,7 +1,6 @@
 import { Button } from "@mui/material";
-import Switch from '@mui/material/Switch';
-import { CSSProperties, useContext, useEffect, useState } from "react";
-import { Product, User } from "../../../server/resources";
+import { CSSProperties, useEffect, useState } from "react";
+import { Product } from "../../../server/resources";
 import AddNewProduct from "../components/admin/addNewProduct";
 import EditProduct from "../components/admin/editProduct";
 import { useProducts } from "../context/ProductContext";
