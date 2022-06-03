@@ -82,9 +82,11 @@ export const loginUser = async (req: Request, res: Response) => {
 /**------GET LOGGED IN USER---------- */
 
 export const getLoggedInUser = async (req: Request, res: Response) => {
+  console.log(req.session)
   if (!req.session?.isPopulated) {
     return res.status(401).send("You are not logged in");
   } else {
+    console.log(req.session.user);
     res.json(req.session.user);
   }
 };

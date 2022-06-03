@@ -9,23 +9,21 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import { Fragment, useEffect, useState } from "react";
-import { Order } from "../../../server/resources";
+import { Order, Product } from "../../../server/resources";
 import { useOrders } from "../context/OrderContext";
 
 interface Props {
   order: Order;
 }
 
-export default function OneOrder(props: Props) {
+export default function OneOrder({order}: Props) {
   const [open, setOpen] = useState(false);
   const { getAllOrders, markOrder } = useOrders();
-  const date = new Date(props.order.createdAt);
-
-  useEffect(() => {
-    getAllOrders();
-  }, []);
+  const date = new Date(order.createdAt);
 
   return (
+
+    // <div style={{border: "2px solid red"}}>{order.customer}</div>
     <Fragment>
       <TableRow>
         <TableCell
@@ -34,7 +32,7 @@ export default function OneOrder(props: Props) {
           sx={{ cursor: "pointer" }}
           onClick={() => setOpen(!open)}
         >
-          {props.order.id}
+          {order.id}
         </TableCell>
         <TableCell
           align="left"
@@ -43,7 +41,7 @@ export default function OneOrder(props: Props) {
           sx={{ cursor: "pointer" }}
           onClick={() => setOpen(!open)}
         >
-          {props.order.totalPrice} SEK
+          {order.totalPrice} SEK
         </TableCell>
         <TableCell
           align="center"
@@ -53,12 +51,12 @@ export default function OneOrder(props: Props) {
           {date.toLocaleDateString()}
         </TableCell>
         <TableCell align="center">
-          {props.order.isSent ? (
+          {order.isSent ? (
             "Yes"
           ) : (
             <Button
               onClick={() => [
-                markOrder({ ...props.order, isSent: true }),
+                markOrder({ ...order, isSent: true }),
                 getAllOrders(),
               ]}
               variant="contained"
@@ -91,7 +89,7 @@ export default function OneOrder(props: Props) {
                       City
                     </TableCell>
                   </TableRow>
-                  {props.order.deliveryAddress.map((deliveryAddress) => (
+                  {order.deliveryAddress.map((deliveryAddress: any) => (
 
                     <TableRow key={deliveryAddress.city}>
                       <TableCell scope="row">
@@ -120,7 +118,7 @@ export default function OneOrder(props: Props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {props.order.products.map((product) => {
+                  {order.products.map((product: Product) => {
                     return (
                       <TableRow key={product.id}>
                         <TableCell component="th" scope="row">
