@@ -11,18 +11,23 @@ import Typography from "@mui/material/Typography";
 import { Fragment, useEffect, useState } from "react";
 import { Order, Product } from "../../../server/resources";
 import { useOrders } from "../context/OrderContext";
+import { useUser } from "../context/UserContext";
 
 interface Props {
   order: Order;
 }
 
-export default function OneOrder({order}: Props) {
+export default function OneOrder({ order }: Props) {
   const [open, setOpen] = useState(false);
   const { getAllOrders, markOrder } = useOrders();
   const date = new Date(order.createdAt);
+  const { loggedInUser } = useUser();
+
+  useEffect(() => {
+    console.log(loggedInUser);
+  });
 
   return (
-
     // <div style={{border: "2px solid red"}}>{order.customer}</div>
     <Fragment>
       <TableRow>
@@ -51,18 +56,24 @@ export default function OneOrder({order}: Props) {
           {date.toLocaleDateString()}
         </TableCell>
         <TableCell align="center">
-          {order.isSent ? (
+          {loggedInUser?.isAdmin ? (
+            order.isSent ? (
+              "Yes"
+            ) : (
+              <Button
+                onClick={() => [
+                  markOrder({ ...order, isSent: true }),
+                  getAllOrders(),
+                ]}
+                variant="contained"
+              >
+                Send
+              </Button>
+            )
+          ) : order.isSent ? (
             "Yes"
           ) : (
-            <Button
-              onClick={() => [
-                markOrder({ ...order, isSent: true }),
-                getAllOrders(),
-              ]}
-              variant="contained"
-            >
-              Send
-            </Button>
+            "No"
           )}
         </TableCell>
       </TableRow>
@@ -90,7 +101,6 @@ export default function OneOrder({order}: Props) {
                     </TableCell>
                   </TableRow>
                   {order.deliveryAddress.map((deliveryAddress: any) => (
-
                     <TableRow key={deliveryAddress.city}>
                       <TableCell scope="row">
                         {deliveryAddress.fullname}
