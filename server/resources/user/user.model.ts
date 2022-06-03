@@ -17,7 +17,6 @@ const UserSchema = new mongoose.Schema<User>( //? Stor bokstav och <User>
     adminRequest: { type: Boolean, required: true, default: false }
   },
   {
-    // timestamps: true,
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
   }

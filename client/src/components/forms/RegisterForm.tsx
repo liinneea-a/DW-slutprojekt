@@ -48,14 +48,11 @@ function RegisterForm() {
         adminRequest: adminRequest
       };
       createNewUser(user);
-      console.log(values);
     },
   });
 
   async function createNewUser(user: {}) {
-    console.log(user);
     const newUser = await postUser(user);
-    console.log(newUser);
     if (!newUser) {
       setAlreadyRegistered(true)
     } else {

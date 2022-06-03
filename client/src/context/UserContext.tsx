@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { boolean } from "yup";
-import { makeReq } from "../helper";
 import { User } from "../../../server/resources";
+import { makeReq } from "../helper";
 
 interface UserContext {
   loggedInUser?: User;
@@ -36,7 +36,6 @@ export const UserProvider = (props: any) => {
 
 
   useEffect(() => {
-    console.log("logged in user: ", loggedInUser?.id);
   })
 
   /** CREATE A NEW USER */

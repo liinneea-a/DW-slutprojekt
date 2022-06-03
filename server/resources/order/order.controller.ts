@@ -1,6 +1,4 @@
-import console from "console";
 import { NextFunction, Request, Response } from "express";
-import { User } from "../user/user.model";
 import { OrderModel } from "./order.model";
 
 /** GET ALL ORDERS */
@@ -28,8 +26,6 @@ export const addOrder = async (
   res: Response,
   next: NextFunction
 ) => {
-  console.log(req.body);
-  // TODO: How do we handle errors in async middlewares?
 
   const order = new OrderModel({
     customer: req.session?.user.id,
@@ -53,7 +49,6 @@ export const updateOrder = async (
     const order = await OrderModel.findByIdAndUpdate(id, req.body, {
       useFindAndModify: false,
     });
-    console.log(order);
 
     if (!order) {
       return res.status(400).json(order);
@@ -65,7 +60,6 @@ export const updateOrder = async (
       new: req.body,
     });
   } catch (err) {
-    console.log("update order error");
     res.status(400).json(err);
   }
 };
@@ -82,9 +76,3 @@ export const deleteOrder = async (req: Request, res: Response) => {
     }
   }
 };
-
-// const ifNoOrderFound = (req: Request, res: Response, order: Order, errCode: number) => {
-//   if(!order) {
-//     return res.status(400).json(order);
-//   }
-// }

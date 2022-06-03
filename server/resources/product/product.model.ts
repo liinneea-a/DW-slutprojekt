@@ -5,13 +5,10 @@ export interface Product {
   name: string;
   description: string;
   price: number;
-  // imageId: Schema.Types.ObjectId;
   imageId: string;
   stock: number;
-  // image: {type: String, required: true},
   categories: string[];
   quantity?: number;
-  // legacy: boolean;
 }
 
 export const ProductSchema = new mongoose.Schema<Product>(
@@ -19,12 +16,9 @@ export const ProductSchema = new mongoose.Schema<Product>(
     name: { type: String, required: true },
     description: { type: String, required: true },
     price: { type: Number, required: true },
-    // imageId: { type: Schema.Types.ObjectId, required: true },
     imageId: { type: String, required: false },
     stock: { type: Number, required: true },
-    // image: {type: String, required: true},
     categories: { type: [String], required: true },
-    // legacy: { type: Boolean, required: true, default: false },
   },
   {
     toJSON: { virtuals: true },

@@ -1,7 +1,6 @@
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ArticleIcon from '@mui/icons-material/Article';
-import AssignmentIcon from '@mui/icons-material/Assignment';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import Logout from '@mui/icons-material/Logout';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
@@ -29,7 +28,6 @@ export default function AccountMenu(headerProps: any) {
   const openModal = () => headerProps.setModalState(true);
 
   const handleLogOut = () => {
-    console.log('hejko');
     if (loggedInUser) {
       signOut();
       navigate('/');
@@ -81,7 +79,7 @@ export default function AccountMenu(headerProps: any) {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem>
-          <Link style={linkStyle} to="/profile">
+          <Link style={linkStyle} to="/order">
             <ListItemIcon>
               <ArticleIcon fontSize="small" />
             </ListItemIcon>
