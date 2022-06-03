@@ -1,9 +1,6 @@
 import { Request, Response } from "express";
 import { Error as MongooseError } from "mongoose";
 
-declare;
-global;
-
 export const ErrorRequestHandler = (
   error: unknown,
   req: Request,
@@ -18,7 +15,6 @@ export const ErrorRequestHandler = (
     );
   }
 
-  // Mongoose validation error
   if (error instanceof MongooseError.StrictModeError) {
     return res.status(400).json(error.message);
   }

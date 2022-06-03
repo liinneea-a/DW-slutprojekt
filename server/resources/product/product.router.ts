@@ -10,7 +10,7 @@ import {
 
 export const productRouter = express
   .Router()
-  .get("/products", /* adminSecure, */ getAllProducts)
+  .get("/products", getAllProducts)
   .get("/products/:id", getProduct)
   .get("/products/category/:category", getOneCategory)
   .post("/product", addProduct)

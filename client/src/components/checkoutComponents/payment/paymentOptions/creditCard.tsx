@@ -59,10 +59,7 @@ function CreditCard(props: Props) {
       let newObject = deliveryInfo;
       newObject.paymentMethod = "Card";
       setDeliveryInfo(newObject);
-      console.log(deliveryInfo);
       props.setPaymentModal(true);
-      // addPurchaseList(cart);
-      // newPurchaseTotal(totalPrice);
       clearCart();
       closeModal();
     }

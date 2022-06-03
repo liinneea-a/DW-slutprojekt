@@ -7,11 +7,6 @@ function Footer() {
         © Created by FrontFelix, AdaHep and MiMeiner, 2022.
         <br />
         © Updated by liinneea-a, rosannapistone, and MiMeiner, 2022.
-        {/* <Link to="/Admin" style={{textDecoration: 'none'}}>
-          <Button style={StyledButton} variant="contained" href="">
-            ADMIN
-          </Button>
-        </Link> */}
       </div>
     </div>
   );

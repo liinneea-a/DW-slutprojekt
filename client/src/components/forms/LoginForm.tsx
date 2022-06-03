@@ -35,14 +35,11 @@ function LoginForm() {
         password: values.password,
       };
       handleLoginUser(user);
-      console.log(values);
     },
   });
 
   async function handleLoginUser(user: {}) {
-    console.log(user);
     const userToBeLoggedIn = await loginUser(user);
-    console.log(userToBeLoggedIn);
 
     if (!userToBeLoggedIn) {
       setFailedLogin(true);

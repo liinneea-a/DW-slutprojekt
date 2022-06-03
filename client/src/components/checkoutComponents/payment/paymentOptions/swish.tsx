@@ -12,7 +12,6 @@ interface Props {
 }
 
 const validationSchema = yup.object({
-  // number: yup.number().required("Please enter number").min(10),
   number: yup
     .string()
     .typeError('Not a valid phone number. Example: 0738986845')
@@ -83,7 +82,6 @@ const textFieldStyle: CSSProperties = {
 };
 
 const completePurchaseButton: CSSProperties = {
-  // background: '#2081e2',
   color: 'transparent',
   margin: 0,
   padding: 0,

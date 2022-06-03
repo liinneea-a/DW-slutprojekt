@@ -1,9 +1,5 @@
-// import { Order } from "@server/types";
-import { ok } from 'assert';
 import { createContext, FC, useContext, useState } from 'react';
-import { json } from 'stream/consumers';
-import { Order, OrderModel } from '../../../server/resources/';
-//import { Order } from '../../../server/shared/types';
+import { Order } from '../../../server/resources/';
 import { makeReq } from '../helper';
 import { useUser } from './UserContext';
 
@@ -21,7 +17,6 @@ export const OrdersContext = createContext<OrderContext>({
 
 export const OrderProvider: FC = (props) => {
   const [orders, setOrders] = useState<Order[]>([]);
-  // const [selectedOrder, setSelectedOrder] = useState<Order[]>([])
   const { loggedInUser } = useUser();
 
   const getAllOrders = async () => {
@@ -29,7 +24,6 @@ export const OrderProvider: FC = (props) => {
       return console.log("No logged in user");
     }
 
-    console.log(loggedInUser);
     let listOfOrders = [];
 
     try {
@@ -39,18 +33,14 @@ export const OrderProvider: FC = (props) => {
         listOfOrders = data;
 
         if (loggedInUser.isAdmin) {
-          console.log('user is admin and get all orders');
           setOrders(data);
           return;
         }
 
         if (!loggedInUser.isAdmin) {
-          console.log('user is not admin and gets own orders');
-
           let myOrders = listOfOrders.filter((order: Order) => {
             let customer = order.customer.toString();
             if (customer === loggedInUser.id) {
-              console.log(order);
               return order;
             }
           });
@@ -68,7 +58,6 @@ export const OrderProvider: FC = (props) => {
       if (ok) {
         return data;
       } else {
-        console.log(data);
       }
     } catch (err) {
       return console.log(err);
