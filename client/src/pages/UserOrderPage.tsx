@@ -10,11 +10,7 @@ import TableRow from "@mui/material/TableRow";
 import OneOrder from "./OneUserOrder";
 
 function UserOrderPage() {
-  const { getUserOrders, orders } = useUser();
-
-  useEffect(() => {
-    getUserOrders();
-  }, []);
+  const { orders } = useUser();
 
   return (
     <TableContainer component={Paper}>

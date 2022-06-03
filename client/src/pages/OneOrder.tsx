@@ -1,4 +1,3 @@
-// import { Order } from "@server/types";
 import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
@@ -28,7 +27,6 @@ export default function OneOrder({ order }: Props) {
   });
 
   return (
-    // <div style={{border: "2px solid red"}}>{order.customer}</div>
     <Fragment>
       <TableRow>
         <TableCell
