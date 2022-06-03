@@ -2,6 +2,7 @@ import { Button, TextField } from "@mui/material";
 // import { Product } from "@server/types";
 import { useFormik } from "formik";
 import { CSSProperties } from "react";
+import * as yup from "yup";
 import { Product } from "../../../../server/resources";
 // import { Product } from "../../../../server/resources";
 import { useProducts } from "../../context/ProductContext";
@@ -12,11 +13,14 @@ interface Props {
   onClose: () => void;
 }
 
-// const validationSchema = yup.object({
-//   name: yup.string().required("Please enter new name").min(1),
-//   description: yup.string().required("Please enter a new description").min(2),
-//   productImage: yup.string().required("Please enter a new image URL").min(10),
-// });
+const validationSchema = yup.object({
+  name: yup.string().required("Please enter new name").min(1),
+  description: yup.string().required("Please enter a new description").min(2),
+  productImage: yup.string().required("Please enter a new image URL").min(10),
+  price: yup.number().required("Please enter the updated price").min(1),
+  stock: yup.number().required("Please enter the updated stock"),
+  categories: yup.array().required("Please enter at least one category").min(1),
+});
 
 function EditProduct(props: Props) {
   const { editProduct, getAllProducts } = useProducts();
@@ -31,7 +35,7 @@ function EditProduct(props: Props) {
       stock: props.product.stock,
       categories: props.product.categories,
     },
-    // validationSchema: validationSchema,
+    validationSchema: validationSchema,
     onSubmit: (values) => {
       let updatedProduct = {
         id: props.product.id,
