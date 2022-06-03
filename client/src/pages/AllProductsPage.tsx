@@ -45,7 +45,7 @@ function AllProducts() {
       <h1 style={collectionsTitle}>Here are all the available products:</h1>
       <div style={flexProducts}>
         {filteredProducts.map((product, index) => (
-          <ItemCard key={product.id} product={product} />
+          <ItemCard key={product._id} product={product} />
         ))}
       </div>
     </div>

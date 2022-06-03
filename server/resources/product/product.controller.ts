@@ -1,14 +1,20 @@
 import console from 'console';
 import { NextFunction, Request, Response } from 'express';
-import { ProductModel } from './product.model';
+import { ProductModel, Product } from './product.model';
 
 /** GET ALL Products */
 export const getAllProducts = async (req: Request, res: Response) => {
   // TODO: Who is allowed to use this endpoint?
   const products = await ProductModel.find({});
-  if (!products.length) {
+  
+
+
+   if (!products.length) {
     return res.status(400).json(products);
-  }
+  } 
+
+  res.status(200).json(products);
+}
 
   // TEST TO GET QUANTITY OF PRODUCT
   //  const priceTotal = 1000;
@@ -19,15 +25,14 @@ export const getAllProducts = async (req: Request, res: Response) => {
   //  };
   // TEST END
 
-  res.status(200).json(products);
-};
+
 
 /** GET ONE Product */
 export const getProduct = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  console.log(id);
+  const { _id } = req.params;
+  console.log(_id);
   try {
-    const product = await ProductModel.findById(id);
+    const product = await ProductModel.findById(_id);
 
     if (!product) {
       return res.status(404).json(product);
@@ -70,7 +75,7 @@ export const getOneCategory = async (req: Request, res: Response) => {
 };
 
 export const addProduct = async (
-  req: Request,
+  req: Request<{}, {}, Product>,
   res: Response,
   next: NextFunction
 ) => {
@@ -87,13 +92,13 @@ export const addProduct = async (
 };
 
 export const updateProduct = async (
-  req: Request<{ id: string }>,
+  req: Request<{ _id: string }>,
   res: Response
 ) => {
-  const { id } = req.params;
+  const { _id } = req.params;
 
   try {
-    const product = await ProductModel.findByIdAndUpdate(id, req.body, {
+    const product = await ProductModel.findByIdAndUpdate(_id, req.body, {
       useFindAndModify: false,
     });
     console.log(product);

@@ -1,25 +1,40 @@
 import { Button } from "@mui/material";
-import Switch from '@mui/material/Switch';
+
+import { ObjectId } from "mongodb";
 import { CSSProperties, useContext, useEffect, useState } from "react";
-import { Product, User } from "../../../server/resources";
+//import { Product } from "../../../server/resources";
+//import { Product, User } from "../../../server/resources";
 import AddNewProduct from "../components/admin/addNewProduct";
 import EditProduct from "../components/admin/editProduct";
 import { useProducts } from "../context/ProductContext";
+import {ProductData} from "../ProductData"
+/* 
+interface Product {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+  imageId?: string;
+  stock: number;
+  categories: string[];
+  quantity: number;
+  imageUrl?: string;
+} */
 
 
-
-
-function AdminPage() {
+function AdminPage(/* props: Product */) {
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<Product>({
-      id: "",
+  const [selectedProduct, setSelectedProduct] = useState<ProductData>({
+      _id: "",
       name: "",
       description: "",
       price: 0,
+      //image: "",
       imageId: "",
       stock: 0,
-      categories: [""],
-      quantity: 0
+      categories: [""], 
+      quantity: 0,
    });
 
   const [openEditProductModal, setOpenEditProductModal] = useState(false);
@@ -59,7 +74,7 @@ function AdminPage() {
       </div>
       <div style={adminProducts}>
         {products.map((product, index) => (
-          <div style={adminAddStyle} key={product.id}>
+          <div style={adminAddStyle} key={product._id}>
             <div style={adminCardHeader}>
               <div
                 style={{ display: "flex", flexDirection: "row", gap: "2rem" }}
@@ -91,7 +106,7 @@ function AdminPage() {
             </div>
             <div style={adminCardMiddle}>
               <div style={adminCardMidLeft}>
-                <img style={adminImageStyle} alt="" srcSet={product.imageId} />
+                <img style={adminImageStyle} alt="" srcSet={product.imageUrl} />
               </div>
               <div style={adminCardMidRight}>
                 <div style={descStyle}>Description: {product.description}</div>

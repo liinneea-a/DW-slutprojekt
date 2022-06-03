@@ -1,7 +1,8 @@
 import { Button, TextField } from "@mui/material";
 import { useFormik } from "formik";
-import { CSSProperties } from "react";
+import { CSSProperties, useState } from "react";
 import { useProducts } from "../../context/ProductContext";
+import { ProductData } from "../../ProductData";
 
 interface Props {
   isOpen: boolean;
@@ -10,32 +11,62 @@ interface Props {
 
 function AddNewProduct(props: Props) {
   const { addProduct, getAllProducts } = useProducts();
+  const [imageId, setImageId] = useState<string>();
+  const [image, setImage] = useState();
+
+
+  const handleImage = async (event: any) => {
+    let data = new FormData();
+    console.log(data)
+    data.append("media", event.target.files[0]);
+    let response = await fetch("/api/media", {
+      method: "POST",
+      body: data,
+    });
+    let jsonres = await response.json();
+    setImage(jsonres.filename);
+    setImageId(jsonres._id);
+  };
+  console.log(image, imageId)
 
   const formik = useFormik({
     initialValues: {
       name: "",
-      imageId: "",
-      price: "",
+      imageId,
+      //imageUrl: "",
+      //imageId: "",
+      price: 0,
       description: "",
-      stock: "",
-      categories: "",
+      stock: 0,
+      categories: [""],
     },
     onSubmit: (values) => {
-      let product = {
+      let product: ProductData = {
         name: values.name,
-        imageId: values.imageId,
+        imageId,
+        //imageUrl: values.imageUrl,
+        //imageId: values.imageId,
         price: values.price,
         description: values.description,
         stock: values.stock,
         categories: values.categories,
+        _id: "",
+        //image: "",
+        quantity: 0
       };
+      console.log(imageId)
+      console.log(product)
       createNewProduct(product);
       formik.resetForm();
       props.onClose();
     },
   });
 
-  async function createNewProduct(product: {}) {
+
+
+
+
+  async function createNewProduct(product: ProductData) {
     const newProduct = await addProduct(product);
     getAllProducts();
   }
@@ -66,12 +97,13 @@ function AddNewProduct(props: Props) {
               fullWidth
               autoComplete="off"
               id="imageId"
-              name="imageId"
-              label="Image url"
-              value={formik.values.imageId}
-              onChange={formik.handleChange}
-              error={formik.touched.imageId && Boolean(formik.errors.imageId)}
-              helperText={formik.touched.imageId && formik.errors.imageId}
+              name="media" //"imageId"
+              type="file"
+              //label="Image url"
+              //value={formik.values.imageId}
+              onChange= {(e) => handleImage(e)}//{formik.handleChange}
+             // error={formik.touched.imageId && Boolean(formik.errors.imageId)}
+              //helperText={formik.touched.imageId && formik.errors.imageId}
               required
             />
             <TextField

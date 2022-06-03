@@ -2,15 +2,16 @@ import { Button, TextField } from "@mui/material";
 // import { Product } from "@server/types";
 
 import { useFormik } from "formik";
-import { CSSProperties } from "react";
-import { Product } from "../../../../server/resources";
-// import { Product } from "../../../../server/resources";
-import { useProducts } from "../../context/ProductContext";
+import { CSSProperties, useState } from "react";
+//import { Product } from "../../../../server/resources";
+//import { Product } from "../../../../server/resources";
+import { useProducts} from "../../context/ProductContext";
+import { ProductData } from "../../ProductData";
 
 
 interface Props {
   isOpen: boolean;
-  product: Product;
+  product: ProductData;
   onClose: () => void;
 }
 
@@ -23,6 +24,22 @@ interface Props {
 function EditProduct(props: Props) {
   
   const { editProduct, getAllProducts } = useProducts();
+  const [imageId, setImageId] = useState<string>();
+  const [image, setImage] = useState();
+
+  const handleImage = async (event: any) => {
+    let data = new FormData();
+    console.log(data)
+    data.append("media", event.target.files[0]);
+    let response = await fetch("/api/media", {
+      method: "POST",
+      body: data,
+    });
+    let jsonres = await response.json();
+    setImage(jsonres.filename);
+    setImageId(jsonres._id);
+    console.log(image, imageId)
+  };
 
 
   const formik = useFormik({
@@ -38,14 +55,16 @@ function EditProduct(props: Props) {
     // validationSchema: validationSchema,
     onSubmit: (values) => {
       let updatedProduct = {
-        id: props.product.id,
+        _id: props.product._id,
         name: values.name,
+        imageId,
         description: values.description,
         price: values.price,
-        imageId: values.imageId,
+        //imageId: values.imageId,
         stock: values.stock,
         categories: values.categories,
-      
+        image: "",
+        quantity: 0,
       };
       editOldProduct(updatedProduct);
       formik.resetForm();
@@ -53,7 +72,7 @@ function EditProduct(props: Props) {
     },
   });
 
-   function editOldProduct(updatedProduct: Product) {
+   function editOldProduct(updatedProduct: ProductData) {
     const update = editProduct(updatedProduct);
     getAllProducts();
   }
@@ -82,12 +101,14 @@ function EditProduct(props: Props) {
             fullWidth
             autoComplete="off"
             id="imageId"
-            name="imageId"
-            label="Product Image URL"
-            value={formik.values.imageId}
-            onChange={formik.handleChange}
-            error={formik.touched.imageId && Boolean(formik.errors.imageId)}
-            helperText={formik.touched.imageId && formik.errors.imageId}
+            name="media"
+            type="file"
+            //label="Product Image URL"
+            //value={formik.values.imageId}
+            onChange={ (e) => handleImage(e)}
+            required
+            //error={formik.touched.imageId && Boolean(formik.errors.imageId)}
+            //helperText={formik.touched.imageId && formik.errors.imageId}
           />
           <TextField
             style={textFieldStyle}

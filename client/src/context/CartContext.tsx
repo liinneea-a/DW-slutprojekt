@@ -4,7 +4,8 @@ import { SelfImprovement } from '@mui/icons-material';
 import { ObjectId } from 'mongoose';
 import { createContext, FC, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { Order, Product } from '../../../server/resources';
+//import { Order, Product } from '../../../server/resources';
+import { ProductData } from '../ProductData';
 import { shippperSchema } from '../../../server/resources/order/shipper.schema';
 import {
   DeliveryDataInfoObject,
@@ -14,9 +15,9 @@ import { makeReq } from '../helper';
 import { useShipper } from './ShipperContext';
 
 interface CartContext {
-  purchaseList: Product[];
-  cart: Product[];
-  addProductToCart: (item: Product) => void;
+  purchaseList: ProductData[];
+  cart: ProductData[];
+  addProductToCart: (item: ProductData) => void;
   incQty: (itemID: string) => void;
   decQty: (itemID: string) => void;
   clearCart: () => void;
@@ -33,7 +34,7 @@ export const CartContext = createContext<CartContext>({
   purchaseList: [],
   sendOrder: () => {},
   cart: [],
-  addProductToCart: (item: Product) => {},
+  addProductToCart: (item: ProductData) => {},
   incQty: (itemID: string) => {},
   decQty: (itemID: string) => {},
   clearCart: () => {},
@@ -47,10 +48,10 @@ export const CartContext = createContext<CartContext>({
 
 export const CartProvider: FC = (props) => {
   let localData = localStorage.getItem('cart');
-  const [cart, setCart] = useState<Product[]>(
+  const [cart, setCart] = useState<ProductData[]>(
     localData ? JSON.parse(localData) : []
   );
-  const [purchaseList, setPurchaseList] = useState<Product[]>([]);
+  const [purchaseList, setPurchaseList] = useState<ProductData[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [purchaseTotal, setPurchaseTotal] = useState(1);
   const [deliveryInfo, setDeliveryInfo] = useState(DeliveryDataInfoObject);
@@ -91,7 +92,7 @@ export const CartProvider: FC = (props) => {
           product.stock -= product.quantity!;
           console.log(product.stock);
           const { data, ok } = await makeReq(
-            `/api/products/${product.id}`,
+            `/api/products/${product._id}`,
             'PUT',
             product
           );
@@ -122,7 +123,7 @@ export const CartProvider: FC = (props) => {
     return sum;
   };
 
-  const addProductToCart = (item: Product) => {
+  const addProductToCart = (item: ProductData) => {
     toast.success('Item added to cart', {
       position: 'bottom-left',
       autoClose: 1500,
@@ -135,7 +136,7 @@ export const CartProvider: FC = (props) => {
 
     let newCart = cart;
     let foundItem = newCart.find(
-      (cartItem: Product) => cartItem.id === item?.id
+      (cartItem: ProductData) => cartItem._id === item?._id
     );
 
     if (foundItem) {
@@ -151,8 +152,8 @@ export const CartProvider: FC = (props) => {
   };
 
   const incQty = (itemID: string) => {
-    let updatedList = cart.map((item: Product) => {
-      if (item.id === itemID) {
+    let updatedList = cart.map((item: ProductData) => {
+      if (item._id === itemID) {
         item.quantity! += 1;
       }
       return item;
@@ -163,8 +164,8 @@ export const CartProvider: FC = (props) => {
   };
 
   const decQty = (itemID: string) => {
-    let updatedList = cart.filter((item: Product) => {
-      if (item.id === itemID) {
+    let updatedList = cart.filter((item: ProductData) => {
+      if (item._id === itemID) {
         if (item.quantity! > 1) {
           item.quantity! -= 1;
           return item;

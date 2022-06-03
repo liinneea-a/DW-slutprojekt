@@ -1,9 +1,10 @@
 import { Button } from "@mui/material";
 import { CSSProperties, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Product } from "../../../server/resources";
+//import { Product } from "../../../server/resources";
 import { StartPageButton } from "../components/StartPageButton";
 import { useCart } from "../context/CartContext";
+import { ProductData } from "../ProductData";
 
 function CheckoutPage() {
   const { cart, totalPrice } = useCart();
@@ -17,7 +18,7 @@ function CheckoutPage() {
         <h2>Your purchase:</h2>
         <div style={cardContainer}>
           <div style={purchasedItems}>
-            {cart.map((item: Product, index: number) => (
+            {cart.map((item: ProductData, index: number) => (
               <div style={purchasedItemTestCard} key={index}>
                 <div style={itemCountBadge}>
                   <p style={itemCountStyle}>{item.quantity}</p>
@@ -30,7 +31,7 @@ function CheckoutPage() {
                 <div style={cardBody}>
                   <div style={itemImageContainer}>
                     <img
-                      srcSet={item.imageId}
+                      srcSet={item.imageUrl}
                       style={itemImageStyle}
                       alt="Item"
                     />

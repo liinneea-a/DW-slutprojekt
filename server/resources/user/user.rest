@@ -22,7 +22,7 @@ POST http://localhost:4000/api/login
 Content-Type: application/json
 
 {
-  "email": "r@p.se",
+  "email": "r@r.se",
   "password": "hejhej"
 }
 

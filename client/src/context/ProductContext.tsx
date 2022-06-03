@@ -1,12 +1,12 @@
 //import { Product } from "@server/types";
 import { createContext, FC, useContext, useState } from "react";
 
-        
+import { ProductData } from "../ProductData";     
 
-// import { Product } from "../../../server/resources";
+//import { Product as ProductData } from "../../../server/resources";
 
         
-// import { Product } from "../../../../server/resources/shared";
+import { Product } from "../../../server/resources";
         
 
 import { makeReq } from "../helper";
@@ -15,14 +15,27 @@ import { makeReq } from "../helper";
   _id: "",
   
 } */
+
+/* export interface ProductData {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+  imageId?: string;
+  stock: number;
+  categories: string[];
+  quantity: number;
+  imageUrl?: string;
+} */
 interface ProductContext {
   selectedProduct: {};
   setSelectedProduct: {};
-  products: Product[];
+  products: ProductData[];
   getAllProducts: () => Promise<any>;
-  addProduct: (product: {}) => void;
-  removeProduct: (product: Product) => void;
-  editProduct: (product: Product) => void;
+  addProduct: (product: ProductData) => void;
+  removeProduct: (product: ProductData) => void;
+  editProduct: (product: ProductData) => void;
 }
 
 export const ProductsContext = createContext<ProductContext>({
@@ -37,12 +50,13 @@ export const ProductsContext = createContext<ProductContext>({
 
 export const ProductProvider: FC = (props) => {
   const [selectedProduct, setSelectedProduct] = useState({});
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<ProductData[]>([]);
 
   const getAllProducts = async () => {
     try {
       let { data, ok } = await makeReq("/api/products", "GET");
       if (ok) {
+        console.log(data)
         setProducts(data);
         return true;
       }
@@ -51,19 +65,20 @@ export const ProductProvider: FC = (props) => {
     }
   };
 
-  const addProduct = async (product: {}) => {
+  const addProduct = async (product: ProductData) => {
     let response = await makeReq(`/api/product/`, "POST", product);
+    console.log(response)
     return response;
   };
 
-  const removeProduct = async (product: Product) => {
-    let response = await makeReq(`/api/products/${product.id}`, "DELETE");
+  const removeProduct = async (product: ProductData) => {
+    let response = await makeReq(`/api/products/${product._id}`, "DELETE");
     return response;
   };
 
-  const editProduct = async (editedProduct: Product) => {
+  const editProduct = async (editedProduct: ProductData) => {
     let response = await makeReq(
-      `/api/products/${editedProduct.id}`,
+      `/api/products/${editedProduct._id}`,
       "PUT",
       editedProduct
     );
@@ -80,6 +95,7 @@ export const ProductProvider: FC = (props) => {
         addProduct,
         removeProduct,
         editProduct,
+        //ProductData,
       }}
     >
       {" "}

@@ -90,7 +90,7 @@ export default function OneOrder(props: Props) {
                 <TableBody>
                   {props.order.products.map((product) => {
                     return (
-                      <TableRow key={product.id}>
+                      <TableRow key={product._id}>
                         <TableCell component="th" scope="row">
                           {product.name}
                         </TableCell>

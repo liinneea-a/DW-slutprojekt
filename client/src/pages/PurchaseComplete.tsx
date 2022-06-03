@@ -35,7 +35,7 @@ function PurchaseComplete() {
           <div style={purchasedItems}>
             {cart.map((product) => {
               return (
-                <div key={product.id} style={productCardStyle}>
+                <div key={product._id} style={productCardStyle}>
                   <img
                     srcSet={product.imageId}
                     style={productImageStyle}
