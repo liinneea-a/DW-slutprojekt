@@ -1,4 +1,3 @@
-// @ts-ignore
 
 import { createContext, FC, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';

@@ -3,13 +3,12 @@ import {
   faFileInvoice,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { DeliveryDataInfo } from "../../../data/collections/deliveryData";
 import { CSSProperties, useState } from "react";
 import CreditCard from "./paymentOptions/creditCard";
 import Swish from "./paymentOptions/swish";
 import Invoice from "./paymentOptions/invoice";
 import PaymentModal from "./PaymentModal";
-import { useCart } from "../../../context/CartContext";
+
 
 interface Props {
   paymentOption: string
