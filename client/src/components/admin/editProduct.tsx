@@ -1,12 +1,10 @@
 import { Button, TextField } from "@mui/material";
 // import { Product } from "@server/types";
-
 import { useFormik } from "formik";
 import { CSSProperties } from "react";
 import { Product } from "../../../../server/resources";
 // import { Product } from "../../../../server/resources";
 import { useProducts } from "../../context/ProductContext";
-
 
 interface Props {
   isOpen: boolean;
@@ -21,15 +19,13 @@ interface Props {
 // });
 
 function EditProduct(props: Props) {
-  
   const { editProduct, getAllProducts } = useProducts();
-
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
       name: props.product.name,
-      imageId: props.product.imageId, 
+      imageId: props.product.imageId,
       price: props.product.price,
       description: props.product.description,
       stock: props.product.stock,
@@ -45,7 +41,6 @@ function EditProduct(props: Props) {
         imageId: values.imageId,
         stock: values.stock,
         categories: values.categories,
-      
       };
       editOldProduct(updatedProduct);
       formik.resetForm();
@@ -53,7 +48,7 @@ function EditProduct(props: Props) {
     },
   });
 
-   function editOldProduct(updatedProduct: Product) {
+  function editOldProduct(updatedProduct: Product) {
     const update = editProduct(updatedProduct);
     getAllProducts();
   }
@@ -135,38 +130,47 @@ function EditProduct(props: Props) {
             name="categories"
             label="Product Categories"
             value={formik.values.categories}
-            onChange={(e) => formik.setFieldValue('categories', e.target.value.split(','))}
+            onChange={(e) =>
+              formik.setFieldValue("categories", e.target.value.split(","))
+            }
             error={
               formik.touched.categories && Boolean(formik.errors.categories)
             }
             helperText={formik.touched.categories && formik.errors.categories}
           />
         </div>
-
-        <Button
-          style={saveCloseEditButton}
-          color="primary"
-          variant="contained"
-          fullWidth
-          type="submit"
-        >
-          Save Edit
-        </Button>
-        <Button
-          style={saveCloseEditButton}
-          color="primary"
-          variant="contained"
-          fullWidth
-          onClick={props.onClose}
-        >
-          Close window
-        </Button>
+        <div style={{display: 'flex', justifyContent: 'center', alignItems:'flex-start', gap:'1rem'}}>
+          <Button
+            style={saveCloseEditButton}
+            color="primary"
+            variant="contained"
+            fullWidth
+            type="submit"
+          >
+            Save
+          </Button>
+          <Button
+            style={saveCloseEditButton}
+            color="primary"
+            variant="contained"
+            fullWidth
+            onClick={props.onClose}
+          >
+            Close
+          </Button>
+        </div>
       </form>
     </div>
   );
 }
 
 export default EditProduct;
+
+const saveCloseEditButton: CSSProperties = {
+  marginTop: "1rem",
+  width: "40%",
+  marginBottom: "1rem",
+};
 
 const newProductContainer: CSSProperties = {
   backgroundColor: "black",
@@ -177,13 +181,13 @@ const newProductContainer: CSSProperties = {
   background: "#202225",
   border: "2px solid #000",
   zIndex: "9001",
-  //   boxShadow: 24,
   textAlign: "center",
   width: "clamp(10rem, 90vmin, 40rem",
+  maxHeight: '90vh'
 };
 
 const textFieldStyle: CSSProperties = {
-  marginBottom: "1rem",
+  marginBottom: ".4rem",
   width: "100%",
 };
 
@@ -197,14 +201,8 @@ const formStyle: CSSProperties = {
 
 const textFieldsContainer: CSSProperties = {
   display: "flex",
-  justifyContent: "center",
+  alignItems: "center",
   flexDirection: "column",
   width: "90%",
-  margin: "1rem",
-};
-
-const saveCloseEditButton: CSSProperties = {
-  marginTop: "1rem",
-  width: "40%",
-  marginBottom: "1rem",
+  margin: "0 1rem",
 };

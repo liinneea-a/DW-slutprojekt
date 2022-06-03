@@ -1,8 +1,6 @@
-import { Button } from "@mui/material";
 import { CSSProperties } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../../../context/CartContext";
-import { DeliveryDataInfo } from "../../../../data/collections/deliveryData";
 import { CompleteButton } from "../../../CompleteButton";
 
 
@@ -33,6 +31,7 @@ const invoiceInfoBox: CSSProperties = {
   alignItems: "center",
   textAlign: "center",
   width: "clamp(5rem, 60vmin, 20rem)",
+  paddingBottom: '1rem'
 };
 
 const completePurchaseButton: CSSProperties = {

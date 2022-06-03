@@ -35,7 +35,7 @@ export const CompleteButton = (props: Props) => {
 };
 
 const completePurchaseButton: CSSProperties = {
-  marginTop: "1rem",
-  marginBottom: "1rem",
-  width: "70%",
+  width: "10rem",
+  height: '100%',
+  fontWeight: 'bold',
 };

@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import DeliveryInfoTableWithPay from "../components/checkoutComponents/DeliveryInfoTableWithPay";
 import { StartPageButton } from "../components/StartPageButton";
 import { useCart } from "../context/CartContext";
-import { useShipper } from "../context/ShipperContext";
 
 function PurchaseComplete() {
   const navigate = useNavigate();
@@ -68,13 +67,15 @@ const rootStyle: CSSProperties = {
 const productImageStyle: CSSProperties = {
   objectFit: "cover",
   height: "100%",
+  maxHeight: '15vh',
   width: "auto",
 };
 
 const productCardStyle: CSSProperties = {
   display: "flex",
-  justifyContent: "space-between",
-  width: "70%",
+  justifyContent: "space-around",
+  alignItems: 'center',
+  gap: '1rem',
   height: "10rem",
   border: "1px solid grey",
 };
@@ -102,10 +103,6 @@ const totalPriceContainer: CSSProperties = { display: "flex" };
 
 const totalPriceTextStyle: CSSProperties = { marginRight: ".1rem" };
 
-const coinIcon: CSSProperties = { marginTop: "1.8rem" };
-
-const coinIcon2: CSSProperties = { marginTop: "0.1rem" };
-
 const purchasedItems: CSSProperties = {
   display: "flex",
   justifyContent: "center",
@@ -114,77 +111,4 @@ const purchasedItems: CSSProperties = {
   gap: "1rem",
   margin: 0,
   flexWrap: "wrap",
-};
-
-const purchasedItemTestCard: CSSProperties = {
-  boxShadow: "1px 1px 6px black",
-  borderRadius: ".5rem",
-  display: "flex",
-  alignItems: "center",
-  flexDirection: "column",
-  background: "#303339",
-  gap: "1rem",
-  padding: "1rem",
-  width: "clamp(12vmax, 30vmax, 5rem)",
-  position: "relative",
-};
-
-const cardContainer: CSSProperties = {
-  width: "100%",
-  borderRadius: ".5rem",
-  display: "flex",
-  justifyContent: "center",
-  flexDirection: "column",
-  alignItems: "center",
-  paddingBottom: "1rem",
-};
-
-const cardBody: CSSProperties = {
-  width: "90%",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-};
-
-const cardFooter: CSSProperties = {
-  display: "flex",
-  flexDirection: "column",
-  textAlign: "center",
-  fontSize: "clamp(2vmin, 2.5vmin, 1.2rem)",
-};
-const cardHeader: CSSProperties = {
-  width: "100%",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  fontSize: "clamp(2vmin, 3vmin, 1.2rem)",
-};
-
-const cardHeaderTextStyle: CSSProperties = { margin: 0 };
-
-const cardImageContainer: CSSProperties = { width: "100%" };
-
-const cardImageStyle: CSSProperties = { width: "100%" };
-
-const itemCountBadge: CSSProperties = {
-  position: "absolute",
-  top: "-.5rem",
-  right: "-.5rem",
-  width: "1.5rem",
-  height: "1.5rem",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  borderRadius: "100%",
-  fontSize: "1rem",
-  color: "white",
-  background: "#2081e2",
-};
-
-const itemCountTextStyle: CSSProperties = {
-  textAlign: "center",
-  width: "100%",
-  letterSpacing: 0,
-  fontWeight: "bold",
 };
