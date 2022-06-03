@@ -10,7 +10,6 @@ interface UserContext {
   postUser: ({}) => Promise<any>;
   loginUser: ({}) => Promise<any>;
   getAllUsers: () => Promise<any>;
-  getUserOrders: () => Promise<any>;
   updateUserRole: (user: User) => Promise<any>;
   signOut: () => void;
   setAdminRequest: React.Dispatch<React.SetStateAction<boolean>>;
@@ -23,7 +22,6 @@ export const UserContext = createContext<UserContext>({
   loginUser: async () => {},
   updateUserRole: async () => {},
   getAllUsers: async () => void [],
-  getUserOrders: async () => void [],
   signOut: () => {},
   setAdminRequest: () => boolean,
   adminRequest: false,
@@ -86,10 +84,6 @@ export const UserProvider = (props: any) => {
     }
   };
 
-  /** GET ORDERS OF LOGGED IN USER */
-  const getUserOrders = async () => {
-  };
-
   /** TRACKS THE LOGGED IN USER */
   useEffect(() => {
     const fetchLoggedInUser = async () => {
@@ -138,7 +132,6 @@ export const UserProvider = (props: any) => {
         adminRequest,
         loggedInUser,
         orders,
-        getUserOrders,
         postUser,
         loginUser,
         updateUserRole,
