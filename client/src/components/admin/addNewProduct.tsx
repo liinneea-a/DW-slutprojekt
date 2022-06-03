@@ -133,6 +133,7 @@ function AddNewProduct(props: Props) {
               required
             />
           </div>
+          <div style={{display: 'flex', justifyContent: 'center', alignItems:'flex-start', gap:'1rem'}}>
           <Button
             style={addNewProductButton}
             color="primary"
@@ -140,7 +141,7 @@ function AddNewProduct(props: Props) {
             fullWidth
             type="submit"
           >
-            Add new product
+            Add 
           </Button>
           <Button
             style={closeWindowButton}
@@ -149,8 +150,9 @@ function AddNewProduct(props: Props) {
             fullWidth
             onClick={props.onClose}
           >
-            Close window
+            Close 
           </Button>
+          </div>
         </form>
       </div>
     </div>
@@ -168,9 +170,9 @@ const newProductContainer: CSSProperties = {
   background: "#202225",
   border: "2px solid #000",
   zIndex: "9001",
-  //   boxShadow: 24,
   textAlign: "center",
   width: "clamp(10rem, 90vmin, 40rem",
+  maxHeight: '90vh'
 };
 
 const addNewProductButton: CSSProperties = {
@@ -186,7 +188,7 @@ const closeWindowButton: CSSProperties = {
 };
 
 const textFieldStyle: CSSProperties = {
-  marginBottom: "1rem",
+  marginBottom: ".4rem",
   width: "100%",
 };
 
@@ -200,8 +202,8 @@ const formStyle: CSSProperties = {
 
 const textFieldsContainer: CSSProperties = {
   display: "flex",
-  justifyContent: "center",
+  alignItems: "center",
   flexDirection: "column",
   width: "90%",
-  margin: "1rem",
+  margin: "0 1rem",
 };

@@ -1,12 +1,12 @@
 import { CSSProperties } from "react";
-import { Link } from "react-router-dom";
-import { Button } from "@mui/material";
 
 function Footer() {
   return (
     <div>
       <div style={footerStyle}>
         © Created by FrontFelix, AdaHep and MiMeiner, 2022.
+        <br />
+        © Updated by liinneea-a, rosannapistone, and MiMeiner, 2022.
         {/* <Link to="/Admin" style={{textDecoration: 'none'}}>
           <Button style={StyledButton} variant="contained" href="">
             ADMIN

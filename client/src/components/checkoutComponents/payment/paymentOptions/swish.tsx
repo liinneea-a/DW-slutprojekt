@@ -63,7 +63,7 @@ function Swish(props: Props) {
           error={formik.touched.number && Boolean(formik.errors.number)}
           helperText={formik.touched.number && formik.errors.number}
         />
-        <button type="submit">
+        <button style={completePurchaseButton} type="submit">
            <CompleteButton paymentMethod={'Swish'}/>
         </button>
        
@@ -83,7 +83,12 @@ const textFieldStyle: CSSProperties = {
 };
 
 const completePurchaseButton: CSSProperties = {
-  marginTop: '1rem',
+  // background: '#2081e2',
+  color: 'transparent',
+  margin: 0,
+  padding: 0,
+  display: 'flex',
+  border: 'none',
+  borderRadius: '2rem',
   marginBottom: '1rem',
-  background: '#2081e2',
 };

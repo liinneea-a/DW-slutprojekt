@@ -127,16 +127,6 @@ const adminProducts: CSSProperties = {
   gap: "1rem",
 };
 
-const adminCollectionsHeader: CSSProperties = {
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
-  justifyContent: "space-around",
-  gap: "1rem",
-  width: "100%",
-  flexWrap: "wrap",
-};
-
 const adminAddStyle: CSSProperties = {
   display: "flex",
   gap: "1rem",
@@ -154,6 +144,8 @@ const adminAddStyle: CSSProperties = {
 const adminCardHeader: CSSProperties = {
   display: "flex",
   justifyContent: "space-between",
+  gap:'1rem',
+  flexWrap: 'wrap',
   width: "100%",
 };
 
@@ -162,31 +154,13 @@ const adminImageStyle: CSSProperties = {
   height: "5rem",
 };
 
-const adminCollectionMain: CSSProperties = {
-  display: "flex",
-  gap: "1rem",
-  flexWrap: "wrap",
-  justifyContent: "center",
-};
-
-const headerLeft: CSSProperties = {
-  display: "flex",
-  gap: "1rem",
-  alignItems: "center",
-};
-
 const descStyle: CSSProperties = {
   display: "flex",
   alignItems: "center",
+  justifyContent: '',
   height: "100%",
   fontSize: ".75rem",
-};
-
-const headerRight: CSSProperties = {
-  display: "flex",
-  gap: "1rem",
-  flexWrap: "wrap",
-  justifyContent: "center",
+  textAlign: 'left'
 };
 
 const buttonStyle: CSSProperties = {
@@ -220,6 +194,7 @@ const buttonDivStyle: CSSProperties = {
   gap: "1rem",
   flexDirection: "row",
   justifyContent: "space-around",
+  alignItems: 'flex-end'
 };
 
 const adminCardMiddle: CSSProperties = {
