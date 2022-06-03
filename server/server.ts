@@ -7,9 +7,6 @@ import { orderRouter, productRouter, shipperRouter, userRouter } from "./resourc
 import { mediaRouter } from "./resources/media/media.router";
 require("express-async-errors");
 
-
-//import {errorRequestHandler} from "./error";
-
 dotenv.config();
 const app = express();
 const PORT = 4000;

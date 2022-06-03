@@ -1,16 +1,9 @@
 import { CSSProperties } from "react";
-import { useNavigate } from "react-router-dom";
-import { useCart } from "../../../../context/CartContext";
 import { CompleteButton } from "../../../CompleteButton";
 
 
 
 function Invoice() {
-  const navigate = useNavigate();
-  const { sendOrder, cart, clearCart, newPurchaseTotal } =
-    useCart();
-
-
 
   return (
     <div style={invoiceInfoBox}>

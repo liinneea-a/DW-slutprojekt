@@ -1,10 +1,9 @@
 import { CSSProperties, useContext, useEffect } from "react";
-//import { User } from "@server/*";
 import { User } from "../../../server/resources";
 import { UserContext } from "../context/UserContext";
 
 function AdminEditUserPage() {
-  const { getAllUsers, allUsers, adminRequest, loggedInUser, updateUserRole } =
+  const { getAllUsers, allUsers, updateUserRole } =
     useContext(UserContext);
 
   useEffect(() => {
