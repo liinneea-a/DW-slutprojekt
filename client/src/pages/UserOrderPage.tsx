@@ -7,7 +7,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import OneUserOrder from "./OneOrder";
+import OneOrder from "./OneUserOrder";
 
 function UserOrderPage() {
   const { getUserOrders, orders } = useUser();
@@ -29,7 +29,7 @@ function UserOrderPage() {
         </TableHead>
         <TableBody>
           {orders.map((order: any) => (
-            <OneUserOrder key={order.id} order={order} />
+            <OneOrder key={order.id} order={order} />
           ))}
         </TableBody>
       </Table>
