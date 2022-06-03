@@ -1,18 +1,17 @@
 import { CSSProperties } from "react";
 import OrderTable from "./OrderTable";
 
-function AdminOrderPage() {
+export function OrderPage() {
 
   return (
-    <div style={adminOrderPage}>
+    <div style={OrderPageStyle}>
       <OrderTable />
     </div>
   );
 }
 
-export default AdminOrderPage;
 
-const adminOrderPage: CSSProperties = {
+const OrderPageStyle: CSSProperties = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",

@@ -11,7 +11,8 @@ import {
 
 export const orderRouter = express
   .Router()
-  .get("/orders", authorize, ifAdmin, getAllOrders) //fungerar
+  .get("/orders", authorize, getAllOrders) //fungerar
+  // .get("/orders/:id", authorize, ifAdminOrSelf)
   .get("/order/:id", authorize, ifAdminOrSelf, getOrder)
   .post("/order", authorize, addOrder) // fungerar
   .put("/order/:id", authorize, ifAdmin, updateOrder);

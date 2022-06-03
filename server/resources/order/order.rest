@@ -1,6 +1,6 @@
 
-### Get all orders
-GET http://localhost:4000/api/orders
+### Get all orders based on admin or not
+GET http://localhost:4000/api/orders/629622394f44ab171a366220
 
 ### Get one order
 

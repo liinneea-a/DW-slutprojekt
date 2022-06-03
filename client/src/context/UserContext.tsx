@@ -36,6 +36,11 @@ export const UserProvider = (props: any) => {
   const [allUsers, setAllUsers] = useState<User[]>();
   const [orders, setOrders] = useState<any>([]);
 
+
+  useEffect(() => {
+    console.log("logged in user: ", loggedInUser?.id);
+  })
+
   /** CREATE A NEW USER */
   const postUser = async (user: {}) => {
     try {
@@ -84,20 +89,21 @@ export const UserProvider = (props: any) => {
 
   /** GET ORDERS OF LOGGED IN USER */
   const getUserOrders = async () => {
-    try {
-      let { data, ok } = await makeReq(`/api/order/${loggedInUser?.id}`, "GET");
-      console.log(loggedInUser?.id);
-      console.log(data);
-      if (ok) {
-        setOrders(data);
-        console.log(orders);
-        return true;
-      } else {
-        setOrders(undefined);
-      }
-    } catch (err) {
-      return console.log(err);
-    }
+          console.log("logged in user: ", loggedInUser);
+    // try {
+    //   let { data, ok } = await makeReq(`/api/order/${loggedInUser?.id}`, "GET");
+
+    //   console.log(data);
+    //   if (ok) {
+    //     setOrders(data);
+    //     console.log(orders);
+    //     return true;
+    //   } else {
+    //     setOrders(undefined);
+    //   }
+    // } catch (err) {
+    //   return console.log(err);
+    // }
   };
 
   /** TRACKS THE LOGGED IN USER */

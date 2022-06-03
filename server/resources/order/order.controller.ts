@@ -5,13 +5,14 @@ import { OrderModel } from "./order.model";
 
 /** GET ALL ORDERS */
 export const getAllOrders = async (req: Request, res: Response) => {
-  // TODO: Who is allowed to use this endpoint?
+ 
   const orders = await OrderModel.find({});
   if (!orders.length) {
     return res.status(400).json(orders);
   }
   res.status(200).json(orders);
 };
+
 
 /** GET ONE USERS ORDERS */
 

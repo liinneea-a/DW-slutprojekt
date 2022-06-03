@@ -3,7 +3,8 @@ import { UserModel } from "./user.model";
 
 /** Stops users that aren't logged in */
 export const authorize = (req: Request, res: Response, next: NextFunction) => {
-  
+  console.log("auth")
+
     if (req.session?.isPopulated) {
       next();
     } else {
@@ -28,11 +29,6 @@ export const authorize = (req: Request, res: Response, next: NextFunction) => {
     const user = await UserModel.findById(req.params.id);
     const myAccount = user?.id === req.session?.user.id; 
 
-
-   // console.log(user?.id);
-   // console.log(req.session?.user.id)
-
-
     const isAdmin = req.session?.user.isAdmin;
 
     if (myAccount && !isAdmin) {
@@ -47,6 +43,7 @@ export const authorize = (req: Request, res: Response, next: NextFunction) => {
     } else if(!isAdmin && !myAccount) {
       return res.status(403).json('You are not admin and the user youre looking for is not you')
     } 
+
 
   }
 
