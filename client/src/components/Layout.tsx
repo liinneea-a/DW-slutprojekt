@@ -2,7 +2,7 @@ import { CSSProperties, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import AdminEditUserPage from '../pages/AdminEditUserPage';
-import AdminOrderPage from '../pages/AdminOrderPage';
+import{ OrderPage} from '../pages/OrderPage';
 import AdminPage from '../pages/AdminPage';
 import AllProducts from '../pages/AllProductsPage';
 import CheckoutPage from '../pages/CheckoutPage';
@@ -35,9 +35,9 @@ function Layout() {
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/adminusers" element={<AdminEditUserPage />} />
           <Route path="/all" element={<AllProducts />} />
-          <Route path="/profile" element={<UserOrderPage />} />
+          {/* <Route path="/profile" element={<UserOrderPage />} /> */}
           <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/adminorder" element={<AdminOrderPage />} />
+          <Route path="/profile" element={<OrderPage />} />
           <Route path="/checkoutdetails" element={<CheckoutPageDetails />} />
           <Route
             path="/paymentpage"
