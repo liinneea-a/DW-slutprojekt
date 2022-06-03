@@ -1,12 +1,23 @@
 import { Button, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import { CSSProperties } from "react";
+import * as yup from "yup";
 import { useProducts } from "../../context/ProductContext";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
 }
+
+const validationSchema = yup.object({
+  name: yup.string().required("Please enter new name").min(1),
+  description: yup.string().required("Please enter a new description").min(2),
+  productImage: yup.string().required("Please enter a new image URL").min(10),
+  price: yup.number().required("Please enter the updated price").min(1),
+  stock: yup.number().required("Please enter the available stock"),
+  categories: yup.array().required("Please enter at least one category").min(1),
+});
+
 
 function AddNewProduct(props: Props) {
   const { addProduct, getAllProducts } = useProducts();
@@ -19,7 +30,7 @@ function AddNewProduct(props: Props) {
       description: "",
       stock: "",
       categories: "",
-    },
+    },validationSchema: validationSchema,
     onSubmit: (values) => {
       let product = {
         name: values.name,

@@ -1,5 +1,4 @@
-import { ObjectId } from "mongodb";
-import mongoose, { Types } from "mongoose";
+import mongoose from "mongoose";
 
 export interface Shipper {
   shipper: string,
