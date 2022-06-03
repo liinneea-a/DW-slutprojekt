@@ -12,7 +12,6 @@ export function addCart(setCart : any, cart: any, item: testNft | undefined) {
     let foundItem = CartList.find((listedItem : any) => listedItem.productID === item?.productID)
     if(foundItem) {
       foundItem.count += 1
-      console.log('Finns redan')
     }else {
       CartList.push(item);
     }

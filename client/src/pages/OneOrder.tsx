@@ -1,4 +1,3 @@
-// import { Order } from "@server/types";
 import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
@@ -8,7 +7,7 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import { Order, Product } from "../../../server/resources";
 import { useOrders } from "../context/OrderContext";
 import { useUser } from "../context/UserContext";
@@ -23,12 +22,7 @@ export default function OneOrder({ order }: Props) {
   const date = new Date(order.createdAt);
   const { loggedInUser } = useUser();
 
-  useEffect(() => {
-    console.log(loggedInUser);
-  });
-
   return (
-    // <div style={{border: "2px solid red"}}>{order.customer}</div>
     <Fragment>
       <TableRow>
         <TableCell

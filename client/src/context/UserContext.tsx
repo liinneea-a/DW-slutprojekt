@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { boolean } from "yup";
-import { makeReq } from "../helper";
 import { User } from "../../../server/resources";
+import { makeReq } from "../helper";
 
 interface UserContext {
   loggedInUser?: User;
@@ -38,7 +38,6 @@ export const UserProvider = (props: any) => {
 
 
   useEffect(() => {
-    console.log("logged in user: ", loggedInUser?.id);
   })
 
   /** CREATE A NEW USER */
@@ -89,21 +88,6 @@ export const UserProvider = (props: any) => {
 
   /** GET ORDERS OF LOGGED IN USER */
   const getUserOrders = async () => {
-          console.log("logged in user: ", loggedInUser);
-    // try {
-    //   let { data, ok } = await makeReq(`/api/order/${loggedInUser?.id}`, "GET");
-
-    //   console.log(data);
-    //   if (ok) {
-    //     setOrders(data);
-    //     console.log(orders);
-    //     return true;
-    //   } else {
-    //     setOrders(undefined);
-    //   }
-    // } catch (err) {
-    //   return console.log(err);
-    // }
   };
 
   /** TRACKS THE LOGGED IN USER */

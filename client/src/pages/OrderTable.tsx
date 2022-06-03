@@ -14,7 +14,6 @@ export default function OrderTable() {
 
   useEffect(() => {
     getAllOrders();
-    console.log('Orders: ', orders);
   }, []);
 
   return (

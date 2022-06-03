@@ -1,15 +1,10 @@
-import { CSSProperties, useContext } from "react";
+import { CSSProperties } from "react";
 import { useCart } from "../../context/CartContext";
-import { ShipperContext } from "../../context/ShipperContext";
-import { DeliveryDataInfo } from "../../data/collections/deliveryData";
 
 
 function DeliveryInfoTable() {
 
   const { deliveryInfo, setDeliveryInfo, selectedShipping } = useCart(); 
-
-  // const { selectedShipping } =
-  // useContext(ShipperContext);
   
   return (
     <div>

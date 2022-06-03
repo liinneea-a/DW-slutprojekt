@@ -1,16 +1,12 @@
 // @ts-ignore
 
-import { SelfImprovement } from '@mui/icons-material';
-import { ObjectId } from 'mongoose';
 import { createContext, FC, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { Order, Product, Shipper } from '../../../server/resources';
+import { Product } from '../../../server/resources';
 import {
-  DeliveryDataInfoObject,
-  DeliveryDataInfo,
+  DeliveryDataInfo, DeliveryDataInfoObject
 } from "../data/collections/deliveryData";
 import { makeReq } from "../helper";
-import { useShipper } from "./ShipperContext";
 
 interface CartContext {
   purchaseList: Product[];
@@ -62,25 +58,18 @@ export const CartProvider: FC = (props) => {
   const [deliveryInfo, setDeliveryInfo] = useState(DeliveryDataInfoObject);
   const [selectedShipping, setSelectedShipping] = useState<any>();
   
-  // const { selectedShipping } = useShipper();
   const [id, setId] = useState("");
 
   useEffect(() => {
-    console.log("cart: ", cart);
   }, [cart]);
 
   useEffect(() => {
-    console.log(totalPrice);
   }, [totalPrice])
 
   useEffect(() => {
-    console.log(selectedShipping)
   }, [selectedShipping])
 
   const sendOrder = async () => {
-    console.log('in sendOrder');
-    console.log(selectedShipping);
-    console.log(totalPrice);
     
     let sum = calculatePrice();
 
@@ -98,8 +87,6 @@ export const CartProvider: FC = (props) => {
       paymentMethod: deliveryInfo.paymentMethod,
       totalPrice: sum
     };
-    console.log("order: ", order);
-    console.log("del.paymentM: ", deliveryInfo.paymentMethod);
 
     try {
       const { data, ok } = await makeReq('/api/order', 'POST', order);
@@ -107,15 +94,12 @@ export const CartProvider: FC = (props) => {
 
       if (ok) {
         for (let product of cart) {
-          console.log(product.stock);
           product.stock -= product.quantity!;
-          console.log(product.stock);
           const { data, ok } = await makeReq(
             `/api/products/${product.id}`,
             "PUT",
             product
           );
-          console.log(ok);
         }
       }
     } catch (err) {

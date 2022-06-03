@@ -7,16 +7,15 @@ import {
   Select,
   TextField
 } from "@mui/material";
-import e from "express";
 import { useFormik } from "formik";
 import { CSSProperties, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { Shipper } from "../../../../server/resources";
-
 import { useCart } from "../../context/CartContext";
 import { useShipper } from "../../context/ShipperContext";
 import DeliveryBox from "../checkoutComponents/shipping/deliveryBox";
+
 
 const validationSchema = yup.object({
   firstName: yup.string().required("Please enter first name").min(2),
@@ -53,14 +52,11 @@ function CheckoutForm() {
 
     onSubmit: (values, event) => {
       setDeliveryInfo(values);
-      console.log(values)
       navigate("/paymentpage");
     },
   });
 
   const handleChangeShipping = (event: any) => {
-    console.log(event.target.value)
-    //setSelectedShipping(event.target.value);
 
     for (let shipper of shippers) {
       if(event.target.value === shipper.shipper) {
@@ -76,12 +72,10 @@ function CheckoutForm() {
 
   async function getShippers() {
     const result = await getAllShippers();
-    console.log(result)
     setShippers(result);
   }
 
   useEffect(() => {
-      console.log(selectedShipping)
   }, [selectedShipping])
 
   useEffect(() => {

@@ -14,7 +14,6 @@ function CartModal(props: CartProps) {
   const { cart, decQty, incQty, clearCart, totalPrice, calculatePrice } =
     useCart();
   const handleClose = () => props.setModalState(false);
-  // const [collectionList, setCollectionList] = useState(collectionData);
   const { loggedInUser } = useContext(UserContext);
 
   useEffect(() => {

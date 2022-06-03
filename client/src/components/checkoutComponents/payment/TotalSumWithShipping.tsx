@@ -1,10 +1,8 @@
 import { CSSProperties } from "react";
 import { useCart } from "../../../context/CartContext";
-import { useShipper } from "../../../context/ShipperContext";
 
 function TotalSumWithShipping() {
   const { totalPrice, selectedShipping } = useCart();
-  // const { selectedShipping } = useShipper();
 
   
   

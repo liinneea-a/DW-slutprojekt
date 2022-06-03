@@ -1,10 +1,8 @@
 import { Button, TextField } from "@mui/material";
-// import { Product } from "@server/types";
 import { useFormik } from "formik";
 import { CSSProperties } from "react";
 import * as yup from "yup";
 import { Product } from "../../../../server/resources";
-// import { Product } from "../../../../server/resources";
 import { useProducts } from "../../context/ProductContext";
 
 interface Props {

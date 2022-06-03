@@ -7,7 +7,6 @@ import { useCart } from "../context/CartContext";
 function PurchaseComplete() {
   const navigate = useNavigate();
   const { totalPrice, cart, id, selectedShipping } = useCart();
-  // const { selectedShipping } = useShipper();
 
   return (
     <>
@@ -27,7 +26,6 @@ function PurchaseComplete() {
             </h2>
           </div>
           <h2>Your purchase:</h2>
-          {/* <div style={cardContainer}> */}
           <div style={purchasedItems}>
             {cart.map((product) => {
               return (
@@ -46,7 +44,6 @@ function PurchaseComplete() {
               );
             })}
           </div>
-          {/* </div> */}
         </div>
       </div>
     </>
@@ -56,7 +53,6 @@ function PurchaseComplete() {
 export default PurchaseComplete;
 
 const rootStyle: CSSProperties = {
-  // border: '2px solid red',
   display: "flex",
   justifyContent: "center",
   alignItems: "center",

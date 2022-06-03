@@ -2,16 +2,15 @@ import { CSSProperties, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import AdminEditUserPage from '../pages/AdminEditUserPage';
-import{ OrderPage} from '../pages/OrderPage';
 import AdminPage from '../pages/AdminPage';
 import AllProducts from '../pages/AllProductsPage';
 import CheckoutPage from '../pages/CheckoutPage';
 import CheckoutPageDetails from '../pages/CheckoutPageDetails';
 import LoginPage from '../pages/LoginPage';
+import { OrderPage } from '../pages/OrderPage';
 import PaymentPage from '../pages/PaymentPage';
 import PurchaseComplete from '../pages/PurchaseComplete';
 import StartPage from '../pages/Startpage';
-import UserOrderPage from '../pages/UserOrderPage';
 import CartModal from './CartModal';
 import Footer from './Footer';
 import Header from './Header';
@@ -35,9 +34,8 @@ function Layout() {
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/adminusers" element={<AdminEditUserPage />} />
           <Route path="/all" element={<AllProducts />} />
-          {/* <Route path="/profile" element={<UserOrderPage />} /> */}
           <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/profile" element={<OrderPage />} />
+          <Route path="/order" element={<OrderPage />} />
           <Route path="/checkoutdetails" element={<CheckoutPageDetails />} />
           <Route
             path="/paymentpage"

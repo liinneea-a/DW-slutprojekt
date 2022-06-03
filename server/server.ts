@@ -1,11 +1,11 @@
 
-import express, { ErrorRequestHandler } from "express";
-require("express-async-errors");
-import mongoose from "mongoose";
-import { userRouter, orderRouter, productRouter, shipperRouter } from "./resources";
-import dotenv from 'dotenv'
 import cookieSession from "cookie-session";
+import dotenv from 'dotenv';
+import express, { ErrorRequestHandler } from "express";
+import mongoose from "mongoose";
+import { orderRouter, productRouter, shipperRouter, userRouter } from "./resources";
 import { mediaRouter } from "./resources/media/media.router";
+require("express-async-errors");
 
 
 //import {errorRequestHandler} from "./error";
@@ -14,7 +14,6 @@ dotenv.config();
 const app = express();
 const PORT = 4000;
 
-// Add global middlewares
 app.use(express.json());
 
 app.use(
@@ -27,13 +26,11 @@ app.use(
   })
 )
 
-// Add routers
 app.use("/api", userRouter);
 app.use("/api", orderRouter);
 app.use("/api", productRouter);
 app.use("/api", shipperRouter);
 app.use('/api', mediaRouter);
-// Add more routers here....
 
 
 //error handler

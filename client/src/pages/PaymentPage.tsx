@@ -1,30 +1,19 @@
 import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useFormik } from "formik";
-import { CSSProperties, useEffect, useState } from "react";
+import { CSSProperties, useState } from "react";
 import DeliveryInfoTable from "../components/checkoutComponents/DeliveryInfoTable";
 import PaymentBox from "../components/checkoutComponents/payment/paymentBox";
 import TotalSumWithShipping from "../components/checkoutComponents/payment/TotalSumWithShipping";
 import { StartPageButton } from "../components/StartPageButton";
 import { useCart } from "../context/CartContext";
-import { useShipper } from "../context/ShipperContext";
 
 interface Props {
   finalTotalSum: number;
   setFinalTotalSum: any;
 }
 
-// const navigate = useNavigate();
-
 function PaymentPage(props: Props) {
   const { selectedShipping } = useCart();
-
-// const { selectedShipping } = useShipper();
-
-  useEffect(() => {
-     console.log(selectedShipping);
-  })
- 
-
 
   const handleChange = (event: any) => {
     setPaymentOption(event.target.value);
@@ -35,7 +24,6 @@ function PaymentPage(props: Props) {
       paymentOption: "",
     },
     onSubmit: (values) => {
-      // navigate("/PaymentPage");
     },
   });
   const [paymentOption, setPaymentOption] = useState("");

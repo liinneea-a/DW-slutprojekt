@@ -15,8 +15,6 @@ export const CompleteButton = (props: Props) => {
   const completePayment = () => {
     let newOrder = deliveryInfo;
     newOrder.paymentMethod = props.paymentMethod;
-    console.log(props.paymentMethod);
-    console.log(newOrder);
     setDeliveryInfo(newOrder);
     sendOrder();
     navigate("/purchasecomplete");
