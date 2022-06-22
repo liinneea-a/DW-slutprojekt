@@ -1,18 +1,10 @@
 import { Button, TextField } from "@mui/material";
 import { useFormik } from "formik";
-
 import { CSSProperties, useState } from "react";
-//import { Product } from "../../../../server/resources";
-//import { Product } from "../../../../server/resources";
 import { useProducts} from "../../context/ProductContext";
 import { ProductData } from "../../ProductData";
 import * as yup from "yup";
-/*
-import { CSSProperties } from "react";
-
-import { Product } from "../../../../server/resources";
-import { useProducts } from "../../context/ProductContext";
-*/
+import { getAllProducts } from "../../../../server/resources";
 
 interface Props {
   isOpen: boolean;
@@ -23,7 +15,6 @@ interface Props {
 const validationSchema = yup.object({
   name: yup.string().required("Please enter new name").min(1),
   description: yup.string().required("Please enter a new description").min(2),
-  productImage: yup.string().required("Please enter a new image URL").min(10),
   price: yup.number().required("Please enter the updated price").min(1),
   stock: yup.number().required("Please enter the updated stock"),
   categories: yup.array().required("Please enter at least one category").min(1),
@@ -31,7 +22,7 @@ const validationSchema = yup.object({
 
 function EditProduct(props: Props) {
   const { editProduct, getAllProducts } = useProducts();
-  const [imageId, setImageId] = useState<string>();
+  const [newImageId, setNewImageId] = useState<string>();
   const [image, setImage] = useState();
 
   const handleImage = async (event: any) => {
@@ -46,8 +37,8 @@ function EditProduct(props: Props) {
     let jsonres = await response.json();
     
     setImage(jsonres.filename);
-    setImageId(jsonres._id);
-    console.log(image, imageId)
+    setNewImageId(jsonres._id);
+    console.log(image, newImageId)
   };
 
   const formik = useFormik({
@@ -61,21 +52,22 @@ function EditProduct(props: Props) {
       categories: props.product.categories,
     },
     validationSchema: validationSchema,
+
     onSubmit: (values) => {
+      console.log('here')
+
       let updatedProduct = {
         id: props.product.id,
         name: values.name,
-        imageId,
+        imageId: newImageId,
         description: values.description,
         price: values.price,
-        //imageId: values.imageId,
         stock: values.stock,
         categories: values.categories,
-
-        image: "",
         quantity: 0,
 
       };
+
       editOldProduct(updatedProduct);
       formik.resetForm();
       props.onClose();
@@ -84,9 +76,7 @@ function EditProduct(props: Props) {
 
 
    function editOldProduct(updatedProduct: ProductData) {
-
- /* function editOldProduct(updatedProduct: Product) { */
-
+    console.log('in edit product')
     const update = editProduct(updatedProduct);
     getAllProducts();
   }
@@ -117,12 +107,8 @@ function EditProduct(props: Props) {
             id="imageId"
             name="media"
             type="file"
-            //label="Product Image URL"
-            //value={formik.values.imageId}
             onChange={ (e) => handleImage(e)}
             required
-            //error={formik.touched.imageId && Boolean(formik.errors.imageId)}
-            //helperText={formik.touched.imageId && formik.errors.imageId}
           />
           <TextField
             style={textFieldStyle}

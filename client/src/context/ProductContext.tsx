@@ -1,32 +1,7 @@
-// import { Product } from "@server/types";
 import { createContext, FC, useContext, useState } from "react";
-
-
 import { ProductData } from "../ProductData";     
-
-//import { Product as ProductData } from "../../../server/resources";
-
 import { makeReq } from "../helper";
 import { useParams } from "react-router-dom";
-
-
-/* const product: Product = {
-  _id: "",
-  
-} */
-
-/* export interface ProductData {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-  imageId?: string;
-  stock: number;
-  categories: string[];
-  quantity: number;
-  imageUrl?: string;
-} */
 
 interface ProductContext {
   selectedProduct: {};
@@ -69,7 +44,6 @@ export const ProductProvider: FC = (props) => {
 
   const addProduct = async (product: ProductData) => {
     let response = await makeReq("/api/product/", "POST", product);
-    console.log(response)
     return response;
   };
 
@@ -135,7 +109,6 @@ export const ProductProvider: FC = (props) => {
         addProduct,
         removeProduct,
         editProduct,
-        //ProductData,
       }}
     >
       {" "}

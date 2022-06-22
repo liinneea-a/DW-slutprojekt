@@ -28,4 +28,5 @@
 .image {
     backface-visibility: hidden;
     height: 19rem;
+    width: 19rem;
 }

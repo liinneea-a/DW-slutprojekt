@@ -1,9 +1,6 @@
 import { Button, TextField } from "@mui/material";
 import { useFormik } from "formik";
-
 import { CSSProperties, useState } from "react";
-// import { ProductSchema } from "../../../../server/resources";
-
 import * as yup from "yup";
 import { useProducts } from "../../context/ProductContext";
 import { ProductData } from "../../ProductData";
@@ -47,32 +44,22 @@ function AddNewProduct(props: Props) {
     initialValues: {
       name: "",
       imageId,
-      //imageUrl: "",
-      //imageId: "",
       price: 0,
       description: "",
-
       stock: 0,
       categories: [""],
       id: "",
     },
-/*
-      stock: "",
-      categories: "",
-    },validationSchema: validationSchema,
-        */
+    validationSchema: validationSchema,
     onSubmit: (values) => {
       let product: ProductData = {
         id: values.id,
         name: values.name,
         imageId,
-        //imageUrl: values.imageUrl,
-        //imageId: values.imageId,
         price: values.price,
         description: values.description,
         stock: values.stock,
         categories: values.categories,
-        //image: "",
         quantity: 0
       };
       console.log(imageId)
@@ -81,7 +68,7 @@ function AddNewProduct(props: Props) {
       formik.resetForm();
       props.onClose();
     },
-  });
+  })
 
 
 
@@ -118,13 +105,9 @@ function AddNewProduct(props: Props) {
               fullWidth
               autoComplete="off"
               id="imageId"
-              name="media" //"imageId"
+              name="media" 
               type="file"
-              //label="Image url"
-              //value={formik.values.imageId}
-              onChange= {(e) => handleImage(e)}//{formik.handleChange}
-             // error={formik.touched.imageId && Boolean(formik.errors.imageId)}
-              //helperText={formik.touched.imageId && formik.errors.imageId}
+              onChange= {(e) => handleImage(e)}//
               required
             />
             <TextField
