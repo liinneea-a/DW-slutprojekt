@@ -10,6 +10,6 @@ export const mediaRouter = express
   .Router()
   //.get("/media", /* adminSecure, */)
   .get('/media/:id', getMedia )
-  .post("/media", ifAdmin, upload.single('media') ,addMedia)
+  .post("/media", upload.single('media') ,addMedia)
   .delete("/media/:id", ifAdmin, deleteMedia);
 

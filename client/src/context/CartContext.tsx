@@ -92,7 +92,7 @@ export const CartProvider: FC = (props) => {
           product.stock -= product.quantity!;
           console.log(product.stock);
           const { data, ok } = await makeReq(
-            `/api/products/${product._id}`,
+            `/api/products/${product.id}`,
             'PUT',
             product
           );
@@ -136,7 +136,7 @@ export const CartProvider: FC = (props) => {
 
     let newCart = cart;
     let foundItem = newCart.find(
-      (cartItem: ProductData) => cartItem._id === item?._id
+      (cartItem: ProductData) => cartItem.id === item?.id
     );
 
     if (foundItem) {
@@ -153,7 +153,7 @@ export const CartProvider: FC = (props) => {
 
   const incQty = (itemID: string) => {
     let updatedList = cart.map((item: ProductData) => {
-      if (item._id === itemID) {
+      if (item.id === itemID) {
         item.quantity! += 1;
       }
       return item;
@@ -165,7 +165,7 @@ export const CartProvider: FC = (props) => {
 
   const decQty = (itemID: string) => {
     let updatedList = cart.filter((item: ProductData) => {
-      if (item._id === itemID) {
+      if (item.id === itemID) {
         if (item.quantity! > 1) {
           item.quantity! -= 1;
           return item;

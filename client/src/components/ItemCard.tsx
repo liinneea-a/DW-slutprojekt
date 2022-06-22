@@ -32,7 +32,7 @@ function ItemCard(props: Props) {
       </div>
       <p style={clickMeStyle}>Click me!</p>
       <div style={cardContent}>
-        <FlipCard key={props.product._id} product={props.product} />
+        <FlipCard key={props.product.id} product={props.product} />
         {props.product.stock ? (
         <Button
         style={buttonStyle}

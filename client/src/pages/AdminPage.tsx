@@ -26,7 +26,7 @@ interface Product {
 function AdminPage(/* props: Product */) {
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<ProductData>({
-      _id: "",
+      id: "",
       name: "",
       description: "",
       price: 0,
@@ -74,7 +74,7 @@ function AdminPage(/* props: Product */) {
       </div>
       <div style={adminProducts}>
         {products.map((product, index) => (
-          <div style={adminAddStyle} key={product._id}>
+          <div style={adminAddStyle} key={product.id}>
             <div style={adminCardHeader}>
               <div
                 style={{ display: "flex", flexDirection: "row", gap: "2rem" }}

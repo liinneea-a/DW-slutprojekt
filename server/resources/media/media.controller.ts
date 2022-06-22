@@ -1,19 +1,19 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, Response } from "express";
 //import { rmSync, write } from 'fs';
-import { GridFSFile } from 'mongodb';
-import { Types } from 'mongoose';
-import { pipeline, Readable } from 'stream';
-import { bucket } from './media.model';
-import sharp from 'sharp';
+import { GridFSFile } from "mongodb";
+import { Types } from "mongoose";
+import { pipeline, Readable } from "stream";
+import { bucket } from "./media.model";
+import sharp from "sharp";
 
 export const getMedia = async (req: Request, res: Response) => {
-  const _id = new Types.ObjectId(req.params._id);
+  const _id = new Types.ObjectId(req.params.id);
   const file = await bucket.find({ _id }).next();
   if (!file || !file.contentType) {
-    return res.status(404).json('media file with this id does not exist');
+    return res.status(404).json("media file with this id does not exist");
   }
 
-  res.setHeader('Content-Type', file.contentType);
+  res.setHeader("Content-Type", file.contentType);
 
   const readableStream = bucket.openDownloadStream(_id);
   readableStream.pipe(res);
@@ -21,8 +21,8 @@ export const getMedia = async (req: Request, res: Response) => {
 
 export const addMedia = async (
   req: Request,
-  res: Response,
-  next: NextFunction
+  res: Response
+  //next: NextFunction
 ) => {
   if (!req.file) {
     return;
@@ -38,27 +38,25 @@ export const addMedia = async (
   const transformer = sharp();
 
   transformer
-  .clone()
-  .resize({
-    width: 500,
-    height: 500,
-    fit: 'cover',
-    position: sharp.strategy.entropy,
-  })
-  .pipe(writableStream)
-  .on('finish', (file: GridFSFile) => {
-    res.status(200).json(file);
-  });
+    .clone()
+    .resize({
+      width: 500,
+      height: 500,
+      fit: "cover",
+      position: sharp.strategy.entropy,
+    })
+    .pipe(writableStream)
+    .on("finish", (file: GridFSFile) => {
+      res.status(200).json(file);
+    });
 
-readableStream
-  .pipe(transformer)
-  .on('error', (error: unknown) => {
+  readableStream.pipe(transformer).on("error", (error: unknown) => {
     throw new Error();
     //console.log('done', file);
     //res.status(201).json(file);
-  })
+  });
 
-/*   const { originalname, mimetype, buffer } = req.file;
+  /*   const { originalname, mimetype, buffer } = req.file;
   const thumbname = 'thumb ' + originalname;
   
  
@@ -74,27 +72,22 @@ readableStream
     }
   }; */
 
-  
+  //const images: GridFSFile[] = [];
 
-  const images: GridFSFile[] = [];
+  //.on('error', next);
 
- 
-    //.on('error', next);
-
-    //måste pipeas
-   // readableStream.pipe(transformer).on('error', next);
-    
+  //måste pipeas
+  // readableStream.pipe(transformer).on('error', next);
 };
-
 
 export const updateMedia = async (req: Request, res: Response) => {};
 
 export const deleteMedia = async (req: Request, res: Response) => {
-  const _id = new Types.ObjectId(req.params._id);
-  const file = await bucket.find({ _id }).next();
+  const id = new Types.ObjectId(req.params.id);
+  const file = await bucket.find({ id }).next();
   if (!file || !file.contentType) {
-    return res.status(404).json('media file with this id does not exist');
+    return res.status(404).json("media file with this id does not exist");
   }
-  await bucket.delete(_id);
+  await bucket.delete(id);
   res.status(204).json(null);
 };

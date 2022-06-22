@@ -1,6 +1,7 @@
 import { Button, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import { CSSProperties, useState } from "react";
+import { productSchema } from "../../../../server/resources";
 import { useProducts } from "../../context/ProductContext";
 import { ProductData } from "../../ProductData";
 
@@ -39,9 +40,11 @@ function AddNewProduct(props: Props) {
       description: "",
       stock: 0,
       categories: [""],
+      id: "",
     },
     onSubmit: (values) => {
       let product: ProductData = {
+        id: values.id,
         name: values.name,
         imageId,
         //imageUrl: values.imageUrl,
@@ -50,7 +53,6 @@ function AddNewProduct(props: Props) {
         description: values.description,
         stock: values.stock,
         categories: values.categories,
-        _id: "",
         //image: "",
         quantity: 0
       };
@@ -67,7 +69,7 @@ function AddNewProduct(props: Props) {
 
 
   async function createNewProduct(product: ProductData) {
-    const newProduct = await addProduct(product);
+    const newProduct = /* await */ addProduct(product);
     getAllProducts();
   }
 

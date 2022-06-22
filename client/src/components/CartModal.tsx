@@ -65,7 +65,7 @@ function CartModal(props: CartProps) {
                         variant="contained"
                         style={qtyBtn}
                         aria-label="outlined primary button"
-                        onClick={() => decQty(item._id)}
+                        onClick={() => decQty(item.id)}
                       >
                         {" "}
                         -
@@ -75,7 +75,7 @@ function CartModal(props: CartProps) {
                         variant="contained"
                         style={qtyBtn}
                         aria-label="outlined primary button"
-                        onClick={() => incQty(item._id)}
+                        onClick={() => incQty(item.id)}
                       >
                         +
                       </Button>

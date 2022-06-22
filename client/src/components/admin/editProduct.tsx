@@ -55,7 +55,7 @@ function EditProduct(props: Props) {
     // validationSchema: validationSchema,
     onSubmit: (values) => {
       let updatedProduct = {
-        _id: props.product._id,
+        id: props.product.id,
         name: values.name,
         imageId,
         description: values.description,

@@ -29,10 +29,10 @@ export const getAllProducts = async (req: Request, res: Response) => {
 
 /** GET ONE Product */
 export const getProduct = async (req: Request, res: Response) => {
-  const { _id } = req.params;
-  console.log(_id);
+  const { id } = req.params;
+  console.log(id);
   try {
-    const product = await ProductModel.findById(_id);
+    const product = await ProductModel.findById(id);
 
     if (!product) {
       return res.status(404).json(product);
@@ -92,13 +92,13 @@ export const addProduct = async (
 };
 
 export const updateProduct = async (
-  req: Request<{ _id: string }>,
+  req: Request<{ id: string }>,
   res: Response
 ) => {
-  const { _id } = req.params;
+  const { id } = req.params;
 
   try {
-    const product = await ProductModel.findByIdAndUpdate(_id, req.body, {
+    const product = await ProductModel.findByIdAndUpdate(id, req.body, {
       useFindAndModify: false,
     });
     console.log(product);

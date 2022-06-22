@@ -10,6 +10,7 @@ import { Product } from "../../../server/resources";
         
 
 import { makeReq } from "../helper";
+import { useParams } from "react-router-dom";
 
 /* const product: Product = {
   _id: "",
@@ -51,10 +52,11 @@ export const ProductsContext = createContext<ProductContext>({
 export const ProductProvider: FC = (props) => {
   const [selectedProduct, setSelectedProduct] = useState({});
   const [products, setProducts] = useState<ProductData[]>([]);
+  const params = useParams<{ id: string }>()
 
   const getAllProducts = async () => {
     try {
-      let { data, ok } = await makeReq("/api/products", "GET");
+      let { data, ok } = await makeReq(`/api/product/${params.id}`, "GET");
       if (ok) {
         console.log(data)
         setProducts(data);
@@ -66,19 +68,19 @@ export const ProductProvider: FC = (props) => {
   };
 
   const addProduct = async (product: ProductData) => {
-    let response = await makeReq(`/api/product/`, "POST", product);
+    let response = await makeReq("/api/product/", "POST", product);
     console.log(response)
     return response;
   };
 
   const removeProduct = async (product: ProductData) => {
-    let response = await makeReq(`/api/products/${product._id}`, "DELETE");
+    let response = await makeReq(`/api/products/${product.id}`, "DELETE");
     return response;
   };
 
   const editProduct = async (editedProduct: ProductData) => {
     let response = await makeReq(
-      `/api/products/${editedProduct._id}`,
+      `/api/products/${editedProduct.id}`,
       "PUT",
       editedProduct
     );
