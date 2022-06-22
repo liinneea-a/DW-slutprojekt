@@ -1,9 +1,14 @@
 import { Box, Button, Modal, Typography } from "@mui/material";
 import { CSSProperties, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Product } from "../../../server/resources";
+//import { Product } from "../../../server/resources";
 import { useCart } from "../context/CartContext";
-import { UserContext } from "../context/UserContext";
+
+import { UserContext } from "../context/LoginContext";
+import { ProductData } from "../ProductData";
+
+// import { UserContext } from "../context/UserContext";
+
 
 interface CartProps {
   modalState: boolean;
@@ -45,13 +50,14 @@ function CartModal(props: CartProps) {
                 sx={{ mt: 2 }}
                 component="div"
               >
-                {cart.map((item: Product, index: number) => (
+                {cart.map((item: ProductData, index: number) => (
                   <div style={nftContainer} key={index}>
                     <div style={prodCol}>
                       <div style={iconCol}>
                         <img
                           style={iconStyle}
-                          srcSet={item.imageId}
+                          srcSet={item.imageUrl}
+                          //{item.imageUploadId}
                           alt="test"
                         />
                       </div>

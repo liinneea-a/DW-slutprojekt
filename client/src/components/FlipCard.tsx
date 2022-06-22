@@ -1,14 +1,16 @@
 import { Product } from "@server/types";
 import { CSSProperties, useState } from "react";
+import { productRouter } from "../../../server/resources";
 import "../CSS/FlipCard.css";
+import { ProductData } from "../ProductData";
 
 interface Props {
-  product: Product;
+  product: ProductData;
 }
 
 function FlipCard(props: Props) {
   const [flip, setFlip] = useState(false);
-
+//console.log(props.product.imageId)
   return (
     <div
       style={flipCard}
@@ -17,7 +19,7 @@ function FlipCard(props: Props) {
     >
       <div className="back"> {props.product.description}</div>
       <div className="front">
-        <img className="image" srcSet={props.product.imageId} alt="" />
+        <img className="image" srcSet={props.product.imageUrl} alt="" />
       </div>
     </div>
   );

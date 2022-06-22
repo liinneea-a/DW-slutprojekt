@@ -1,16 +1,35 @@
 import console from 'console';
 import { NextFunction, Request, Response } from 'express';
-import { ProductModel } from './product.model';
+import { ProductModel, Product } from './product.model';
 
 /** GET ALL Products */
 export const getAllProducts = async (req: Request, res: Response) => {
   const products = await ProductModel.find({});
-  if (!products.length) {
+  
+
+
+   if (!products.length) {
     return res.status(400).json(products);
-  }
+  } 
 
   res.status(200).json(products);
-};
+}
+
+
+  // TEST TO GET QUANTITY OF PRODUCT
+  //  const priceTotal = 1000;
+  //  const priceSingle = 200;
+
+  //  for (let x = 0; priceTotal / x > priceSingle; x++) {
+  //    console.log(x);
+  //  };
+  // TEST END
+
+
+
+ // res.status(200).json(products);
+//};
+
 
 /** GET ONE Product */
 export const getProduct = async (req: Request, res: Response) => {
@@ -58,7 +77,7 @@ export const getOneCategory = async (req: Request, res: Response) => {
 };
 
 export const addProduct = async (
-  req: Request,
+  req: Request<{}, {}, Product>,
   res: Response,
   next: NextFunction
 ) => {

@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { CSSProperties, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import ItemCard from "../components/ItemCard";
 import { useProducts } from "../context/ProductContext";
 
@@ -19,10 +19,12 @@ function AllProducts() {
   }, []);
 
   const uniqueCategories = Array.from(new Set(categories));
+  const params = useParams<{id: string}>();
+
 
   useEffect(() => {
     getAllProducts();
-  }, []);
+  }, [params]);
 
   return (
     <div style={collectionPageLayout}>

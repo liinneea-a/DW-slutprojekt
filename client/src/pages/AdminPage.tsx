@@ -1,24 +1,42 @@
 import { Button } from "@mui/material";
-import { CSSProperties, useEffect, useState } from "react";
-import { Product } from "../../../server/resources";
+
+
+import { ObjectId } from "mongodb";
+import { CSSProperties, useContext, useEffect, useState } from "react";
+//import { Product } from "../../../server/resources";
+//import { Product, User } from "../../../server/resources";
+
 import AddNewProduct from "../components/admin/addNewProduct";
 import EditProduct from "../components/admin/editProduct";
 import { useProducts } from "../context/ProductContext";
+import {ProductData} from "../ProductData"
+/* 
+interface Product {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+  imageId?: string;
+  stock: number;
+  categories: string[];
+  quantity: number;
+  imageUrl?: string;
+} */
 
 
-
-
-function AdminPage() {
+function AdminPage(/* props: Product */) {
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<Product>({
+  const [selectedProduct, setSelectedProduct] = useState<ProductData>({
       id: "",
       name: "",
       description: "",
       price: 0,
+      //image: "",
       imageId: "",
       stock: 0,
-      categories: [""],
-      quantity: 0
+      categories: [""], 
+      quantity: 0,
    });
 
   const [openEditProductModal, setOpenEditProductModal] = useState(false);
@@ -90,7 +108,7 @@ function AdminPage() {
             </div>
             <div style={adminCardMiddle}>
               <div style={adminCardMidLeft}>
-                <img style={adminImageStyle} alt="" srcSet={product.imageId} />
+                <img style={adminImageStyle} alt="" srcSet={product.imageUrl} />
               </div>
               <div style={adminCardMidRight}>
                 <div style={descStyle}>Description: {product.description}</div>
