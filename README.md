@@ -2,7 +2,11 @@
 
 This is an updated version of the famous NFT Heaven website. Now with added backend!
 
-To get started, write the following in the terminal: 
+To get started, open two terminals, write the following in the first terminal: 
+```
+cd server
+```
+and then: 
 ```
 npm i 
 ```
@@ -10,6 +14,22 @@ followed by:
 ``` 
 npm start
 ```
+And in the second terminal: 
+```
+cd client 
+```
+and then: 
+```
+npm i 
+```
+followed by:
+``` 
+npm start
+```
+The project should now be running.
+
+---
+
 There are two types of accounts available for you, the test subject.
 
  A regular account -   

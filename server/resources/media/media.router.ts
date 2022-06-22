@@ -2,7 +2,7 @@ import express from "express";
 
 import { addMedia, deleteMedia, getMedia, updateMedia } from "./media.controller";
 import multer from 'multer';
-import { ifAdmin } from "../user/user.middlewares";
+import { authorize, ifAdmin } from "../user/user.middlewares";
 
 
 //multe middleware
@@ -16,6 +16,6 @@ export const mediaRouter = express
   // .get("/media")
 
   .get('/media/:id', getMedia )
-  .post("/media", upload.single('media') ,addMedia)
-  .delete("/media/:id", ifAdmin, deleteMedia);
+  .post("/media", authorize, ifAdmin, upload.single('media') ,addMedia)
+  .delete("/media/:id", authorize, ifAdmin, deleteMedia);
 

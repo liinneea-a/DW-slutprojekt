@@ -7,7 +7,6 @@ import { bucket } from './media.model';
 import sharp from 'sharp';
 
 export const getMedia = async (req: Request, res: Response) => {
-  console.log('getMedia params: ', req.params.id);
 
   const _id = new Types.ObjectId(req.params.id);
   const file = await bucket.find({ _id }).next();
@@ -56,6 +55,7 @@ export const addMedia = async (
   const images: GridFSFile[] = [];
 
   transformer
+    .clone()    
     .resize({
       width: 500,
       height: 500,
