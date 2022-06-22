@@ -6,9 +6,10 @@ import { CSSProperties, useState } from "react";
 //import { Product } from "../../../../server/resources";
 import { useProducts} from "../../context/ProductContext";
 import { ProductData } from "../../ProductData";
+import * as yup from "yup";
 /*
 import { CSSProperties } from "react";
-import * as yup from "yup";
+
 import { Product } from "../../../../server/resources";
 import { useProducts } from "../../context/ProductContext";
 */
@@ -36,12 +37,14 @@ function EditProduct(props: Props) {
   const handleImage = async (event: any) => {
     let data = new FormData();
     console.log(data)
+
     data.append("media", event.target.files[0]);
     let response = await fetch("/api/media", {
       method: "POST",
       body: data,
     });
     let jsonres = await response.json();
+    
     setImage(jsonres.filename);
     setImageId(jsonres._id);
     console.log(image, imageId)

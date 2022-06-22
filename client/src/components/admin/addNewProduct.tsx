@@ -2,8 +2,9 @@ import { Button, TextField } from "@mui/material";
 import { useFormik } from "formik";
 
 import { CSSProperties, useState } from "react";
-import { productSchema } from "../../../../server/resources";
+// import { ProductSchema } from "../../../../server/resources";
 
+import * as yup from "yup";
 import { useProducts } from "../../context/ProductContext";
 import { ProductData } from "../../ProductData";
 

@@ -36,19 +36,9 @@ export const ProductSchema = new mongoose.Schema<Product>(
 );
 
 
-productSchema.virtual("imageUrl").get(function () {
+ProductSchema.virtual("imageUrl").get(function () {
   return "/api/media/" + this.imageId;
 });
 
-/* productSchema.virtual("quantity").get(function (quantity: number) {
-
-ProductSchema.virtual("imageUrl").get(function () {
-  return "/api/media/" + " " + this.imageId;
-});
-
-ProductSchema.virtual("quantity").get(function (quantity: number) {
-
-  
-}) */
 
 export const ProductModel = mongoose.model("product", ProductSchema);
