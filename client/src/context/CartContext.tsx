@@ -1,13 +1,7 @@
-
 import { createContext, FC, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-
-//import { Order, Product } from '../../../server/resources';
 import { ProductData } from '../ProductData';
-// import { shippperSchema } from '../../../server/resources/order/shipper.schema';
-
 import { Product } from '../../../server/resources';
-
 import {
   DeliveryDataInfo, DeliveryDataInfoObject
 } from "../data/collections/deliveryData";
@@ -56,10 +50,6 @@ export const CartProvider: FC = (props) => {
 
   let localData = localStorage.getItem('cart');
   const [cart, setCart] = useState<ProductData[]>(
-/*
-  let localData = localStorage.getItem("cart");
-  const [cart, setCart] = useState<Product[]>(
-*/
     localData ? JSON.parse(localData) : []
   );
   const [purchaseList, setPurchaseList] = useState<ProductData[]>([]);
@@ -134,11 +124,7 @@ export const CartProvider: FC = (props) => {
   const addProductToCart = (item: ProductData) => {
     toast.success('Item added to cart', {
       position: 'bottom-left',
-/*
-  const addProductToCart = (item: Product) => {
-    toast.success("Item added to cart", {
-      position: "bottom-left",
-*/
+
       autoClose: 1500,
       hideProgressBar: false,
       closeOnClick: true,

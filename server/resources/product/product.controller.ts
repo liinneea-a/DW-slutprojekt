@@ -16,21 +16,6 @@ export const getAllProducts = async (req: Request, res: Response) => {
 }
 
 
-  // TEST TO GET QUANTITY OF PRODUCT
-  //  const priceTotal = 1000;
-  //  const priceSingle = 200;
-
-  //  for (let x = 0; priceTotal / x > priceSingle; x++) {
-  //    console.log(x);
-  //  };
-  // TEST END
-
-
-
- // res.status(200).json(products);
-//};
-
-
 /** GET ONE Product */
 export const getProduct = async (req: Request, res: Response) => {
   const { id } = req.params;

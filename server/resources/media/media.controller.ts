@@ -27,7 +27,6 @@ export const addMedia = async (
 ) => {
   if (!req.file) {
     return;
-    //throw new HttpError(400, "no file was sen. Make sure to name your input to media")
   }
 
   const { originalname, mimetype, buffer } = req.file;
@@ -72,10 +71,7 @@ export const addMedia = async (
       res.status(201).json(file);
     })
     .on('error', next);
-
-    //måste pipeas
-    readableStream.pipe(transformer).on('error', next);
-    
+    readableStream.pipe(transformer).on('error', next);  
 };
 
 

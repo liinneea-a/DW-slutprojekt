@@ -1,7 +1,6 @@
 import { Button } from "@mui/material";
 import { CSSProperties, useEffect } from "react";
 import { Link } from "react-router-dom";
-//import { Product } from "../../../server/resources";
 import { StartPageButton } from "../components/StartPageButton";
 import { useCart } from "../context/CartContext";
 import { ProductData } from "../ProductData";

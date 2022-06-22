@@ -9,7 +9,7 @@ export interface User {
   adminRequest: boolean;
 }
 
-const UserSchema = new mongoose.Schema<User>( //? Stor bokstav och <User>
+const UserSchema = new mongoose.Schema<User>(
   {
     email: { type: String, required: true },
     password: { type: String, required: true, select: true },

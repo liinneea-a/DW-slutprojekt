@@ -27,7 +27,7 @@ function EditProduct(props: Props) {
 
   const handleImage = async (event: any) => {
     let data = new FormData();
-    console.log(data)
+
 
     data.append("media", event.target.files[0]);
     let response = await fetch("/api/media", {
@@ -38,7 +38,7 @@ function EditProduct(props: Props) {
     
     setImage(jsonres.filename);
     setNewImageId(jsonres._id);
-    console.log(image, newImageId)
+ 
   };
 
   const formik = useFormik({
@@ -54,7 +54,7 @@ function EditProduct(props: Props) {
     validationSchema: validationSchema,
 
     onSubmit: (values) => {
-      console.log('here')
+
 
       let updatedProduct = {
         id: props.product.id,
@@ -76,7 +76,6 @@ function EditProduct(props: Props) {
 
 
    function editOldProduct(updatedProduct: ProductData) {
-    console.log('in edit product')
     const update = editProduct(updatedProduct);
     getAllProducts();
   }

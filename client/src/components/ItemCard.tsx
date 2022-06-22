@@ -1,5 +1,4 @@
 import { Button } from "@mui/material";
-//import { Product } from "@server/types";
 import { CSSProperties, useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { useCart } from "../context/CartContext";
