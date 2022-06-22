@@ -10,7 +10,6 @@ interface Props {
 
 function FlipCard(props: Props) {
   const [flip, setFlip] = useState(false);
-//console.log(props.product.imageId)
   return (
     <div
       style={flipCard}

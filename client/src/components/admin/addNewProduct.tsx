@@ -62,8 +62,6 @@ function AddNewProduct(props: Props) {
         categories: values.categories,
         quantity: 0
       };
-      console.log(imageId)
-      console.log(product)
       createNewProduct(product);
       formik.resetForm();
       props.onClose();
@@ -75,7 +73,7 @@ function AddNewProduct(props: Props) {
 
 
   async function createNewProduct(product: ProductData) {
-    const newProduct = /* await */ addProduct(product);
+    const newProduct = addProduct(product);
     getAllProducts();
   }
 
@@ -107,7 +105,7 @@ function AddNewProduct(props: Props) {
               id="imageId"
               name="media" 
               type="file"
-              onChange= {(e) => handleImage(e)}//
+              onChange= {(e) => handleImage(e)}
               required
             />
             <TextField

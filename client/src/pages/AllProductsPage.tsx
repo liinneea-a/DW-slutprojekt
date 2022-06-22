@@ -20,12 +20,6 @@ function AllProducts() {
 
   const uniqueCategories = Array.from(new Set(categories));
   const params = useParams<{id: string}>();
-
-
-  useEffect(() => {
-   // getAllProducts();
-  }, []);
-
   return (
     <div style={collectionPageLayout}>
       <h1 style={collectionsTitle}>Find your desired product by category!</h1>

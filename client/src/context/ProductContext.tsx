@@ -32,7 +32,6 @@ export const ProductProvider: FC = (props) => {
     try {
       let { data, ok } = await makeReq(`/api/products`, "GET");
       if (ok) {
-        console.log(data)
         setProducts(data);
         return true;
       }
@@ -46,31 +45,6 @@ export const ProductProvider: FC = (props) => {
     let response = await makeReq("/api/product/", "POST", product);
     return response;
   };
-
- /* const removeProduct = async (product: ProductData) => {
-    let response = await makeReq(`/api/products/${product.id}`, "DELETE");
-    return response;
-  };
-
-  const editProduct = async (editedProduct: ProductData) => {
-    let response = await makeReq(
-      `/api/products/${editedProduct.id}`,
-      "PUT",
-      editedProduct
-    );
-    return response; */
-/*
-  const addProduct = async (product: {}) => {
-    try {
-      let { data, ok } = await makeReq(`/api/product/`, "POST", product);
-      if (ok) {
-        return data;
-      }
-    } catch (err) {
-      return console.log(err);
-    }
-  };
-      */
 
   const removeProduct = async (product: ProductData) => {
     try {

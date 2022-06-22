@@ -10,11 +10,6 @@ const upload = multer();
 
 export const mediaRouter = express
   .Router()
-
-  //.get("/media", /* adminSecure, */)
-
-  // .get("/media")
-
   .get('/media/:id', getMedia )
   .post("/media", authorize, ifAdmin, upload.single('media') ,addMedia)
   .delete("/media/:id", authorize, ifAdmin, deleteMedia);

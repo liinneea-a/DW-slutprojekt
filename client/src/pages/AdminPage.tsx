@@ -1,38 +1,17 @@
 import { Button } from "@mui/material";
-
-
-// import { ObjectId } from "mongodb";
 import { CSSProperties, useContext, useEffect, useState } from "react";
-//import { Product } from "../../../server/resources";
-//import { Product, User } from "../../../server/resources";
-
 import AddNewProduct from "../components/admin/addNewProduct";
 import EditProduct from "../components/admin/editProduct";
 import { useProducts } from "../context/ProductContext";
 import {ProductData} from "../ProductData"
-/* 
-interface Product {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-  imageId?: string;
-  stock: number;
-  categories: string[];
-  quantity: number;
-  imageUrl?: string;
-} */
 
-
-function AdminPage(/* props: Product */) {
+function AdminPage() {
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<ProductData>({
       id: "",
       name: "",
       description: "",
       price: 0,
-      //image: "",
       imageId: "",
       stock: 0,
       categories: [""], 
