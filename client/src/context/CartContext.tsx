@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 //import { Order, Product } from '../../../server/resources';
 import { ProductData } from '../ProductData';
-import { shippperSchema } from '../../../server/resources/order/shipper.schema';
+// import { shippperSchema } from '../../../server/resources/order/shipper.schema';
 
 import { Product } from '../../../server/resources';
 

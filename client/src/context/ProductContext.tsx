@@ -1,14 +1,10 @@
-import { Product } from "@server/types";
+// import { Product } from "@server/types";
 import { createContext, FC, useContext, useState } from "react";
 
 
 import { ProductData } from "../ProductData";     
 
 //import { Product as ProductData } from "../../../server/resources";
-
-        
-import { Product } from "../../../server/resources";
-        
 
 import { makeReq } from "../helper";
 import { useParams } from "react-router-dom";
@@ -59,7 +55,7 @@ export const ProductProvider: FC = (props) => {
 
   const getAllProducts = async () => {
     try {
-      let { data, ok } = await makeReq(`/api/product/${params.id}`, "GET");
+      let { data, ok } = await makeReq(`/api/products`, "GET");
       if (ok) {
         console.log(data)
         setProducts(data);
@@ -102,7 +98,7 @@ export const ProductProvider: FC = (props) => {
   };
       */
 
-  const removeProduct = async (product: Product) => {
+  const removeProduct = async (product: ProductData) => {
     try {
       let { data, ok } = await makeReq(`/api/products/${product.id}`, "DELETE");
       if (ok) {
@@ -113,7 +109,7 @@ export const ProductProvider: FC = (props) => {
     }
   };
 
-  const editProduct = async (editedProduct: Product) => {
+  const editProduct = async (editedProduct: ProductData) => {
     try {
       let { data, ok } = await makeReq(
         `/api/products/${editedProduct.id}`,

@@ -15,10 +15,6 @@ function ItemCard(props: Props) {
   const { getAllProducts } = useProducts();
   const { addProductToCart } = useCart();
 
-  useEffect(() => {
-    getAllProducts();
-  }, []);
-
   const handleOnClickBuy = (product: ProductData) => {
     addProductToCart(product)
   }

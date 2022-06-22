@@ -19,7 +19,7 @@ function FlipCard(props: Props) {
     >
       <div className="back"> {props.product.description}</div>
       <div className="front">
-        <img className="image" srcSet={props.product.imageUrl} alt="" />
+        <img className="image" src={props.product.imageUrl} alt="" />
       </div>
     </div>
   );

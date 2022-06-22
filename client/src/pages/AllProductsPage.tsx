@@ -23,8 +23,8 @@ function AllProducts() {
 
 
   useEffect(() => {
-    getAllProducts();
-  }, [params]);
+   // getAllProducts();
+  }, []);
 
   return (
     <div style={collectionPageLayout}>

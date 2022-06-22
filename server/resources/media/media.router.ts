@@ -13,7 +13,7 @@ export const mediaRouter = express
 
   //.get("/media", /* adminSecure, */)
 
-  .get("/media")
+  // .get("/media")
 
   .get('/media/:id', getMedia )
   .post("/media", upload.single('media') ,addMedia)
