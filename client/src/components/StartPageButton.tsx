@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import { CSSProperties } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
@@ -14,15 +15,20 @@ export const StartPageButton = () => {
       };
 
     return (
-        <button onClick={handleOnClick} style={buttonStyle}>Back to startpage</button>
+      <Button
+      style={buttonStyle}
+      color="primary"
+      variant="contained"
+      fullWidth
+      type="submit" onClick={handleOnClick}>Back to startpage</Button>
     )
 }
 
 const buttonStyle: CSSProperties = {
-    width: "100%",
+  width: 'fit-content',
     border: "none",
     color: "white",
-    backgroundColor: "transparent",
-    fontSize: "1.5rem",
-    margin: "0 100% 0 20%",
+    fontSize: "3vmin",
+    marginBottom: '1rem',
+    fontWeight: 'bold'
   }

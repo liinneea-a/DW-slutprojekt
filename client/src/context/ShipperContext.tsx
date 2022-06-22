@@ -1,39 +1,15 @@
-import { createContext, FC, useContext, useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
-import { number, string } from 'yup';
-import { getAllShippers } from '../../../server/resources';
+import { createContext, useContext } from 'react';
 import { makeReq } from '../helper';
-//import type {ClientShipper} from "@server/types"
-
-interface Shipper {
-  shipper: string;
-  cost: number;
-  daysToDelivery: number;
-}
 
 interface ShipperContext {
-  setSelectedShipping: Function;
-  selectedShipping: Shipper | any;
   getAllShippers: () => Promise<any>;
 }
 
-// useEffect(() => {
-//   getAllShippers();
-// })
-
 export const ShipperContext = createContext<ShipperContext>({
-  setSelectedShipping: () => void {},
   getAllShippers: async () => void [],
-  selectedShipping: ''
 });
 
-export const ShipperProvider: FC = (props) => {
-
-  const [selectedShipping, setSelectedShipping] = useState<string>('');
-
-  useEffect(() => {
-    
-  });
+export const ShipperProvider = (props: any) => {
 
   const getAllShippers = async () => {
     try {
@@ -51,8 +27,6 @@ export const ShipperProvider: FC = (props) => {
     <ShipperContext.Provider
       value={{
         getAllShippers,
-        setSelectedShipping,
-        selectedShipping,
       }}
     >
       {props.children}

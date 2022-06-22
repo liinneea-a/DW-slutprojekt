@@ -1,13 +1,17 @@
 import { Button, TextField } from "@mui/material";
-// import { Product } from "@server/types";
-
 import { useFormik } from "formik";
+
 import { CSSProperties, useState } from "react";
 //import { Product } from "../../../../server/resources";
 //import { Product } from "../../../../server/resources";
 import { useProducts} from "../../context/ProductContext";
 import { ProductData } from "../../ProductData";
-
+/*
+import { CSSProperties } from "react";
+import * as yup from "yup";
+import { Product } from "../../../../server/resources";
+import { useProducts } from "../../context/ProductContext";
+*/
 
 interface Props {
   isOpen: boolean;
@@ -15,14 +19,16 @@ interface Props {
   onClose: () => void;
 }
 
-// const validationSchema = yup.object({
-//   name: yup.string().required("Please enter new name").min(1),
-//   description: yup.string().required("Please enter a new description").min(2),
-//   productImage: yup.string().required("Please enter a new image URL").min(10),
-// });
+const validationSchema = yup.object({
+  name: yup.string().required("Please enter new name").min(1),
+  description: yup.string().required("Please enter a new description").min(2),
+  productImage: yup.string().required("Please enter a new image URL").min(10),
+  price: yup.number().required("Please enter the updated price").min(1),
+  stock: yup.number().required("Please enter the updated stock"),
+  categories: yup.array().required("Please enter at least one category").min(1),
+});
 
 function EditProduct(props: Props) {
-  
   const { editProduct, getAllProducts } = useProducts();
   const [imageId, setImageId] = useState<string>();
   const [image, setImage] = useState();
@@ -41,18 +47,17 @@ function EditProduct(props: Props) {
     console.log(image, imageId)
   };
 
-
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
       name: props.product.name,
-      imageId: props.product.imageId, 
+      imageId: props.product.imageId,
       price: props.product.price,
       description: props.product.description,
       stock: props.product.stock,
       categories: props.product.categories,
     },
-    // validationSchema: validationSchema,
+    validationSchema: validationSchema,
     onSubmit: (values) => {
       let updatedProduct = {
         id: props.product.id,
@@ -63,8 +68,10 @@ function EditProduct(props: Props) {
         //imageId: values.imageId,
         stock: values.stock,
         categories: values.categories,
+
         image: "",
         quantity: 0,
+
       };
       editOldProduct(updatedProduct);
       formik.resetForm();
@@ -72,7 +79,11 @@ function EditProduct(props: Props) {
     },
   });
 
+
    function editOldProduct(updatedProduct: ProductData) {
+
+ /* function editOldProduct(updatedProduct: Product) { */
+
     const update = editProduct(updatedProduct);
     getAllProducts();
   }
@@ -156,38 +167,47 @@ function EditProduct(props: Props) {
             name="categories"
             label="Product Categories"
             value={formik.values.categories}
-            onChange={(e) => formik.setFieldValue('categories', e.target.value.split(','))}
+            onChange={(e) =>
+              formik.setFieldValue("categories", e.target.value.split(","))
+            }
             error={
               formik.touched.categories && Boolean(formik.errors.categories)
             }
             helperText={formik.touched.categories && formik.errors.categories}
           />
         </div>
-
-        <Button
-          style={saveCloseEditButton}
-          color="primary"
-          variant="contained"
-          fullWidth
-          type="submit"
-        >
-          Save Edit
-        </Button>
-        <Button
-          style={saveCloseEditButton}
-          color="primary"
-          variant="contained"
-          fullWidth
-          onClick={props.onClose}
-        >
-          Close window
-        </Button>
+        <div style={{display: 'flex', justifyContent: 'center', alignItems:'flex-start', gap:'1rem'}}>
+          <Button
+            style={saveCloseEditButton}
+            color="primary"
+            variant="contained"
+            fullWidth
+            type="submit"
+          >
+            Save
+          </Button>
+          <Button
+            style={saveCloseEditButton}
+            color="primary"
+            variant="contained"
+            fullWidth
+            onClick={props.onClose}
+          >
+            Close
+          </Button>
+        </div>
       </form>
     </div>
   );
 }
 
 export default EditProduct;
+
+const saveCloseEditButton: CSSProperties = {
+  marginTop: "1rem",
+  width: "40%",
+  marginBottom: "1rem",
+};
 
 const newProductContainer: CSSProperties = {
   backgroundColor: "black",
@@ -198,13 +218,13 @@ const newProductContainer: CSSProperties = {
   background: "#202225",
   border: "2px solid #000",
   zIndex: "9001",
-  //   boxShadow: 24,
   textAlign: "center",
   width: "clamp(10rem, 90vmin, 40rem",
+  maxHeight: '90vh'
 };
 
 const textFieldStyle: CSSProperties = {
-  marginBottom: "1rem",
+  marginBottom: ".4rem",
   width: "100%",
 };
 
@@ -218,14 +238,8 @@ const formStyle: CSSProperties = {
 
 const textFieldsContainer: CSSProperties = {
   display: "flex",
-  justifyContent: "center",
+  alignItems: "center",
   flexDirection: "column",
   width: "90%",
-  margin: "1rem",
-};
-
-const saveCloseEditButton: CSSProperties = {
-  marginTop: "1rem",
-  width: "40%",
-  marginBottom: "1rem",
+  margin: "0 1rem",
 };

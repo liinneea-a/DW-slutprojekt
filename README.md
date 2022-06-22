@@ -1,3 +1,38 @@
+# Slutprojekt Dynamisk Webbutveckling
+
+This is an updated version of the famous NFT Heaven website. Now with added backend!
+
+To get started, write the following in the terminal: 
+```
+npm i 
+```
+followed by:
+``` 
+npm start
+```
+There are two types of accounts available for you, the test subject.
+
+ A regular account -   
+ Use this to check out the flow of the website and ordering as a regular customer.
+
+```
+E-mail: test@test.se  
+Password: 123123
+```
+
+and an admin account -   
+Use this to check out the admin-only features, such as editing products, browsing all previous orders etc.
+```
+E-mail: admin@admin.se  
+Password: 123123
+```  
+Enjoy your stay!
+
+---
+
+
+
+
 ### G-KRAV
 
 [X] Alla sidor skall vara responsiva.  
@@ -8,7 +43,7 @@
 [X] Man ska kunna logga in som administratör i systemet.  
 [X] Checkoutflödet i frontendapplikationen ska ha validering på samtliga fält.  
 [X] Inga Lösenord får sparas i klartext i databasen.  
-[ ] En besökare ska kunna beställa produkter från sidan, detta ska uppdatera lagersaldot i databasen.  
+[X] En besökare ska kunna beställa produkter från sidan, detta ska uppdatera lagersaldot i databasen.  
 [X] Administratörer ska kunna uppdatera antalet produkter i lager från admin delen av sidan.  
 [X] Administratörer ska kunna se en lista på alla gjorda beställningar.  
 [X] Tillgängliga fraktalternativ ska vara hämtade från databasen.  
@@ -22,10 +57,14 @@
 
 ### VG-KRAV
 
-[ ] När man är inloggad som kund ska man kunna se sina gjorda beställning och om det är skickade eller inte.  
-[ ] Administratörer ska kunna markera beställningar som skickade.  
+[X] När man är inloggad som kund ska man kunna se sina gjorda beställning och om det är skickade eller inte.  
+[X] Administratörer ska kunna markera beställningar som skickade.  
 [X] Administratörer ska kunna redigera vilka kategorier en produkt tillhör.  
 [X] Administratörer ska kunna lägga till och ta bort produkter.  
 [ ] Backendapplikationen måste ha en fungerande global felhantering.  
 [X] Man ska kunna registrera sig som administratör på sidan, nya användare ska sparas i databasen.  
-[ ] En administratör behöver godkännas av en tidigare administratör innan man kan logga in fösta gången.
+[X] En administratör behöver godkännas av en tidigare administratör innan man kan logga in fösta gången.
+
+---
+
+### Created by Rosanna Pistone, Linnea Albertsson and Christian Meiner, FED21G.

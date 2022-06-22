@@ -1,15 +1,10 @@
-import { CSSProperties, useContext } from "react";
+import { CSSProperties } from "react";
 import { useCart } from "../../context/CartContext";
-import { ShipperContext } from "../../context/ShipperContext";
-import { DeliveryDataInfo } from "../../data/collections/deliveryData";
 
 
 function DeliveryInfoTable() {
 
-  const { deliveryInfo, setDeliveryInfo } = useCart(); 
-
-  const { selectedShipping } =
-  useContext(ShipperContext);
+  const { deliveryInfo, setDeliveryInfo, selectedShipping } = useCart(); 
   
   return (
     <div>
@@ -47,7 +42,7 @@ function DeliveryInfoTable() {
           </tr>
           <tr>
             <td>Delivery</td>
-            <td style={tableDataStyle}>{selectedShipping.shipper}</td>
+            <td style={tableDataStyle}>{selectedShipping!.shipper}</td>
           </tr>
           <tr>
             <td>Payment method</td>

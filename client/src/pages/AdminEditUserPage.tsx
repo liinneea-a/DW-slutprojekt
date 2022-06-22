@@ -1,43 +1,26 @@
-import { CSSProperties, useContext, useEffect, useState } from "react";
-//import { User, Product } from "../../../server/resources";
-import { UserContext } from "../context/LoginContext";
-import { User } from "@server/*";
-//import { User } from "../../../server/resources"
-
+import { CSSProperties, useContext, useEffect } from "react";
+import { User } from "../../../server/resources";
+import { UserContext } from "../context/UserContext";
 
 function AdminEditUserPage() {
-  const {
-    getAllUsers,
-    allUsers,
-    adminRequest,
-    loggedInUser
-  } = useContext(UserContext);
-
-  console.log(loggedInUser);
+  const { getAllUsers, allUsers, updateUserRole } =
+    useContext(UserContext);
 
   useEffect(() => {
     getAllUsers();
   }, []);
 
   function handleChange(user: User) {
-      postEditedRole(user, !user.isAdmin)
+    let userToUpdate = {
+      ...user,
+      isAdmin: !user.isAdmin,
+    };
+    updateUser(userToUpdate);
   }
 
-  async function postEditedRole(user: User, isAdmin: boolean) {
-    const response = await fetch(`/api/user/${user.id}`, {
-      method: "PUT",
-      body: JSON.stringify({
-        //...user,
-        isAdmin,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const result = await response.json();
+  async function updateUser(userToUpdate: User) {
+    const update = await updateUserRole(userToUpdate);
     getAllUsers();
-    console.log(result);
-    console.log(allUsers);
   }
 
   return (

@@ -1,18 +1,17 @@
-// @ts-ignore
 
-import { SelfImprovement } from '@mui/icons-material';
-import { ObjectId } from 'mongoose';
 import { createContext, FC, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+
 //import { Order, Product } from '../../../server/resources';
 import { ProductData } from '../ProductData';
 import { shippperSchema } from '../../../server/resources/order/shipper.schema';
+
+import { Product } from '../../../server/resources';
+
 import {
-  DeliveryDataInfoObject,
-  DeliveryDataInfo,
-} from '../data/collections/deliveryData';
-import { makeReq } from '../helper';
-import { useShipper } from './ShipperContext';
+  DeliveryDataInfo, DeliveryDataInfoObject
+} from "../data/collections/deliveryData";
+import { makeReq } from "../helper";
 
 interface CartContext {
   purchaseList: ProductData[];
@@ -28,6 +27,10 @@ interface CartContext {
   newPurchaseTotal: (total: number) => void;
   deliveryInfo: DeliveryDataInfo;
   setDeliveryInfo: Function;
+  id: string,
+  setSelectedShipping: Function;
+  selectedShipping: any;
+  
 }
 
 export const CartContext = createContext<CartContext>({
@@ -44,78 +47,82 @@ export const CartContext = createContext<CartContext>({
   newPurchaseTotal: (total: number) => {},
   deliveryInfo: DeliveryDataInfoObject,
   setDeliveryInfo: () => {},
+  id: "",
+  setSelectedShipping: () => void {},
+  selectedShipping: {}
 });
 
 export const CartProvider: FC = (props) => {
+
   let localData = localStorage.getItem('cart');
   const [cart, setCart] = useState<ProductData[]>(
+/*
+  let localData = localStorage.getItem("cart");
+  const [cart, setCart] = useState<Product[]>(
+*/
     localData ? JSON.parse(localData) : []
   );
   const [purchaseList, setPurchaseList] = useState<ProductData[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [purchaseTotal, setPurchaseTotal] = useState(1);
   const [deliveryInfo, setDeliveryInfo] = useState(DeliveryDataInfoObject);
-  const { selectedShipping } = useShipper();
+  const [selectedShipping, setSelectedShipping] = useState<any>();
+  
+  const [id, setId] = useState("");
 
   useEffect(() => {
-    console.log('cart: ', cart);
   }, [cart]);
 
+  useEffect(() => {
+  }, [totalPrice])
+
+  useEffect(() => {
+  }, [selectedShipping])
+
   const sendOrder = async () => {
+    
+    let sum = calculatePrice();
+
     const address = {
-      fullname: deliveryInfo.firstName + ' ' + deliveryInfo.lastName,
+      fullname: deliveryInfo.firstName + " " + deliveryInfo.lastName,
       street: deliveryInfo.address,
       zipcode: deliveryInfo.zipCode,
       city: deliveryInfo.city,
     };
 
-    console.log(deliveryInfo);
-    console.log(selectedShipping);
-
     const order = {
       products: cart,
-      shipper: { cost: 10, deliveryDays: 1, shipper: 'Postnord' },
+      shipper: selectedShipping,
       deliveryAddress: address,
       paymentMethod: deliveryInfo.paymentMethod,
+      totalPrice: sum
     };
-    console.log('order: ', order);
-    console.log('del.paymentM: ', deliveryInfo.paymentMethod);
 
     try {
       const { data, ok } = await makeReq('/api/order', 'POST', order);
-      console.log(data);
+      setId(data.id);
 
       if (ok) {
-        
         for (let product of cart) {
-          console.log(product.stock);
           product.stock -= product.quantity!;
-          console.log(product.stock);
           const { data, ok } = await makeReq(
             `/api/products/${product.id}`,
-            'PUT',
+            "PUT",
             product
           );
-          console.log(ok);
         }
       }
     } catch (err) {
       return console.log(err);
     }
   };
-
-
-
-
   const newPurchaseTotal = (total: number) => {
     setPurchaseTotal(total);
   };
 
   const calculatePrice = () => {
     let sum = 0;
-    
 
-        
     for (let item of cart) {
       sum += item.price * item.quantity!;
     }
@@ -123,9 +130,15 @@ export const CartProvider: FC = (props) => {
     return sum;
   };
 
+
   const addProductToCart = (item: ProductData) => {
     toast.success('Item added to cart', {
       position: 'bottom-left',
+/*
+  const addProductToCart = (item: Product) => {
+    toast.success("Item added to cart", {
+      position: "bottom-left",
+*/
       autoClose: 1500,
       hideProgressBar: false,
       closeOnClick: true,
@@ -148,7 +161,7 @@ export const CartProvider: FC = (props) => {
 
     setCart(newCart);
     calculatePrice();
-    localStorage.setItem('cart', JSON.stringify(newCart));
+    localStorage.setItem("cart", JSON.stringify(newCart));
   };
 
   const incQty = (itemID: string) => {
@@ -160,7 +173,7 @@ export const CartProvider: FC = (props) => {
     });
     setCart(updatedList);
     calculatePrice();
-    localStorage.setItem('cart', JSON.stringify(updatedList));
+    localStorage.setItem("cart", JSON.stringify(updatedList));
   };
 
   const decQty = (itemID: string) => {
@@ -178,13 +191,13 @@ export const CartProvider: FC = (props) => {
     })!;
     setCart(updatedList);
     calculatePrice();
-    localStorage.setItem('cart', JSON.stringify(updatedList));
+    localStorage.setItem("cart", JSON.stringify(updatedList));
   };
 
   const clearCart = () => {
     setCart([]);
     setTotalPrice(0);
-    localStorage.removeItem('cart');
+    localStorage.removeItem("cart");
   };
 
   return (
@@ -203,6 +216,9 @@ export const CartProvider: FC = (props) => {
         newPurchaseTotal,
         deliveryInfo,
         setDeliveryInfo,
+        id,
+        setSelectedShipping,
+        selectedShipping,
       }}
     >
       {props.children}

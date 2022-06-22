@@ -1,5 +1,6 @@
-//import { Product } from "@server/types";
+import { Product } from "@server/types";
 import { createContext, FC, useContext, useState } from "react";
+
 
 import { ProductData } from "../ProductData";     
 
@@ -11,6 +12,7 @@ import { Product } from "../../../server/resources";
 
 import { makeReq } from "../helper";
 import { useParams } from "react-router-dom";
+
 
 /* const product: Product = {
   _id: "",
@@ -29,6 +31,7 @@ import { useParams } from "react-router-dom";
   quantity: number;
   imageUrl?: string;
 } */
+
 interface ProductContext {
   selectedProduct: {};
   setSelectedProduct: {};
@@ -67,13 +70,14 @@ export const ProductProvider: FC = (props) => {
     }
   };
 
+
   const addProduct = async (product: ProductData) => {
     let response = await makeReq("/api/product/", "POST", product);
     console.log(response)
     return response;
   };
 
-  const removeProduct = async (product: ProductData) => {
+ /* const removeProduct = async (product: ProductData) => {
     let response = await makeReq(`/api/products/${product.id}`, "DELETE");
     return response;
   };
@@ -84,7 +88,45 @@ export const ProductProvider: FC = (props) => {
       "PUT",
       editedProduct
     );
-    return response;
+    return response; */
+/*
+  const addProduct = async (product: {}) => {
+    try {
+      let { data, ok } = await makeReq(`/api/product/`, "POST", product);
+      if (ok) {
+        return data;
+      }
+    } catch (err) {
+      return console.log(err);
+    }
+  };
+      */
+
+  const removeProduct = async (product: Product) => {
+    try {
+      let { data, ok } = await makeReq(`/api/products/${product.id}`, "DELETE");
+      if (ok) {
+        return data;
+      }
+    } catch (err) {
+      return console.log(err);
+    }
+  };
+
+  const editProduct = async (editedProduct: Product) => {
+    try {
+      let { data, ok } = await makeReq(
+        `/api/products/${editedProduct.id}`,
+        "PUT",
+        editedProduct
+      );
+      if (ok) {
+        return data;
+      }
+    } catch (err) {
+      return console.log(err);
+    }
+
   };
 
   return (

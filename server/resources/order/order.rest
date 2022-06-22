@@ -1,6 +1,6 @@
 
-### Get all orders
-GET http://localhost:4000/api/orders
+### Get all orders based on admin or not
+GET http://localhost:4000/api/orders/629622394f44ab171a366220
 
 ### Get one order
 
@@ -12,49 +12,81 @@ POST http://localhost:4000/api/order
 Content-Type: application/json
 
 {
+  "customer": "629606accf491f5114db445f",
   "products": [
-    {"name": 123,
-  "description": "Matbord med 15 plåtben",
-  "price": 2979,
-  "imageId": "11111111111",
-  "stock": 1123123,
-  "categories": ["Stolar", "Bord"]}
+    {
+      "name": "Wonderwoman",
+      "description": "Diana's truthful and equal NFT.",
+      "price": 12,
+      "imageId": "/assets/images/Products/DCNFT/WonderWomanDCNFT.png",
+      "stock": 9,
+      "categories": [
+        "DC",
+        "Inanimate"
+      ],
+      "_id": "6295d2f68c6ba2e1364a6a3b"
+    }
   ],
   "shipper": {
-    "cost": 123,
-    "daysToDelivery": 2,
-    "shipper": "postnord" 
-  },
-  "deliveryAddress": {
-    "fullname": "Linnea Albertsson",
-    "street": "Runiusgatan 7",
-    "zipcode": 12300,
-    "city": "Göteborg"
-  },
-  "paymentMethod": "swish"
+    "cost": 10,
+    "deliveryDays": 1,
+    "shipper": "Postnord",
+    "_id":"6297675967d55a01e86868d3"
+    },
+  "deliveryAddress": [
+    {
+      "fullname": "Linnea Albertsson",
+      "street": "Runiusgatan 7",
+      "zipcode": 41653,
+      "city": "Göteborg",
+      "_id": "6297675967d55a01e86868d4"
+    }
+  ],
+  "isSent": false,
+  "paymentMethod": "Swish",
+  "totalPrice": 108
 }
 
 ### Update order
 
-PUT http://localhost:4000/api/order/628785dc1fbd71f9fc387d0c
+PUT http://localhost:4000/api/order/6298741568c3147a061a5593
 Content-Type: application/json
 
 {
-  "customer": "6283598560765e36787c6867",
-  "products": ["6283598560765e36787c6868", "6283598560765e36787c6869"],
+  "_id": "6298741568c3147a061a5593",
+  "customer": "629606accf491f5114db445f",
+  "products": [
+    {
+      "name": "Wonderwoman",
+      "description": "Diana's truthful and equal NFT.",
+      "price": 12,
+      "imageId": "/assets/images/Products/DCNFT/WonderWomanDCNFT.png",
+      "stock": 9,
+      "categories": [
+        "DC",
+        "Inanimate"
+      ],
+      "_id": "6295d2f68c6ba2e1364a6a3b"
+    }
+  ],
   "shipper": {
-    "cost": 123,
-    "daysToDelivery": 2,
-    "shipper": "postnord" 
-  },
-  "deliveryAddress": {
-    "fullname": "Lina Linnn",
-    "street": "Runiusgatan 7",
-    "zipcode": 12300,
-    "city": "Göteborg"
-  },
+    "cost": 10,
+    "deliveryDays": 1,
+    "shipper": "Postnord",
+    "_id":"6297675967d55a01e86868d3"
+    },
+  "deliveryAddress": [
+    {
+      "fullname": "Linnea Albertsson",
+      "street": "Runiusgatan 7",
+      "zipcode": 41653,
+      "city": "Göteborg",
+      "_id": "6297675967d55a01e86868d4"
+    }
+  ],
   "isSent": false,
-  "paymentMethod": "swish"
+  "paymentMethod": "Swish",
+  "totalPrice": 108
 }
 
 ### Delete order

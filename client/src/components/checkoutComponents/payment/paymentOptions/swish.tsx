@@ -12,7 +12,6 @@ interface Props {
 }
 
 const validationSchema = yup.object({
-  // number: yup.number().required("Please enter number").min(10),
   number: yup
     .string()
     .typeError('Not a valid phone number. Example: 0738986845')
@@ -63,8 +62,8 @@ function Swish(props: Props) {
           error={formik.touched.number && Boolean(formik.errors.number)}
           helperText={formik.touched.number && formik.errors.number}
         />
-        <button type="submit">
-           <CompleteButton paymentMethod={'Swish'} />
+        <button style={completePurchaseButton} type="submit">
+           <CompleteButton paymentMethod={'Swish'}/>
         </button>
        
       </form>
@@ -83,7 +82,11 @@ const textFieldStyle: CSSProperties = {
 };
 
 const completePurchaseButton: CSSProperties = {
-  marginTop: '1rem',
+  color: 'transparent',
+  margin: 0,
+  padding: 0,
+  display: 'flex',
+  border: 'none',
+  borderRadius: '2rem',
   marginBottom: '1rem',
-  background: '#2081e2',
 };

@@ -1,7 +1,9 @@
 import { Button, TextField } from "@mui/material";
 import { useFormik } from "formik";
+
 import { CSSProperties, useState } from "react";
 import { productSchema } from "../../../../server/resources";
+
 import { useProducts } from "../../context/ProductContext";
 import { ProductData } from "../../ProductData";
 
@@ -9,6 +11,16 @@ interface Props {
   isOpen: boolean;
   onClose: () => void;
 }
+
+const validationSchema = yup.object({
+  name: yup.string().required("Please enter new name").min(1),
+  description: yup.string().required("Please enter a new description").min(2),
+  productImage: yup.string().required("Please enter a new image URL").min(10),
+  price: yup.number().required("Please enter the updated price").min(1),
+  stock: yup.number().required("Please enter the available stock"),
+  categories: yup.array().required("Please enter at least one category").min(1),
+});
+
 
 function AddNewProduct(props: Props) {
   const { addProduct, getAllProducts } = useProducts();
@@ -38,10 +50,16 @@ function AddNewProduct(props: Props) {
       //imageId: "",
       price: 0,
       description: "",
+
       stock: 0,
       categories: [""],
       id: "",
     },
+/*
+      stock: "",
+      categories: "",
+    },validationSchema: validationSchema,
+        */
     onSubmit: (values) => {
       let product: ProductData = {
         id: values.id,
@@ -167,6 +185,7 @@ function AddNewProduct(props: Props) {
               required
             />
           </div>
+          <div style={{display: 'flex', justifyContent: 'center', alignItems:'flex-start', gap:'1rem'}}>
           <Button
             style={addNewProductButton}
             color="primary"
@@ -174,7 +193,7 @@ function AddNewProduct(props: Props) {
             fullWidth
             type="submit"
           >
-            Add new product
+            Add 
           </Button>
           <Button
             style={closeWindowButton}
@@ -183,8 +202,9 @@ function AddNewProduct(props: Props) {
             fullWidth
             onClick={props.onClose}
           >
-            Close window
+            Close 
           </Button>
+          </div>
         </form>
       </div>
     </div>
@@ -202,9 +222,9 @@ const newProductContainer: CSSProperties = {
   background: "#202225",
   border: "2px solid #000",
   zIndex: "9001",
-  //   boxShadow: 24,
   textAlign: "center",
   width: "clamp(10rem, 90vmin, 40rem",
+  maxHeight: '90vh'
 };
 
 const addNewProductButton: CSSProperties = {
@@ -220,7 +240,7 @@ const closeWindowButton: CSSProperties = {
 };
 
 const textFieldStyle: CSSProperties = {
-  marginBottom: "1rem",
+  marginBottom: ".4rem",
   width: "100%",
 };
 
@@ -234,8 +254,8 @@ const formStyle: CSSProperties = {
 
 const textFieldsContainer: CSSProperties = {
   display: "flex",
-  justifyContent: "center",
+  alignItems: "center",
   flexDirection: "column",
   width: "90%",
-  margin: "1rem",
+  margin: "0 1rem",
 };

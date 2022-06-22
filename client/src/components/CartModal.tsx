@@ -3,8 +3,12 @@ import { CSSProperties, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 //import { Product } from "../../../server/resources";
 import { useCart } from "../context/CartContext";
+
 import { UserContext } from "../context/LoginContext";
 import { ProductData } from "../ProductData";
+
+// import { UserContext } from "../context/UserContext";
+
 
 interface CartProps {
   modalState: boolean;
@@ -15,7 +19,6 @@ function CartModal(props: CartProps) {
   const { cart, decQty, incQty, clearCart, totalPrice, calculatePrice } =
     useCart();
   const handleClose = () => props.setModalState(false);
-  // const [collectionList, setCollectionList] = useState(collectionData);
   const { loggedInUser } = useContext(UserContext);
 
   useEffect(() => {

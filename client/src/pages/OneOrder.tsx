@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
 import Table from "@mui/material/Table";
@@ -6,44 +7,69 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
-// import { Order } from "@server/types";
-import { Fragment, useEffect, useState } from "react";
-import { Order } from "../../../server/resources";
+import { Fragment, useState } from "react";
+import { Order, Product } from "../../../server/resources";
 import { useOrders } from "../context/OrderContext";
+import { useUser } from "../context/UserContext";
 
 interface Props {
   order: Order;
 }
 
-export default function OneOrder(props: Props) {
+export default function OneOrder({ order }: Props) {
   const [open, setOpen] = useState(false);
-
-  const { getAllOrders } = useOrders();
-
-  useEffect(() => {
-    getAllOrders();
-  }, []);
+  const { getAllOrders, markOrder } = useOrders();
+  const date = new Date(order.createdAt);
+  const { loggedInUser } = useUser();
 
   return (
     <Fragment>
-      <TableRow
-        sx={{
-          "& > *": {
-            borderBottom: "unset",
-            cursor: "pointer",
-            tooltip: "click to expand",
-          },
-        }}
-        onClick={() => setOpen(!open)}
-      >
-        <TableCell component="th" scope="row">
-          {props.order.id}
+      <TableRow>
+        <TableCell
+          component="th"
+          scope="row"
+          sx={{ cursor: "pointer" }}
+          onClick={() => setOpen(!open)}
+        >
+          {order.id}
         </TableCell>
-        <TableCell component="th" scope="row">
-          TOTAL PRICE HERE
+        <TableCell
+          align="left"
+          component="th"
+          scope="row"
+          sx={{ cursor: "pointer" }}
+          onClick={() => setOpen(!open)}
+        >
+          {order.totalPrice} SEK
         </TableCell>
-        <TableCell align="right">{props.order.createdAt}</TableCell>
-        <TableCell align="right">{props.order.isSent ? ('Yes') : ('No')}</TableCell>
+        <TableCell
+          align="center"
+          sx={{ cursor: "pointer" }}
+          onClick={() => setOpen(!open)}
+        >
+          {date.toLocaleDateString()}
+        </TableCell>
+        <TableCell align="center">
+          {loggedInUser?.isAdmin ? (
+            order.isSent ? (
+              "Yes"
+            ) : (
+              <Button
+                onClick={() => [
+                  markOrder({ ...order, isSent: true }),
+                  getAllOrders(),
+                ]}
+                variant="contained"
+              >
+                Send
+              </Button>
+            )
+          ) : order.isSent ? (
+            "Yes"
+          ) : (
+            "No"
+          )}
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -55,12 +81,20 @@ export default function OneOrder(props: Props) {
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell style={{fontWeight: 'bold'}}>Customer</TableCell>
-                    <TableCell style={{fontWeight: 'bold'}}>Address</TableCell>
-                    <TableCell style={{fontWeight: 'bold'}} align="right">Zipcode</TableCell>
-                    <TableCell style={{fontWeight: 'bold'}} align="right">City</TableCell>
+                    <TableCell style={{ fontWeight: "bold" }}>
+                      Customer
+                    </TableCell>
+                    <TableCell style={{ fontWeight: "bold" }}>
+                      Address
+                    </TableCell>
+                    <TableCell style={{ fontWeight: "bold" }} align="right">
+                      Zipcode
+                    </TableCell>
+                    <TableCell style={{ fontWeight: "bold" }} align="right">
+                      City
+                    </TableCell>
                   </TableRow>
-                  {props.order.deliveryAddress.map((deliveryAddress) => (
+                  {order.deliveryAddress.map((deliveryAddress: any) => (
                     <TableRow key={deliveryAddress.city}>
                       <TableCell scope="row">
                         {deliveryAddress.fullname}
@@ -75,42 +109,31 @@ export default function OneOrder(props: Props) {
                     </TableRow>
                   ))}
                   <TableRow>
-                    <TableCell style={{fontWeight: 'bold'}}>Item</TableCell>
-                    <TableCell style={{fontWeight: 'bold'}}>Description</TableCell>
-                    <TableCell style={{fontWeight: 'bold'}} align="right">Amount</TableCell>
-                    <TableCell style={{fontWeight: 'bold'}} align="right">Price per item</TableCell>
+                    <TableCell style={{ fontWeight: "bold" }}>Item</TableCell>
+                    <TableCell style={{ fontWeight: "bold" }}>
+                      Description
+                    </TableCell>
+                    <TableCell style={{ fontWeight: "bold" }} align="right">
+                      Amount
+                    </TableCell>
+                    <TableCell style={{ fontWeight: "bold" }} align="right">
+                      Price per item
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                    {props.order.products.map(product => {
-                       return (
-                        <TableRow key={product.id}>
-                          <TableCell component="th" scope="row">
-                            {product.name}
-                          </TableCell>
-                          <TableCell>{product.description}</TableCell>
-                          <TableCell align="right">{product.stock}</TableCell>
-                          <TableCell align="right">{product.price}</TableCell>
-                        </TableRow>
-                      )
-                    }
-              
-                     
-                  
-
-                    )}
-                  {/* {order..map((productRow) => (
-                    <TableRow key={productRow.products}>
-                      <TableCell component="th" scope="row">
-                        {productRow.date}
-                      </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
-                      <TableCell align="right">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
-                      </TableCell>
-                    </TableRow>
-                  ))} */}
+                  {order.products.map((product: Product) => {
+                    return (
+                      <TableRow key={product.id}>
+                        <TableCell component="th" scope="row">
+                          {product.name}
+                        </TableCell>
+                        <TableCell>{product.description}</TableCell>
+                        <TableCell align="right">{product.stock}</TableCell>
+                        <TableCell align="right">{product.price}</TableCell>
+                      </TableRow>
+                    );
+                  })}
                 </TableBody>
               </Table>
             </Box>

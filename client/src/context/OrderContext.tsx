@@ -1,53 +1,74 @@
-// import { Order } from "@server/types";
-import { createContext, FC, useContext, useState } from "react";
-//import { Order } from '../../../server/shared/types';
-import { makeReq } from "../helper";
-import { Order } from "../../../server/resources/"
-
+import { createContext, FC, useContext, useState } from 'react';
+import { Order } from '../../../server/resources/';
+import { makeReq } from '../helper';
+import { useUser } from './UserContext';
 
 interface OrderContext {
-    orders: Order[];
-    getAllOrders: () => Promise<any>
-    updateOrder: () => Promise<any>
+  orders: Order[];
+  getAllOrders: () => Promise<any>;
+  markOrder: (order: Order) => void;
 }
 
 export const OrdersContext = createContext<OrderContext>({
-    orders: [],
-    getAllOrders: async () => void [],
-    updateOrder: async () => void []
-})
+  orders: [],
+  getAllOrders: async () => void [],
+  markOrder: () => {},
+});
 
 export const OrderProvider: FC = (props) => {
-    const [orders, setOrders] = useState<Order[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
+  const { loggedInUser } = useUser();
 
-    const getAllOrders = async () => {
-        try {
-          let { data, ok } = await makeReq("/api/orders", "GET");
-          if (ok) {
-            setOrders(data);
-            return true;
-          }
-        } catch (err) {
-          return console.log(err);
+  const getAllOrders = async () => {
+    if (!loggedInUser) {
+      return console.log("No logged in user");
+    }
+
+    let listOfOrders = [];
+
+    try {
+      let { data, ok } = await makeReq(`/api/orders`, 'GET');
+
+      if (ok) {
+        listOfOrders = data;
+
+        if (loggedInUser.isAdmin) {
+          setOrders(data);
+          return;
         }
-      };
 
-
-    const updateOrder = async () => {
-        try {
-          let { data, ok } = await makeReq("/api/orders", "PUT");
-          if (ok) {
-            setOrders(data);
-            return true;
-          }
-        } catch (err) {
-          return console.log(err);
+        if (!loggedInUser.isAdmin) {
+          let myOrders = listOfOrders.filter((order: Order) => {
+            let customer = order.customer.toString();
+            if (customer === loggedInUser.id) {
+              return order;
+            }
+          });
+          setOrders(myOrders);
         }
-      };
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-      return (
-          <OrdersContext.Provider value={{orders, getAllOrders, updateOrder}}>{props.children}</OrdersContext.Provider>
-      );
-}
+  const markOrder = async (order: Order) => {
+    try {
+      let { data, ok } = await makeReq(`/api/order/${order.id}`, 'PUT', order);
+      if (ok) {
+        return data;
+      } else {
+      }
+    } catch (err) {
+      return console.log(err);
+    }
+  };
 
-export const useOrders = () => useContext(OrdersContext)
+  return (
+    <OrdersContext.Provider value={{ orders, getAllOrders, markOrder }}>
+      {props.children}
+    </OrdersContext.Provider>
+  );
+};
+
+export const useOrders = () => useContext(OrdersContext);

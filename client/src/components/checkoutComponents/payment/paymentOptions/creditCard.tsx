@@ -1,10 +1,9 @@
-import { Button, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { useFormik } from "formik";
 import { CSSProperties } from "react";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useCart } from "../../../../context/CartContext";
-import { DeliveryDataInfo } from "../../../../data/collections/deliveryData";
 import { CompleteButton } from "../../../CompleteButton";
 
 interface Props {
@@ -60,10 +59,7 @@ function CreditCard(props: Props) {
       let newObject = deliveryInfo;
       newObject.paymentMethod = "Card";
       setDeliveryInfo(newObject);
-      console.log(deliveryInfo);
       props.setPaymentModal(true);
-      // addPurchaseList(cart);
-      // newPurchaseTotal(totalPrice);
       clearCart();
       closeModal();
     }
@@ -154,6 +150,7 @@ const creditCardForm: CSSProperties = {
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
+  paddingBottom: '1rem'
 };
 
 const textFieldStyleCard: CSSProperties = { width: "70%" };
@@ -174,7 +171,8 @@ const CardHolderStyle: CSSProperties = {
 const expDateContainer: CSSProperties = {
   display: "flex",
   justifyContent: "center",
-  width: '100%'
+  width: '100%',
+  paddingBottom: '1rem'
 };
 
 const ExpStyle: CSSProperties = {

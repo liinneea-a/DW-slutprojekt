@@ -1,11 +1,10 @@
 import * as bcrypt from "bcrypt";
 import { NextFunction, Request, Response } from "express";
-import { encryptPassword, User, UserModel } from "./user.model";
+import { UserModel } from "./user.model";
 
 /**------GET ALL USERS---------- */
 
 export const getAllUsers = async (req: Request, res: Response) => {
-  // TODO: Who is allowed to use this endpoint?
 
   const users = await UserModel.find({}).select("+password");
   if (!users.length) {
@@ -17,7 +16,6 @@ export const getAllUsers = async (req: Request, res: Response) => {
 /**------GET ONE USER---------- */
 
 export const getUser = async (req: Request, res: Response) => {
-  // TODO: Who is allowed to use this endpoint?
 
   const user = await UserModel.findById(req.params.id);
   if (!user) {
@@ -85,7 +83,7 @@ export const getLoggedInUser = async (req: Request, res: Response) => {
   if (!req.session?.isPopulated) {
     return res.status(401).send("You are not logged in");
   } else {
-    res.json(req.session);
+    res.json(req.session.user);
   }
 };
 
@@ -101,8 +99,6 @@ export const updateUser = async (
     const user = await UserModel.findByIdAndUpdate(id, req.body, {
       isAdmin: req.body.isAdmin,
     }).select("-password");
-    console.log("in update user ", user);
-
     if (!user) {
       return res.status(404).json(user);
     }

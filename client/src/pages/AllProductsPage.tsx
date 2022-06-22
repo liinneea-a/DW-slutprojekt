@@ -7,9 +7,11 @@ import { useProducts } from "../context/ProductContext";
 function AllProducts() {
   const { getAllProducts, products } = useProducts();
   const [searchParams, setSearchParams] = useSearchParams();
-  
-  const category = searchParams.get('category');
-  const filteredProducts = products.filter(p => !category || p.categories.includes(category));
+
+  const category = searchParams.get("category");
+  const filteredProducts = products.filter(
+    (p) => !category || p.categories.includes(category)
+  );
 
   const categories = products.reduce<string[]>((list, product) => {
     list.push(...product.categories);
@@ -28,22 +30,24 @@ function AllProducts() {
     <div style={collectionPageLayout}>
       <h1 style={collectionsTitle}>Find your desired product by category!</h1>
       <div style={filterMenu}>
-      <Button onClick={() => setSearchParams('')}
-            style={buttonStyle}
-        variant="contained">
-          All 
+        <Button
+          onClick={() => setSearchParams("")}
+          style={buttonStyle}
+          variant="contained"
+        >
+          All
         </Button>
         {uniqueCategories.map((category) => (
           <Button
           key={category}
             onClick={() => setSearchParams({ category })}
             style={buttonStyle}
-        variant="contained"
+            variant="contained"
           >
             {category}
           </Button>
         ))}
-        </div>
+      </div>
       <h1 style={collectionsTitle}>Here are all the available products:</h1>
       <div style={flexProducts}>
         {filteredProducts.map((product, index) => (
@@ -79,18 +83,16 @@ const buttonStyle: CSSProperties = {
   background: "rgb(32, 129, 226)",
   color: "white",
   fontSize: "small",
-  maxWidth: '40%',
+  maxWidth: "40%",
   width: "10rem",
 };
 
 const filterMenu: CSSProperties = {
-  display: 'flex',
-  width: '75%',
-  justifyContent: 'center',
-  flexWrap: 'wrap',
-  gap: '1rem',
-}
-
-
+  display: "flex",
+  width: "75%",
+  justifyContent: "center",
+  flexWrap: "wrap",
+  gap: "1rem",
+};
 
 export default AllProducts;

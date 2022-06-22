@@ -3,7 +3,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { useFormik } from "formik";
 import { CSSProperties, useContext, useState } from "react";
 import * as yup from "yup";
-import { UserContext } from "../../context/LoginContext";
+import { UserContext } from "../../context/UserContext";
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
@@ -48,14 +48,11 @@ function RegisterForm() {
         adminRequest: adminRequest
       };
       createNewUser(user);
-      console.log(values);
     },
   });
 
   async function createNewUser(user: {}) {
-    console.log(user);
     const newUser = await postUser(user);
-    console.log(newUser);
     if (!newUser) {
       setAlreadyRegistered(true)
     } else {
